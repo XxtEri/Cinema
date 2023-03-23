@@ -8,6 +8,40 @@
 import UIKit
 import SnapKit
 
+class UICustomTextField: UITextField {
+    let padding = UIEdgeInsets(top: 13, left: 16, bottom: 13, right: 16)
+    
+    override open func textRect(forBounds bounds: CGRect) -> CGRect {
+        bounds.inset(by: padding)
+    }
+    
+    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        bounds.inset(by: padding)
+    }
+    
+    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+        bounds.inset(by: padding)
+    }
+    
+    func getCustomTextField(placeholder: String, isSecured: Bool) -> UICustomTextField {
+        
+        let view = UICustomTextField()
+        view.textColor = UIColor(named: "GrayTextColor")
+        view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        view.isSecureTextEntry = isSecured
+        
+        if let color = UIColor(named: "GrayTextColor") {
+            view.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : color])
+        }
+        
+        view.layer.cornerRadius = 4
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
+        
+        return view
+    }
+}
+
 class SingUpScreenView: UIView {
     lazy var imageLogo: UIImageView = {
         let view = UIImageView()
@@ -17,47 +51,38 @@ class SingUpScreenView: UIView {
         return view
     }()
 
-    lazy var emailInputField: UITextField = {
-        let view = UITextField()
-        view.attributedPlaceholder = NSAttributedString(string: "E-mail", attributes: [NSAttributedString.Key.foregroundColor : UIColor(named: "PlaceholderColor")!])
-        view.textColor = .white
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
-        
-        let paddingView = UIView(frame: CGRectMake(0, 0, 15, view.frame.height))
-        view.leftView = paddingView
+    lazy var emailInputField: UICustomTextField = {
+        var view = UICustomTextField()
+        view = view.getCustomTextField(placeholder: "E-mail", isSecured: false)
         
         return view
     }()
     
-    lazy var passwordInputField: UITextField = {
-        let view = UITextField()
-        view.attributedPlaceholder = NSAttributedString(string: "Пароль", attributes: [NSAttributedString.Key.foregroundColor : UIColor(named: "PlaceholderColor")!])
-        view.textColor = .white
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(named: "PlaceholderColor")?.cgColor
-        
+    lazy var passwordInputField: UICustomTextField = {
+        var view = UICustomTextField()
+        view = view.getCustomTextField(placeholder: "Пароль", isSecured: true)
+
         return view
     }()
     
     lazy var authButton: UIButton = {
         let view = UIButton()
         view.backgroundColor = UIColor(named: "AccentColor")
-        
+        view.layer.cornerRadius = 4
+        view.layer.borderWidth = 1
         view.setTitle("Войти", for: .normal)
         view.setTitleColor(.white, for: .normal)
-        
+        view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 0, bottom: 13, right: 0)
         
         return view
     }()
     
     lazy var changeAuthScreenButton: UIButton = {
         let view = UIButton()
+        view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 0, bottom: 13, right: 0)
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(red: 0.658, green: 0.658, blue: 0.658, alpha: 1).cgColor
+        view.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
         view.setTitle("Зарегестрироваться", for: .normal)
         view.setTitleColor(UIColor(named: "AccentColor"), for: .normal)
         
