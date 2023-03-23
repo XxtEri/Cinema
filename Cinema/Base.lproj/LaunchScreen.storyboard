@@ -22,7 +22,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="BackgroundApplication"/>
+                        <color key="backgroundColor" name="BackgroundApplicationColor"/>
                         <constraints>
                             <constraint firstItem="q9g-K6-Z0s" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="HRt-d1-PRz"/>
                             <constraint firstItem="q9g-K6-Z0s" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="SoP-Sl-a4w"/>
@@ -36,7 +36,7 @@
     </scenes>
     <resources>
         <image name="LogoApplication" width="247" height="160"/>
-        <namedColor name="BackgroundApplication">
+        <namedColor name="BackgroundApplicationColor">
             <color red="0.082352941176470587" green="0.050980392156862744" blue="0.043137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
