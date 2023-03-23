@@ -38,7 +38,14 @@ class UICustomTextField: UITextField {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
         
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
         return view
+    }
+    
+    @objc
+    func textFieldDidChange(sender: UITextField) {
+        sender.text = sender.text?.lowercased()
     }
 }
 
