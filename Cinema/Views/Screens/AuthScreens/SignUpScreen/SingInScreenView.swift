@@ -49,7 +49,7 @@ class UICustomTextField: UITextField {
     }
 }
 
-class SingUpScreenView: UIView {
+class SingInScreenView: UIView {
     lazy var imageLogo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "LogoApplication")
@@ -113,7 +113,7 @@ class SingUpScreenView: UIView {
     }
 }
 
-private extension SingUpScreenView {
+private extension SingInScreenView {
     func setup() {
         configureUIView()
         configureConstraints()

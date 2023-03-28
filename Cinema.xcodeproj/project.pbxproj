@@ -7,25 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F356E91C29CC679600D90D5C /* SingUpScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356E91B29CC679600D90D5C /* SingUpScreenView.swift */; };
+		F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356E91B29CC679600D90D5C /* SingInScreenView.swift */; };
 		F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54129CAACF5000523D3 /* AppDelegate.swift */; };
-		F36EC54429CAACF5000523D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54329CAACF5000523D3 /* SceneDelegate.swift */; };
-		F36EC54629CAACF5000523D3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54529CAACF5000523D3 /* SignUpViewController.swift */; };
+		F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54529CAACF5000523D3 /* SignInViewController.swift */; };
 		F36EC54B29CAACF9000523D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F36EC54A29CAACF9000523D3 /* Assets.xcassets */; };
 		F36EC54E29CAACF9000523D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */; };
 		F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55629CACE2E000523D3 /* SnapKit */; };
 		F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55929CACE44000523D3 /* Alamofire */; };
+		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
+		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
+		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
+		F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F356E91B29CC679600D90D5C /* SingUpScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpScreenView.swift; sourceTree = "<group>"; };
+		F356E91B29CC679600D90D5C /* SingInScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInScreenView.swift; sourceTree = "<group>"; };
 		F36EC53E29CAACF5000523D3 /* Cinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F36EC54129CAACF5000523D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F36EC54329CAACF5000523D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F36EC54529CAACF5000523D3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F36EC54529CAACF5000523D3 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F36EC54A29CAACF9000523D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F36EC54D29CAACF9000523D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F36EC54F29CAACF9000523D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +50,7 @@
 		F356E91929CC674D00D90D5C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				F356E91A29CC675400D90D5C /* SignUpScreen */,
+				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -52,8 +58,8 @@
 		F356E91A29CC675400D90D5C /* SignUpScreen */ = {
 			isa = PBXGroup;
 			children = (
-				F36EC54529CAACF5000523D3 /* SignUpViewController.swift */,
-				F356E91B29CC679600D90D5C /* SingUpScreenView.swift */,
+				F36EC54529CAACF5000523D3 /* SignInViewController.swift */,
+				F356E91B29CC679600D90D5C /* SingInScreenView.swift */,
 			);
 			path = SignUpScreen;
 			sourceTree = "<group>";
@@ -78,13 +84,72 @@
 			isa = PBXGroup;
 			children = (
 				F36EC54129CAACF5000523D3 /* AppDelegate.swift */,
-				F36EC54329CAACF5000523D3 /* SceneDelegate.swift */,
-				F356E91929CC674D00D90D5C /* Screens */,
+				F3F3C3D729D31DF3002C9E45 /* Coordinators */,
+				F3F3C3D629D31DE8002C9E45 /* ViewModels */,
+				F3F3C3D529D31DE3002C9E45 /* Views */,
+				F3F3C3D429D31DDC002C9E45 /* Models */,
 				F36EC54A29CAACF9000523D3 /* Assets.xcassets */,
-				F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */,
 				F36EC54F29CAACF9000523D3 /* Info.plist */,
 			);
 			path = Cinema;
+			sourceTree = "<group>";
+		};
+		F3F3C3D429D31DDC002C9E45 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F3F3C3D529D31DE3002C9E45 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F356E91929CC674D00D90D5C /* Screens */,
+				F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3F3C3D629D31DE8002C9E45 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3C3E029D31EBF002C9E45 /* Bindings */,
+				F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F3F3C3D729D31DF3002C9E45 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3C3D829D31E3F002C9E45 /* Protocol */,
+				F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */,
+				F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		F3F3C3D829D31E3F002C9E45 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		F3F3C3DF29D31E9D002C9E45 /* AuthScreens */ = {
+			isa = PBXGroup;
+			children = (
+				F356E91A29CC675400D90D5C /* SignUpScreen */,
+			);
+			path = AuthScreens;
+			sourceTree = "<group>";
+		};
+		F3F3C3E029D31EBF002C9E45 /* Bindings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Bindings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,10 +230,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F36EC54629CAACF5000523D3 /* SignUpViewController.swift in Sources */,
+				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
+				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
+				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
+				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,
+				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
-				F356E91C29CC679600D90D5C /* SingUpScreenView.swift in Sources */,
-				F36EC54429CAACF5000523D3 /* SceneDelegate.swift in Sources */,
+				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

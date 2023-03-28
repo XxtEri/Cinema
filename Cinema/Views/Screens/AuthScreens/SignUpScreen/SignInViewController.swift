@@ -7,12 +7,14 @@
 
 import UIKit
 
-class SignUpViewViewController: UIViewController {
+class SignInViewController: UIViewController {
     
-    let ui: SingUpScreenView
+    var viewModel: SignInViewModel?
+    
+    let ui: SingInScreenView
     
     init() {
-        self.ui = SingUpScreenView(frame: .zero)
+        self.ui = SingInScreenView(frame: .zero)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -27,7 +29,6 @@ class SignUpViewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
 }
