@@ -22,9 +22,14 @@ class AuthCoordinator: Coordinator {
     }
 }
 
-extension AuthCoordinator: SignInNavigation {
+extension AuthCoordinator: SignInNavigation, SignUpNavigation {
     func goToSignUpScreen() {
-        //go to register screen
+        let vc = SingUpViewController()
+        let viewModel = SignUpViewModel(navigation: self)
+        
+        vc.viewModel = viewModel
+        
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func goToSignInScreen() {

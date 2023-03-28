@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SignInNavigation: AnyObject {
-    func goToSignInScreen()
+    func goToSignUpScreen()
 }
 
 class SignInViewModel {
@@ -18,8 +18,8 @@ class SignInViewModel {
         self.navigation = navigation
     }
     
-    func goToRegister() {
-        navigation?.goToSignInScreen()
+    func goToSignUp() {
+        navigation?.goToSignUpScreen()
     }
     
 }

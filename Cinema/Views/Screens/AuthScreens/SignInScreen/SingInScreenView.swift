@@ -8,47 +8,6 @@
 import UIKit
 import SnapKit
 
-class UICustomTextField: UITextField {
-    let padding = UIEdgeInsets(top: 13, left: 16, bottom: 13, right: 16)
-    
-    override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        bounds.inset(by: padding)
-    }
-    
-    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        bounds.inset(by: padding)
-    }
-    
-    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        bounds.inset(by: padding)
-    }
-    
-    func getCustomTextField(placeholder: String, isSecured: Bool) -> UICustomTextField {
-        
-        let view = UICustomTextField()
-        view.textColor = UIColor(named: "GrayTextColor")
-        view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        view.isSecureTextEntry = isSecured
-        
-        if let color = UIColor(named: "GrayTextColor") {
-            view.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : color])
-        }
-        
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
-        
-        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
-        return view
-    }
-    
-    @objc
-    func textFieldDidChange(sender: UITextField) {
-        sender.text = sender.text?.lowercased()
-    }
-}
-
 class SingInScreenView: UIView {
     lazy var imageLogo: UIImageView = {
         let view = UIImageView()
@@ -126,7 +85,7 @@ private extension SingInScreenView {
     
     func configureConstraints() {
         imageLogo.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(100)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(UIScreen.main.bounds.height * 3 / 100)
             make.leading.equalToSuperview().inset(86)
             make.trailing.equalToSuperview().inset(82)
         }

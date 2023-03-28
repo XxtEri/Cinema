@@ -18,6 +18,9 @@
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
 		F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */; };
+		F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */; };
+		F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */; };
+		F3F3C3ED29D336B8002C9E45 /* SingUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3EC29D336B8002C9E45 /* SingUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
+		F3F3C3EC29D336B8002C9E45 /* SingUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +61,13 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		F356E91A29CC675400D90D5C /* SignUpScreen */ = {
+		F356E91A29CC675400D90D5C /* SignInScreen */ = {
 			isa = PBXGroup;
 			children = (
 				F36EC54529CAACF5000523D3 /* SignInViewController.swift */,
 				F356E91B29CC679600D90D5C /* SingInScreenView.swift */,
 			);
-			path = SignUpScreen;
+			path = SignInScreen;
 			sourceTree = "<group>";
 		};
 		F36EC53529CAACF5000523D3 = {
@@ -115,6 +121,7 @@
 			children = (
 				F3F3C3E029D31EBF002C9E45 /* Bindings */,
 				F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */,
+				F3F3C3EC29D336B8002C9E45 /* SingUpViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -140,7 +147,9 @@
 		F3F3C3DF29D31E9D002C9E45 /* AuthScreens */ = {
 			isa = PBXGroup;
 			children = (
-				F356E91A29CC675400D90D5C /* SignUpScreen */,
+				F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */,
+				F3F3C3E929D33589002C9E45 /* SignUpScreen */,
+				F356E91A29CC675400D90D5C /* SignInScreen */,
 			);
 			path = AuthScreens;
 			sourceTree = "<group>";
@@ -150,6 +159,14 @@
 			children = (
 			);
 			path = Bindings;
+			sourceTree = "<group>";
+		};
+		F3F3C3E929D33589002C9E45 /* SignUpScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */,
+			);
+			path = SignUpScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,13 +247,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3F3C3ED29D336B8002C9E45 /* SingUpViewModel.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
+				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
 				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,
 				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
+				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
