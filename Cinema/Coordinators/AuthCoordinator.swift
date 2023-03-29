@@ -9,7 +9,9 @@ import UIKit
 
 class AuthCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
+    
     var children: [Coordinator] = []
+    
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -28,7 +30,9 @@ extension AuthCoordinator: SignInNavigation, SignUpNavigation {
         let viewModel = SignUpViewModel(navigation: self)
         
         vc.viewModel = viewModel
+        vc.navigationItem.hidesBackButton = true
         
+        navigationController.viewControllers.removeAll()
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -37,7 +41,9 @@ extension AuthCoordinator: SignInNavigation, SignUpNavigation {
         let viewModel = SignInViewModel(navigation: self)
         
         vc.viewModel = viewModel
+        vc.navigationItem.hidesBackButton = true
         
+        navigationController.viewControllers.removeAll()
         navigationController.pushViewController(vc, animated: true)
     }
     

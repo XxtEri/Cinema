@@ -145,6 +145,11 @@ private extension SingUpViewController {
     }
     
     func configureAction() {
-        
+        changeAuthScreenButton.addTarget(self, action: #selector(changeScreen(_:)), for: .allEvents)
+    }
+    
+    @objc
+    func changeScreen(_ selector: AnyObject) {
+        viewModel?.goToSingIn()
     }
 }

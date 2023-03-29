@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class SingInScreenView: UIView {
-    lazy var imageLogo: UIImageView = {
+    private lazy var imageLogo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "LogoApplication")
         view.contentMode = .scaleAspectFit
@@ -17,21 +17,21 @@ class SingInScreenView: UIView {
         return view
     }()
 
-    lazy var emailInputField: UICustomTextField = {
+    private lazy var emailInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "E-mail", isSecured: false)
         
         return view
     }()
     
-    lazy var passwordInputField: UICustomTextField = {
+    private lazy var passwordInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Пароль", isSecured: true)
 
         return view
     }()
     
-    lazy var authButton: UIButton = {
+    private lazy var authButton: UIButton = {
         let view = UIButton()
         view.backgroundColor = UIColor(named: "AccentColor")
         view.layer.cornerRadius = 4
@@ -43,7 +43,7 @@ class SingInScreenView: UIView {
         return view
     }()
     
-    lazy var changeAuthScreenButton: UIButton = {
+    private lazy var changeAuthScreenButton: UIButton = {
         let view = UIButton()
         view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 0, bottom: 13, right: 0)
         view.layer.cornerRadius = 4
@@ -54,6 +54,8 @@ class SingInScreenView: UIView {
         
         return view
     }()
+    
+    var changeScreenButtonTapHadler: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -115,6 +117,11 @@ private extension SingInScreenView {
     }
     
     func configureAction() {
-        
+        changeAuthScreenButton.addTarget(self, action: #selector(changeScreen(_:)), for: .allEvents)
+    }
+    
+    @objc
+    func changeScreen(_ selector: AnyObject) {
+        self.changeScreenButtonTapHadler?()
     }
 }

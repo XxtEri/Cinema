@@ -11,12 +11,14 @@ class SignInViewController: UIViewController {
     
     var viewModel: SignInViewModel?
     
-    let ui: SingInScreenView
+    private let ui: SingInScreenView
     
     init() {
         self.ui = SingInScreenView(frame: .zero)
         
         super.init(nibName: nil, bundle: nil)
+        
+        setHandlers()
     }
     
     required init?(coder: NSCoder) {
@@ -33,3 +35,12 @@ class SignInViewController: UIViewController {
 
 }
 
+private extension SignInViewController {
+    func setHandlers() {
+        self.ui.changeScreenButtonTapHadler = { [weak self] in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToSignUp()
+        }
+    }
+}
