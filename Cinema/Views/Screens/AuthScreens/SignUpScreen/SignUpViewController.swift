@@ -145,11 +145,20 @@ private extension SingUpViewController {
     }
     
     func configureAction() {
-        changeAuthScreenButton.addTarget(self, action: #selector(changeScreen(_:)), for: .allEvents)
+        changeAuthScreenButton.addTarget(self, action: #selector(changeScreen(_:)), for: .touchDown)
+        
+        authButton.addTarget(self, action: #selector(signUp(_:)), for: .touchDown)
     }
     
     @objc
     func changeScreen(_ selector: AnyObject) {
         viewModel?.goToSingIn()
+    }
+                             
+    @objc
+    func signUp(_ selector: AnyObject) {
+        let user = RegisterCredential(firstName: firstNameInputField.text!, lastName: lastNameInputField.text!, email: emailInputField.text!, password: passwordInputField.text!)
+        
+        viewModel?.signUp(user: user)
     }
 }

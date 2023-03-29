@@ -42,5 +42,13 @@ private extension SignInViewController {
             
             self.viewModel?.goToSignUp()
         }
+        
+        self.ui.authButtonTapHadler = { [ weak self ] in
+            guard let self = self else { return }
+            
+            let user = LoginCredential(email: "asd@gm.com", password: "asd123")
+            
+            self.viewModel?.signIn(user: user)
+        }
     }
 }

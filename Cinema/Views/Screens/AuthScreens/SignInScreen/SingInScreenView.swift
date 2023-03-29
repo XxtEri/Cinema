@@ -56,6 +56,7 @@ class SingInScreenView: UIView {
     }()
     
     var changeScreenButtonTapHadler: (() -> Void)?
+    var authButtonTapHadler: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -118,10 +119,17 @@ private extension SingInScreenView {
     
     func configureAction() {
         changeAuthScreenButton.addTarget(self, action: #selector(changeScreen(_:)), for: .allEvents)
+        
+        authButton.addTarget(self, action: #selector(signIn(_:)), for: .touchDown)
     }
     
     @objc
     func changeScreen(_ selector: AnyObject) {
         self.changeScreenButtonTapHadler?()
+    }
+    
+    @objc
+    func signIn(_ selector: AnyObject) {
+        self.authButtonTapHadler?()
     }
 }
