@@ -19,7 +19,8 @@ class AppCoordinator: Coordinator {
     
     func start() {
         print("App coordinator start")
-        goToAuth()
+//        goToAuth()
+        goToMovieScreen()
     }
     
     func goToAuth() {
@@ -29,5 +30,11 @@ class AppCoordinator: Coordinator {
         children.append(authCoordinator)
         
         authCoordinator.start()
+    }
+    
+    func goToMovieScreen() {
+        let vc = MovieScreenViewController()
+        
+        navigationController.pushViewController(vc, animated: true)
     }
 }
