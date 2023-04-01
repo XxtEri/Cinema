@@ -12,7 +12,7 @@ class MovieScreenViewController: UIViewController {
     private var ui: MovieScreenView
     
     init() {
-        ui = MovieScreenView()
+        self.ui = MovieScreenView()
         
         super.init(nibName: nil, bundle: nil)
     }

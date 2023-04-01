@@ -35,6 +35,7 @@ class AppCoordinator: Coordinator {
     func goToMovieScreen() {
         let vc = MovieScreenViewController()
         
+        navigationController.setNavigationBarHidden(true, animated: true)
         navigationController.pushViewController(vc, animated: true)
     }
 }
