@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F33CA41C29D90BD90084D256 /* SFProText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33CA41B29D90BD90084D256 /* SFProText-Semibold.ttf */; };
+		F33CA41E29D90BDF0084D256 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33CA41D29D90BDF0084D256 /* SFProText-Regular.ttf */; };
+		F33CA42029D90BE80084D256 /* SFProText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33CA41F29D90BE80084D256 /* SFProText-Medium.ttf */; };
+		F33CA42229D90BEF0084D256 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33CA42129D90BEF0084D256 /* SFProText-Bold.ttf */; };
+		F33CA42429D90FD80084D256 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42329D90FD80084D256 /* ViewController.swift */; };
+		F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42529D90FFF0084D256 /* TabBarViewController.swift */; };
+		F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42729D910560084D256 /* UIColorExtension.swift */; };
 		F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356E91B29CC679600D90D5C /* SingInScreenView.swift */; };
 		F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54129CAACF5000523D3 /* AppDelegate.swift */; };
 		F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54529CAACF5000523D3 /* SignInViewController.swift */; };
@@ -30,6 +37,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F33CA41B29D90BD90084D256 /* SFProText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.ttf"; sourceTree = "<group>"; };
+		F33CA41D29D90BDF0084D256 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
+		F33CA41F29D90BE80084D256 /* SFProText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Medium.ttf"; sourceTree = "<group>"; };
+		F33CA42129D90BEF0084D256 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
+		F33CA42329D90FD80084D256 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F33CA42529D90FFF0084D256 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		F33CA42729D910560084D256 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F356E91B29CC679600D90D5C /* SingInScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInScreenView.swift; sourceTree = "<group>"; };
 		F36EC53E29CAACF5000523D3 /* Cinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F36EC54129CAACF5000523D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,12 +79,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F356E91929CC674D00D90D5C /* Screens */ = {
+		F33CA41929D90BA70084D256 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
+				F33CA41A29D90BC70084D256 /* Fonts */,
 			);
-			path = Screens;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F33CA41A29D90BC70084D256 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F33CA42129D90BEF0084D256 /* SFProText-Bold.ttf */,
+				F33CA41F29D90BE80084D256 /* SFProText-Medium.ttf */,
+				F33CA41D29D90BDF0084D256 /* SFProText-Regular.ttf */,
+				F33CA41B29D90BD90084D256 /* SFProText-Semibold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		F356E91A29CC675400D90D5C /* SignInScreen */ = {
@@ -107,6 +132,7 @@
 				F3F3C3D629D31DE8002C9E45 /* ViewModels */,
 				F3F3C3D529D31DE3002C9E45 /* Views */,
 				F3F3C3D429D31DDC002C9E45 /* Models */,
+				F33CA41929D90BA70084D256 /* Resources */,
 				F36EC54A29CAACF9000523D3 /* Assets.xcassets */,
 				F36EC54F29CAACF9000523D3 /* Info.plist */,
 			);
@@ -125,8 +151,11 @@
 		F3F3C3D529D31DE3002C9E45 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F356E91929CC674D00D90D5C /* Screens */,
+				F33CA42329D90FD80084D256 /* ViewController.swift */,
+				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 				F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */,
+				F33CA42529D90FFF0084D256 /* TabBarViewController.swift */,
+				F33CA42729D910560084D256 /* UIColorExtension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,7 +299,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36EC54E29CAACF9000523D3 /* LaunchScreen.storyboard in Resources */,
+				F33CA42229D90BEF0084D256 /* SFProText-Bold.ttf in Resources */,
 				F36EC54B29CAACF9000523D3 /* Assets.xcassets in Resources */,
+				F33CA41C29D90BD90084D256 /* SFProText-Semibold.ttf in Resources */,
+				F33CA41E29D90BDF0084D256 /* SFProText-Regular.ttf in Resources */,
+				F33CA42029D90BE80084D256 /* SFProText-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,11 +318,14 @@
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
+				F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */,
+				F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */,
 				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
 				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,
 				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
 				F3F3C3FD29D3E4BC002C9E45 /* ApiRepository.swift in Sources */,
+				F33CA42429D90FD80084D256 /* ViewController.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
 				F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */,
 				F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */,
