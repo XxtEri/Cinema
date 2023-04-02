@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppCoordinator: Coordinator {
+final class AppCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     
@@ -20,7 +20,6 @@ class AppCoordinator: Coordinator {
     func start() {
         print("App coordinator start")
         goToAuth()
-//        goToMain()
     }
     
     func goToAuth() {
@@ -32,8 +31,8 @@ class AppCoordinator: Coordinator {
         authCoordinator.start()
     }
     
-    func goToMain() {
-        let mainCoordinator = MainCoordinator(navigationController: navigationController)
+    func goToHome() {
+        let mainCoordinator = HomeCoordinator(navigationController: navigationController)
         
         mainCoordinator.parentCoordinator = self
         children.append(mainCoordinator)

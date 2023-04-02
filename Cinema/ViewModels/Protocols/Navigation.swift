@@ -10,5 +10,16 @@ import Foundation
 protocol SignNavigation: AnyObject {
     func goToSignInScreen()
     func goToSignUpScreen()
-    func goToMainScreen()
+    func goToHomeScreen()
+}
+
+protocol HomeNavigation: AnyObject {
+    func goToHomeScreen()
+}
+
+protocol ProfileNavigation: AnyObject {
+    func goToDisscusionScreen()
+    func goToHistoryScreen()
+    func goToSettingsScreen()
+    func goToAuthorizationScreen()
 }

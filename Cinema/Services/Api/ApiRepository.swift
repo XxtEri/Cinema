@@ -29,8 +29,7 @@ class ApiRepository {
     }
 }
 
-extension ApiRepository: IApiRepository {
-    
+extension ApiRepository: IApiRepositoryAuthScreen {
     func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void) {
         
         self.session.request(
@@ -132,5 +131,45 @@ extension ApiRepository: IApiRepository {
             completion(.success(()))
         }
     }
+}
+
+extension ApiRepository: IApiRepositoryProfileScreen {
+    func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)profile",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: User.self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+            }
+            
+            guard let user = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(user))
+        }
+    }
+    
+    func editInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
+        
+    }
+    
+    func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void) {
+        
+    }
+    
     
 }

@@ -24,7 +24,7 @@ extension UIColor {
         #colorLiteral(red: 0.7164882421, green: 0.7164882421, blue: 0.7164881825, alpha: 1)
     }
     
-    static var borderTextButtonChangeAuthScreen: UIColor {
+    static var borderButton: UIColor {
         #colorLiteral(red: 0.6588235294, green: 0.6588235294, blue: 0.6588235294, alpha: 1)
     }
     

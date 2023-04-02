@@ -48,7 +48,7 @@ class SingInScreenView: UIView {
         view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 0, bottom: 13, right: 0)
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.borderTextButtonChangeAuthScreen.cgColor
+        view.layer.borderColor = UIColor.borderButton.cgColor
         view.setTitle("Зарегестрироваться", for: .normal)
         view.setTitleColor(.accentColorApplication, for: .normal)
         
