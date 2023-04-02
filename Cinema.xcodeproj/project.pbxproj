@@ -15,6 +15,7 @@
 		F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42529D90FFF0084D256 /* TabBarViewController.swift */; };
 		F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42729D910560084D256 /* UIColorExtension.swift */; };
 		F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F352372229DA04CD002D2C80 /* SignUpScreenView.swift */; };
+		F352372729DA09F2002D2C80 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F352372629DA09F2002D2C80 /* KeychainSwift */; };
 		F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356E91B29CC679600D90D5C /* SingInScreenView.swift */; };
 		F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54129CAACF5000523D3 /* AppDelegate.swift */; };
 		F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54529CAACF5000523D3 /* SignInViewController.swift */; };
@@ -22,13 +23,13 @@
 		F36EC54E29CAACF9000523D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */; };
 		F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55629CACE2E000523D3 /* SnapKit */; };
 		F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55929CACE44000523D3 /* Alamofire */; };
+		F3A4149B29DA14EE00D3DEF4 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149A29DA14EE00D3DEF4 /* MainCoordinator.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
 		F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */; };
 		F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */; };
 		F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */; };
-		F3F3C3ED29D336B8002C9E45 /* SingUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3EC29D336B8002C9E45 /* SingUpViewModel.swift */; };
 		F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3EE29D3E18D002C9E45 /* Token.swift */; };
 		F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3F029D3E283002C9E45 /* AuthUser.swift */; };
 		F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3F429D3E37D002C9E45 /* Navigation.swift */; };
@@ -53,13 +54,13 @@
 		F36EC54A29CAACF9000523D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F36EC54D29CAACF9000523D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F36EC54F29CAACF9000523D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3A4149A29DA14EE00D3DEF4 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
-		F3F3C3EC29D336B8002C9E45 /* SingUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpViewModel.swift; sourceTree = "<group>"; };
 		F3F3C3EE29D3E18D002C9E45 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		F3F3C3F029D3E283002C9E45 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		F3F3C3F429D3E37D002C9E45 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F352372729DA09F2002D2C80 /* KeychainSwift in Frameworks */,
 				F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */,
 				F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */,
 			);
@@ -175,7 +177,6 @@
 			children = (
 				F3F3C3F229D3E359002C9E45 /* Protocols */,
 				F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */,
-				F3F3C3EC29D336B8002C9E45 /* SingUpViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -186,6 +187,7 @@
 				F3F3C3D829D31E3F002C9E45 /* Protocol */,
 				F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */,
 				F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */,
+				F3A4149A29DA14EE00D3DEF4 /* MainCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -262,6 +264,7 @@
 			packageProductDependencies = (
 				F36EC55629CACE2E000523D3 /* SnapKit */,
 				F36EC55929CACE44000523D3 /* Alamofire */,
+				F352372629DA09F2002D2C80 /* KeychainSwift */,
 			);
 			productName = Cinema;
 			productReference = F36EC53E29CAACF5000523D3 /* Cinema.app */;
@@ -294,6 +297,7 @@
 			packageReferences = (
 				F36EC55529CACE2E000523D3 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F36EC55829CACE44000523D3 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				F352372529DA09F2002D2C80 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = F36EC53F29CAACF5000523D3 /* Products */;
 			projectDirPath = "";
@@ -325,7 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3F3C3ED29D336B8002C9E45 /* SingUpViewModel.swift in Sources */,
+				F3A4149B29DA14EE00D3DEF4 /* MainCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
@@ -564,6 +568,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F352372529DA09F2002D2C80 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		F36EC55529CACE2E000523D3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -583,6 +595,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F352372629DA09F2002D2C80 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F352372529DA09F2002D2C80 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
 		F36EC55629CACE2E000523D3 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F36EC55529CACE2E000523D3 /* XCRemoteSwiftPackageReference "SnapKit" */;

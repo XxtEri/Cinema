@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AuthTokenPair: Decodable{
+struct AuthTokenPair: Decodable {
     let accessToken: String
     let accessTokenExpiresIn: Int
 

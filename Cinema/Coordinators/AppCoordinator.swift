@@ -33,8 +33,11 @@ class AppCoordinator: Coordinator {
     }
     
     func goToMain() {
-        let vc = TabBarViewController()
+        let mainCoordinator = MainCoordinator(navigationController: navigationController)
         
-        navigationController.pushViewController(vc, animated: true)
+        mainCoordinator.parentCoordinator = self
+        children.append(mainCoordinator)
+        
+        mainCoordinator.start()
     }
 }

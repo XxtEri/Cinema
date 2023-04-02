@@ -7,36 +7,54 @@
 
 import Foundation
 
-class SignInViewModel {
+class SignViewModel {
     private var api: ApiRepository
-    weak var navigation: SignInNavigation?
+    weak var navigation: SignNavigation?
     
-    init(navigation: SignInNavigation) {
+    init(navigation: SignNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
+    }
+    
+    func goToSingIn() {
+        navigation?.goToSignInScreen()
     }
     
     func goToSignUp() {
         navigation?.goToSignUpScreen()
     }
     
+    func goToMainScreen() {
+        navigation?.goToMainScreen()
+    }
+    
 }
 
-extension SignInViewModel: ISignInViewModel {
+extension SignViewModel: ISignInViewModel {
     func signIn(user: LoginCredential) {
         self.api.signIn(user: user) { [ self ] result in
             switch result {
-            case .success(let token):
-                print("Value: \(token)")
+            case .success(_):
+                goToMainScreen()
             case .failure(let error):
                 self.failureLoadingHandle(with: error)
             }
         }
     }
 
+    func signUp(user: RegisterCredential) {
+        self.api.signUp(user: user) { [ self ] result in
+            switch result {
+            case .success(_):
+                goToMainScreen()
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
 }
 
-private extension SignInViewModel {
+private extension SignViewModel {
     func failureLoadingHandle(with error: Error) {
         print(error.localizedDescription)
     }

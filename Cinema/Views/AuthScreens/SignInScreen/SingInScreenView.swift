@@ -83,7 +83,7 @@ private extension SingInScreenView {
     }
     
     func configureUIView() {
-        self.backgroundColor = UIColor(named: "BackgroundApplication")
+        self.backgroundColor = .backgroundApplication
     }
     
     func configureConstraints() {

@@ -7,10 +7,8 @@
 
 import Foundation
 
-protocol SignInNavigation: AnyObject {
-    func goToSignUpScreen()
-}
-
-protocol SignUpNavigation: AnyObject {
+protocol SignNavigation: AnyObject {
     func goToSignInScreen()
+    func goToSignUpScreen()
+    func goToMainScreen()
 }

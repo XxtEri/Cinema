@@ -24,10 +24,10 @@ class AuthCoordinator: Coordinator {
     }
 }
 
-extension AuthCoordinator: SignInNavigation, SignUpNavigation {
+extension AuthCoordinator: SignNavigation {
     func goToSignUpScreen() {
         let vc = SingUpViewController()
-        let viewModel = SignUpViewModel(navigation: self)
+        let viewModel = SignViewModel(navigation: self)
         
         vc.viewModel = viewModel
         vc.navigationItem.hidesBackButton = true
@@ -38,7 +38,7 @@ extension AuthCoordinator: SignInNavigation, SignUpNavigation {
     
     func goToSignInScreen() {
         let vc = SignInViewController()
-        let viewModel = SignInViewModel(navigation: self)
+        let viewModel = SignViewModel(navigation: self)
         
         vc.viewModel = viewModel
         vc.navigationItem.hidesBackButton = true
@@ -47,4 +47,12 @@ extension AuthCoordinator: SignInNavigation, SignUpNavigation {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func goToMainScreen() {
+        let vc = TabBarViewController()
+        
+        vc.navigationItem.hidesBackButton = true
+        
+        navigationController.viewControllers.removeAll()
+        navigationController.pushViewController(vc, animated: true)
+    }
 }

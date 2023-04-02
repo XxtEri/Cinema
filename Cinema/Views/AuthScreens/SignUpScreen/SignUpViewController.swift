@@ -10,7 +10,7 @@ import SnapKit
 
 class SingUpViewController: UIViewController {
     
-    var viewModel: SignUpViewModel?
+    var viewModel: SignViewModel?
     
     private var ui: SignUpScreenView
     
