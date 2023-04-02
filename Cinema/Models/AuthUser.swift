@@ -17,11 +17,4 @@ struct RegisterCredential: Encodable {
     let lastName: String
     let email: String
     let password: String
-    
-//    init() {
-//        self.firstName = String()
-//        self.lastName = String()
-//        self.email = String()
-//        self.password = String()
-//    }
 }

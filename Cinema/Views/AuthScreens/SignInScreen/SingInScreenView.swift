@@ -33,7 +33,7 @@ class SingInScreenView: UIView {
     
     private lazy var authButton: UIButton = {
         let view = UIButton()
-        view.backgroundColor = UIColor(named: "AccentColor")
+        view.backgroundColor = .accentColorApplication
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
         view.setTitle("Войти", for: .normal)
@@ -48,9 +48,9 @@ class SingInScreenView: UIView {
         view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 0, bottom: 13, right: 0)
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
+        view.layer.borderColor = UIColor.borderTextButtonChangeAuthScreen.cgColor
         view.setTitle("Зарегестрироваться", for: .normal)
-        view.setTitleColor(UIColor(named: "AccentColor"), for: .normal)
+        view.setTitleColor(.accentColorApplication, for: .normal)
         
         return view
     }()

@@ -25,17 +25,15 @@ class UICustomTextField: UITextField {
     func getCustomTextField(placeholder: String, isSecured: Bool) -> UICustomTextField {
         
         let view = UICustomTextField()
-        view.textColor = UIColor(named: "GrayTextColor")
+        view.textColor = .textTextField
         view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         view.isSecureTextEntry = isSecured
         
-        if let color = UIColor(named: "GrayTextColor") {
-            view.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : color])
-        }
+        view.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.textTextField])
         
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
+        view.layer.borderColor = UIColor.borderTextField.cgColor
         
         view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         

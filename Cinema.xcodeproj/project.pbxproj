@@ -14,6 +14,7 @@
 		F33CA42429D90FD80084D256 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42329D90FD80084D256 /* ViewController.swift */; };
 		F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42529D90FFF0084D256 /* TabBarViewController.swift */; };
 		F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42729D910560084D256 /* UIColorExtension.swift */; };
+		F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F352372229DA04CD002D2C80 /* SignUpScreenView.swift */; };
 		F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F356E91B29CC679600D90D5C /* SingInScreenView.swift */; };
 		F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54129CAACF5000523D3 /* AppDelegate.swift */; };
 		F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36EC54529CAACF5000523D3 /* SignInViewController.swift */; };
@@ -44,6 +45,7 @@
 		F33CA42329D90FD80084D256 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F33CA42529D90FFF0084D256 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		F33CA42729D910560084D256 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		F352372229DA04CD002D2C80 /* SignUpScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreenView.swift; sourceTree = "<group>"; };
 		F356E91B29CC679600D90D5C /* SingInScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInScreenView.swift; sourceTree = "<group>"; };
 		F36EC53E29CAACF5000523D3 /* Cinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F36EC54129CAACF5000523D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		F33CA41929D90BA70084D256 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F33CA42729D910560084D256 /* UIColorExtension.swift */,
 				F33CA41A29D90BC70084D256 /* Fonts */,
 			);
 			path = Resources;
@@ -96,6 +99,14 @@
 				F33CA41B29D90BD90084D256 /* SFProText-Semibold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F352372129DA04AD002D2C80 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		F356E91A29CC675400D90D5C /* SignInScreen */ = {
@@ -151,11 +162,10 @@
 		F3F3C3D529D31DE3002C9E45 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F33CA42329D90FD80084D256 /* ViewController.swift */,
+				F352372129DA04AD002D2C80 /* Storyboards */,
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
-				F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */,
+				F33CA42329D90FD80084D256 /* ViewController.swift */,
 				F33CA42529D90FFF0084D256 /* TabBarViewController.swift */,
-				F33CA42729D910560084D256 /* UIColorExtension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */,
+				F352372229DA04CD002D2C80 /* SignUpScreenView.swift */,
 			);
 			path = SignUpScreen;
 			sourceTree = "<group>";
@@ -332,6 +343,7 @@
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
 				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
 				F3F3C3F729D3E432002C9E45 /* ISignInViewModel.swift in Sources */,
+				F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */,
 				F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
