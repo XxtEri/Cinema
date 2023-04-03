@@ -24,11 +24,11 @@ class ProfileScreenViewController: UIViewController {
     
     private var ui: ProfileScreenView
     
-    var viewModel: ProfileViewModel?
+    var viewModel: ProfileScreenViewModel?
     
     init() {
         ui = ProfileScreenView()
-        viewModel = ProfileViewModel(navigation: nil)
+        viewModel = ProfileScreenViewModel(navigation: nil)
         
         titleCell = ["Обсуждения", "Истории", "Настройки"]
         titleImageCell = ["Discussions", "History", "Settings"]

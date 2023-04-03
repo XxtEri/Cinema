@@ -9,12 +9,6 @@ import Foundation
 import Alamofire
 import KeychainSwift
 
-protocol IApiRepository {
-    func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void)
-    func signUp(user: RegisterCredential, completion: @escaping (Result<Void, Error>) -> Void)
-    func refreshToken(completion: @escaping (Result<Void, Error>) -> Void)
-}
-
 class ApiRepository {
     
     private let session: Alamofire.Session

@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ProfileViewModel {
-    private let api: ApiRepository
+class ProfileScreenViewModel {
+    private let api: IApiRepositoryProfileScreen
     weak var navigation: ProfileNavigation?
     
     var informationProfile = Observable<User>()
@@ -38,7 +38,7 @@ class ProfileViewModel {
     }
 }
 
-private extension ProfileViewModel {
+private extension ProfileScreenViewModel {
     func successLoadingHandle(with informationUser: User) {
         self.informationProfile.updateModel(with: informationUser)
         self.changeData?(informationUser)
@@ -49,7 +49,7 @@ private extension ProfileViewModel {
     }
 }
 
-extension ProfileViewModel: IProfileViewModel {
+extension ProfileScreenViewModel: IProfileViewModel {
     func getInformationProfile() {
         self.api.getInformationProfile { result in
             switch result {

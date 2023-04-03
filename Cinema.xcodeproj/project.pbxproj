@@ -32,11 +32,21 @@
 		F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */; };
 		F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */; };
 		F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */; };
-		F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */; };
+		F3A414B429DA232600D3DEF4 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */; };
 		F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B529DA237400D3DEF4 /* Protocols.swift */; };
+		F3A414BA29DA9C5000D3DEF4 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B929DA9C5000D3DEF4 /* MainScreenViewController.swift */; };
+		F3A414BC29DA9C6200D3DEF4 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414BB29DA9C6200D3DEF4 /* MainScreenView.swift */; };
+		F3A414BF29DA9C8F00D3DEF4 /* TrendMoviesBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414BE29DA9C8F00D3DEF4 /* TrendMoviesBlockView.swift */; };
+		F3A414C129DA9CCD00D3DEF4 /* TrendMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414C029DA9CCD00D3DEF4 /* TrendMovieCollectionViewCell.swift */; };
+		F3A414C429DA9D5500D3DEF4 /* LastWatchMovieBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414C329DA9D5500D3DEF4 /* LastWatchMovieBlockView.swift */; };
+		F3A414C729DA9DBE00D3DEF4 /* NewMoviesBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414C629DA9DBE00D3DEF4 /* NewMoviesBlockView.swift */; };
+		F3A414C929DA9DF400D3DEF4 /* NewMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414C829DA9DF400D3DEF4 /* NewMovieCollectionViewCell.swift */; };
+		F3A414CC29DA9E3A00D3DEF4 /* RecomendationMoviesBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414CB29DA9E3A00D3DEF4 /* RecomendationMoviesBlockView.swift */; };
+		F3A414CE29DA9E6600D3DEF4 /* RecomendationMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414CD29DA9E6600D3DEF4 /* RecomendationMovieCollectionViewCell.swift */; };
+		F3A414D029DAA0B100D3DEF4 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414CF29DAA0B100D3DEF4 /* MainScreenViewModel.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
-		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
+		F3F3C3E229D31ED2002C9E45 /* SignScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */; };
 		F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */; };
 		F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */; };
 		F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */; };
@@ -73,11 +83,21 @@
 		F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationBlockView.swift; sourceTree = "<group>"; };
 		F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProfileViewModel.swift; sourceTree = "<group>"; };
-		F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
 		F3A414B529DA237400D3DEF4 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		F3A414B929DA9C5000D3DEF4 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		F3A414BB29DA9C6200D3DEF4 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		F3A414BE29DA9C8F00D3DEF4 /* TrendMoviesBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendMoviesBlockView.swift; sourceTree = "<group>"; };
+		F3A414C029DA9CCD00D3DEF4 /* TrendMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendMovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		F3A414C329DA9D5500D3DEF4 /* LastWatchMovieBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastWatchMovieBlockView.swift; sourceTree = "<group>"; };
+		F3A414C629DA9DBE00D3DEF4 /* NewMoviesBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMoviesBlockView.swift; sourceTree = "<group>"; };
+		F3A414C829DA9DF400D3DEF4 /* NewMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		F3A414CB29DA9E3A00D3DEF4 /* RecomendationMoviesBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationMoviesBlockView.swift; sourceTree = "<group>"; };
+		F3A414CD29DA9E6600D3DEF4 /* RecomendationMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationMovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		F3A414CF29DAA0B100D3DEF4 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignScreenViewModel.swift; sourceTree = "<group>"; };
 		F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
@@ -215,6 +235,54 @@
 			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
+		F3A414B829DA9C3E00D3DEF4 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414BD29DA9C7900D3DEF4 /* TrendMoviesBlock */,
+				F3A414C229DA9CF400D3DEF4 /* LastWatchMovieBlock */,
+				F3A414C529DA9DA300D3DEF4 /* NewMoviesBlock */,
+				F3A414CA29DA9E2700D3DEF4 /* RecomendationMoviesBlock */,
+				F3A414B929DA9C5000D3DEF4 /* MainScreenViewController.swift */,
+				F3A414BB29DA9C6200D3DEF4 /* MainScreenView.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		F3A414BD29DA9C7900D3DEF4 /* TrendMoviesBlock */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414BE29DA9C8F00D3DEF4 /* TrendMoviesBlockView.swift */,
+				F3A414C029DA9CCD00D3DEF4 /* TrendMovieCollectionViewCell.swift */,
+			);
+			path = TrendMoviesBlock;
+			sourceTree = "<group>";
+		};
+		F3A414C229DA9CF400D3DEF4 /* LastWatchMovieBlock */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414C329DA9D5500D3DEF4 /* LastWatchMovieBlockView.swift */,
+			);
+			path = LastWatchMovieBlock;
+			sourceTree = "<group>";
+		};
+		F3A414C529DA9DA300D3DEF4 /* NewMoviesBlock */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414C629DA9DBE00D3DEF4 /* NewMoviesBlockView.swift */,
+				F3A414C829DA9DF400D3DEF4 /* NewMovieCollectionViewCell.swift */,
+			);
+			path = NewMoviesBlock;
+			sourceTree = "<group>";
+		};
+		F3A414CA29DA9E2700D3DEF4 /* RecomendationMoviesBlock */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414CB29DA9E3A00D3DEF4 /* RecomendationMoviesBlockView.swift */,
+				F3A414CD29DA9E6600D3DEF4 /* RecomendationMovieCollectionViewCell.swift */,
+			);
+			path = RecomendationMoviesBlock;
+			sourceTree = "<group>";
+		};
 		F3F3C3D429D31DDC002C9E45 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +301,7 @@
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 				F3A414A729DA21F000D3DEF4 /* TabBar */,
 				F3A414A829DA220200D3DEF4 /* ProfileScreen */,
+				F3A414B829DA9C3E00D3DEF4 /* MainScreen */,
 				F3A414A429DA213C00D3DEF4 /* CustomViews */,
 				F3A414A129DA210500D3DEF4 /* Extension */,
 			);
@@ -243,8 +312,9 @@
 			isa = PBXGroup;
 			children = (
 				F3F3C3F229D3E359002C9E45 /* Protocols */,
-				F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */,
-				F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */,
+				F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */,
+				F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */,
+				F3A414CF29DAA0B100D3DEF4 /* MainScreenViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -401,34 +471,44 @@
 			files = (
 				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
-				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
+				F3A414B429DA232600D3DEF4 /* ProfileScreenViewModel.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
+				F3A414C129DA9CCD00D3DEF4 /* TrendMovieCollectionViewCell.swift in Sources */,
 				F3A414AC29DA225100D3DEF4 /* ProfileScreenView.swift in Sources */,
 				F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */,
+				F3A414CC29DA9E3A00D3DEF4 /* RecomendationMoviesBlockView.swift in Sources */,
 				F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */,
 				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
-				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,
+				F3A414C929DA9DF400D3DEF4 /* NewMovieCollectionViewCell.swift in Sources */,
+				F3F3C3E229D31ED2002C9E45 /* SignScreenViewModel.swift in Sources */,
 				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
 				F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */,
 				F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */,
 				F3F3C3FD29D3E4BC002C9E45 /* ApiRepository.swift in Sources */,
+				F3A414BC29DA9C6200D3DEF4 /* MainScreenView.swift in Sources */,
 				F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
+				F3A414D029DAA0B100D3DEF4 /* MainScreenViewModel.swift in Sources */,
 				F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */,
 				F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */,
 				F3A414A629DA21D300D3DEF4 /* CircleImageView.swift in Sources */,
 				F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */,
+				F3A414BA29DA9C5000D3DEF4 /* MainScreenViewController.swift in Sources */,
 				F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */,
+				F3A414C429DA9D5500D3DEF4 /* LastWatchMovieBlockView.swift in Sources */,
 				F3A414AA29DA223000D3DEF4 /* ProfileScreenViewController.swift in Sources */,
 				F3A414A329DA211800D3DEF4 /* UIImageViewExtension.swift in Sources */,
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
 				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
 				F3F3C3F729D3E432002C9E45 /* ISignInViewModel.swift in Sources */,
 				F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */,
+				F3A414BF29DA9C8F00D3DEF4 /* TrendMoviesBlockView.swift in Sources */,
 				F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */,
+				F3A414C729DA9DBE00D3DEF4 /* NewMoviesBlockView.swift in Sources */,
 				F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */,
+				F3A414CE29DA9E6600D3DEF4 /* RecomendationMovieCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
