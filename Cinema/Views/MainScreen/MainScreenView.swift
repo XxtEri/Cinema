@@ -40,44 +40,11 @@ class MainScreenView: UIView {
         return view
     }()
     
-    private lazy var titleTrendsBlock: UILabel = {
-        let view = UILabel()
-        view.text = "В тренде"
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
-        view.textColor = .accentColorApplication
-        view.textAlignment = .left
-        
-        return view
-    }()
-    
-    private lazy var listTrendFilms: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = CGFLOAT_MAX
-        
-        var view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        view.register(TrendMovieCollectionViewCell.self, forCellWithReuseIdentifier: TrendMovieCollectionViewCell.reuseIdentifier)
-        
-        view.backgroundColor = .blue
-        view.contentInsetAdjustmentBehavior = .never
-        view.showsHorizontalScrollIndicator = false
-        view.showsVerticalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
-    private lazy var views: UIView = {
+    private lazy var contentView: UIView = {
         let view = UIView()
         
         return view
     }()
-    
-    let trendBlock = TrendMoviesBlockView()
-    let watchBlock = LastWatchMovieBlockView()
-    let newBlock = NewMoviesBlockView()
-    let recomendationBlock = RecomendationMoviesBlockView()
     
     private lazy var content: ContentMainScreenView = {
         let view = ContentMainScreenView()
@@ -90,16 +57,11 @@ class MainScreenView: UIView {
 
         self.addSubview(scrollView)
         
-        scrollView.addSubview(views)
+        scrollView.addSubview(contentView)
         
-        views.addSubview(imageFilmCover)
+        contentView.addSubview(imageFilmCover)
         imageFilmCover.addSubview(watchButton)
-        views.addSubview(content)
-        
-//        views.addSubview(trendBlock)
-//        views.addSubview(watchBlock)
-//        views.addSubview(newBlock)
-//        views.addSubview(recomendationBlock)
+        contentView.addSubview(content)
         
         self.setup()
     }
@@ -125,7 +87,7 @@ private extension MainScreenView {
             make.edges.equalToSuperview()
         }
         
-        views.snp.makeConstraints { make in
+        contentView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().inset(100)
