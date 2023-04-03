@@ -11,6 +11,10 @@ protocol IApiRepositoryAuthScreen {
     func refreshToken(completion: @escaping (Result<Void, Error>) -> Void)
 }
 
+protocol IApiRepositoryCompilationScreen {
+    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
+}
+
 protocol IApiRepositoryProfileScreen {
     func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void)
     func editInformationProfile(completion: @escaping (Result<User, Error>) -> Void)

@@ -32,14 +32,15 @@
 		F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */; };
 		F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */; };
 		F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */; };
-		F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */; };
+		F3A414B429DA232600D3DEF4 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */; };
 		F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B529DA237400D3DEF4 /* Protocols.swift */; };
 		F3A414D329DAA52C00D3DEF4 /* CompilationScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414D229DAA52C00D3DEF4 /* CompilationScreenViewController.swift */; };
 		F3A414D529DAA54700D3DEF4 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414D429DAA54700D3DEF4 /* CustomButton.swift */; };
 		F3A414D929DAA58200D3DEF4 /* CompilationScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414D829DAA58200D3DEF4 /* CompilationScreenView.swift */; };
+		F3A414DC29DAA87900D3DEF4 /* CompilationScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414DB29DAA87900D3DEF4 /* CompilationScreenViewModel.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
-		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
+		F3F3C3E229D31ED2002C9E45 /* SignScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */; };
 		F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */; };
 		F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */; };
 		F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */; };
@@ -76,14 +77,15 @@
 		F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationBlockView.swift; sourceTree = "<group>"; };
 		F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProfileViewModel.swift; sourceTree = "<group>"; };
-		F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
 		F3A414B529DA237400D3DEF4 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		F3A414D229DAA52C00D3DEF4 /* CompilationScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationScreenViewController.swift; sourceTree = "<group>"; };
 		F3A414D429DAA54700D3DEF4 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		F3A414D829DAA58200D3DEF4 /* CompilationScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationScreenView.swift; sourceTree = "<group>"; };
+		F3A414DB29DAA87900D3DEF4 /* CompilationScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationScreenViewModel.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignScreenViewModel.swift; sourceTree = "<group>"; };
 		F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E729D33578002C9E45 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
@@ -260,8 +262,9 @@
 			isa = PBXGroup;
 			children = (
 				F3F3C3F229D3E359002C9E45 /* Protocols */,
-				F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */,
-				F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */,
+				F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */,
+				F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */,
+				F3A414DB29DAA87900D3DEF4 /* CompilationScreenViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -418,7 +421,8 @@
 			files = (
 				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
-				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
+				F3A414DC29DAA87900D3DEF4 /* CompilationScreenViewModel.swift in Sources */,
+				F3A414B429DA232600D3DEF4 /* ProfileScreenViewModel.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
 				F3A414D529DAA54700D3DEF4 /* CustomButton.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
@@ -428,7 +432,7 @@
 				F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */,
 				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
-				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,
+				F3F3C3E229D31ED2002C9E45 /* SignScreenViewModel.swift in Sources */,
 				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
 				F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */,
 				F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */,

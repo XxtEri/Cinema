@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SignViewModel {
+class SignScreenViewModel {
     private var api: ApiRepository
     weak var navigation: SignNavigation?
     
@@ -29,7 +29,7 @@ class SignViewModel {
     }
 }
 
-extension SignViewModel: ISignInViewModel {
+extension SignScreenViewModel: ISignInViewModel {
     func signIn(user: LoginCredential) {
         self.api.signIn(user: user) { [ self ] result in
             switch result {
@@ -53,7 +53,7 @@ extension SignViewModel: ISignInViewModel {
     }
 }
 
-private extension SignViewModel {
+private extension SignScreenViewModel {
     func failureLoadingHandle(with error: Error) {
         print(error.localizedDescription)
     }
