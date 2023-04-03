@@ -7,17 +7,17 @@
 
 import Foundation
 
-protocol SignNavigation: AnyObject {
+protocol SignScreenNavigation: AnyObject {
     func goToSignInScreen()
     func goToSignUpScreen()
     func goToHomeScreen()
 }
 
-protocol HomeNavigation: AnyObject {
-    func goToHomeScreen()
+protocol MainScreenNavigation: AnyObject {
+    
 }
 
-protocol ProfileNavigation: AnyObject {
+protocol ProfileScreenNavigation: AnyObject {
     func goToDisscusionScreen()
     func goToHistoryScreen()
     func goToSettingsScreen()

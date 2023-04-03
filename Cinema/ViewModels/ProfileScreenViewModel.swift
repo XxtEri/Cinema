@@ -9,14 +9,14 @@ import Foundation
 
 class ProfileScreenViewModel {
     private let api: IApiRepositoryProfileScreen
-    weak var navigation: ProfileNavigation?
+    weak var navigation: ProfileScreenNavigation?
     
     var informationProfile = Observable<User>()
     var errorOnLoading = Observable<Error>()
     
     var changeData: ((User) -> Void)?
     
-    init(navigation: ProfileNavigation?) {
+    init(navigation: ProfileScreenNavigation?) {
         self.navigation = navigation
         self.api = ApiRepository()
     }

@@ -39,13 +39,7 @@ final class HomeCoordinator: Coordinator {
     }
 }
 
-extension HomeCoordinator: HomeNavigation {
-    func goToHomeScreen() {
-        self.start()
-    }
-}
-
-extension HomeCoordinator: ProfileNavigation {
+extension HomeCoordinator: ProfileScreenNavigation {
     func goToDisscusionScreen() {
         
     }

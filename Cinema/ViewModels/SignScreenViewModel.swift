@@ -9,9 +9,9 @@ import Foundation
 
 class SignScreenViewModel {
     private var api: IApiRepositoryAuthScreen
-    weak var navigation: SignNavigation?
+    weak var navigation: SignScreenNavigation?
     
-    init(navigation: SignNavigation) {
+    init(navigation: SignScreenNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
     }

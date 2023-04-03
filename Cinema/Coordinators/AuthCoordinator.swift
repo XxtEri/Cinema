@@ -34,7 +34,7 @@ final class AuthCoordinator: Coordinator {
     }
 }
 
-extension AuthCoordinator: SignNavigation {
+extension AuthCoordinator: SignScreenNavigation {
     func goToHomeScreen() {
         let appc = parentCoordinator as? AppCoordinator
         
