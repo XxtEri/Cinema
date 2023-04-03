@@ -20,10 +20,18 @@ class NewMovieCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private lazy var viewB: UIView = {
+        let view = UIView()
+        view.backgroundColor = .blue
+        
+        return view
+    }()
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(imageFilm)
+        self.addSubview(viewB)
         
         self.setup()
     }
@@ -40,7 +48,7 @@ private extension NewMovieCollectionViewCell {
     }
     
     func configureConstraints() {
-        imageFilm.snp.makeConstraints { make in
+        viewB.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

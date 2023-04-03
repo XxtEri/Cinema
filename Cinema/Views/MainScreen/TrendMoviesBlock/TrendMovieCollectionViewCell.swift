@@ -30,8 +30,7 @@ class TrendMovieCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-//        self.addSubview(imageFilm)
-        self.contentView.addSubview(viewB)
+        self.addSubview(viewB)
         
         self.setup()
     }

@@ -18,12 +18,18 @@ class ContentMainScreenView: UIView {
     }()
     
     let trendBlock = TrendMoviesBlockView()
+    let watchBlock = LastWatchMovieBlockView()
+    let newBlock = NewMoviesBlockView()
+    let recomendationBlock = RecomendationMoviesBlockView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.addSubview(contentStack)
         contentStack.addArrangedSubview(trendBlock)
+        contentStack.addArrangedSubview(watchBlock)
+        contentStack.addArrangedSubview(newBlock)
+        contentStack.addArrangedSubview(recomendationBlock)
         
         setup()
     }
@@ -44,8 +50,19 @@ private extension ContentMainScreenView {
         }
         
         trendBlock.snp.makeConstraints { make in
-            make.height.equalTo(200)
+            make.height.equalTo(trendBlock.getHeightView())
         }
         
+        watchBlock.snp.makeConstraints { make in
+            make.height.equalTo(watchBlock.getHeightView())
+        }
+        
+        newBlock.snp.makeConstraints { make in
+            make.height.equalTo(newBlock.getHeightView())
+        }
+        
+        recomendationBlock.snp.makeConstraints { make in
+            make.height.equalTo(recomendationBlock.getHeightView())
+        }
     }
 }

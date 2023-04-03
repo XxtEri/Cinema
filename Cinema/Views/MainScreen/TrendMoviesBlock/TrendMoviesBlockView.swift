@@ -15,14 +15,14 @@ class TrendMoviesBlockView: UIStackView {
         view.font = UIFont(name: "SFProText-Bold", size: 24)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
+        view.bounds.size.height = 29
         
         return view
     }()
     
-    private lazy var listTrendFilms: UICollectionView = {
+    private lazy var collectionTrendFilms: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-//        layout.minimumInteritemSpacing = CGFLOAT_MAX
         
         var view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -30,10 +30,12 @@ class TrendMoviesBlockView: UIStackView {
         view.delegate = self
         view.dataSource = self
         
-        view.backgroundColor = .red
+        view.backgroundColor = .backgroundApplication
         
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
+        
+        view.bounds.size.height = 144
         
         return view
     }()
@@ -42,7 +44,7 @@ class TrendMoviesBlockView: UIStackView {
         super.init(frame: frame)
         
         self.addArrangedSubview(titleTrendsBlock)
-        self.addArrangedSubview(listTrendFilms)
+        self.addArrangedSubview(collectionTrendFilms)
         
         setup()
     }
@@ -50,25 +52,31 @@ class TrendMoviesBlockView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getHeightView() -> CGFloat {
+        let titleHeight = titleTrendsBlock.bounds.size.height
+        let collectionHeight = collectionTrendFilms.bounds.size.height
+        let spacing = self.spacing
+        
+        return titleHeight + collectionHeight + spacing
+    }
 }
 
 private extension TrendMoviesBlockView {
     func setup() {
         configureConstraints()
+        configureStack()
+    }
+    
+    func configureStack() {
         self.axis = .vertical
         self.alignment = .leading
+        self.spacing = 16
     }
 
     func configureConstraints() {
-//        titleTrendsBlock.snp.makeConstraints { make in
-//            make.horizontalEdges.equalToSuperview()
-//            make.top.equalToSuperview()
-//        }
-//
-        listTrendFilms.snp.makeConstraints { make in
+        collectionTrendFilms.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-//            make.top.equalTo(titleTrendsBlock.snp.bottom).inset(-16)
-//            make.bottom.equalToSuperview()
         }
     }
 }
@@ -87,20 +95,16 @@ extension TrendMoviesBlockView: UICollectionViewDataSource {
         
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("What!")
-    }
 }
 
 
-////- MARK: UICollectionViewDelegate
-//
-//extension TrendMoviesBlockView: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("What!")
-//    }
-//}
+//- MARK: UICollectionViewDelegate
+
+extension TrendMoviesBlockView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+}
 
 //- MARK: UICollectionViewFlowLayout
 

@@ -16,11 +16,12 @@ class RecomendationMoviesBlockView: UIStackView {
         view.font = UIFont(name: "SFProText-Bold", size: 24)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
+        view.bounds.size.height = 29
         
         return view
     }()
     
-    private lazy var listNewFilms: UICollectionView = {
+    private lazy var collectionNewFilms: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = CGFLOAT_MAX
@@ -32,10 +33,10 @@ class RecomendationMoviesBlockView: UIStackView {
         view.dataSource = self
         
         view.backgroundColor = .backgroundApplication
-        view.contentInsetAdjustmentBehavior = .never
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
+
+        view.bounds.size.height = 144
         
         return view
     }()
@@ -45,7 +46,7 @@ class RecomendationMoviesBlockView: UIStackView {
         super.init(frame: frame)
     
         self.addArrangedSubview(titleNewFilmBlock)
-        self.addArrangedSubview(listNewFilms)
+        self.addArrangedSubview(collectionNewFilms)
         
         setup()
     }
@@ -53,11 +54,25 @@ class RecomendationMoviesBlockView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getHeightView() -> CGFloat {
+        let titleHeight = titleNewFilmBlock.bounds.size.height
+        let collectionHeight = collectionNewFilms.bounds.size.height
+        let spacing = self.spacing
+        
+        return titleHeight + collectionHeight + spacing
+    }
 }
 
 private extension RecomendationMoviesBlockView {
     func setup() {
         configureConstraints()
+        configureStack()
+    }
+    
+    func configureStack() {
+        self.axis = .vertical
+        self.spacing = 16
     }
 
     func configureConstraints() {
@@ -65,7 +80,7 @@ private extension RecomendationMoviesBlockView {
             make.horizontalEdges.top.equalToSuperview()
         }
         
-        listNewFilms.snp.makeConstraints { make in
+        collectionNewFilms.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalToSuperview()
             make.top.equalTo(titleNewFilmBlock.snp.bottom).inset(-16)
         }

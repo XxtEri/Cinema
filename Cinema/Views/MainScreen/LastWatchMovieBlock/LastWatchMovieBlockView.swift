@@ -15,15 +15,16 @@ class LastWatchMovieBlockView: UIStackView {
         view.font = UIFont(name: "SFProText-Bold", size: 24)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
+        view.bounds.size.height = 29
         
         return view
     }()
     
     private lazy var filmImage: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "NewFilm")
+        view.image = UIImage(named: "WatchFilm")
         view.contentMode = .scaleAspectFill
-
+        view.bounds.size.height = 240
         
         return view
     }()
@@ -41,7 +42,7 @@ class LastWatchMovieBlockView: UIStackView {
     private lazy var imagePlay: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Play")
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         
         return view
     }()
@@ -62,25 +63,27 @@ class LastWatchMovieBlockView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func getHeightView() -> CGFloat {
+        let titleHeight = titleBlock.bounds.size.height
+        let filmImageHeight = filmImage.bounds.size.height
+        let spacing = self.spacing
+        
+        return titleHeight + filmImageHeight + spacing
+    }
 }
 
 private extension LastWatchMovieBlockView {
     func setup() {
         configureConstraints()
+        configureStack()
+    }
+    
+    func configureStack() {
+        self.axis = .vertical
+        self.spacing = 16
     }
     
     func configureConstraints() {
-        titleBlock.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalToSuperview()
-        }
-        
-        filmImage.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(titleBlock.snp.bottom).inset(-32)
-            make.bottom.equalToSuperview()
-        }
-        
         imagePlay.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.verticalEdges.lessThanOrEqualToSuperview().inset(50)
