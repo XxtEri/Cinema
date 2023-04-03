@@ -24,7 +24,7 @@ final class ProfileScreenViewController: UIViewController {
     
     private var ui: ProfileScreenView
     
-    var viewModel: ProfileViewModel?
+    var viewModel: ProfileViewModel
     
     init() {
         ui = ProfileScreenView()
@@ -35,10 +35,7 @@ final class ProfileScreenViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        bind()
-        handlers()
         ui.configureCollectionView(delegate: self, dataSource: self)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -52,11 +49,14 @@ final class ProfileScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel?.getInformationProfile()
+        bind()
+        handlers()
+        
+        viewModel.getInformationProfile()
     }
     
     func handlers() {
-        self.viewModel?.changeData = { [ weak self ] user in
+        self.viewModel.changeData = { [ weak self ] user in
             self?.ui.set(with: user)
         }
     }
@@ -64,11 +64,11 @@ final class ProfileScreenViewController: UIViewController {
 
 extension ProfileScreenViewController {
     func bind() {
-        self.viewModel?.informationProfile.subscribe(with: { [ weak self ] user in
+        self.viewModel.informationProfile.subscribe(with: { [ weak self ] user in
             self?.ui.set(with: user)
         })
         
-        self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
+        self.viewModel.errorOnLoading.subscribe(with: { [ weak self ] error in
             self?.showError(error)
         })
     }
