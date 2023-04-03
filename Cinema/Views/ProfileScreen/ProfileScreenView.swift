@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileScreenView: UIView {
+final class ProfileScreenView: UIView {
     
     private let profileInformationBlock = ProfileInformationBlockView()
 

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileScreenViewController: UIViewController {
+final class ProfileScreenViewController: UIViewController {
     
     private enum Metrics {
         static let itemsInRow = 1

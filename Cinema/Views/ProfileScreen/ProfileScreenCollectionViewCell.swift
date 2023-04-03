@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileScreenCollectionViewCell: UICollectionViewCell {
+final class ProfileScreenCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "TrendFilmCell"
     
