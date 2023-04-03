@@ -19,7 +19,8 @@ final class AppCoordinator: Coordinator {
     
     func start() {
         print("App coordinator start")
-        goToAuth()
+//        goToAuth()
+        goToHome()
     }
     
     func goToAuth() {

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class NewMoviesBlockView: UIView {
+class NewMoviesBlockView: UIStackView {
     
     private lazy var titleNewFilmBlock: UILabel = {
         let view = UILabel()
@@ -43,16 +43,17 @@ class NewMoviesBlockView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    
-        self.addSubview(titleNewFilmBlock)
-        self.addSubview(listNewFilms)
+        
+        self.addArrangedSubview(titleNewFilmBlock)
+        self.addArrangedSubview(listNewFilms)
         
         setup()
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 private extension NewMoviesBlockView {

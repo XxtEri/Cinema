@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LastWatchMovieBlockView: UIView {
+class LastWatchMovieBlockView: UIStackView {
     private lazy var titleBlock: UILabel = {
         let view = UILabel()
         view.text = "Вы смотрели"
@@ -49,8 +49,8 @@ class LastWatchMovieBlockView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(titleBlock)
-        self.addSubview(filmImage)
+        self.addArrangedSubview(titleBlock)
+        self.addArrangedSubview(filmImage)
         
         filmImage.addSubview(titleFilm)
         filmImage.addSubview(imagePlay)
@@ -58,9 +58,10 @@ class LastWatchMovieBlockView: UIView {
         setup()
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 private extension LastWatchMovieBlockView {

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TrendMoviesBlockView: UIView {
+class TrendMoviesBlockView: UIStackView {
     private lazy var titleTrendsBlock: UILabel = {
         let view = UILabel()
         view.text = "В тренде"
@@ -22,7 +22,7 @@ class TrendMoviesBlockView: UIView {
     private lazy var listTrendFilms: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = CGFLOAT_MAX
+//        layout.minimumInteritemSpacing = CGFLOAT_MAX
         
         var view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -30,11 +30,10 @@ class TrendMoviesBlockView: UIView {
         view.delegate = self
         view.dataSource = self
         
-        view.backgroundColor = .backgroundApplication
-        view.contentInsetAdjustmentBehavior = .never
+        view.backgroundColor = .red
+        
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
@@ -42,13 +41,13 @@ class TrendMoviesBlockView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(titleTrendsBlock)
-        self.addSubview(listTrendFilms)
+        self.addArrangedSubview(titleTrendsBlock)
+        self.addArrangedSubview(listTrendFilms)
         
         setup()
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -56,18 +55,20 @@ class TrendMoviesBlockView: UIView {
 private extension TrendMoviesBlockView {
     func setup() {
         configureConstraints()
+        self.axis = .vertical
+        self.alignment = .leading
     }
 
     func configureConstraints() {
-        titleTrendsBlock.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.top.equalToSuperview()
-        }
-        
+//        titleTrendsBlock.snp.makeConstraints { make in
+//            make.horizontalEdges.equalToSuperview()
+//            make.top.equalToSuperview()
+//        }
+//
         listTrendFilms.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(titleTrendsBlock.snp.horizontalEdges)
-            make.top.equalTo(titleTrendsBlock.snp.bottom).inset(-16)
-            make.bottom.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+//            make.top.equalTo(titleTrendsBlock.snp.bottom).inset(-16)
+//            make.bottom.equalToSuperview()
         }
     }
 }
@@ -87,17 +88,19 @@ extension TrendMoviesBlockView: UICollectionViewDataSource {
         return cell
     }
     
-}
-
-
-//- MARK: UICollectionViewDelegate
-
-extension TrendMoviesBlockView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print("What!")
     }
-    
 }
+
+
+////- MARK: UICollectionViewDelegate
+//
+//extension TrendMoviesBlockView: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print("What!")
+//    }
+//}
 
 //- MARK: UICollectionViewFlowLayout
 

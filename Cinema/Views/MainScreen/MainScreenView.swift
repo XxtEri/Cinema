@@ -78,21 +78,31 @@ class MainScreenView: UIView {
     let watchBlock = LastWatchMovieBlockView()
     let newBlock = NewMoviesBlockView()
     let recomendationBlock = RecomendationMoviesBlockView()
+    
+    private lazy var content: ContentMainScreenView = {
+        let view = ContentMainScreenView()
+        
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         self.addSubview(scrollView)
 
-        scrollView.addSubview(imageFilmCover)
-        scrollView.addSubview(watchButton)
+        
+//        views.addSubview(content)
         
         scrollView.addSubview(views)
         
-        views.addSubview(trendBlock)
-        views.addSubview(watchBlock)
-        views.addSubview(newBlock)
-        views.addSubview(recomendationBlock)
+        views.addSubview(imageFilmCover)
+        views.addSubview(watchButton)
+        views.addSubview(content)
+        
+//        views.addSubview(trendBlock)
+//        views.addSubview(watchBlock)
+//        views.addSubview(newBlock)
+//        views.addSubview(recomendationBlock)
         
         self.setup()
     }
@@ -117,49 +127,60 @@ private extension MainScreenView {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        views.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
+            make.top.equalTo(scrollView.frameLayoutGuide.snp.top)
+            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
+        }
 
         imageFilmCover.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
             make.top.equalToSuperview()
+            make.height.equalTo(400)
         }
         
         watchButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(imageFilmCover.snp.horizontalEdges).inset(120)
             make.bottom.equalTo(imageFilmCover.snp.bottom).inset(64)
         }
+//
+//        trendBlock.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().inset(16)
+//            make.trailing.equalToSuperview()
+//            make.top.equalTo(imageFilmCover.snp.bottom).inset(-32)
+//            make.height.greaterThanOrEqualTo(145)
+//        }
+//
+//        watchBlock.snp.makeConstraints { make in
+//            make.horizontalEdges.equalToSuperview()
+//            make.top.equalTo(trendBlock.snp.bottom).inset(-32)
+//            make.height.greaterThanOrEqualTo(240)
+//        }
+//
+//        newBlock.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().inset(16)
+//            make.trailing.equalToSuperview()
+//            make.top.equalTo(watchBlock.snp.bottom).inset(-32)
+//            make.height.greaterThanOrEqualTo(189)
+//        }
+//
+//        recomendationBlock.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().inset(16)
+//            make.trailing.equalToSuperview()
+//            make.top.equalTo(newBlock.snp.bottom).inset(-32)
+//            make.bottom.equalToSuperview().inset(44)
+//            make.height.greaterThanOrEqualTo(145)
+//        }
         
-        views.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
-            make.top.equalTo(imageFilmCover.snp.bottom).inset(-32)
-            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
-        }
-        
-        trendBlock.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.trailing.equalToSuperview()
-            make.top.equalTo(imageFilmCover.snp.bottom).inset(-32)
-            make.height.greaterThanOrEqualTo(145)
-        }
-
-        watchBlock.snp.makeConstraints { make in
+        content.snp.makeConstraints { make in
+//            make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
+//            make.top.equalTo(imageFilmCover.snp.bottom).inset(-32)
+//            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
+            
             make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(trendBlock.snp.bottom).inset(-32)
-            make.height.greaterThanOrEqualTo(240)
-        }
-
-        newBlock.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.trailing.equalToSuperview()
-            make.top.equalTo(watchBlock.snp.bottom).inset(-32)
-            make.height.greaterThanOrEqualTo(189)
-        }
-        
-        recomendationBlock.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.trailing.equalToSuperview()
-            make.top.equalTo(newBlock.snp.bottom).inset(-32)
-            make.bottom.equalToSuperview().inset(44)
-            make.height.greaterThanOrEqualTo(145)
+            make.top.equalTo(imageFilmCover.snp.bottom).inset(-32)
+            make.bottom.equalToSuperview()
         }
     }
 }
