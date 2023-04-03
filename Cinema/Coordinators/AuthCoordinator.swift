@@ -20,11 +20,24 @@ class AuthCoordinator: Coordinator {
     
     func start() {
         print("Authorization start")
-        goToSignInScreen()
+        
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            print("Not first launch.")
+            goToSignInScreen()
+        } else {
+            print("First launch, setting UserDefault.")
+            goToSignUpScreen()
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+        }
     }
 }
 
 extension AuthCoordinator: SignNavigation {
+    func goToHomeScreen() {
+        
+    }
+    
     func goToSignUpScreen() {
         let vc = SingUpViewController()
         let viewModel = SignViewModel(navigation: self)
