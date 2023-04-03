@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SingInScreenView: UIView {
+final class SingInScreenView: UIView {
     private lazy var imageLogo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "LogoApplication")

@@ -21,7 +21,7 @@ class ApiRepository {
     
     private let keychain: KeychainSwift
     
-    private let baseURL = "http://107684.web.hosting-russia.ru:8000/api/"
+    private let baseURL = "http://107684.web.hosting-russia.ru:8000/api"
     
     init() {
         self.session = .default
@@ -33,7 +33,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
     func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void) {
         
         self.session.request(
-            "\(baseURL)auth/login",
+            "\(baseURL)/auth/login",
             method: .post,
             parameters: user,
             encoder: JSONParameterEncoder.default
@@ -65,7 +65,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
     func signUp(user: RegisterCredential, completion: @escaping (Result<Void, Error>) -> Void) {
         
         self.session.request(
-            "\(baseURL)auth/register",
+            "\(baseURL)/auth/register",
             method: .post,
             parameters: user,
             encoder: JSONParameterEncoder.default
@@ -103,7 +103,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
         
             
         self.session.request(
-            "\(baseURL)auth/refresh",
+            "\(baseURL)/auth/refresh",
             method: .post,
             headers: headers
         ).responseDecodable(of: AuthTokenPair.self) { [self] response in
@@ -141,7 +141,7 @@ extension ApiRepository: IApiRepositoryProfileScreen {
         }
         
         self.session.request(
-            "\(baseURL)profile",
+            "\(baseURL)/profile",
             method: .get,
             headers: headers
         ).responseDecodable(of: User.self) { response in
