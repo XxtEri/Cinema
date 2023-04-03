@@ -75,8 +75,8 @@ private extension HomeCoordinator {
     }
     
     func generateCompilationScreenController() -> UIViewController {
-        let vc = ProfileScreenViewController()
-        vc.viewModel = ProfileViewModel(navigation: self)
+        let vc = CompilationScreenViewController()
+        //vc.viewModel = ProfileViewModel(navigation: self)
         
         vc.tabBarItem.title = "Подборка"
         vc.tabBarItem.image = UIImage(named: "TabItemCompilationScreen")

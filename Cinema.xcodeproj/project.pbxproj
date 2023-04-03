@@ -34,6 +34,9 @@
 		F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */; };
 		F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */; };
 		F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B529DA237400D3DEF4 /* Protocols.swift */; };
+		F3A414D329DAA52C00D3DEF4 /* CompilationScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414D229DAA52C00D3DEF4 /* CompilationScreenViewController.swift */; };
+		F3A414D529DAA54700D3DEF4 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414D429DAA54700D3DEF4 /* CustomButton.swift */; };
+		F3A414D929DAA58200D3DEF4 /* CompilationScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414D829DAA58200D3DEF4 /* CompilationScreenView.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
@@ -75,6 +78,9 @@
 		F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProfileViewModel.swift; sourceTree = "<group>"; };
 		F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F3A414B529DA237400D3DEF4 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		F3A414D229DAA52C00D3DEF4 /* CompilationScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationScreenViewController.swift; sourceTree = "<group>"; };
+		F3A414D429DAA54700D3DEF4 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		F3A414D829DAA58200D3DEF4 /* CompilationScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationScreenView.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				F3A414A529DA21D300D3DEF4 /* CircleImageView.swift */,
+				F3A414D429DAA54700D3DEF4 /* CustomButton.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -215,6 +222,15 @@
 			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
+		F3A414D129DAA50100D3DEF4 /* CompilationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414D229DAA52C00D3DEF4 /* CompilationScreenViewController.swift */,
+				F3A414D829DAA58200D3DEF4 /* CompilationScreenView.swift */,
+			);
+			path = CompilationScreen;
+			sourceTree = "<group>";
+		};
 		F3F3C3D429D31DDC002C9E45 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +248,7 @@
 				F352372129DA04AD002D2C80 /* Storyboards */,
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 				F3A414A729DA21F000D3DEF4 /* TabBar */,
+				F3A414D129DAA50100D3DEF4 /* CompilationScreen */,
 				F3A414A829DA220200D3DEF4 /* ProfileScreen */,
 				F3A414A429DA213C00D3DEF4 /* CustomViews */,
 				F3A414A129DA210500D3DEF4 /* Extension */,
@@ -403,9 +420,11 @@
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
 				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
+				F3A414D529DAA54700D3DEF4 /* CustomButton.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
 				F3A414AC29DA225100D3DEF4 /* ProfileScreenView.swift in Sources */,
 				F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */,
+				F3A414D329DAA52C00D3DEF4 /* CompilationScreenViewController.swift in Sources */,
 				F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */,
 				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
@@ -417,6 +436,7 @@
 				F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
 				F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */,
+				F3A414D929DAA58200D3DEF4 /* CompilationScreenView.swift in Sources */,
 				F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */,
 				F3A414A629DA21D300D3DEF4 /* CircleImageView.swift in Sources */,
 				F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */,
