@@ -41,7 +41,7 @@ final class HomeCoordinator: Coordinator {
     }
 }
 
-extension HomeCoordinator: ProfileScreenNavigation {
+extension HomeCoordinator: ProfileNavigation {
     func goToDisscusionScreen() {
         
     }
@@ -72,7 +72,7 @@ private extension HomeCoordinator {
     
     func generateCompilationScreenController() -> UIViewController {
         let vc = ProfileScreenViewController()
-        vc.viewModel = ProfileScreenViewModel(navigation: self)
+        vc.viewModel = ProfileViewModel(navigation: self)
         
         vc.tabBarItem.title = "Подборка"
         vc.tabBarItem.image = UIImage(named: "TabItemCompilationScreen")
@@ -82,7 +82,7 @@ private extension HomeCoordinator {
     
     func generateCollectionScreenController() -> UIViewController {
         let vc = ProfileScreenViewController()
-        vc.viewModel = ProfileScreenViewModel(navigation: self)
+        vc.viewModel = ProfileViewModel(navigation: self)
         
         vc.tabBarItem.title = "Коллекции"
         vc.tabBarItem.image = UIImage(named: "TabItemCollectionScreen")
@@ -92,7 +92,7 @@ private extension HomeCoordinator {
     
     func generateProfileScreenController() -> UIViewController {
         let vc = ProfileScreenViewController()
-        vc.viewModel = ProfileScreenViewModel(navigation: self)
+        vc.viewModel = ProfileViewModel(navigation: self)
         
         vc.tabBarItem.title = "Профиль"
         vc.tabBarItem.image = UIImage(named: "TabItemProfileScreen")

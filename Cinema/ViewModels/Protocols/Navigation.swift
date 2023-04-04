@@ -17,7 +17,7 @@ protocol MainScreenNavigation: AnyObject {
     
 }
 
-protocol ProfileScreenNavigation: AnyObject {
+protocol ProfileNavigation: AnyObject {
     func goToDisscusionScreen()
     func goToHistoryScreen()
     func goToSettingsScreen()
