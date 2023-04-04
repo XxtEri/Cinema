@@ -182,11 +182,11 @@ extension ApiRepository: IApiRepositoryMainScreen {
             method: .get,
             headers: headers
         ).responseDecodable(of: CoverMovie.self) { response in
-            
+
             if let request = response.request {
                 print("Request: \(request)")
             }
-            
+
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
                 if statusCode == 401 {
@@ -194,12 +194,12 @@ extension ApiRepository: IApiRepositoryMainScreen {
                     self.keychain.clear()
                 }
             }
-            
+
             guard let coverMovie = response.value else {
                 competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 return
             }
-            
+
             competion(.success(coverMovie))
         }
     }
@@ -215,30 +215,67 @@ extension ApiRepository: IApiRepositoryMainScreen {
             headers["Authorization"] = "Bearer " + token
         }
         
-        self.session.request(
-            "\(baseURL)/movies",
-            method: .get,
-            parameters: parameters,
-            headers: headers
-        ).responseDecodable(of: Movies.self) { response in
-            if let request = response.request {
-                print("Request: \(request)")
-            }
-            
+//        self.session.request(
+//            "\(baseURL)/movies",
+//            method: .get,
+//            parameters: parameters,
+//            headers: headers
+//        ).responseDecodable(of: Movies.self) { response in
+//            if let request = response.request {
+//                print("Request: \(request)")
+//            }
+//
+//            if let statusCode = response.response?.statusCode {
+//                print("Status code: \(statusCode)")
+//            }
+//
+//            print(response.value)
+//
+//            guard let movies = response.value else {
+//                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+//                return
+//            }
+//
+//            print(movies)
+//
+//            competion(.success(movies))
+//        }
+        
+        session.request("\(baseURL)/cover",
+                        method: .get,
+                        parameters: parameters,
+                        headers: headers).responseData { [self] response in
+             if let request = response.request {
+                 print("Request: \(request)")
+             }
+ 
             if let statusCode = response.response?.statusCode {
-                print("Status code: \(statusCode)")
+                print("Status Code: \(statusCode)")
+                if statusCode == 401 {
+                    self.keychain.synchronizable = true
+                    self.keychain.clear()
+                    return
+                }
             }
-            
-            print(response.value)
-            
-            guard let movies = response.value else {
-                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+ 
+            switch response.result {
+            case .success(let data):
+                do {
+                    let decodeData = try JSONDecoder().decode(Movies.self, from: data)
+         
+                    competion(.success(decodeData))
+                    print(response.result)
+         
+                } catch(let error) {
+                    print(error.localizedDescription)
+                    return
+                }
+     
+            case .failure(let error):
+                print(error.localizedDescription)
+                competion(.failure(error))
                 return
             }
-            
-            print(movies)
-            
-            competion(.success(movies))
         }
     }
     
