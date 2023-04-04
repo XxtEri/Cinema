@@ -17,6 +17,18 @@ class ContentMainScreenView: UIView {
         return view
     }()
     
+    private lazy var specifyInterests: UIButton = {
+        let view = UIButton()
+        view.layer.cornerRadius = 4
+        view.backgroundColor = .accentColorApplication
+        view.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.setAttributedTitle(NSAttributedString(string: "Указать интересы", attributes: [.kern: -0.17]), for: .normal)
+        view.setTitleColor(.white, for: .normal)
+        view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 32, bottom: 13, right: 32)
+        
+        return view
+    }()
+    
     let trendBlock = TrendMoviesBlockView()
     let watchBlock = LastWatchMovieBlockView()
     let newBlock = NewMoviesBlockView()
@@ -30,6 +42,7 @@ class ContentMainScreenView: UIView {
         contentStack.addArrangedSubview(watchBlock)
         contentStack.addArrangedSubview(newBlock)
         contentStack.addArrangedSubview(recomendationBlock)
+        contentStack.addArrangedSubview(specifyInterests)
         
         setup()
     }
@@ -63,6 +76,11 @@ private extension ContentMainScreenView {
         
         recomendationBlock.snp.makeConstraints { make in
             make.height.equalTo(recomendationBlock.getHeightView())
+        }
+        
+        specifyInterests.snp.makeConstraints { make in
+            make.height.lessThanOrEqualTo(44)
+            make.horizontalEdges.equalToSuperview().inset(16)
         }
     }
 }

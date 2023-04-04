@@ -41,6 +41,7 @@ class MainScreenViewController: UIViewController {
         bindListener()
         
         viewModel?.getCoverImage()
+        viewModel?.getMovies()
     }
 }
 
@@ -50,6 +51,10 @@ extension MainScreenViewController {
             guard let self = self else { return }
             
             self.ui.setCoverImageMoview(with: cover)
+        })
+        
+        self.viewModel?.trendsMovie.subscribe(with: { [ weak self ] movies in
+            print(movies)
         })
         
         self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in

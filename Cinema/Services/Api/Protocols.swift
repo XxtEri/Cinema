@@ -13,6 +13,7 @@ protocol IApiRepositoryAuthScreen {
 
 protocol IApiRepositoryMainScreen {
     func getCoverFilm(competion: @escaping (Result<CoverMovie, Error>) -> Void)
+    func getMovies(typeListMovie: TypeListMovie,competion: @escaping (Result<Movies, Error>) -> Void)
 }
 
 protocol IApiRepositoryProfileScreen {

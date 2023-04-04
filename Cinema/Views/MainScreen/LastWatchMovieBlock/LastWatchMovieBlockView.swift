@@ -93,6 +93,9 @@ private extension LastWatchMovieBlockView {
             make.leading.bottom.equalToSuperview().inset(16)
         }
         
+        filmImage.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(0)
+        }
     }
 }
 

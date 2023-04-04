@@ -172,12 +172,12 @@ extension ApiRepository: IApiRepositoryMainScreen {
     func getCoverFilm(competion: @escaping (Result<CoverMovie, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
-        self.keychain.synchronizable = true
+        keychain.synchronizable = true
         if let token = self.keychain.get("accessToken") {
             headers["Authorization"] = "Bearer " + token
         }
         
-        self.session.request(
+        session.request(
             "\(baseURL)/cover",
             method: .get,
             headers: headers
@@ -203,4 +203,43 @@ extension ApiRepository: IApiRepositoryMainScreen {
             competion(.success(coverMovie))
         }
     }
+    
+    func getMovies(typeListMovie: TypeListMovie, competion: @escaping (Result<Movies, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        let parameters: Parameters = [
+            "filter" : TypeListMovie.new.rawValue
+        ]
+        
+        keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/movies",
+            method: .get,
+            parameters: parameters,
+            headers: headers
+        ).responseDecodable(of: Movies.self) { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+            }
+            
+            print(response.value)
+            
+            guard let movies = response.value else {
+                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            print(movies)
+            
+            competion(.success(movies))
+        }
+    }
+    
 }
