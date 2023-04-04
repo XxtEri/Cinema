@@ -12,7 +12,8 @@ protocol IApiRepositoryAuthScreen {
 }
 
 protocol IApiRepositoryCompilationScreen {
-    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func getCompilationMovies(completion: @escaping (Result<Movies, Error>) -> Void)
+//    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 protocol IApiRepositoryProfileScreen {

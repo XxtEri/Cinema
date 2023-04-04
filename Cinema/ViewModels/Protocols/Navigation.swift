@@ -13,8 +13,8 @@ protocol SignNavigation: AnyObject {
     func goToHomeScreen()
 }
 
-protocol HomeNavigation: AnyObject {
-    func goToHomeScreen()
+protocol CompilationNavigation: AnyObject {
+    
 }
 
 protocol ProfileNavigation: AnyObject {

@@ -12,6 +12,8 @@ class CompilationScreenViewController: UIViewController {
     
     private let ui: CompilationScreenView
     
+    var viewModel: CompilationScreenViewModel?
+    
     init() {
         self.ui = CompilationScreenView()
         
@@ -28,5 +30,27 @@ class CompilationScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.bindListener()
+        
+        viewModel?.getCompilation()
+    }
+}
+
+extension CompilationScreenViewController {
+    func bindListener() {
+        self.viewModel?.compilationMovie.subscribe(with: { [ weak self ] movies in
+            print(movies)
+        })
+        
+        self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
+            guard let self = self else { return }
+            
+            self.showError(error)
+        })
+    }
+    
+    func showError(_ error: Error) {
+        print(error.localizedDescription)
     }
 }

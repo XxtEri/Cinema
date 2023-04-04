@@ -9,12 +9,6 @@ import Foundation
 import Alamofire
 import KeychainSwift
 
-protocol IApiRepository {
-    func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void)
-    func signUp(user: RegisterCredential, completion: @escaping (Result<Void, Error>) -> Void)
-    func refreshToken(completion: @escaping (Result<Void, Error>) -> Void)
-}
-
 class ApiRepository {
     
     private let session: Alamofire.Session
@@ -146,7 +140,8 @@ extension ApiRepository: IApiRepositoryProfileScreen {
             "\(baseURL)/profile",
             method: .get,
             headers: headers
-        ).responseDecodable(of: User.self) { response in
+        )
+        .responseDecodable(of: User.self) { response in
                 
             if let request = response.request {
                 print("Request: \(request)")
@@ -154,7 +149,13 @@ extension ApiRepository: IApiRepositoryProfileScreen {
             
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.keychain.synchronizable = true
+                    self.keychain.clear()
+                }
             }
+            
+            print(response.value)
             
             guard let user = response.value else {
                 completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
@@ -174,4 +175,51 @@ extension ApiRepository: IApiRepositoryProfileScreen {
     }
     
     
+}
+
+extension ApiRepository: IApiRepositoryCompilationScreen {
+    func getCompilationMovies(completion: @escaping (Result<Movies, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        let parameters: Parameters = [
+            "filter" : "compilation"
+        ]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/movies",
+            method: .get,
+            parameters: parameters,
+            headers: headers
+        )
+        .validate()
+        .responseDecodable(of: Movies.self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.keychain.synchronizable = true
+                    self.keychain.clear()
+                }
+            }
+            
+            guard let movies = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(movies))
+        }
+    }
+    
+//    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+//        
+//    }
 }
