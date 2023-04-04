@@ -24,10 +24,9 @@ class SignViewModel {
         navigation?.goToSignUpScreen()
     }
     
-    func goToMainScreen() {
-        navigation?.goToMainScreen()
+    func goToHome() {
+        navigation?.goToHomeScreen()
     }
-    
 }
 
 extension SignViewModel: ISignInViewModel {
@@ -35,7 +34,7 @@ extension SignViewModel: ISignInViewModel {
         self.api.signIn(user: user) { [ self ] result in
             switch result {
             case .success(_):
-                goToMainScreen()
+                goToHome()
             case .failure(let error):
                 self.failureLoadingHandle(with: error)
             }
@@ -46,7 +45,7 @@ extension SignViewModel: ISignInViewModel {
         self.api.signUp(user: user) { [ self ] result in
             switch result {
             case .success(_):
-                goToMainScreen()
+                goToHome()
             case .failure(let error):
                 self.failureLoadingHandle(with: error)
             }

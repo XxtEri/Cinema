@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SingInScreenView: UIView {
+final class SingInScreenView: UIView {
     private lazy var imageLogo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "LogoApplication")
@@ -48,7 +48,7 @@ class SingInScreenView: UIView {
         view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 0, bottom: 13, right: 0)
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.borderTextButtonChangeAuthScreen.cgColor
+        view.layer.borderColor = UIColor.borderButton.cgColor
         view.setTitle("Зарегестрироваться", for: .normal)
         view.setTitleColor(.accentColorApplication, for: .normal)
         
@@ -72,6 +72,18 @@ class SingInScreenView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func getInforamtionInput() -> LoginCredential {
+        guard let email = self.emailInputField.text else {
+            return LoginCredential(email: "", password: "")
+        }
+        
+        guard let password = self.passwordInputField.text else {
+            return LoginCredential(email: "", password: "")
+        }
+        
+        return LoginCredential(email: email, password: password)
     }
 }
 

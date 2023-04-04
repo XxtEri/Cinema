@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignInViewController: UIViewController {
+final class SignInViewController: UIViewController {
     
     var viewModel: SignViewModel?
     
@@ -46,9 +46,7 @@ private extension SignInViewController {
         self.ui.authButtonTapHadler = { [ weak self ] in
             guard let self = self else { return }
             
-            let user = LoginCredential(email: "asd@gm.com", password: "asd123")
-            
-            self.viewModel?.signIn(user: user)
+            self.viewModel?.signIn(user: self.ui.getInforamtionInput())
         }
     }
 }

@@ -6,21 +6,31 @@
 //
 
 import UIKit
+import KeychainSwift
 
-class AppCoordinator: Coordinator {
+final class AppCoordinator: Coordinator {
+    private var keychain: KeychainSwift
+    
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
-    
+
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.keychain = KeychainSwift()
     }
     
     func start() {
         print("App coordinator start")
-        goToAuth()
-//        goToMain()
+        keychain.synchronizable = true
+        
+        if keychain.get("accessToken") != nil {
+            goToHome()
+            
+        } else {
+            goToAuth()
+        }
     }
     
     func goToAuth() {
@@ -32,8 +42,8 @@ class AppCoordinator: Coordinator {
         authCoordinator.start()
     }
     
-    func goToMain() {
-        let mainCoordinator = MainCoordinator(navigationController: navigationController)
+    func goToHome() {
+        let mainCoordinator = HomeCoordinator(navigationController: navigationController)
         
         mainCoordinator.parentCoordinator = self
         children.append(mainCoordinator)

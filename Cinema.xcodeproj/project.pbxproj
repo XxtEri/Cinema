@@ -11,7 +11,6 @@
 		F33CA41E29D90BDF0084D256 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33CA41D29D90BDF0084D256 /* SFProText-Regular.ttf */; };
 		F33CA42029D90BE80084D256 /* SFProText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33CA41F29D90BE80084D256 /* SFProText-Medium.ttf */; };
 		F33CA42229D90BEF0084D256 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33CA42129D90BEF0084D256 /* SFProText-Bold.ttf */; };
-		F33CA42429D90FD80084D256 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42329D90FD80084D256 /* ViewController.swift */; };
 		F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42529D90FFF0084D256 /* TabBarViewController.swift */; };
 		F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CA42729D910560084D256 /* UIColorExtension.swift */; };
 		F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F352372229DA04CD002D2C80 /* SignUpScreenView.swift */; };
@@ -23,7 +22,18 @@
 		F36EC54E29CAACF9000523D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */; };
 		F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55629CACE2E000523D3 /* SnapKit */; };
 		F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55929CACE44000523D3 /* Alamofire */; };
-		F3A4149B29DA14EE00D3DEF4 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149A29DA14EE00D3DEF4 /* MainCoordinator.swift */; };
+		F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */; };
+		F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149D29DA20BF00D3DEF4 /* Observable.swift */; };
+		F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149F29DA20DB00D3DEF4 /* User.swift */; };
+		F3A414A329DA211800D3DEF4 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414A229DA211800D3DEF4 /* UIImageViewExtension.swift */; };
+		F3A414A629DA21D300D3DEF4 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414A529DA21D300D3DEF4 /* CircleImageView.swift */; };
+		F3A414AA29DA223000D3DEF4 /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414A929DA223000D3DEF4 /* ProfileScreenViewController.swift */; };
+		F3A414AC29DA225100D3DEF4 /* ProfileScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AB29DA225100D3DEF4 /* ProfileScreenView.swift */; };
+		F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */; };
+		F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */; };
+		F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */; };
+		F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */; };
+		F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B529DA237400D3DEF4 /* Protocols.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
@@ -43,7 +53,6 @@
 		F33CA41D29D90BDF0084D256 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
 		F33CA41F29D90BE80084D256 /* SFProText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Medium.ttf"; sourceTree = "<group>"; };
 		F33CA42129D90BEF0084D256 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
-		F33CA42329D90FD80084D256 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F33CA42529D90FFF0084D256 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		F33CA42729D910560084D256 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F352372229DA04CD002D2C80 /* SignUpScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreenView.swift; sourceTree = "<group>"; };
@@ -54,7 +63,18 @@
 		F36EC54A29CAACF9000523D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F36EC54D29CAACF9000523D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F36EC54F29CAACF9000523D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F3A4149A29DA14EE00D3DEF4 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		F3A4149D29DA20BF00D3DEF4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		F3A4149F29DA20DB00D3DEF4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F3A414A229DA211800D3DEF4 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		F3A414A529DA21D300D3DEF4 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		F3A414A929DA223000D3DEF4 /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
+		F3A414AB29DA225100D3DEF4 /* ProfileScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenView.swift; sourceTree = "<group>"; };
+		F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCollectionViewCell.swift; sourceTree = "<group>"; };
+		F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationBlockView.swift; sourceTree = "<group>"; };
+		F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProfileViewModel.swift; sourceTree = "<group>"; };
+		F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F3A414B529DA237400D3DEF4 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -86,7 +106,6 @@
 		F33CA41929D90BA70084D256 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F33CA42729D910560084D256 /* UIColorExtension.swift */,
 				F33CA41A29D90BC70084D256 /* Fonts */,
 			);
 			path = Resources;
@@ -152,11 +171,57 @@
 			path = Cinema;
 			sourceTree = "<group>";
 		};
+		F3A4149C29DA20B100D3DEF4 /* Bindings */ = {
+			isa = PBXGroup;
+			children = (
+				F3A4149D29DA20BF00D3DEF4 /* Observable.swift */,
+			);
+			path = Bindings;
+			sourceTree = "<group>";
+		};
+		F3A414A129DA210500D3DEF4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F33CA42729D910560084D256 /* UIColorExtension.swift */,
+				F3A414A229DA211800D3DEF4 /* UIImageViewExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		F3A414A429DA213C00D3DEF4 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414A529DA21D300D3DEF4 /* CircleImageView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		F3A414A729DA21F000D3DEF4 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				F33CA42529D90FFF0084D256 /* TabBarViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		F3A414A829DA220200D3DEF4 /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F3A414A929DA223000D3DEF4 /* ProfileScreenViewController.swift */,
+				F3A414AB29DA225100D3DEF4 /* ProfileScreenView.swift */,
+				F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */,
+				F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
 		F3F3C3D429D31DDC002C9E45 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F3A4149C29DA20B100D3DEF4 /* Bindings */,
 				F3F3C3EE29D3E18D002C9E45 /* Token.swift */,
 				F3F3C3F029D3E283002C9E45 /* AuthUser.swift */,
+				F3A4149F29DA20DB00D3DEF4 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,8 +231,10 @@
 			children = (
 				F352372129DA04AD002D2C80 /* Storyboards */,
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
-				F33CA42329D90FD80084D256 /* ViewController.swift */,
-				F33CA42529D90FFF0084D256 /* TabBarViewController.swift */,
+				F3A414A729DA21F000D3DEF4 /* TabBar */,
+				F3A414A829DA220200D3DEF4 /* ProfileScreen */,
+				F3A414A429DA213C00D3DEF4 /* CustomViews */,
+				F3A414A129DA210500D3DEF4 /* Extension */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,6 +244,7 @@
 			children = (
 				F3F3C3F229D3E359002C9E45 /* Protocols */,
 				F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */,
+				F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -187,7 +255,7 @@
 				F3F3C3D829D31E3F002C9E45 /* Protocol */,
 				F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */,
 				F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */,
-				F3A4149A29DA14EE00D3DEF4 /* MainCoordinator.swift */,
+				F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -225,6 +293,7 @@
 				F3F3C3F429D3E37D002C9E45 /* Navigation.swift */,
 				F3F3C3F629D3E432002C9E45 /* ISignInViewModel.swift */,
 				F3F3C3F829D3E448002C9E45 /* ISignUpViewModel.swift */,
+				F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -241,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				F3F3C3FC29D3E4BC002C9E45 /* ApiRepository.swift */,
+				F3A414B529DA237400D3DEF4 /* Protocols.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -329,26 +399,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3A4149B29DA14EE00D3DEF4 /* MainCoordinator.swift in Sources */,
+				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
+				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
+				F3A414AC29DA225100D3DEF4 /* ProfileScreenView.swift in Sources */,
 				F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */,
 				F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */,
 				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
 				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,
 				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
+				F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */,
+				F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */,
 				F3F3C3FD29D3E4BC002C9E45 /* ApiRepository.swift in Sources */,
-				F33CA42429D90FD80084D256 /* ViewController.swift in Sources */,
+				F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
 				F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */,
+				F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */,
+				F3A414A629DA21D300D3DEF4 /* CircleImageView.swift in Sources */,
 				F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */,
+				F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */,
+				F3A414AA29DA223000D3DEF4 /* ProfileScreenViewController.swift in Sources */,
+				F3A414A329DA211800D3DEF4 /* UIImageViewExtension.swift in Sources */,
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
 				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
 				F3F3C3F729D3E432002C9E45 /* ISignInViewModel.swift in Sources */,
 				F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */,
 				F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */,
+				F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

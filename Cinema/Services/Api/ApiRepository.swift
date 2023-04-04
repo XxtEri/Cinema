@@ -21,7 +21,7 @@ class ApiRepository {
     
     private let keychain: KeychainSwift
     
-    private let baseURL = "http://107684.web.hosting-russia.ru:8000/api/"
+    private let baseURL = "http://107684.web.hosting-russia.ru:8000/api"
     
     init() {
         self.session = .default
@@ -29,12 +29,11 @@ class ApiRepository {
     }
 }
 
-extension ApiRepository: IApiRepository {
-    
+extension ApiRepository: IApiRepositoryAuthScreen {
     func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void) {
         
         self.session.request(
-            "\(baseURL)auth/login",
+            "\(baseURL)/auth/login",
             method: .post,
             parameters: user,
             encoder: JSONParameterEncoder.default
@@ -66,7 +65,7 @@ extension ApiRepository: IApiRepository {
     func signUp(user: RegisterCredential, completion: @escaping (Result<Void, Error>) -> Void) {
         
         self.session.request(
-            "\(baseURL)auth/register",
+            "\(baseURL)/auth/register",
             method: .post,
             parameters: user,
             encoder: JSONParameterEncoder.default
@@ -104,7 +103,7 @@ extension ApiRepository: IApiRepository {
         
             
         self.session.request(
-            "\(baseURL)auth/refresh",
+            "\(baseURL)/auth/refresh",
             method: .post,
             headers: headers
         ).responseDecodable(of: AuthTokenPair.self) { [self] response in
@@ -132,5 +131,47 @@ extension ApiRepository: IApiRepository {
             completion(.success(()))
         }
     }
+}
+
+extension ApiRepository: IApiRepositoryProfileScreen {
+    func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/profile",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: User.self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+            }
+            
+            guard let user = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(user))
+        }
+    }
+    
+    func editInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
+        
+    }
+    
+    func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void) {
+        
+    }
+    
     
 }

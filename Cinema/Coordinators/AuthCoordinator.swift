@@ -7,7 +7,8 @@
 
 import UIKit
 
-class AuthCoordinator: Coordinator {
+final class AuthCoordinator: Coordinator {
+
     var parentCoordinator: Coordinator?
     
     var children: [Coordinator] = []
@@ -35,7 +36,10 @@ class AuthCoordinator: Coordinator {
 
 extension AuthCoordinator: SignNavigation {
     func goToHomeScreen() {
+        let appc = parentCoordinator as? AppCoordinator
         
+        appc?.goToHome()
+        appc?.childDidFinish(self)
     }
     
     func goToSignUpScreen() {
@@ -54,15 +58,6 @@ extension AuthCoordinator: SignNavigation {
         let viewModel = SignViewModel(navigation: self)
         
         vc.viewModel = viewModel
-        vc.navigationItem.hidesBackButton = true
-        
-        navigationController.viewControllers.removeAll()
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func goToMainScreen() {
-        let vc = TabBarViewController()
-        
         vc.navigationItem.hidesBackButton = true
         
         navigationController.viewControllers.removeAll()
