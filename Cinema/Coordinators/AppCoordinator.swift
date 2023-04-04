@@ -22,15 +22,17 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
-        print("App coordinator start")
-        keychain.synchronizable = true
+//        print("App coordinator start")
+//        keychain.synchronizable = true
+//
+//        if keychain.get("accessToken") != nil {
+//            goToHome()
+//
+//        } else {
+//            goToAuth()
+//        }
         
-        if keychain.get("accessToken") != nil {
-            goToHome()
-            
-        } else {
-            goToAuth()
-        }
+        goToEpisodeScreen()
     }
     
     func goToAuth() {
@@ -49,5 +51,11 @@ final class AppCoordinator: Coordinator {
         children.append(mainCoordinator)
         
         mainCoordinator.start()
+    }
+    
+    func goToEpisodeScreen() {
+        let vc = EpisodeScreenViewController()
+        
+        navigationController.pushViewController(vc, animated: true)
     }
 }
