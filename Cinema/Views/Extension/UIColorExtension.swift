@@ -13,7 +13,7 @@ extension UIColor {
     }
     
     static var accentColorApplication: UIColor {
-        #colorLiteral(red: 0.9595889449, green: 0.3194140196, blue: 0, alpha: 1)
+        #colorLiteral(red: 0.937254902, green: 0.2274509804, blue: 0.003921568627, alpha: 1)
     }
     
     static var textTextField: UIColor {

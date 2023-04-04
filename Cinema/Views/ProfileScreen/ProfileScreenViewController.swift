@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileScreenViewController: UIViewController {
+final class ProfileScreenViewController: UIViewController {
     
     private enum Metrics {
         static let itemsInRow = 1
@@ -24,7 +24,7 @@ class ProfileScreenViewController: UIViewController {
     
     private var ui: ProfileScreenView
     
-    var viewModel: ProfileScreenViewModel?
+    var viewModel: ProfileViewModel
     
     init() {
         ui = ProfileScreenView()
@@ -35,10 +35,7 @@ class ProfileScreenViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        bind()
-        handlers()
         ui.configureCollectionView(delegate: self, dataSource: self)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -52,23 +49,19 @@ class ProfileScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel?.getInformationProfile()
-    }
-    
-    func handlers() {
-        self.viewModel?.changeData = { [ weak self ] user in
-            self?.ui.set(with: user)
-        }
+        bind()
+        
+        viewModel.getInformationProfile()
     }
 }
 
 extension ProfileScreenViewController {
     func bind() {
-        self.viewModel?.informationProfile.subscribe(with: { [ weak self ] user in
+        self.viewModel.informationProfile.subscribe(with: { [ weak self ] user in
             self?.ui.set(with: user)
         })
         
-        self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
+        self.viewModel.errorOnLoading.subscribe(with: { [ weak self ] error in
             self?.showError(error)
         })
     }
