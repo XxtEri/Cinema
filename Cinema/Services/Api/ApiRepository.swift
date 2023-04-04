@@ -130,6 +130,8 @@ extension ApiRepository: IApiRepositoryAuthScreen {
 extension ApiRepository: IApiRepositoryProfileScreen {
     func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
         if let token = self.keychain.get("accessToken") {
             headers["Authorization"] = "Bearer " + token
         }

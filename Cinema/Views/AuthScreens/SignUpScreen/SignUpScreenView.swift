@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpScreenView: UIView {
+final class SignUpScreenView: UIView {
     
     private lazy var imageLogo: UIImageView = {
         let view = UIImageView()

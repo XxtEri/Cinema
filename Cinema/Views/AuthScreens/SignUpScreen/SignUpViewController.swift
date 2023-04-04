@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SingUpViewController: UIViewController {
+final class SingUpViewController: UIViewController {
     
     var viewModel: SignScreenViewModel?
     

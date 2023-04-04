@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileInformationBlockView: UIView {
+final class ProfileInformationBlockView: UIView {
     
     lazy var avatarImage: CircleImageView = {
         let view = CircleImageView()
