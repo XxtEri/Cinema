@@ -7,16 +7,14 @@
 
 import Foundation
 
-class ProfileScreenViewModel {
-    private let api: IApiRepositoryProfileScreen
-    weak var navigation: ProfileScreenNavigation?
+class ProfileViewModel {
+    private let api: ApiRepository
+    weak var navigation: ProfileNavigation?
     
     var informationProfile = Observable<User>()
     var errorOnLoading = Observable<Error>()
     
-    var changeData: ((User) -> Void)?
-    
-    init(navigation: ProfileScreenNavigation?) {
+    init(navigation: ProfileNavigation?) {
         self.navigation = navigation
         self.api = ApiRepository()
     }
@@ -38,10 +36,9 @@ class ProfileScreenViewModel {
     }
 }
 
-private extension ProfileScreenViewModel {
+private extension ProfileViewModel {
     func successLoadingHandle(with informationUser: User) {
         self.informationProfile.updateModel(with: informationUser)
-        self.changeData?(informationUser)
     }
     
     func failureLoadingHandle(with error: Error) {
@@ -49,7 +46,7 @@ private extension ProfileScreenViewModel {
     }
 }
 
-extension ProfileScreenViewModel: IProfileViewModel {
+extension ProfileViewModel: IProfileViewModel {
     func getInformationProfile() {
         self.api.getInformationProfile { result in
             switch result {
@@ -65,4 +62,3 @@ extension ProfileScreenViewModel: IProfileViewModel {
         //очистить данные пользователя
     }
 }
-
