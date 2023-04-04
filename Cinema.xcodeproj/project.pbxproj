@@ -32,7 +32,7 @@
 		F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */; };
 		F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */; };
 		F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */; };
-		F3A414B429DA232600D3DEF4 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */; };
+		F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */; };
 		F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B529DA237400D3DEF4 /* Protocols.swift */; };
 		F3A414BA29DA9C5000D3DEF4 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B929DA9C5000D3DEF4 /* MainScreenViewController.swift */; };
 		F3A414BC29DA9C6200D3DEF4 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414BB29DA9C6200D3DEF4 /* MainScreenView.swift */; };
@@ -86,7 +86,7 @@
 		F3A414AD29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		F3A414AF29DA228D00D3DEF4 /* ProfileInformationBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationBlockView.swift; sourceTree = "<group>"; };
 		F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProfileViewModel.swift; sourceTree = "<group>"; };
-		F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
+		F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F3A414B529DA237400D3DEF4 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		F3A414B929DA9C5000D3DEF4 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		F3A414BB29DA9C6200D3DEF4 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
@@ -321,7 +321,7 @@
 			children = (
 				F3F3C3F229D3E359002C9E45 /* Protocols */,
 				F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */,
-				F3A414B329DA232600D3DEF4 /* ProfileScreenViewModel.swift */,
+				F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */,
 				F3A414CF29DAA0B100D3DEF4 /* MainScreenViewModel.swift */,
 			);
 			path = ViewModels;
@@ -480,7 +480,7 @@
 			files = (
 				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
-				F3A414B429DA232600D3DEF4 /* ProfileScreenViewModel.swift in Sources */,
+				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
 				F3A414C129DA9CCD00D3DEF4 /* TrendMovieCollectionViewCell.swift in Sources */,
