@@ -172,8 +172,9 @@ extension ApiRepository: IApiRepositoryMainScreen {
     func getCoverFilm(competion: @escaping (Result<CoverMovie, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
+        self.keychain.synchronizable = true
         if let token = self.keychain.get("accessToken") {
-            headers["Authorization"] = "Bearer" + token
+            headers["Authorization"] = "Bearer " + token
         }
         
         self.session.request(
@@ -188,6 +189,10 @@ extension ApiRepository: IApiRepositoryMainScreen {
             
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.keychain.synchronizable = true
+                    self.keychain.clear()
+                }
             }
             
             guard let coverMovie = response.value else {

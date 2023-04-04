@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainScreenView: UIView {
     
@@ -23,7 +24,7 @@ class MainScreenView: UIView {
     private lazy var imageFilmCover: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "FilmCover")
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleToFill
         
         return view
     }()
@@ -69,7 +70,6 @@ class MainScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 private extension MainScreenView {
@@ -80,6 +80,7 @@ private extension MainScreenView {
     
     func configureUI() {
         self.backgroundColor = .backgroundApplication
+        print(UIScreen.main.bounds.height)
     }
     
     func configureConstraints() {
@@ -96,7 +97,7 @@ private extension MainScreenView {
         imageFilmCover.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(scrollView.contentLayoutGuide.snp.top)
-            make.height.equalTo(400)
+            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height * 60 / 100)
         }
         
         watchButton.snp.makeConstraints { make in
@@ -109,5 +110,11 @@ private extension MainScreenView {
             make.top.equalTo(imageFilmCover.snp.bottom).inset(-32)
             make.bottom.equalToSuperview()
         }
+    }
+}
+
+extension MainScreenView {
+    func setCoverImageMoview(with model: CoverMovie) {
+        imageFilmCover.downloaded(from: model.backgroundImage, contentMode: imageFilmCover.contentMode)
     }
 }

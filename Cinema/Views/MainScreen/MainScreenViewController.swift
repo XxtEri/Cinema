@@ -14,6 +14,8 @@ class MainScreenViewController: UIViewController {
     
     private var ui: MainScreenView
     
+    var viewModel: MainScreenViewModel?
+    
     //- MARK: Initial
     
     init() {
@@ -35,8 +37,29 @@ class MainScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bindListener()
+        
+        viewModel?.getCoverImage()
     }
-
 }
 
-
+extension MainScreenViewController {
+    func bindListener() {
+        self.viewModel?.coverMovie.subscribe(with: { [ weak self ] cover in
+            guard let self = self else { return }
+            
+            self.ui.setCoverImageMoview(with: cover)
+        })
+        
+        self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
+            guard let self = self else { return }
+            
+            self.showError(error)
+        })
+    }
+    
+    func showError(_ error: Error) {
+        print(error.localizedDescription)
+    }
+}

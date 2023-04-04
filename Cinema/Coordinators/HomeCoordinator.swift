@@ -57,18 +57,6 @@ extension HomeCoordinator: ProfileNavigation {
     func goToAuthorizationScreen() {
         
     }
-}
-
-private extension HomeCoordinator {
-    func generateMainScreenController() -> UIViewController {
-        let vc = MainScreenViewController()
-        //vc.viewModel = ProfileViewModel(navigation: self)
-        
-        vc.tabBarItem.title = "Главное"
-        vc.tabBarItem.image = UIImage(named: "TabItemMainScreen")
-        
-        return vc
-    }
     
     func generateCompilationScreenController() -> UIViewController {
         let vc = ProfileScreenViewController()
@@ -76,6 +64,18 @@ private extension HomeCoordinator {
         
         vc.tabBarItem.title = "Подборка"
         vc.tabBarItem.image = UIImage(named: "TabItemCompilationScreen")
+        
+        return vc
+    }
+}
+
+extension HomeCoordinator: MainScreenNavigation {
+    func generateMainScreenController() -> UIViewController {
+        let vc = MainScreenViewController()
+        vc.viewModel = MainScreenViewModel(navigation: self)
+        
+        vc.tabBarItem.title = "Главное"
+        vc.tabBarItem.image = UIImage(named: "TabItemMainScreen")
         
         return vc
     }
