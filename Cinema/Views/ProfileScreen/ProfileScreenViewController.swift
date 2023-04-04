@@ -50,15 +50,8 @@ final class ProfileScreenViewController: UIViewController {
         super.viewDidLoad()
         
         bind()
-        handlers()
         
         viewModel.getInformationProfile()
-    }
-    
-    func handlers() {
-        self.viewModel.changeData = { [ weak self ] user in
-            self?.ui.set(with: user)
-        }
     }
 }
 

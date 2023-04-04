@@ -14,8 +14,6 @@ class ProfileViewModel {
     var informationProfile = Observable<User>()
     var errorOnLoading = Observable<Error>()
     
-    var changeData: ((User) -> Void)?
-    
     init(navigation: ProfileNavigation?) {
         self.navigation = navigation
         self.api = ApiRepository()
@@ -41,7 +39,6 @@ class ProfileViewModel {
 private extension ProfileViewModel {
     func successLoadingHandle(with informationUser: User) {
         self.informationProfile.updateModel(with: informationUser)
-        self.changeData?(informationUser)
     }
     
     func failureLoadingHandle(with error: Error) {

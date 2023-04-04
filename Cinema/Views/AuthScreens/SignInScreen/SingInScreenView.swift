@@ -73,6 +73,18 @@ final class SingInScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getInforamtionInput() -> LoginCredential {
+        guard let email = self.emailInputField.text else {
+            return LoginCredential(email: "", password: "")
+        }
+        
+        guard let password = self.passwordInputField.text else {
+            return LoginCredential(email: "", password: "")
+        }
+        
+        return LoginCredential(email: email, password: password)
+    }
 }
 
 private extension SingInScreenView {
