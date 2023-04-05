@@ -37,6 +37,8 @@
 		F3A414F429DC3D3E00D3DEF4 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414F329DC3D3E00D3DEF4 /* MainCoordinator.swift */; };
 		F3A414F629DC3E1C00D3DEF4 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414F529DC3E1C00D3DEF4 /* ProfileCoordinator.swift */; };
 		F3A4636229DC5BFE0013E33C /* CompilationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4636129DC5BFE0013E33C /* CompilationCoordinator.swift */; };
+		F3A4638A29DD46D20013E33C /* ValidationAuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4638929DD46D20013E33C /* ValidationAuthScreen.swift */; };
+		F3A4638C29DD48A60013E33C /* AuthUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4638B29DD48A60013E33C /* AuthUserDTO.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
@@ -81,6 +83,8 @@
 		F3A414F329DC3D3E00D3DEF4 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F3A414F529DC3E1C00D3DEF4 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		F3A4636129DC5BFE0013E33C /* CompilationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationCoordinator.swift; sourceTree = "<group>"; };
+		F3A4638929DD46D20013E33C /* ValidationAuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationAuthScreen.swift; sourceTree = "<group>"; };
+		F3A4638B29DD48A60013E33C /* AuthUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserDTO.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -221,9 +225,27 @@
 			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
+		F3A4638829DD46BD0013E33C /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				F3A4638929DD46D20013E33C /* ValidationAuthScreen.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
+		F3A4638D29DD48BA0013E33C /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				F3A4638B29DD48A60013E33C /* AuthUserDTO.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
 		F3F3C3D429D31DDC002C9E45 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F3A4638D29DD48BA0013E33C /* DTOs */,
+				F3A4638829DD46BD0013E33C /* Validation */,
 				F3A4149C29DA20B100D3DEF4 /* Bindings */,
 				F3F3C3EE29D3E18D002C9E45 /* Token.swift */,
 				F3F3C3F029D3E283002C9E45 /* AuthUser.swift */,
@@ -432,8 +454,10 @@
 				F3A414A629DA21D300D3DEF4 /* CircleImageView.swift in Sources */,
 				F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */,
 				F3A4636229DC5BFE0013E33C /* CompilationCoordinator.swift in Sources */,
+				F3A4638A29DD46D20013E33C /* ValidationAuthScreen.swift in Sources */,
 				F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */,
 				F3A414AA29DA223000D3DEF4 /* ProfileScreenViewController.swift in Sources */,
+				F3A4638C29DD48A60013E33C /* AuthUserDTO.swift in Sources */,
 				F3A414A329DA211800D3DEF4 /* UIImageViewExtension.swift in Sources */,
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
 				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
