@@ -157,8 +157,16 @@ extension ApiRepository: IApiRepositoryProfileScreen {
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
                 if statusCode == 401 {
-                    self.keychain.synchronizable = true
-                    self.keychain.clear()
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getInformationProfile(completion: completion)
+                        case .failure(_):
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
                 }
             }
             
