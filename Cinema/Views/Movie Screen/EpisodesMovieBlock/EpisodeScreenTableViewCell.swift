@@ -1,19 +1,26 @@
 //
-//  EpisodesMovieCollectionViewCell.swift
+//  EpisodeScreenTableViewCell.swift
 //  Cinema
 //
-//  Created by Елена on 01.04.2023.
+//  Created by Елена on 05.04.2023.
 //
 
 import UIKit
 
-class EpisodesMovieCollectionViewCell: UICollectionViewCell {
+class EpisodeScreenTableViewCell: UITableViewCell {
     
-    static let reuseIdentifier = "EpisodesMovieCollectionViewCell"
+    static let reuseIdentifier = "EpisodeScreenTableViewCell"
     
     private lazy var posterEpisode: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
+        
+        return view
+    }()
+    
+    private lazy var posterViewEpisode: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray
         
         return view
     }()
@@ -48,16 +55,17 @@ class EpisodesMovieCollectionViewCell: UICollectionViewCell {
         
         return view
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.addSubview(posterEpisode)
-        self.addSubview(titleEpisode)
-        self.addSubview(descriptionEpisode)
-        self.addSubview(yearEpisode)
+        contentView.backgroundColor = .backgroundApplication
+        contentView.addSubview(posterViewEpisode)
+        contentView.addSubview(titleEpisode)
+        contentView.addSubview(descriptionEpisode)
+        contentView.addSubview(yearEpisode)
         
-        self.setup()
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -73,20 +81,22 @@ class EpisodesMovieCollectionViewCell: UICollectionViewCell {
     }
 }
 
-private extension EpisodesMovieCollectionViewCell {
+private extension EpisodeScreenTableViewCell {
     func setup() {
         configureConstraints()
     }
     
     func configureConstraints() {
-        posterEpisode.snp.makeConstraints { make in
+        posterViewEpisode.snp.makeConstraints { make in
             make.leading.verticalEdges.equalToSuperview()
+            make.verticalEdges.equalToSuperview().inset(16)
+            make.width.equalTo(128)
         }
         
         titleEpisode.snp.makeConstraints { make in
-            make.top.equalTo(posterEpisode.snp.top)
+            make.top.equalTo(posterViewEpisode.snp.top)
             make.trailing.equalToSuperview()
-            make.leading.equalTo(posterEpisode.snp.trailing).inset(-16)
+            make.leading.equalTo(posterViewEpisode.snp.trailing).inset(-16)
         }
         
         descriptionEpisode.snp.makeConstraints { make in
@@ -99,7 +109,7 @@ private extension EpisodesMovieCollectionViewCell {
             make.leading.equalTo(descriptionEpisode.snp.leading)
             make.top.equalTo(descriptionEpisode.snp.bottom).inset(-6)
             make.trailing.equalToSuperview()
-            make.bottom.equalTo(posterEpisode.snp.bottom)
+            make.bottom.equalTo(posterViewEpisode.snp.bottom)
         }
     }
 }

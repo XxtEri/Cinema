@@ -13,7 +13,7 @@ class FootageMovieView: UIView {
         let view = UILabel()
         view.textColor = .white
         view.attributedText = NSAttributedString(string: "Кадры", attributes: [.kern: -0.17])
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.font = UIFont(name: "SFProText-Bold", size: 24)
         
         return view
     }()
@@ -59,12 +59,13 @@ private extension FootageMovieView {
     
     func configureConstraints() {
         titleFootageBlock.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview()
         }
         
         footageMovieList.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalTo(titleFootageBlock.snp.horizontalEdges)
             make.top.equalTo(titleFootageBlock.snp.bottom).inset(-16)
             make.bottom.equalToSuperview()
         }

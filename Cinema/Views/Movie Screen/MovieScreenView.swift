@@ -170,8 +170,7 @@ private extension MovieScreenView {
         }
         
         footagesMovie.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.trailing.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
             make.top.equalTo(descriptionMovie.snp.bottom).inset(-32)
             make.height.equalTo(117)
         }

@@ -22,7 +22,7 @@ class TitleWithTextView: UIView {
     private lazy var text: UILabel = {
         let view = UILabel()
         view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
         view.textColor = .white
         view.numberOfLines = .max
         
