@@ -18,8 +18,6 @@ final class SingUpViewController: UIViewController {
         self.ui = SignUpScreenView()
         
         super.init(nibName: nil, bundle: nil)
-        
-        self.setHandlers()
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +31,7 @@ final class SingUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setHandlers()
     }
     
     private func setHandlers() {
@@ -45,7 +44,25 @@ final class SingUpViewController: UIViewController {
         self.ui.signUpHandler = { [ weak self ] user in
             guard let self = self else { return }
             
-            self.viewModel?.signUp(user: user)
+            self.viewModel?.signUp(userDTO: user)
         }
+        
+        self.viewModel?.isNotValidData = { [ weak self ] result, nameScreen in
+            guard let self = self else { return }
+            
+            if nameScreen == "signUp"{
+                self.showError(result.rawValue)
+            }
+        }
+    }
+    
+    private func showError(_ error: String) {
+        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
+        
+        alertController.addAction(action)
+        alertController.addTextField(configurationHandler: nil)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }

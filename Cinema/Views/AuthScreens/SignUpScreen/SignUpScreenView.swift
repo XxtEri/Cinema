@@ -86,7 +86,7 @@ final class SignUpScreenView: UIView {
     
     var changeScreenHandler: (() -> Void)?
     
-    var signUpHandler: ((RegisterCredential) -> Void)?
+    var signUpHandler: ((RegisterCredentialDTO) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -161,7 +161,7 @@ private extension SignUpScreenView {
                              
     @objc
     func signUp(_ selector: AnyObject) {
-        let user = RegisterCredential(firstName: firstNameInputField.text!, lastName: lastNameInputField.text!, email: emailInputField.text!, password: passwordInputField.text!)
+        let user = RegisterCredentialDTO(firstName: firstNameInputField.text ?? "", lastName: lastNameInputField.text ?? "", email: emailInputField.text ?? "", password: passwordInputField.text ?? "", confirmPassword: confirmPasswordInputField.text ?? "")
         
         self.signUpHandler?(user)
     }

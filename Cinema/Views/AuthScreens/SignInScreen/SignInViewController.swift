@@ -17,8 +17,6 @@ final class SignInViewController: UIViewController {
         self.ui = SingInScreenView(frame: .zero)
         
         super.init(nibName: nil, bundle: nil)
-        
-        setHandlers()
     }
     
     required init?(coder: NSCoder) {
@@ -31,6 +29,8 @@ final class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setHandlers()
     }
 
 }
@@ -46,7 +46,26 @@ private extension SignInViewController {
         self.ui.authButtonTapHadler = { [ weak self ] in
             guard let self = self else { return }
             
-            self.viewModel?.signIn(user: self.ui.getInforamtionInput())
+            self.viewModel?.signIn(userDTO: self.ui.getInforamtionInput())
         }
+        
+        self.viewModel?.isNotValidData = { [ weak self ] result, nameScreen in
+            guard let self = self else { return }
+            
+            if nameScreen == "signIn"{
+                self.showError(result.rawValue)
+            }
+        }
+    }
+    
+    private func showError(_ error: String) {
+        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
+        
+        alertController.addAction(action)
+        
+        alertController.view.tintColor = .accentColorApplication
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }

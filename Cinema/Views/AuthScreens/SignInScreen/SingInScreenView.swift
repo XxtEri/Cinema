@@ -74,16 +74,10 @@ final class SingInScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getInforamtionInput() -> LoginCredential {
-        guard let email = self.emailInputField.text else {
-            return LoginCredential(email: "", password: "")
-        }
+    func getInforamtionInput() -> LoginCredentialDTO {
+        let user = LoginCredentialDTO(email: emailInputField.text ?? "", password: passwordInputField.text ?? "")
         
-        guard let password = self.passwordInputField.text else {
-            return LoginCredential(email: "", password: "")
-        }
-        
-        return LoginCredential(email: email, password: password)
+        return user
     }
 }
 

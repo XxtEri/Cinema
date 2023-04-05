@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ISignInViewModel {
-    func signIn(user: LoginCredential)
+    func signIn(userDTO: LoginCredentialDTO)
 }

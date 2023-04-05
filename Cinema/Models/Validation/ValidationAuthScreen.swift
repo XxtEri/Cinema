@@ -5,27 +5,21 @@
 //  Created by Елена on 05.04.2023.
 //
 
+import Foundation
+
+enum ResultValidation: String {
+    case susccess
+    case fieldsEmpty = "Не все поля заполнены данными. Заполните и повторите попытку"
+    case notCorrectEmail = "Некорретно введена почта. Попробуйте еще раз. Почта должна быть размером от 2 до 64 символов. Имя и доменное имя должно состоять только из маленьких букв и цифр."
+    case isNotMatchPassword = "Пароли не совпадают. Проверьте и попробуйте снова"
+    case error = "Неизвестная ошибка."
+}
+
 class ValidationAuthScreen {
-    enum ResultValidation {
-        case susccess
-        case fieldsEmpty
-        case notCorrectEmail
-        case isNotMatchPassword
-    }
+    var userLogin: LoginCredentialDTO?
+    var userRegister: RegisterCredentialDTO?
     
-    private let userLogin: LoginCredentialDTO?
-    private let userRegister: RegisterCredentialDTO?
-    
-    
-    init(user: LoginCredentialDTO) {
-        self.userLogin = user
-        self.userRegister = nil
-    }
-    
-    init(user: RegisterCredentialDTO) {
-        self.userRegister = user
-        self.userLogin = nil
-    }
+    init() { }
     
     private func isFieldsNotEmpty() -> Bool {
         if let user = userLogin {
@@ -45,8 +39,8 @@ class ValidationAuthScreen {
         return true
     }
     
-    private func isValidateEmail() -> Bool {
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", "[0-9a-z]+@[0-9a-z]+\.[A-Za-z]{2,64}")
+    private func isValidateEmail(_ email: String) -> Bool {
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", "[0-9a-z]+@[0-9a-z]+\\.[A-Za-z]{2,64}")
 
         if !emailPredicate.evaluate(with: email) || email.isEmpty {
             return false
@@ -63,28 +57,32 @@ class ValidationAuthScreen {
         return true
     }
     
-    func isvalidateDataUserLogin() -> ResultValidation {
+    func isValidateDataUserLogin() -> ResultValidation {
+        guard let user = userLogin else { return ResultValidation.error}
+        
         if !isFieldsNotEmpty() {
             return ResultValidation.fieldsEmpty
         }
         
-        if !validateEmail() {
+        if !isValidateEmail(user.email) {
             return ResultValidation.notCorrectEmail
         }
         
         return ResultValidation.susccess
     }
     
-    func isvalidateDataUserRegister() -> ResultValidation {
-        if !isFieldsNotEmpty(isLogin: false) {
+    func isValidateDataUserRegister() -> ResultValidation {
+        guard let user = userRegister else { return ResultValidation.error}
+        
+        if !isFieldsNotEmpty() {
             return ResultValidation.fieldsEmpty
         }
         
-        if !validateEmail() {
+        if !isValidateEmail(user.email) {
             return ResultValidation.notCorrectEmail
         }
         
-        if !isPasswordsMatch() {
+        if !isPasswordsMatch(password: user.password, confirmPassword: user.confirmPassword) {
             return ResultValidation.isNotMatchPassword
         }
         
