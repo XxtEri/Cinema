@@ -15,9 +15,6 @@ final class ProfileInformationBlockView: UIView {
         view.image = UIImage(named: "ProfileAnonymous")
         view.contentMode = .scaleAspectFill
         
-        view.layer.masksToBounds = true
-        view.layer.cornerRadius = 50
-        
         return view
     }()
     

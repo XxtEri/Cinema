@@ -39,5 +39,13 @@ extension UIColor {
     static var tabBarBackgroundColor: UIColor {
         #colorLiteral(red: 0.1098039216, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
     }
+    
+    static var lineDisscusionScreen: UIColor {
+        #colorLiteral(red: 0.3536455631, green: 0.3536455333, blue: 0.3536455333, alpha: 1)
+    }
+    
+    static var authorNameDisscusionScreen: UIColor {
+        #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)
+    }
 }
 
