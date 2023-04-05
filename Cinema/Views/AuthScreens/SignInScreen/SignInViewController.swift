@@ -56,6 +56,14 @@ private extension SignInViewController {
                 self.showError(result.rawValue)
             }
         }
+        
+        self.viewModel?.errorReceivedFromServer = { [ weak self ] requestStatus in
+            guard let self = self else { return }
+            
+            if requestStatus == RequestStatus.notAuthorized {
+                self.showError("Неверный логин или пароль")
+            }
+        }
     }
     
     private func showError(_ error: String) {

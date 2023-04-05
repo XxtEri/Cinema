@@ -13,6 +13,7 @@ class SignViewModel {
     weak var navigation: SignNavigation?
     
     var isNotValidData: ((ResultValidation, String) -> Void)?
+    var errorReceivedFromServer: ((RequestStatus) -> Void)?
     
     init(navigation: SignNavigation) {
         self.navigation = navigation
@@ -43,12 +44,19 @@ extension SignViewModel: ISignInViewModel {
             return
         }
         
-        let user =  LoginCredential(email: userDTO.email, password: userDTO.password)
+        let user = LoginCredential(email: userDTO.email, password: userDTO.password)
         
         self.api.signIn(user: user) { [ self ] result in
             switch result {
-            case .success(_):
-                goToHome()
+            case .success(let status):
+                switch status {
+                case RequestStatus.success:
+                    goToHome()
+                case RequestStatus.notAuthorized:
+                    errorReceivedFromServer?(status)
+                default:
+                    print("error")
+                }
             case .failure(let error):
                 self.failureLoadingHandle(with: error)
             }
@@ -68,8 +76,13 @@ extension SignViewModel: ISignInViewModel {
         
         self.api.signUp(user: user) { [ self ] result in
             switch result {
-            case .success(_):
-                goToHome()
+            case .success(let status):
+                switch status {
+                case RequestStatus.success:
+                    goToHome()
+                default:
+                    print("error")
+                }
             case .failure(let error):
                 self.failureLoadingHandle(with: error)
             }
@@ -85,8 +98,6 @@ private extension SignViewModel {
         default:
             return false
         }
-        
-        return true
     }
 
     func failureLoadingHandle(with error: Error) {

@@ -24,7 +24,7 @@ class ApiRepository {
 }
 
 extension ApiRepository: IApiRepositoryAuthScreen {
-    func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void) {
+    func signIn(user: LoginCredential, completion: @escaping (Result<RequestStatus, Error>) -> Void) {
         
         self.session.request(
             "\(baseURL)/auth/login",
@@ -39,6 +39,10 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(String(describing: statusCode))")
+                if statusCode == 401 {
+                    completion(.success(RequestStatus.notAuthorized))
+                    return
+                }
             }
             
             guard let token = response.value else {
@@ -52,11 +56,11 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             
             print(token)
 
-            completion(.success(()))
+            completion(.success(RequestStatus.success))
         }
     }
     
-    func signUp(user: RegisterCredential, completion: @escaping (Result<Void, Error>) -> Void) {
+    func signUp(user: RegisterCredential, completion: @escaping (Result<RequestStatus, Error>) -> Void) {
         
         self.session.request(
             "\(baseURL)/auth/register",
@@ -71,6 +75,10 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(String(describing: statusCode))")
+                if statusCode == 401 {
+                    completion(.success(RequestStatus.notAuthorized))
+                    return
+                }
             }
             
             guard let token = response.value else {
@@ -84,7 +92,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             
             print(token)
 
-            completion(.success(()))
+            completion(.success(RequestStatus.success))
         }
     }
     
