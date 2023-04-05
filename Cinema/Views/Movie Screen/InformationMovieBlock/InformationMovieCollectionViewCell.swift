@@ -11,8 +11,8 @@ import SnapKit
 class InformationMovieCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "InformationMovieCollectionViewCell"
     
-    private lazy var title: PaddingLabel = {
-        let view = PaddingLabel(withInsets: 1, 1, 16, 16)
+    private lazy var title: UILabel = {
+        let view = UILabel()
         view.textColor = .white
         view.attributedText = NSAttributedString(string: "Bla", attributes: [.kern: -0.41])
         view.font = UIFont(name: "SFProText-Regular", size: 14)
@@ -35,6 +35,11 @@ class InformationMovieCollectionViewCell: UICollectionViewCell {
     
     func configure(title: String) {
         self.title.text = title
+    }
+    
+    func getWidth() -> CGFloat {
+        let titleWidth = self.title.intrinsicContentSize.width
+        return titleWidth
     }
 }
 

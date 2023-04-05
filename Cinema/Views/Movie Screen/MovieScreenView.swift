@@ -24,7 +24,7 @@ class MovieScreenView: UIView {
     private lazy var imageFilmCover: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "FilmMovieScreen")
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleToFill
 
         return view
     }()
@@ -63,7 +63,7 @@ class MovieScreenView: UIView {
         
         return view
     }()
-    
+
     private lazy var informationMovie: InformationMovieView = {
         let view = InformationMovieView()
         
@@ -90,6 +90,9 @@ class MovieScreenView: UIView {
         
         return view
     }()
+    
+    let tags1 = ["Фэнтези", "Приключения", "США", "Телесериал"]
+    var widthAllCells: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -160,7 +163,7 @@ private extension MovieScreenView {
         informationMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(ageRestriction.snp.bottom).inset(-25)
-            make.height.greaterThanOrEqualTo(120)
+            make.height.equalTo(informationMovie.getHeightView(w: informationMovie.bounds.size.width))
         }
         
         descriptionMovie.snp.makeConstraints { make in

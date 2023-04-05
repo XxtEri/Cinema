@@ -109,8 +109,8 @@
 		F33CA40F29D83AED0084D256 /* InformationMovieBlock */ = {
 			isa = PBXGroup;
 			children = (
-				F33CA40329D816310084D256 /* InformationMovieCollectionViewCell.swift */,
 				F33CA40529D826000084D256 /* InformationMovieView.swift */,
+				F33CA40329D816310084D256 /* InformationMovieCollectionViewCell.swift */,
 			);
 			path = InformationMovieBlock;
 			sourceTree = "<group>";
