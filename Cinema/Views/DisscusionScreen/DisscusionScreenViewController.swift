@@ -29,6 +29,21 @@ class DisscusionScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let lineImage = UIImage(named: "ArrowBack")
+//        let fancyImage = UIImage(named: "ArrowBack")
+//
+//        let fancyAppearance = UINavigationBarAppearance()
+//        fancyAppearance.configureWithDefaultBackground()
+//        fancyAppearance.setBackIndicatorImage(fancyImage, transitionMaskImage: fancyImage)
+//
+//        let lineAppearance = UINavigationBarAppearance()
+//        lineAppearance.configureWithDefaultBackground()
+//        lineAppearance.setBackIndicatorImage(lineImage, transitionMaskImage: lineImage)
+//
+//        UINavigationBar.appearance().scrollEdgeAppearance = fancyAppearance
+//        UINavigationBar.appearance().compactAppearance = lineAppearance
+        
     }
 }
 

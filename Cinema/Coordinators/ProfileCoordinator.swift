@@ -35,7 +35,14 @@ final class ProfileCoordinator: Coordinator {
 
 extension ProfileCoordinator: ProfileNavigation {
     func goToDisscusionScreen() {
+        let vc = DisscusionScreenViewController()
         
+        
+//        let customArrowBack = UIImage(named: "ArrowBack")
+//        navigationController.navigationBar.backIndicatorImage = UIImage(named: "ArrowBack")
+//        navigationController.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "ArrowBack")
+        
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func goToHistoryScreen() {

@@ -24,11 +24,10 @@ final class ProfileScreenViewController: UIViewController {
     
     private var ui: ProfileScreenView
     
-    var viewModel: ProfileViewModel
+    var viewModel: ProfileViewModel?
     
     init() {
         ui = ProfileScreenView()
-        viewModel = ProfileViewModel(navigation: nil)
         
         titleCell = ["Обсуждения", "Истории", "Настройки"]
         titleImageCell = ["Discussions", "History", "Settings"]
@@ -51,17 +50,17 @@ final class ProfileScreenViewController: UIViewController {
         
         bind()
         
-        viewModel.getInformationProfile()
+        viewModel?.getInformationProfile()
     }
 }
 
 extension ProfileScreenViewController {
     func bind() {
-        self.viewModel.informationProfile.subscribe(with: { [ weak self ] user in
+        self.viewModel?.informationProfile.subscribe(with: { [ weak self ] user in
             self?.ui.set(with: user)
         })
         
-        self.viewModel.errorOnLoading.subscribe(with: { [ weak self ] error in
+        self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
             self?.showError(error)
         })
     }
@@ -92,11 +91,11 @@ extension ProfileScreenViewController: UICollectionViewDelegate {
         
         switch titleCell[indexPath.row] {
         case "Обсуждения":
-            viewModel.goToDisscusion()
+            viewModel?.goToDisscusion()
         case "Истории":
-            viewModel.goToHistory()
+            viewModel?.goToHistory()
         case "Настройки":
-            viewModel.goToSettings()
+            viewModel?.goToSettings()
         default:
             print("")
         }

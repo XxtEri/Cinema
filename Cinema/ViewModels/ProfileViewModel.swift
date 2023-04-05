@@ -14,7 +14,7 @@ class ProfileViewModel {
     var informationProfile = Observable<User>()
     var errorOnLoading = Observable<Error>()
     
-    init(navigation: ProfileNavigation?) {
+    init(navigation: ProfileNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
     }

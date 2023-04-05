@@ -36,6 +36,8 @@ class DisscusionScreenView: UIView {
         self.addSubview(titleScreen)
         self.addSubview(collectionChats)
         
+        self.inputViewController?.navigationController?.title = "Title"
+        
         setup()
     }
     
