@@ -41,6 +41,7 @@ class NewMoviesBlockView: UIStackView {
         return view
     }()
     
+    private var arrayNewMovies = [Movie]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,6 +62,19 @@ class NewMoviesBlockView: UIStackView {
         let spacing = self.spacing
         
         return titleHeight + collectionHeight + spacing
+    }
+    
+    func addNewMovie(movie: Movie) {
+        arrayNewMovies.append(movie)
+        print(movie)
+        
+        DispatchQueue.main.async {
+            self.reloadCollectionViewData()
+        }
+    }
+    
+    func reloadCollectionViewData() {
+        self.collectionNewFilms.reloadData()
     }
     
 }
@@ -87,13 +101,15 @@ private extension NewMoviesBlockView {
 
 extension NewMoviesBlockView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        arrayNewMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewMovieCollectionViewCell.reuseIdentifier, for: indexPath) as? NewMovieCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.configure(with: arrayNewMovies[indexPath.row])
         
         return cell
     }

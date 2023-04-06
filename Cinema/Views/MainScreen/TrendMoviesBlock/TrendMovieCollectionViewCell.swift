@@ -12,7 +12,7 @@ class TrendMovieCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "TrendMovieCollectionViewCell"
     
-    private lazy var imageFilm: UIImageView = {
+    private lazy var imageMovie: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Film")
         view.contentMode = .scaleAspectFill
@@ -20,23 +20,20 @@ class TrendMovieCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var viewB: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
-        
-        return view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(viewB)
+        self.addSubview(imageMovie)
         
         self.setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with model: Movie) {
+        imageMovie.downloaded(from: model.poster, contentMode: imageMovie.contentMode)
     }
     
 }
@@ -47,7 +44,7 @@ private extension TrendMovieCollectionViewCell {
     }
     
     func configureConstraints() {
-        viewB.snp.makeConstraints { make in
+        imageMovie.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

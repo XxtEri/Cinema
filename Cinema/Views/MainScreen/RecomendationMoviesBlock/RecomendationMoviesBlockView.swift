@@ -21,7 +21,7 @@ class RecomendationMoviesBlockView: UIStackView {
         return view
     }()
     
-    private lazy var collectionNewFilms: UICollectionView = {
+    private lazy var collectionRecomenrationFilms: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = CGFLOAT_MAX
@@ -41,12 +41,13 @@ class RecomendationMoviesBlockView: UIStackView {
         return view
     }()
     
+    private var arrayRecomendationMovies = [Movie]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     
         self.addArrangedSubview(titleNewFilmBlock)
-        self.addArrangedSubview(collectionNewFilms)
+        self.addArrangedSubview(collectionRecomenrationFilms)
         
         setup()
     }
@@ -57,10 +58,22 @@ class RecomendationMoviesBlockView: UIStackView {
     
     func getHeightView() -> CGFloat {
         let titleHeight = titleNewFilmBlock.bounds.size.height
-        let collectionHeight = collectionNewFilms.bounds.size.height
+        let collectionHeight = collectionRecomenrationFilms.bounds.size.height
         let spacing = self.spacing
         
         return titleHeight + collectionHeight + spacing
+    }
+    
+    func addNewMovie(movie: Movie) {
+        arrayRecomendationMovies.append(movie)
+        
+        DispatchQueue.main.async {
+            self.reloadCollectionViewData()
+        }
+    }
+    
+    func reloadCollectionViewData() {
+        self.collectionRecomenrationFilms.reloadData()
     }
 }
 
@@ -80,7 +93,7 @@ private extension RecomendationMoviesBlockView {
             make.horizontalEdges.top.equalToSuperview()
         }
         
-        collectionNewFilms.snp.makeConstraints { make in
+        collectionRecomenrationFilms.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalToSuperview()
             make.top.equalTo(titleNewFilmBlock.snp.bottom).inset(-16)
         }
@@ -91,13 +104,15 @@ private extension RecomendationMoviesBlockView {
 
 extension RecomendationMoviesBlockView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        arrayRecomendationMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecomendationMovieCollectionViewCell.reuseIdentifier, for: indexPath) as? RecomendationMovieCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.configure(with: arrayRecomendationMovies[indexPath.row])
         
         return cell
     }

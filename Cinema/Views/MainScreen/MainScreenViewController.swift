@@ -54,7 +54,32 @@ extension MainScreenViewController {
         })
         
         self.viewModel?.trendsMovie.subscribe(with: { [ weak self ] movies in
-            print(movies)
+            guard let self = self else { return }
+            
+            self.ui.content.setMovieImageInTrendBlock(with: movies)
+        })
+        
+        self.viewModel?.lastWatchMovies.subscribe(with: { [ weak self ] movies in
+            guard let self = self else { return }
+            
+            if movies.isEmpty {
+                self.ui.content.setLastWatchMovie(with: nil)
+                
+            } else {
+                self.ui.content.setLastWatchMovie(with: movies[movies.endIndex - 1])
+            }
+        })
+        
+        self.viewModel?.newMovie.subscribe(with: { [ weak self ] movies in
+            guard let self = self else { return }
+            
+            self.ui.content.setMovieImageInNewBlock(with: movies)
+        })
+        
+        self.viewModel?.recomendationMovie.subscribe(with: { [ weak self ] movies in
+            guard let self = self else { return }
+            
+            self.ui.content.setMovieImageRecomendationBlock(with: movies)
         })
         
         self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in

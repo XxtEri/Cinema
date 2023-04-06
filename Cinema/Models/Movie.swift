@@ -5,16 +5,12 @@
 //  Created by Елена on 04.04.2023.
 //
 
-struct Movies: Decodable {
-    let movies: [Movie]
-}
-
 struct Movie: Decodable {
     let movieId: String
     let name: String
     let description: String
-    let age: String
-    let chatInfo: [Chat]
+    let age: Age
+    let chatInfo: Chat
     let imageUrls: [String]
     let poster: String
     let tags: [Tag]
@@ -28,10 +24,8 @@ enum Age: String, Decodable {
     case eighteen = "18+"
 }
 
-enum TypeListMovie: String, Decodable {
+enum TypeListMovieMainScreen: String, Decodable {
     case trend = "inTrend"
-    case alreadyWatch = "lastView"
     case new = "new"
     case recomendation = "forMe"
-    case compilation = "compilation"
 }

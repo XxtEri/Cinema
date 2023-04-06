@@ -204,10 +204,10 @@ extension ApiRepository: IApiRepositoryMainScreen {
         }
     }
     
-    func getMovies(typeListMovie: TypeListMovie, competion: @escaping (Result<Movies, Error>) -> Void) {
+    func getMovies(typeListMovie: TypeListMovieMainScreen, competion: @escaping (Result<[Movie], Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         let parameters: Parameters = [
-            "filter" : TypeListMovie.new.rawValue
+            "filter" : typeListMovie.rawValue
         ]
         
         keychain.synchronizable = true
@@ -215,67 +215,58 @@ extension ApiRepository: IApiRepositoryMainScreen {
             headers["Authorization"] = "Bearer " + token
         }
         
-//        self.session.request(
-//            "\(baseURL)/movies",
-//            method: .get,
-//            parameters: parameters,
-//            headers: headers
-//        ).responseDecodable(of: Movies.self) { response in
-//            if let request = response.request {
-//                print("Request: \(request)")
-//            }
-//
-//            if let statusCode = response.response?.statusCode {
-//                print("Status code: \(statusCode)")
-//            }
-//
-//            print(response.value)
-//
-//            guard let movies = response.value else {
-//                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-//                return
-//            }
-//
-//            print(movies)
-//
-//            competion(.success(movies))
-//        }
-        
-        session.request("\(baseURL)/cover",
-                        method: .get,
-                        parameters: parameters,
-                        headers: headers).responseData { [self] response in
-             if let request = response.request {
-                 print("Request: \(request)")
-             }
- 
-            if let statusCode = response.response?.statusCode {
-                print("Status Code: \(statusCode)")
-                if statusCode == 401 {
-                    self.keychain.synchronizable = true
-                    self.keychain.clear()
-                    return
-                }
+        self.session.request(
+            "\(baseURL)/movies",
+            method: .get,
+            parameters: parameters,
+            headers: headers
+        ).responseDecodable(of: [Movie].self) { response in
+            if let request = response.request {
+                print("Request: \(request)")
             }
- 
-            switch response.result {
-            case .success(let data):
-                do {
-                    let decodeData = try JSONDecoder().decode(Movies.self, from: data)
-         
-                    competion(.success(decodeData))
-                    print(response.result)
-         
-                } catch(let error) {
-                    print(error.localizedDescription)
-                    return
-                }
-     
-            case .failure(let error):
-                print(error.localizedDescription)
-                competion(.failure(error))
+
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+            }
+
+
+            guard let movies = response.value else {
+                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 return
             }
+
+            competion(.success(movies))
+        }
+    }
+    
+    func getLastWatchMovie(competion: @escaping (Result<[EpisodeView], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+
+        keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/history",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: [EpisodeView].self) { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+            }
+
+
+            guard let historyWatch = response.value else {
+                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+    
+            competion(.success(historyWatch))
         }
     }
     

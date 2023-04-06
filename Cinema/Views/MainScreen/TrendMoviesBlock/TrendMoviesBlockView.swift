@@ -40,6 +40,8 @@ class TrendMoviesBlockView: UIStackView {
         return view
     }()
     
+    private var arrayTrendMovies = [Movie]()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -59,6 +61,18 @@ class TrendMoviesBlockView: UIStackView {
         let spacing = self.spacing
         
         return titleHeight + collectionHeight + spacing
+    }
+    
+    func addNewMovie(movie: Movie) {
+        arrayTrendMovies.append(movie)
+        
+        DispatchQueue.main.async {
+            self.reloadCollectionViewData()
+        }
+    }
+    
+    func reloadCollectionViewData() {
+        self.collectionTrendFilms.reloadData()
     }
 }
 
@@ -85,13 +99,15 @@ private extension TrendMoviesBlockView {
 
 extension TrendMoviesBlockView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        arrayTrendMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendMovieCollectionViewCell.reuseIdentifier, for: indexPath) as? TrendMovieCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.configure(with: arrayTrendMovies[indexPath.row])
         
         return cell
     }

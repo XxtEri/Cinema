@@ -47,7 +47,7 @@ class MainScreenView: UIView {
         return view
     }()
     
-    private lazy var content: ContentMainScreenView = {
+    lazy var content: ContentMainScreenView = {
         let view = ContentMainScreenView()
         
         return view
@@ -97,7 +97,7 @@ private extension MainScreenView {
         imageFilmCover.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(scrollView.contentLayoutGuide.snp.top)
-            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height * 60 / 100)
+            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height * 58 / 100)
         }
         
         watchButton.snp.makeConstraints { make in

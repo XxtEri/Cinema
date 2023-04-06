@@ -84,3 +84,56 @@ private extension ContentMainScreenView {
         }
     }
 }
+
+extension ContentMainScreenView {
+    func setMovieImageInTrendBlock(with model: [Movie]) {
+        if model.isEmpty {
+            contentStack.removeArrangedSubview(trendBlock)
+            trendBlock.removeFromSuperview()
+            
+            return
+        }
+        
+        model.forEach { movie in
+            trendBlock.addNewMovie(movie: movie)
+        }
+    }
+    
+    func setLastWatchMovie(with model: EpisodeView?) {
+        guard let movie = model else {
+            contentStack.removeArrangedSubview(watchBlock)
+            watchBlock.removeFromSuperview()
+            
+            return
+        }
+        
+        self.watchBlock.setImageLastWatchMovie(url: movie.preview)
+        self.watchBlock.setTitleMovie(title: movie.episodeName)
+    }
+    
+    func setMovieImageInNewBlock(with model: [Movie]) {
+        if model.isEmpty {
+            contentStack.removeArrangedSubview(newBlock)
+            newBlock.removeFromSuperview()
+            
+            return
+        }
+        
+        model.forEach { movie in
+            newBlock.addNewMovie(movie: movie)
+        }
+    }
+    
+    func setMovieImageRecomendationBlock(with model: [Movie]) {
+        if model.isEmpty {
+            contentStack.removeArrangedSubview(recomendationBlock)
+            recomendationBlock.removeFromSuperview()
+            
+            return
+        }
+        
+        model.forEach { movie in
+            recomendationBlock.addNewMovie(movie: movie)
+        }
+    }
+}

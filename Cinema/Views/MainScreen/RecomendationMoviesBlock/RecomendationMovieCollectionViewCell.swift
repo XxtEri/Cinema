@@ -32,6 +32,9 @@ class RecomendationMovieCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with model: Movie) {
+        imageFilm.downloaded(from: model.poster, contentMode: imageFilm.contentMode)
+    }
 }
 
 private extension RecomendationMovieCollectionViewCell {

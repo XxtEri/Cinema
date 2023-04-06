@@ -5,16 +5,22 @@
 //  Created by Елена on 03.04.2023.
 //
 
+import Foundation
+
 class MainScreenViewModel {
     private let api: IApiRepositoryMainScreen
     weak var navigation: MainScreenNavigation?
     
     var coverMovie = Observable<CoverMovie>()
+    
     var trendsMovie = Observable<[Movie]>()
-    var alreadyWatchMovie = Observable<[Movie]>()
+    
+    var lastWatchMovies = Observable<[EpisodeView]>()
+    
     var newMovie = Observable<[Movie]>()
+    
     var recomendationMovie = Observable<[Movie]>()
-    var compilationMovie = Observable<[Movie]>()
+    
     var errorOnLoading = Observable<Error>()
     
     init(navigation: MainScreenNavigation) {
@@ -28,19 +34,19 @@ private extension MainScreenViewModel {
         self.coverMovie.updateModel(with: coverImageMovie)
     }
     
-    func successLoadingHandle(with movies: Movies, typeListMovie: TypeListMovie) {
+    func successLoadingHandle(with movies: [Movie], typeListMovie: TypeListMovieMainScreen) {
         switch typeListMovie {
         case .trend:
-            self.trendsMovie.updateModel(with: movies.movies)
-        case .alreadyWatch:
-            self.alreadyWatchMovie.updateModel(with: movies.movies)
+            self.trendsMovie.updateModel(with: movies)
         case .new:
-            self.newMovie.updateModel(with: movies.movies)
+            self.newMovie.updateModel(with: movies)
         case .recomendation:
-            self.recomendationMovie.updateModel(with: movies.movies)
-        case .compilation:
-            self.compilationMovie.updateModel(with: movies.movies)
+            self.recomendationMovie.updateModel(with: movies)
         }
+    }
+    
+    func successLoadingHandle(with movies: [EpisodeView]) {
+        self.lastWatchMovies.updateModel(with: movies)
     }
     
     func failureLoadingHandle(with error: Error) {
@@ -61,39 +67,47 @@ extension MainScreenViewModel: IMainScreenViewModel {
     }
     
     func getMovies() {
-        self.api.getMovies(typeListMovie: .trend) { result in
-            switch result {
-            case .success(let movies):
-                self.successLoadingHandle(with: movies, typeListMovie: .trend)
-            case .failure(let error):
-                self.failureLoadingHandle(with: error)
+        DispatchQueue.main.async {
+            self.api.getMovies(typeListMovie: .trend) { result in
+                switch result {
+                case .success(let movies):
+                    self.successLoadingHandle(with: movies, typeListMovie: .trend)
+                case .failure(let error):
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
         
-        self.api.getMovies(typeListMovie: .alreadyWatch) { result in
-            switch result {
-            case .success(let movies):
-                self.successLoadingHandle(with: movies, typeListMovie: .alreadyWatch)
-            case .failure(let error):
-                self.failureLoadingHandle(with: error)
+        DispatchQueue.main.async {
+            self.api.getLastWatchMovie { result in
+                switch result {
+                case .success(let movie):
+                    self.successLoadingHandle(with: movie)
+                case .failure(let error):
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
         
-        self.api.getMovies(typeListMovie: .new) { result in
-            switch result {
-            case .success(let movies):
-                self.successLoadingHandle(with: movies, typeListMovie: .new)
-            case .failure(let error):
-                self.failureLoadingHandle(with: error)
+        DispatchQueue.main.async {
+            self.api.getMovies(typeListMovie: .new) { result in
+                switch result {
+                case .success(let movies):
+                    self.successLoadingHandle(with: movies, typeListMovie: .new)
+                case .failure(let error):
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
         
-        self.api.getMovies(typeListMovie: .new) { result in
-            switch result {
-            case .success(let movies):
-                self.successLoadingHandle(with: movies, typeListMovie: .new)
-            case .failure(let error):
-                self.failureLoadingHandle(with: error)
+        DispatchQueue.main.async {
+            self.api.getMovies(typeListMovie: .recomendation) { result in
+                switch result {
+                case .success(let movies):
+                    self.successLoadingHandle(with: movies, typeListMovie: .recomendation)
+                case .failure(let error):
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
     }

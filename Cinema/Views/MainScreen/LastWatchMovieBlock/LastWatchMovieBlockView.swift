@@ -20,7 +20,7 @@ class LastWatchMovieBlockView: UIStackView {
         return view
     }()
     
-    private lazy var filmImage: UIImageView = {
+    private lazy var movieImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "WatchFilm")
         view.contentMode = .scaleAspectFill
@@ -29,7 +29,7 @@ class LastWatchMovieBlockView: UIStackView {
         return view
     }()
     
-    private lazy var titleFilm: UILabel = {
+    private lazy var titleMovie: UILabel = {
         let view = UILabel()
         view.text = "Altered Carbon"
         view.font = UIFont(name: "SFProText-Bold", size: 14)
@@ -51,10 +51,10 @@ class LastWatchMovieBlockView: UIStackView {
         super.init(frame: frame)
         
         self.addArrangedSubview(titleBlock)
-        self.addArrangedSubview(filmImage)
+        self.addArrangedSubview(movieImage)
         
-        filmImage.addSubview(titleFilm)
-        filmImage.addSubview(imagePlay)
+        movieImage.addSubview(titleMovie)
+        movieImage.addSubview(imagePlay)
         
         setup()
     }
@@ -65,10 +65,18 @@ class LastWatchMovieBlockView: UIStackView {
     
     func getHeightView() -> CGFloat {
         let titleHeight = titleBlock.bounds.size.height
-        let filmImageHeight = filmImage.bounds.size.height
+        let filmImageHeight = movieImage.bounds.size.height
         let spacing = self.spacing
         
         return titleHeight + filmImageHeight + spacing
+    }
+    
+    func setImageLastWatchMovie(url: String) {
+        movieImage.downloaded(from: url, contentMode: movieImage.contentMode)
+    }
+    
+    func setTitleMovie(title: String) {
+        titleMovie.text = title
     }
 }
 
@@ -89,11 +97,11 @@ private extension LastWatchMovieBlockView {
             make.verticalEdges.lessThanOrEqualToSuperview().inset(50)
         }
         
-        titleFilm.snp.makeConstraints { make in
+        titleMovie.snp.makeConstraints { make in
             make.leading.bottom.equalToSuperview().inset(16)
         }
         
-        filmImage.snp.makeConstraints { make in
+        movieImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(0)
         }
     }
