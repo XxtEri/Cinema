@@ -23,6 +23,7 @@
 		F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55629CACE2E000523D3 /* SnapKit */; };
 		F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55929CACE44000523D3 /* Alamofire */; };
 		F3772B0C29DF11B800E6186A /* CardCompilationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B0B29DF11B800E6186A /* CardCompilationView.swift */; };
+		F3772B0E29DFFAD400E6186A /* CollectionListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B0D29DFFAD400E6186A /* CollectionListItem.swift */; };
 		F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */; };
 		F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149D29DA20BF00D3DEF4 /* Observable.swift */; };
 		F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149F29DA20DB00D3DEF4 /* User.swift */; };
@@ -73,6 +74,7 @@
 		F36EC54D29CAACF9000523D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F36EC54F29CAACF9000523D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3772B0B29DF11B800E6186A /* CardCompilationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCompilationView.swift; sourceTree = "<group>"; };
+		F3772B0D29DFFAD400E6186A /* CollectionListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListItem.swift; sourceTree = "<group>"; };
 		F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		F3A4149D29DA20BF00D3DEF4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F3A4149F29DA20DB00D3DEF4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				F3A414E929DBE69E00D3DEF4 /* Movie.swift */,
 				F3A414EB29DBE6B300D3DEF4 /* Tag.swift */,
 				F3A414ED29DBE6C500D3DEF4 /* Chat.swift */,
+				F3772B0D29DFFAD400E6186A /* CollectionListItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 			files = (
 				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
+				F3772B0E29DFFAD400E6186A /* CollectionListItem.swift in Sources */,
 				F3A414DC29DAA87900D3DEF4 /* CompilationScreenViewModel.swift in Sources */,
 				F3A414B429DA232600D3DEF4 /* ProfileScreenViewModel.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,

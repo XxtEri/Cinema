@@ -13,6 +13,7 @@ protocol IApiRepositoryAuthScreen {
 
 protocol IApiRepositoryCompilationScreen {
     func getCompilationMovies(completion: @escaping (Result<[Movie], Error>) -> Void)
+    func setLikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
 //    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -20,5 +21,10 @@ protocol IApiRepositoryProfileScreen {
     func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void)
     func editInformationProfile(completion: @escaping (Result<User, Error>) -> Void)
     func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void)
+}
+
+protocol IApiRepositoryCollectionScreen {
+    func getCollections(completion: @escaping (Result<[CollectionListItem], Error>) -> Void)
+    func addNewCollection(completion: @escaping (Result<CollectionListItem, Error>) -> Void)
 }
 
