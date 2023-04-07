@@ -15,6 +15,7 @@ class CardCompilationView: UIView {
         view.textColor = .white
         view.font = UIFont(name: "SFProText-Bold", size: 24)
         view.text = "Name"
+        view.numberOfLines = .max
         view.textAlignment = .center
         
         return view
@@ -125,8 +126,9 @@ class CardCompilationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setImageCard(card: Movie) {
+    func setInfoCard(card: Movie) {
         self.imageCard.downloaded(from: card.poster, contentMode: imageCard.contentMode)
+        self.titleCard.text = card.name
     }
     
     func resetCard() {
@@ -152,7 +154,7 @@ extension CardCompilationView {
         }
         
         card.snp.makeConstraints { make in
-            make.top.equalTo(titleCard.snp.bottom).inset(-24)
+            make.top.greaterThanOrEqualTo(titleCard.snp.bottom).inset(-24)
             make.horizontalEdges.bottom.equalToSuperview()
         }
         

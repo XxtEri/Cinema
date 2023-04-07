@@ -155,8 +155,6 @@ extension ApiRepository: IApiRepositoryProfileScreen {
                 }
             }
             
-            print(response.value)
-            
             guard let user = response.value else {
                 completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 return

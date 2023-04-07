@@ -98,7 +98,7 @@ class CompilationScreenView: UIView {
     func updateArrayCardsMovie(cards: [Movie]) {
         arrayCompilation = cards
         
-        cardCompilation.setImageCard(card: cards[cards.startIndex])
+        cardCompilation.setInfoCard(card: cards[cards.startIndex])
     }
     
     func updateCard() {
@@ -109,7 +109,7 @@ class CompilationScreenView: UIView {
             return
         }
         
-        cardCompilation.setImageCard(card: arrayCompilation[arrayCompilation.startIndex])
+        cardCompilation.setInfoCard(card: arrayCompilation[arrayCompilation.startIndex])
         cardCompilation.resetCard()
     }
 }
@@ -127,12 +127,12 @@ private extension CompilationScreenView {
     func configureConstraints() {
         
         cardCompilation.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(36)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.bottom.equalTo(buttons.snp.top).inset(-32)
         }
         
         buttons.snp.makeConstraints { make in
+            make.top.equalTo(cardCompilation.snp.bottom).inset(-32)
             make.horizontalEdges.equalTo(cardCompilation.snp.horizontalEdges).inset(36)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(32)
             make.height.equalTo(56)
