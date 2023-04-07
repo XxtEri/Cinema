@@ -178,7 +178,7 @@ extension ApiRepository: IApiRepositoryProfileScreen {
 }
 
 extension ApiRepository: IApiRepositoryCompilationScreen {
-    func getCompilationMovies(completion: @escaping (Result<Movies, Error>) -> Void) {
+    func getCompilationMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         let parameters: Parameters = [
             "filter" : "compilation"
@@ -196,7 +196,7 @@ extension ApiRepository: IApiRepositoryCompilationScreen {
             headers: headers
         )
         .validate()
-        .responseDecodable(of: Movies.self) { response in
+        .responseDecodable(of: [Movie].self) { response in
                 
             if let request = response.request {
                 print("Request: \(request)")

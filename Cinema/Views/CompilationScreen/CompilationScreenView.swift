@@ -6,33 +6,9 @@
 //
 
 import UIKit
+import SnapKit
 
 class CompilationScreenView: UIView {
-    
-    private lazy var titleCard: UILabel = {
-        let view = UILabel()
-        view.textColor = .white
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
-        view.text = "Name"
-        view.textAlignment = .center
-        
-        return view
-    }()
-    
-    private lazy var card: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray
-        view.layer.cornerRadius = 16
-        
-        return view
-    }()
-    
-    private lazy var reactionImage: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        
-        return view
-    }()
     
     private lazy var buttons: UIView = {
         let view = UIView()
@@ -63,23 +39,54 @@ class CompilationScreenView: UIView {
         return view
     }()
     
-    private var initialCenter: CGPoint = .zero
+    private lazy var stub: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        
+        return view
+    }()
+    
+    private lazy var imageStub: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "EmptyArrayCompilation")
+        
+        return view
+    }()
+    
+    private lazy var textStub: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Regular", size: 24)
+        view.textAlignment = .center
+        view.textColor = .textStub
+        view.numberOfLines = .max
+        view.attributedText = NSAttributedString(string: "Новые фильмы в подборке закончились", attributes: [.kern: -0.17])
+        
+        
+        return view
+    }()
+    
+    lazy var cardCompilation: CardCompilationView = {
+        let view = CardCompilationView()
+        
+        return view
+    }()
+    
+    var arrayCompilation = [Movie]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(titleCard)
-        self.addSubview(card)
+        self.addSubview(cardCompilation)
         self.addSubview(buttons)
-        
-        card.addSubview(reactionImage)
+        self.addSubview(stub)
         
         buttons.addSubview(dislikeButton)
         buttons.addSubview(playButton)
         buttons.addSubview(likeButton)
         
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
-        card.addGestureRecognizer(panGestureRecognizer)
+        stub.addSubview(imageStub)
+        stub.addSubview(textStub)
         
         setup()
     }
@@ -88,61 +95,22 @@ class CompilationScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc
-    func didPan(_ sender: UIPanGestureRecognizer) {
-        let xFromCenter = card.center.x - self.center.x
+    func updateArrayCardsMovie(cards: [Movie]) {
+        arrayCompilation = cards
         
-        switch sender.state {
-        case .began:
-            initialCenter = card.center
-        case .changed:
-            let translation = sender.translation(in: self)
-
-            card.center = CGPoint(
-                x: initialCenter.x + translation.x,
-                y: initialCenter.y + translation.y
-            )
-
-            let scale = min(50 / abs(xFromCenter), 1)
-
-            card.transform  = CGAffineTransform(rotationAngle: xFromCenter / self.frame.width / 0.61).scaledBy(x: scale, y: scale)
-            
-            if xFromCenter > 0 {
-                reactionImage.image = UIImage(named: "Like")
-            } else if xFromCenter < 0 {
-                reactionImage.image = UIImage(named: "Cross")
-            }
+        cardCompilation.setImageCard(card: cards[cards.startIndex])
+    }
+    
+    func updateCard() {
+        arrayCompilation.removeFirst()
         
-            reactionImage.alpha = abs(xFromCenter) / self.center.x
-
-        case .ended, .cancelled:
-            if card.center.x < 75 {
-                //move off to the left side
-                UIView.animate(withDuration: 0.3) {
-                    self.card.center = CGPoint(x: self.card.center.x - 200, y: self.card.center.y + 75)
-                    self.card.alpha = 0
-                }
-
-                return
-
-            } else if card.center.x > (self.frame.width - 75) {
-                //move off to the right side
-                UIView.animate(withDuration: 0.3) {
-                    self.card.center = CGPoint(x: self.card.center.x + 200, y: self.card.center.y + 75)
-                    self.card.alpha = 0
-                }
-
-                return
-            }
-
-            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: [.curveEaseOut]) {
-                self.card.center = self.initialCenter
-                self.reactionImage.alpha = 0
-                self.card.transform = .identity
-            }
-        default:
-            break
+        if arrayCompilation.isEmpty {
+            showStub()
+            return
         }
+        
+        cardCompilation.setImageCard(card: arrayCompilation[arrayCompilation.startIndex])
+        cardCompilation.resetCard()
     }
 }
 
@@ -157,24 +125,15 @@ private extension CompilationScreenView {
     }
     
     func configureConstraints() {
-        titleCard.snp.makeConstraints { make in
+        
+        cardCompilation.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(36)
-            make.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        card.snp.makeConstraints { make in
-            make.top.equalTo(titleCard.snp.bottom).inset(-24)
             make.horizontalEdges.equalToSuperview().inset(24)
-        }
-        
-        reactionImage.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(112)
+            make.bottom.equalTo(buttons.snp.top).inset(-32)
         }
         
         buttons.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(card.snp.horizontalEdges).inset(36)
-            make.top.equalTo(card.snp.bottom).inset(-32)
+            make.horizontalEdges.equalTo(cardCompilation.snp.horizontalEdges).inset(36)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(32)
             make.height.equalTo(56)
         }
@@ -196,7 +155,29 @@ private extension CompilationScreenView {
             make.verticalEdges.equalToSuperview()
             make.width.equalTo(56)
         }
+        
+        stub.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.lessThanOrEqualTo(247)
+            make.centerY.equalToSuperview()
+            make.bottom.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom).inset(177)
+        }
+        
+        imageStub.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalTo(textStub.snp.horizontalEdges).inset(37)
+        }
+        
+        textStub.snp.makeConstraints { make in
+            make.top.lessThanOrEqualTo(imageStub.snp.bottom).inset(-32)
+            make.horizontalEdges.bottom.equalToSuperview().inset(44)
+        }
+    }
     
+    func showStub() {
+        cardCompilation.alpha = 0
+        buttons.alpha = 0
+        stub.alpha = 1
     }
 }
 

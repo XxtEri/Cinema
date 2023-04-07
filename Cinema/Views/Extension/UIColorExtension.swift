@@ -16,6 +16,10 @@ extension UIColor {
         #colorLiteral(red: 0.937254902, green: 0.2274509804, blue: 0.003921568627, alpha: 1)
     }
     
+    static var textStub: UIColor {
+        #colorLiteral(red: 0.6862745098, green: 0.6862745098, blue: 0.6862745098, alpha: 1)
+    }
+    
     static var textTextField: UIColor {
         #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)
     }

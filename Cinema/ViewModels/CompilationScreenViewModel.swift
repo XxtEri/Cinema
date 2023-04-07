@@ -19,8 +19,8 @@ class CompilationScreenViewModel {
 }
 
 private extension CompilationScreenViewModel {
-    func successLoadingHandle(with movies: Movies) {
-        self.compilationMovie.updateModel(with: movies.movies)
+    func successLoadingHandle(with movies: [Movie]) {
+        self.compilationMovie.updateModel(with: movies)
     }
     
     func failureLoadingHandle(with error: Error) {

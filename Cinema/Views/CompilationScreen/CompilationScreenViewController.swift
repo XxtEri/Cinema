@@ -40,7 +40,9 @@ class CompilationScreenViewController: UIViewController {
 extension CompilationScreenViewController {
     func bindListener() {
         self.viewModel?.compilationMovie.subscribe(with: { [ weak self ] movies in
-            print(movies)
+            guard let self = self else { return }
+            
+            self.ui.updateArrayCardsMovie(cards: movies)
         })
         
         self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
@@ -48,6 +50,12 @@ extension CompilationScreenViewController {
             
             self.showError(error)
         })
+        
+        self.ui.cardCompilation.disappearedCard = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.ui.updateCard()
+        }
     }
     
     func showError(_ error: Error) {
