@@ -254,10 +254,10 @@
 			isa = PBXGroup;
 			children = (
 				F3A4637329DC77250013E33C /* video.mp4 */,
-				F3A4636E29DC71AC0013E33C /* EpisodeScreen */,
 				F352372129DA04AD002D2C80 /* Storyboards */,
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 				F3A414A729DA21F000D3DEF4 /* TabBar */,
+				F3A4636E29DC71AC0013E33C /* EpisodeScreen */,
 				F3A414A829DA220200D3DEF4 /* ProfileScreen */,
 				F3A414A429DA213C00D3DEF4 /* CustomViews */,
 				F3A414A129DA210500D3DEF4 /* Extension */,

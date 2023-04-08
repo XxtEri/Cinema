@@ -33,8 +33,33 @@ class EpisodeScreenView: UIView {
         return view
     }()
     
-    var player: AVPlayer!
-    var playerLayer: AVPlayerLayer!
+    let currentDuration: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Regular", size: 10)
+        view.textAlignment = .center
+        view.textColor = .white
+        view.numberOfLines = 1
+        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: -0.17])
+        
+        return view
+    }()
+    
+    let endDuration: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Regular", size: 10)
+        view.textAlignment = .center
+        view.textColor = .white
+        view.numberOfLines = 1
+        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: -0.17])
+        
+        return view
+    }()
+    
+    let url = URL(string:"https://drive.google.com/uc?export=view&id=1-EUBpRnIyJNwXLC3sAxVOtkrL0JdnZ5A")!
+    
+    var player: AVPlayer?
+    var playerLayer: AVPlayerLayer?
+    var playbackSlider: UISlider?
     
     var isVideoPlaying = false
 
@@ -43,68 +68,125 @@ class EpisodeScreenView: UIView {
         
         self.addSubview(videoView)
         
-        configureVideo()
-        configureConstraints()
-        configureActions()
+        let playerItem: AVPlayerItem = AVPlayerItem(url: url)
+        player = AVPlayer(playerItem: playerItem)
+        
+        print(playerItem)
+
+        playbackSlider = UISlider(frame:CGRect(x: 0, y: 300, width: UIScreen.main.bounds.width, height: 20))
+        playbackSlider?.minimumValue = 0
+
+        let duration: CMTime = playerItem.asset.duration
+        let seconds: Int = Int((CMTimeGetSeconds(duration)))
+        
+        setEndDuration(allSecondsVideo: seconds)
+        
+        playbackSlider?.maximumValue = Float(seconds)
+        playbackSlider?.isContinuous = false
+        playbackSlider?.tintColor = UIColor.green
+        
+        if let slider = playbackSlider {
+            self.addSubview(slider)
+        }
+        
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer?.videoGravity = .resize
+
+        if playerLayer != nil {
+            videoView.layer.addSublayer(playerLayer!)
+        }
+        
+//        videoView.addSubview(pauseVideo)
+        
+        player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (CMTime) -> Void in
+            if self.player?.currentItem?.status == .readyToPlay {
+                let time : Int = Int(CMTimeGetSeconds(self.player!.currentTime()));
+                self.playbackSlider?.value = Float (time);
+
+                self.setCurrentDuration(allSecondsVideo: time)
+            }
+        }
+        
+        setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureVideo() {
-        let url = URL(string:"https://firebasestorage.googleapis.com/v0/b/gameofchats-762ca.appspot.com/o/message_movies%2F12323439-9729-4941-BA07-2BAE970967C7.mov?alt=media&token=3e37a093-3bc8-410f-84d3-38332af9c726")!
+    private func setCurrentDuration(allSecondsVideo: Int) {
+        currentDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
+    }
+    
+    private func setEndDuration(allSecondsVideo: Int) {
+        endDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
+    }
+    
+    func getMinutesVideo(allSecondsVideo: Int) -> String {
+        if allSecondsVideo / 60 < 10 {
+            return "0\(allSecondsVideo / 60)"
+        }
         
-        player = AVPlayer(url: url)
+        return "\(allSecondsVideo / 60)"
+    }
+    
+    func getSecondsVideo(allSecondsVideo: Int) -> String {
+        if allSecondsVideo % 60 < 10 {
+            return "0\(allSecondsVideo % 60)"
+        }
         
-        playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resize
-        
-        videoView.layer.addSublayer(playerLayer)
-        videoView.addSubview(pauseVideo)
+        return "\(allSecondsVideo % 60)"
+    }
+}
+
+extension EpisodeScreenView {
+    func setup() {
+        configureConstraints()
+        configureActions()
     }
     
     func configureConstraints() {
         videoView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.height.equalTo(250)
         }
         
-        pauseVideo.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
+//        pauseVideo.snp.makeConstraints { make in
+//            make.centerX.equalToSuperview()
+//            make.centerY.equalToSuperview()
+//        }
     }
     
     func configureActions() {
 //        self.pauseVideo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
 //        self.videoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
-
+        playbackSlider?.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
     }
     
     @objc
     func onPauseVideo(_ sender: AnyObject) {
         if isVideoPlaying {
-            player.pause()
+            player?.pause()
             self.pauseVideo.layer.opacity = 1
         } else {
-            player.play()
+            player?.play()
             self.pauseVideo.layer.opacity = 0
         }
     }
     
-//    func startVideo() {
-//        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/gameofchats-762ca.appspot.com/o/message_movies%2F12323439-9729-4941-BA07-2BAE970967C7.mov?alt=media&token=3e37a093-3bc8-410f-84d3-38332af9c726")
-//
-//        player = AVPlayer(url: url!)
-//
-//        avpController.player = player
-//        avpController.view.frame.size.height = videoView.frame.size.height
-//        avpController.view.frame.size.width = videoView.frame.size.width
-//
-//        self.videoView.addSubview(avpController.view)
-//
-//        player.play()
-//    }
+    @objc
+    func playbackSliderValueChanged(_ playbackSlider:UISlider)
+    {
+        
+        let seconds : Int64 = Int64(playbackSlider.value)
+        let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
+        
+        player?.seek(to: targetTime)
+        
+        if player?.rate == 0
+        {
+            player?.play()
+        }
+    }
 }
