@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SignViewModel {
+class SignScreenViewModel {
     private var api: ApiRepository
     private var validation: ValidationAuthScreen
     weak var navigation: SignNavigation?
@@ -34,7 +34,7 @@ class SignViewModel {
     }
 }
 
-extension SignViewModel: ISignInViewModel {
+extension SignScreenViewModel: ISignInViewModel {
     func signIn(userDTO: LoginCredentialDTO) {
         validation.userLogin = userDTO
         let result = validation.isValidateDataUserLogin()
@@ -90,7 +90,7 @@ extension SignViewModel: ISignInViewModel {
     }
 }
 
-private extension SignViewModel {
+private extension SignScreenViewModel {
     func checkResultValidData(resultValid: ResultValidation) -> Bool {
         switch resultValid {
         case .susccess:

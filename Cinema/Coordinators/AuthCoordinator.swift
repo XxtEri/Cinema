@@ -44,7 +44,7 @@ extension AuthCoordinator: SignNavigation {
     
     func goToSignUpScreen() {
         let vc = SingUpViewController()
-        let viewModel = SignViewModel(navigation: self)
+        let viewModel = SignScreenViewModel(navigation: self)
         
         vc.viewModel = viewModel
         vc.navigationItem.hidesBackButton = true
@@ -55,7 +55,7 @@ extension AuthCoordinator: SignNavigation {
     
     func goToSignInScreen() {
         let vc = SignInViewController()
-        let viewModel = SignViewModel(navigation: self)
+        let viewModel = SignScreenViewModel(navigation: self)
         
         vc.viewModel = viewModel
         vc.navigationItem.hidesBackButton = true
