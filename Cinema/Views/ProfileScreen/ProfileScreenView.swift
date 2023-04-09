@@ -92,7 +92,7 @@ extension ProfileScreenView {
         self.profileInformationBlock.email.text = model.email
         
         if let link = model.avatar {
-            self.profileInformationBlock.avatarImage.downloaded(from: link)
+            self.profileInformationBlock.avatarImage.downloaded(from: link, contentMode: profileInformationBlock.avatarImage.contentMode)
         }
     }
 }
