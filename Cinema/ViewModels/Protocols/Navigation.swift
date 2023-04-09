@@ -13,13 +13,15 @@ protocol SignNavigation: AnyObject {
     func goToHomeScreen()
 }
 
-protocol HomeNavigation: AnyObject {
-    func goToHomeScreen()
-}
-
 protocol ProfileNavigation: AnyObject {
-    func goToDisscusionScreen()
+    func goToChatListScreen()
     func goToHistoryScreen()
     func goToSettingsScreen()
     func goToAuthorizationScreen()
+}
+
+protocol ChatNavigation: AnyObject {
+    func goToChat()
+    func goToChatList()
+    func goToProfileScreen()
 }

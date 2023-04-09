@@ -22,6 +22,10 @@
 		F36EC54E29CAACF9000523D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */; };
 		F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55629CACE2E000523D3 /* SnapKit */; };
 		F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55929CACE44000523D3 /* Alamofire */; };
+		F3772B2429E2996700E6186A /* ChatScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B2329E2996700E6186A /* ChatScreenViewController.swift */; };
+		F3772B2629E2997200E6186A /* ChatScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B2529E2997200E6186A /* ChatScreenView.swift */; };
+		F3772B2829E2A04800E6186A /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B2729E2A04800E6186A /* ChatCoordinator.swift */; };
+		F3772B2A29E2A34300E6186A /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B2929E2A34300E6186A /* ChatViewModel.swift */; };
 		F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */; };
 		F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149D29DA20BF00D3DEF4 /* Observable.swift */; };
 		F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149F29DA20DB00D3DEF4 /* User.swift */; };
@@ -71,6 +75,10 @@
 		F36EC54A29CAACF9000523D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F36EC54D29CAACF9000523D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F36EC54F29CAACF9000523D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3772B2329E2996700E6186A /* ChatScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreenViewController.swift; sourceTree = "<group>"; };
+		F3772B2529E2997200E6186A /* ChatScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreenView.swift; sourceTree = "<group>"; };
+		F3772B2729E2A04800E6186A /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		F3772B2929E2A34300E6186A /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		F3A4149D29DA20BF00D3DEF4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F3A4149F29DA20DB00D3DEF4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -190,9 +198,19 @@
 		F3772B2129E2981700E6186A /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				F3772B2229E2995000E6186A /* ChatScreen */,
 				F3A4637B29DC9D790013E33C /* ChatListScreen */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		F3772B2229E2995000E6186A /* ChatScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F3772B2329E2996700E6186A /* ChatScreenViewController.swift */,
+				F3772B2529E2997200E6186A /* ChatScreenView.swift */,
+			);
+			path = ChatScreen;
 			sourceTree = "<group>";
 		};
 		F3A4149C29DA20B100D3DEF4 /* Bindings */ = {
@@ -282,6 +300,7 @@
 				F3F3C3F229D3E359002C9E45 /* Protocols */,
 				F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */,
 				F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */,
+				F3772B2929E2A34300E6186A /* ChatViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -294,8 +313,9 @@
 				F3F3C3E529D32E80002C9E45 /* AuthCoordinator.swift */,
 				F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */,
 				F3A414F329DC3D3E00D3DEF4 /* MainCoordinator.swift */,
-				F3A414F529DC3E1C00D3DEF4 /* ProfileCoordinator.swift */,
 				F3A4636129DC5BFE0013E33C /* CompilationCoordinator.swift */,
+				F3A414F529DC3E1C00D3DEF4 /* ProfileCoordinator.swift */,
+				F3772B2729E2A04800E6186A /* ChatCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -461,10 +481,12 @@
 				F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */,
 				F3F3C3FD29D3E4BC002C9E45 /* ApiRepository.swift in Sources */,
 				F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */,
+				F3772B2A29E2A34300E6186A /* ChatViewModel.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
 				F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */,
 				F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */,
 				F3A414A629DA21D300D3DEF4 /* CircleImageView.swift in Sources */,
+				F3772B2629E2997200E6186A /* ChatScreenView.swift in Sources */,
 				F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */,
 				F3A4636229DC5BFE0013E33C /* CompilationCoordinator.swift in Sources */,
 				F3A414AE29DA226E00D3DEF4 /* ProfileScreenCollectionViewCell.swift in Sources */,
@@ -473,8 +495,10 @@
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
 				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
 				F3F3C3F729D3E432002C9E45 /* ISignInViewModel.swift in Sources */,
+				F3772B2429E2996700E6186A /* ChatScreenViewController.swift in Sources */,
 				F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */,
 				F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */,
+				F3772B2829E2A04800E6186A /* ChatCoordinator.swift in Sources */,
 				F3A4637F29DC9D910013E33C /* ChatListScreenView.swift in Sources */,
 				F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */,
 			);

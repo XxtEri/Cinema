@@ -34,15 +34,13 @@ final class ProfileCoordinator: Coordinator {
 }
 
 extension ProfileCoordinator: ProfileNavigation {
-    func goToDisscusionScreen() {
-        let vc = ChatListScreenViewController()
+    func goToChatListScreen() {
+        let chatCoordinator = ChatCoordinator(navigationController: navigationController)
         
+        chatCoordinator.parentCoordinator = self
+        children.append(chatCoordinator)
         
-//        let customArrowBack = UIImage(named: "ArrowBack")
-//        navigationController.navigationBar.backIndicatorImage = UIImage(named: "ArrowBack")
-//        navigationController.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "ArrowBack")
-        
-        navigationController.pushViewController(vc, animated: true)
+        chatCoordinator.start()
     }
     
     func goToHistoryScreen() {

@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class ChatListScreenViewController: UIViewController {
     
     private var ui: ChatListScreenView
+    var viewModel: ChatViewModel?
     
     init() {
         self.ui = ChatListScreenView()
@@ -26,30 +28,27 @@ class ChatListScreenViewController: UIViewController {
     override func loadView() {
         self.view = ui
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let lineImage = UIImage(named: "ArrowBack")
-//        let fancyImage = UIImage(named: "ArrowBack")
-//
-//        let fancyAppearance = UINavigationBarAppearance()
-//        fancyAppearance.configureWithDefaultBackground()
-//        fancyAppearance.setBackIndicatorImage(fancyImage, transitionMaskImage: fancyImage)
-//
-//        let lineAppearance = UINavigationBarAppearance()
-//        lineAppearance.configureWithDefaultBackground()
-//        lineAppearance.setBackIndicatorImage(lineImage, transitionMaskImage: lineImage)
-//
-//        UINavigationBar.appearance().scrollEdgeAppearance = fancyAppearance
-//        UINavigationBar.appearance().compactAppearance = lineAppearance
+        navigationController?.isNavigationBarHidden = true
         
+        handler()
+    }
+    
+    func handler() {
+        self.ui.goBackButtonPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToProfileScreen()
+        }
     }
 }
 
 extension ChatListScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        24
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
