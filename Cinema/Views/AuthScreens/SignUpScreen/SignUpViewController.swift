@@ -32,7 +32,8 @@ final class SingUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.setupToHideKeyboardOnTapOnView()
     }
     
     private func setHandlers() {
@@ -47,5 +48,21 @@ final class SingUpViewController: UIViewController {
             
             self.viewModel?.signUp(user: user)
         }
+    }
+}
+
+extension SingUpViewController {
+    func setupToHideKeyboardOnTapOnView() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard(sender:)))
+
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc
+    func dismissKeyboard(sender: AnyObject) {
+        view.endEditing(true)
     }
 }
