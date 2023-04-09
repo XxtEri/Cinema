@@ -7,12 +7,12 @@
 
 import UIKit
 
-class DisscusionScreenViewController: UIViewController {
+class ChatListScreenViewController: UIViewController {
     
-    private var ui: DisscusionScreenView
+    private var ui: ChatListScreenView
     
     init() {
-        self.ui = DisscusionScreenView()
+        self.ui = ChatListScreenView()
         
         super.init(nibName: nil, bundle: nil)
         
@@ -47,13 +47,13 @@ class DisscusionScreenViewController: UIViewController {
     }
 }
 
-extension DisscusionScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ChatListScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DisscusionScreenCollectionViewCell.reuseIdentifier, for: indexPath) as? DisscusionScreenCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChatListScreenCollectionViewCell.reuseIdentifier, for: indexPath) as? ChatListScreenCollectionViewCell else {
             return UICollectionViewCell()
         }
         

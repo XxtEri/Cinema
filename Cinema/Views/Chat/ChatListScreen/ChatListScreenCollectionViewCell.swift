@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class DisscusionScreenCollectionViewCell: UICollectionViewCell {
+class ChatListScreenCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "DisscusionScreenCollectionViewCell"
+    static let reuseIdentifier = "ChatListCollectionViewCell"
     
     private lazy var avatarChat: CircleImageView = {
         let view = CircleImageView()

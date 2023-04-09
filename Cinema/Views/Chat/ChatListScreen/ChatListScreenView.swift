@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class DisscusionScreenView: UIView {
+class ChatListScreenView: UIView {
     
     private let titleScreen: UILabel = {
         let view = UILabel()
@@ -23,7 +23,7 @@ class DisscusionScreenView: UIView {
     private let collectionChats: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         
-        view.register(DisscusionScreenCollectionViewCell.self, forCellWithReuseIdentifier: DisscusionScreenCollectionViewCell.reuseIdentifier)
+        view.register(ChatListScreenCollectionViewCell.self, forCellWithReuseIdentifier: ChatListScreenCollectionViewCell.reuseIdentifier)
         
         view.backgroundColor = .backgroundApplication
         
@@ -52,7 +52,7 @@ class DisscusionScreenView: UIView {
     }
 }
 
-private extension DisscusionScreenView {
+private extension ChatListScreenView {
     func setup() {
         configureConstraints()
         configureUI()

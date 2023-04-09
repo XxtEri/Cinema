@@ -35,7 +35,7 @@ final class ProfileCoordinator: Coordinator {
 
 extension ProfileCoordinator: ProfileNavigation {
     func goToDisscusionScreen() {
-        let vc = DisscusionScreenViewController()
+        let vc = ChatListScreenViewController()
         
         
 //        let customArrowBack = UIImage(named: "ArrowBack")
