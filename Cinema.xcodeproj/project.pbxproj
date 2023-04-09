@@ -22,6 +22,9 @@
 		F36EC54E29CAACF9000523D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36EC54C29CAACF9000523D3 /* LaunchScreen.storyboard */; };
 		F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55629CACE2E000523D3 /* SnapKit */; };
 		F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F36EC55929CACE44000523D3 /* Alamofire */; };
+		F3772B1529E1DCA700E6186A /* CollectionsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B1429E1DCA700E6186A /* CollectionsScreenViewController.swift */; };
+		F3772B1729E2404C00E6186A /* CollectionsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B1629E2404C00E6186A /* CollectionsScreenView.swift */; };
+		F3772B1929E248C700E6186A /* CollectionsCoorditanor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B1829E248C700E6186A /* CollectionsCoorditanor.swift */; };
 		F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */; };
 		F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149D29DA20BF00D3DEF4 /* Observable.swift */; };
 		F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149F29DA20DB00D3DEF4 /* User.swift */; };
@@ -69,6 +72,9 @@
 		F36EC54A29CAACF9000523D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F36EC54D29CAACF9000523D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F36EC54F29CAACF9000523D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3772B1429E1DCA700E6186A /* CollectionsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsScreenViewController.swift; sourceTree = "<group>"; };
+		F3772B1629E2404C00E6186A /* CollectionsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsScreenView.swift; sourceTree = "<group>"; };
+		F3772B1829E248C700E6186A /* CollectionsCoorditanor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCoorditanor.swift; sourceTree = "<group>"; };
 		F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		F3A4149D29DA20BF00D3DEF4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F3A4149F29DA20DB00D3DEF4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -183,6 +189,15 @@
 			path = Cinema;
 			sourceTree = "<group>";
 		};
+		F3772B1329E1DC8A00E6186A /* CollectionsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F3772B1429E1DCA700E6186A /* CollectionsScreenViewController.swift */,
+				F3772B1629E2404C00E6186A /* CollectionsScreenView.swift */,
+			);
+			path = CollectionsScreen;
+			sourceTree = "<group>";
+		};
 		F3A4149C29DA20B100D3DEF4 /* Bindings */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +278,7 @@
 				F352372129DA04AD002D2C80 /* Storyboards */,
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 				F3A414A729DA21F000D3DEF4 /* TabBar */,
+				F3772B1329E1DC8A00E6186A /* CollectionsScreen */,
 				F3A414A829DA220200D3DEF4 /* ProfileScreen */,
 				F3A414A429DA213C00D3DEF4 /* CustomViews */,
 				F3A414A129DA210500D3DEF4 /* Extension */,
@@ -290,6 +306,7 @@
 				F3A414F329DC3D3E00D3DEF4 /* MainCoordinator.swift */,
 				F3A414F529DC3E1C00D3DEF4 /* ProfileCoordinator.swift */,
 				F3A4636129DC5BFE0013E33C /* CompilationCoordinator.swift */,
+				F3772B1829E248C700E6186A /* CollectionsCoorditanor.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -433,9 +450,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3772B1729E2404C00E6186A /* CollectionsScreenView.swift in Sources */,
 				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
 				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
+				F3772B1529E1DCA700E6186A /* CollectionsScreenViewController.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
 				F3A414F429DC3D3E00D3DEF4 /* MainCoordinator.swift in Sources */,
@@ -463,6 +482,7 @@
 				F3A414AA29DA223000D3DEF4 /* ProfileScreenViewController.swift in Sources */,
 				F3A4638C29DD48A60013E33C /* AuthUserDTO.swift in Sources */,
 				F3A414A329DA211800D3DEF4 /* UIImageViewExtension.swift in Sources */,
+				F3772B1929E248C700E6186A /* CollectionsCoorditanor.swift in Sources */,
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
 				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
 				F3F3C3F729D3E432002C9E45 /* ISignInViewModel.swift in Sources */,

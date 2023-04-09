@@ -14,7 +14,7 @@ class ProfileViewModel {
     var informationProfile = Observable<User>()
     var errorOnLoading = Observable<Error>()
     
-    init(navigation: ProfileNavigation?) {
+    init(navigation: ProfileNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
     }
@@ -48,12 +48,16 @@ private extension ProfileViewModel {
 
 extension ProfileViewModel: IProfileViewModel {
     func getInformationProfile() {
-        self.api.getInformationProfile { result in
+        self.api.getInformationProfile { [ self ] result in
             switch result {
             case .success(let user):
-                self.successLoadingHandle(with: user)
+                successLoadingHandle(with: user)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if api.requestStatus == .notAuthorized {
+                    navigation?.goToAuthorizationScreen()
+                } else {
+                    failureLoadingHandle(with: error)
+                }
             }
         }
     }

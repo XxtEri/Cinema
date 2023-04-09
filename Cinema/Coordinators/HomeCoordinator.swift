@@ -37,6 +37,13 @@ final class HomeCoordinator: Coordinator {
         navigationController.viewControllers.removeAll()
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func goToAuthScreen() {
+        let appc = parentCoordinator as? AppCoordinator
+        
+        appc?.goToAuth()
+        appc?.childDidFinish(self)
+    }
 }
 
 private extension HomeCoordinator {
@@ -61,13 +68,14 @@ private extension HomeCoordinator {
     }
     
     func generateCollectionScreenController() -> UIViewController {
-        let vc = ProfileScreenViewController()
-//        vc.viewModel = ProfileViewModel(navigation: self)
+        let collectionsCoordinator = CollectionsCoorditanor(navigationController: navigationController)
         
-        vc.tabBarItem.title = "Коллекции"
-        vc.tabBarItem.image = UIImage(named: "TabItemCollectionScreen")
+        collectionsCoordinator.parentCoordinator = self
+        children.append(collectionsCoordinator)
         
-        return vc
+        collectionsCoordinator.start()
+        
+        return collectionsCoordinator.generateCollectionsScreen()
     }
     
     func generateProfileScreenController() -> UIViewController {

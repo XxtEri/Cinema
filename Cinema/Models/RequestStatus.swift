@@ -11,4 +11,5 @@ enum RequestStatus {
     case success
     case notAuthorized
     case notFound
+    case notSend
 }

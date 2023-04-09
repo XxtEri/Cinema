@@ -21,7 +21,9 @@ final class ProfileCoordinator: Coordinator {
     func start() {
         print("Profile coordinator start")
     }
-    
+}
+
+extension ProfileCoordinator: ProfileNavigation {
     func generateProfileScreen() -> UIViewController {
         let vc = ProfileScreenViewController()
         vc.viewModel = ProfileViewModel(navigation: self)
@@ -31,9 +33,7 @@ final class ProfileCoordinator: Coordinator {
         
         return vc
     }
-}
-
-extension ProfileCoordinator: ProfileNavigation {
+    
     func goToDisscusionScreen() {
         
     }
@@ -47,6 +47,9 @@ extension ProfileCoordinator: ProfileNavigation {
     }
     
     func goToAuthorizationScreen() {
+        let appc = parentCoordinator as? HomeCoordinator
         
+        appc?.goToAuthScreen()
+        appc?.childDidFinish(self)
     }
 }

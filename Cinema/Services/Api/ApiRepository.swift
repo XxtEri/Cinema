@@ -17,6 +17,8 @@ class ApiRepository {
     
     private let baseURL = "http://107684.web.hosting-russia.ru:8000/api"
     
+    var requestStatus: RequestStatus = .notSend
+    
     init() {
         self.session = .default
         self.keychain = KeychainSwift()
@@ -62,6 +64,8 @@ extension ApiRepository: IApiRepositoryAuthScreen {
     
     func signUp(user: RegisterCredential, completion: @escaping (Result<RequestStatus, Error>) -> Void) {
         
+        self.requestStatus = .notSend
+        
         self.session.request(
             "\(baseURL)/auth/register",
             method: .post,
@@ -76,6 +80,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(String(describing: statusCode))")
                 if statusCode == 401 {
+                    self.requestStatus = .notAuthorized
                     completion(.success(RequestStatus.notAuthorized))
                     return
                 }
@@ -162,6 +167,7 @@ extension ApiRepository: IApiRepositoryProfileScreen {
                         case .success(_):
                             self.getInformationProfile(completion: completion)
                         case .failure(_):
+                            self.requestStatus = .notAuthorized
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                         }
                     }
@@ -177,10 +183,6 @@ extension ApiRepository: IApiRepositoryProfileScreen {
             
             completion(.success(user))
         }
-    }
-    
-    func editInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
-        
     }
     
     func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void) {
