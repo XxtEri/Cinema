@@ -17,6 +17,10 @@ protocol HomeNavigation: AnyObject {
     func goToHomeScreen()
 }
 
+protocol CollectionsNavigation: AnyObject {
+    
+}
+
 protocol ProfileNavigation: AnyObject {
     func goToDisscusionScreen()
     func goToHistoryScreen()
