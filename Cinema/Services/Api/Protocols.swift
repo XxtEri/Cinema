@@ -13,6 +13,6 @@ protocol IApiRepositoryAuthScreen {
 
 protocol IApiRepositoryProfileScreen {
     func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void)
-    func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void)
+    func uploadPhoto(completion: @escaping (Result<Void, Error>) -> Void)
 }
 

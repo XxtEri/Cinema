@@ -10,5 +10,6 @@ protocol IProfileViewModel {
     var errorOnLoading: Observable<Error> { get }
     
     func getInformationProfile()
+    func editAvatarProfile()
     func signOut()
 }

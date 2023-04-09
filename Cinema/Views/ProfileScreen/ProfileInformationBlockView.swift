@@ -52,6 +52,8 @@ final class ProfileInformationBlockView: UIView {
         return view
     }()
     
+    var avatarChangeButtonPressed: (() -> Void)?
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
             
@@ -67,11 +69,16 @@ final class ProfileInformationBlockView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func updateAvatar(image: UIImage) {
+        avatarImage.image = image
+    }
+    
 }
 
 private extension ProfileInformationBlockView {
     func setup() {
         configureConstraints()
+        configureActions()
     }
 
     func configureConstraints() {
@@ -96,6 +103,15 @@ private extension ProfileInformationBlockView {
             make.top.equalTo(name.snp.bottom).inset(-4)
             make.leading.equalTo(name.snp.leading)
         }
+    }
+    
+    func configureActions() {
+        buttonChange.addTarget(self, action: #selector(changeAvatar(sender:)), for: .touchDown)
+    }
+    
+    @objc
+    func changeAvatar(sender: AnyObject) {
+        self.avatarChangeButtonPressed?()
     }
 }
 

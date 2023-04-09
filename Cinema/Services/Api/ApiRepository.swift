@@ -185,9 +185,41 @@ extension ApiRepository: IApiRepositoryProfileScreen {
         }
     }
     
-    func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void) {
-        
+    func uploadPhoto(completion: @escaping (Result<Void, Error>) -> Void) {
+//        var headers: HTTPHeaders = [:]
+//
+//        self.keychain.synchronizable = true
+//        if let token = self.keychain.get("accessToken") {
+//            headers["Authorization"] = "Bearer " + token
+//        }
+//
+//        AF.upload(.POST, URL, multipartFormData: {
+//            multipartFormData in
+//
+//            if let _image = image {
+//                if let imageData = UIImageJPEGRepresentation(_image, 0.5) {
+//                    multipartFormData.appendBodyPart(data: imageData, name: "file", fileName: "file.jpg", mimeType: "image/jpg")
+//                }
+//            }
+//
+//        }, encodingCompletion: {
+//            encodingResult in
+//
+//            switch encodingResult {
+//            case .Success(let upload, _, _):
+//                upload.responseObject { (response: Response<UploadData, NSError>) -> Void in
+//
+//                    switch response.result {
+//                    case .Success:
+//                        completion(.success(()))
+//                    case .Failure(let error):
+//                        completion(.failure(error))
+//                    }
+//
+//                }
+//            case .Failure(let encodingError):
+//                print(encodingError)
+//            }
+//        })
     }
-    
-    
 }

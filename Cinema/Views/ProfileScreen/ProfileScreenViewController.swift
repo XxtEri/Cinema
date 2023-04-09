@@ -74,10 +74,42 @@ extension ProfileScreenViewController {
             
             self.viewModel?.signOut()
         }
+        
+        self.ui.profileInformationBlock.avatarChangeButtonPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.showAlertChoosePhoto()
+        }
     }
     
     func showError(_ error: Error) {
         print("error")
+    }
+    
+    func showAlertChoosePhoto() {
+        let alertController = UIAlertController(title: "Выберите источник фотографии", message: nil, preferredStyle: .alert)
+        let actionChooseCamera = UIAlertAction(title: "Камера", style: .default) { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            
+            imagePicker.showsCameraControls = true
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        let actionChooseGalery = UIAlertAction(title: "Галерея", style: .default) { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        let actionCancel = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        
+        alertController.addAction(actionChooseGalery)
+        alertController.addAction(actionChooseCamera)
+        alertController.addAction(actionCancel)
+        
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -119,3 +151,18 @@ extension ProfileScreenViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension ProfileScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let imageFromPC = info[UIImagePickerController.InfoKey.originalImage.rawValue] as! UIImage
+//        self.ui.profileInformationBlock.updateAvatar(image: imageFromPC)
+        
+        
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
