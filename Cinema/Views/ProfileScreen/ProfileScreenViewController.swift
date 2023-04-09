@@ -97,6 +97,22 @@ extension ProfileScreenViewController: UICollectionViewDataSource {
     }
 }
 
+extension ProfileScreenViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch titleCell[indexPath.row] {
+        case "Обсуждения":
+            viewModel?.goToDisscusion()
+        case "Истории":
+            viewModel?.goToHistory()
+        case "Настройки":
+            viewModel?.goToSettings()
+        default:
+            print("")
+        }
+    }
+}
+
 extension ProfileScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath ) -> CGSize {
         
