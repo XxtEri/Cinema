@@ -34,6 +34,8 @@ final class AppCoordinator: Coordinator {
     }
     
     func goToAuth() {
+        keychain.clear()
+        
         let authCoordinator = AuthCoordinator(navigationController: navigationController)
         
         authCoordinator.parentCoordinator = self

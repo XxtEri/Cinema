@@ -35,6 +35,8 @@ final class ProfileScreenView: UIView {
             return view
     }()
     
+    var signOutButtonPressed: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -60,6 +62,7 @@ private extension ProfileScreenView {
     func setup() {
         configureUI()
         configureConstraints()
+        configureActions()
     }
     
     func configureUI() {
@@ -83,6 +86,16 @@ private extension ProfileScreenView {
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(buttons.snp.bottom).inset(-52)
         }
+    }
+    
+    func configureActions() {
+        signOutButton.addTarget(self, action: #selector(signOut(sender:)), for: .touchDown)
+        
+    }
+    
+    @objc
+    func signOut(sender: AnyObject) {
+        signOutButtonPressed?()
     }
 }
 

@@ -58,12 +58,22 @@ final class ProfileScreenViewController: UIViewController {
 extension ProfileScreenViewController {
     func bind() {
         self.viewModel?.informationProfile.subscribe(with: { [ weak self ] user in
-            self?.ui.set(with: user)
+            guard let self = self else { return }
+            
+            self.ui.set(with: user)
         })
         
         self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
-            self?.showError(error)
+            guard let self = self else { return }
+            
+            self.showError(error)
         })
+        
+        self.ui.signOutButtonPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.viewModel?.signOut()
+        }
     }
     
     func showError(_ error: Error) {

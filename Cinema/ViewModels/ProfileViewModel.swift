@@ -63,7 +63,7 @@ extension ProfileViewModel: IProfileViewModel {
     }
     
     func signOut() {
-        //очистить данные пользователя
+        navigation?.goToAuthorizationScreen()
     }
 }
 
