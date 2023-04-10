@@ -30,9 +30,7 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        messagesCollectionView = MessagesCollectionView(frame: .zero, collectionViewLayout: CustomMessagesFlowLayout())
-
-        messagesCollectionView.collectionViewLayout = CustomMessagesFlowLayout()
+//        messagesCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
         
         messagesCollectionView.register(MyMessageCollectionViewCell.self, forCellWithReuseIdentifier: MyMessageCollectionViewCell.reuseIdentifier)
         
@@ -42,6 +40,8 @@ class ChatViewController: MessagesViewController {
         self.configureMessageInputBar()
         self.setUpMessage()
         self.setupToHideKeyboardOnTapOnView()
+        
+        print(messagesCollectionView.alpha)
     }
     
     func configureCollectionView() {
@@ -50,12 +50,11 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDisplayDelegate =  self
         
         messagesCollectionView.backgroundColor = .backgroundApplication
-        
-//        self.scrollsToLastItemOnKeyboardBeginsEditing = true // default false
-//        self.maintainPositionOnInputBarHeightChanged = true // default false
     }
     
     func configureMessageInputBar() {
+        messageInputBar.inputTextView.placeholder = "Напишите сообщение..."
+        
         messageInputBar.separatorLine.isHidden = true
         messageInputBar.inputTextView.tintColor = .accentColorApplication
         messageInputBar.backgroundView.backgroundColor = .backgroundApplication
@@ -83,6 +82,13 @@ class ChatViewController: MessagesViewController {
         messageInputBar.sendButton.image = UIImage.init(named: "SenderButton")
         messageInputBar.sendButton.title = nil
         messageInputBar.setStackViewItems([], forStack: .bottom, animated: false)
+        
+        messageInputBar.sendButton.addTarget(self, action: #selector(tup), for: .touchUpInside)
+    }
+     
+    @objc
+    func tup() {
+        print("tup")
     }
     
     func setUpMessage() {
@@ -129,6 +135,10 @@ class ChatViewController: MessagesViewController {
 
                 cell.textMessage.text = text
                 cell.infoMessage.text = message.sender.displayName
+                
+                cell.snp.makeConstraints { make in
+                    make.height.equalTo(50)
+                }
 
                 return cell
             default:
