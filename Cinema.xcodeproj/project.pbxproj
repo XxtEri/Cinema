@@ -36,8 +36,6 @@
 		F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414B529DA237400D3DEF4 /* Protocols.swift */; };
 		F3A4637029DC71F20013E33C /* EpisodeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4636F29DC71F20013E33C /* EpisodeScreenViewController.swift */; };
 		F3A4637229DC720D0013E33C /* EpisodeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4637129DC720D0013E33C /* EpisodeScreenView.swift */; };
-		F3A4637429DC77250013E33C /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F3A4637329DC77250013E33C /* video.mp4 */; };
-		F3A4637629DC77E80013E33C /* VideoLooperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4637529DC77E80013E33C /* VideoLooperView.swift */; };
 		F3A4637829DC783F0013E33C /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4637729DC783F0013E33C /* VideoPlayerView.swift */; };
 		F3A4637A29DC785D0013E33C /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4637929DC785D0013E33C /* Video.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
@@ -83,8 +81,6 @@
 		F3A414B529DA237400D3DEF4 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		F3A4636F29DC71F20013E33C /* EpisodeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeScreenViewController.swift; sourceTree = "<group>"; };
 		F3A4637129DC720D0013E33C /* EpisodeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeScreenView.swift; sourceTree = "<group>"; };
-		F3A4637329DC77250013E33C /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
-		F3A4637529DC77E80013E33C /* VideoLooperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLooperView.swift; sourceTree = "<group>"; };
 		F3A4637729DC783F0013E33C /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		F3A4637929DC785D0013E33C /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -232,7 +228,6 @@
 			children = (
 				F3A4636F29DC71F20013E33C /* EpisodeScreenViewController.swift */,
 				F3A4637129DC720D0013E33C /* EpisodeScreenView.swift */,
-				F3A4637529DC77E80013E33C /* VideoLooperView.swift */,
 				F3A4637729DC783F0013E33C /* VideoPlayerView.swift */,
 				F3A4637929DC785D0013E33C /* Video.swift */,
 			);
@@ -253,7 +248,6 @@
 		F3F3C3D529D31DE3002C9E45 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3A4637329DC77250013E33C /* video.mp4 */,
 				F352372129DA04AD002D2C80 /* Storyboards */,
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 				F3A414A729DA21F000D3DEF4 /* TabBar */,
@@ -413,7 +407,6 @@
 				F33CA42229D90BEF0084D256 /* SFProText-Bold.ttf in Resources */,
 				F36EC54B29CAACF9000523D3 /* Assets.xcassets in Resources */,
 				F33CA41C29D90BD90084D256 /* SFProText-Semibold.ttf in Resources */,
-				F3A4637429DC77250013E33C /* video.mp4 in Resources */,
 				F33CA41E29D90BDF0084D256 /* SFProText-Regular.ttf in Resources */,
 				F33CA42029D90BE80084D256 /* SFProText-Medium.ttf in Resources */,
 			);
@@ -435,7 +428,6 @@
 				F3A414AC29DA225100D3DEF4 /* ProfileScreenView.swift in Sources */,
 				F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */,
 				F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */,
-				F3A4637629DC77E80013E33C /* VideoLooperView.swift in Sources */,
 				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
 				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,

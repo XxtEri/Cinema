@@ -68,8 +68,9 @@ class EpisodeScreenView: UIView {
     
     private lazy var soundVideoImage: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "SoundVideo")
+        view.image = UIImage(named: "ActiveSoundVideo")
         view.contentMode = .scaleAspectFit
+        view.isUserInteractionEnabled = true
         
         return view
     }()
@@ -85,9 +86,9 @@ class EpisodeScreenView: UIView {
         super.init(frame: frame)
         
         self.addSubview(videoView)
-        
         self.addSubview(pauseVideoImage)
         self.addSubview(videoManagement)
+        
         self.addSubview(currentDuration)
         self.addSubview(endDuration)
         self.addSubview(playbackSlider)
@@ -176,8 +177,8 @@ extension EpisodeScreenView {
         }
         
         videoManagement.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(playbackSlider.snp.top)
+            make.horizontalEdges.top.equalToSuperview()
         }
         
         currentDuration.snp.makeConstraints { make in
@@ -205,7 +206,7 @@ extension EpisodeScreenView {
     }
     
     func configureActions() {
-        self.videoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
+        videoManagement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
         playbackSlider.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
         soundVideoImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(configureSound(sender:))))
     }
@@ -244,7 +245,9 @@ extension EpisodeScreenView {
     @objc
     func configureSound(sender: AnyObject) {
         if let turnOnSound = player?.isMuted {
-            player?.isMuted = turnOnSound ? true : false
+            player?.isMuted = !turnOnSound ? true : false
+            
+            soundVideoImage.image = UIImage(named: !turnOnSound ? "ActiveSoundVideo" : "InactiveSoundVideo")
         }
     }
 }
