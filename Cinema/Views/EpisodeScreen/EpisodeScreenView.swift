@@ -14,7 +14,6 @@ class EpisodeScreenView: UIView {
     
     lazy var videoView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
         
         return view
     }()
@@ -24,6 +23,12 @@ class EpisodeScreenView: UIView {
         view.image = UIImage(named: "PlayVideo")
         view.contentMode = .scaleAspectFit
         view.layer.opacity = 0
+        
+        return view
+    }()
+    
+    private lazy var videoManagement: UIView = {
+        let view = UIView()
         
         return view
     }()
@@ -82,6 +87,7 @@ class EpisodeScreenView: UIView {
         self.addSubview(videoView)
         
         self.addSubview(pauseVideoImage)
+        self.addSubview(videoManagement)
         self.addSubview(currentDuration)
         self.addSubview(endDuration)
         self.addSubview(playbackSlider)
@@ -169,6 +175,11 @@ extension EpisodeScreenView {
             make.centerY.equalTo(videoView.snp.centerY)
         }
         
+        videoManagement.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+        }
+        
         currentDuration.snp.makeConstraints { make in
             make.bottom.equalTo(videoView.snp.bottom).inset(8)
             make.leading.equalTo(videoView.snp.leading).inset(8)
@@ -183,7 +194,7 @@ extension EpisodeScreenView {
             make.centerY.equalTo(currentDuration.snp.centerY)
             make.leading.equalTo(currentDuration.snp.trailing).inset(-8)
             make.trailing.equalTo(endDuration.snp.leading).inset(-8)
-            make.height.equalTo(100)
+            make.height.equalTo(20)
         }
         
         soundVideoImage.snp.makeConstraints { make in
@@ -196,6 +207,7 @@ extension EpisodeScreenView {
     func configureActions() {
         self.videoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
         playbackSlider.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
+        soundVideoImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(configureSound(sender:))))
     }
     
     @objc
@@ -226,6 +238,13 @@ extension EpisodeScreenView {
         if player?.rate == 0
         {
             player?.play()
+        }
+    }
+    
+    @objc
+    func configureSound(sender: AnyObject) {
+        if let turnOnSound = player?.isMuted {
+            player?.isMuted = turnOnSound ? true : false
         }
     }
 }
