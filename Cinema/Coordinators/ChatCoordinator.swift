@@ -20,7 +20,8 @@ final class ChatCoordinator: Coordinator {
     
     func start() {
         print("Chat coordinator start")
-        goToChatList()
+//        goToChatList()
+        goToChat()
     }
 }
 
@@ -36,10 +37,6 @@ extension ChatCoordinator: ChatNavigation {
         vc.viewModel = ChatViewModel(navigation: self)
         
         navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func goToProfileScreen() {
-        navigationController.popViewController(animated: true)
     }
 }
 

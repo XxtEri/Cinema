@@ -41,7 +41,7 @@ class ChatListScreenViewController: UIViewController {
         self.ui.goBackButtonPressed = { [ weak self ] in
             guard let self = self else { return }
             
-            self.viewModel?.goToProfileScreen()
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }
@@ -57,7 +57,7 @@ extension ChatListScreenViewController: UICollectionViewDelegate, UICollectionVi
         }
         
         let chat = Chat(chatId: "1", chatName: "Игра престолов")
-        let message = Message(messageId: "1", creationDateTime: "12:12:12", authorId: "1", authorName: "Иван", authorAvatar: nil, text: "Смотрели уже последнюю серию? Я просто поверить не могу в...")
+        let message = MessageServer(messageId: "1", creationDateTime: "12:12:12", authorId: "1", authorName: "Иван", authorAvatar: nil, text: "Смотрели уже последнюю серию? Я просто поверить не могу в...")
         
         cell.configureCell(modelChat: chat, modelLastMessage: message)
         

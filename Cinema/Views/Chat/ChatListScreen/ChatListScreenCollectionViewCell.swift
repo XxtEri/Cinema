@@ -64,7 +64,7 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(modelChat: Chat, modelLastMessage: Message) {
+    func configureCell(modelChat: Chat, modelLastMessage: MessageServer) {
         titleChat.text = modelChat.chatName
         let authorName = modelLastMessage.authorName + ":"
         let message = modelLastMessage.text
@@ -116,14 +116,4 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(1)
         }
     }
-}
-
-extension NSMutableAttributedString {
-
-    func setColorForText(textForAttribute: String, withColor color: UIColor) {
-        let range: NSRange = self.mutableString.range(of: textForAttribute, options: .caseInsensitive)
-
-        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
-    }
-
 }

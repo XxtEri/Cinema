@@ -23,5 +23,4 @@ protocol ProfileNavigation: AnyObject {
 protocol ChatNavigation: AnyObject {
     func goToChat()
     func goToChatList()
-    func goToProfileScreen()
 }

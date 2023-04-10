@@ -21,8 +21,4 @@ class ChatViewModel {
     func goToChatScreen() {
         navigation?.goToChat()
     }
-    
-    func goToProfileScreen() {
-        navigation?.goToProfileScreen()
-    }
 }
