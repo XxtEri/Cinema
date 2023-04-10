@@ -12,19 +12,14 @@ import AVKit
 
 class EpisodeScreenView: UIView {
     
-    let videoView: UIView = {
+    lazy var videoView: UIView = {
         let view = UIView()
+        view.backgroundColor = .gray
         
         return view
     }()
     
-    let controlVideoView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
-    
-    let pauseVideo: UIImageView = {
+    private lazy var pauseVideoImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "PlayVideo")
         view.contentMode = .scaleAspectFit
@@ -33,7 +28,7 @@ class EpisodeScreenView: UIView {
         return view
     }()
     
-    let currentDuration: UILabel = {
+    private lazy var currentDuration: UILabel = {
         let view = UILabel()
         view.font = UIFont(name: "SFProText-Regular", size: 10)
         view.textAlignment = .center
@@ -44,7 +39,7 @@ class EpisodeScreenView: UIView {
         return view
     }()
     
-    let endDuration: UILabel = {
+    private lazy var endDuration: UILabel = {
         let view = UILabel()
         view.font = UIFont(name: "SFProText-Regular", size: 10)
         view.textAlignment = .center
@@ -55,39 +50,60 @@ class EpisodeScreenView: UIView {
         return view
     }()
     
-    let url = URL(string:"https://drive.google.com/uc?export=view&id=1-EUBpRnIyJNwXLC3sAxVOtkrL0JdnZ5A")!
+    private lazy var playbackSlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = 0
+        slider.isContinuous = false
+        slider.minimumTrackTintColor = .accentColorApplication
+        slider.maximumTrackTintColor = .inactiveSlider
+        slider.setThumbImage(UIImage(named: "CircleSlider"), for: .normal)
+        
+        return slider
+    }()
+    
+    private lazy var soundVideoImage: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "SoundVideo")
+        view.contentMode = .scaleAspectFit
+        
+        return view
+    }()
+    
+    let url = URL(string:"https://drive.google.com/uc?export=view&id=1VHZO8ggicv1yBOrPLW-OB-Jw2_K_wAQb")!
     
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
-    var playbackSlider: UISlider?
     
-    var isVideoPlaying = false
+    var isVideoPlaying = true
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.addSubview(videoView)
         
+        self.addSubview(pauseVideoImage)
+        self.addSubview(currentDuration)
+        self.addSubview(endDuration)
+        self.addSubview(playbackSlider)
+        self.addSubview(soundVideoImage)
+        
+        configurePlayer()
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configurePlayer() {
         let playerItem: AVPlayerItem = AVPlayerItem(url: url)
         player = AVPlayer(playerItem: playerItem)
-        
-        print(playerItem)
-
-        playbackSlider = UISlider(frame:CGRect(x: 0, y: 300, width: UIScreen.main.bounds.width, height: 20))
-        playbackSlider?.minimumValue = 0
 
         let duration: CMTime = playerItem.asset.duration
         let seconds: Int = Int((CMTimeGetSeconds(duration)))
         
+        playbackSlider.maximumValue = Float(seconds)
         setEndDuration(allSecondsVideo: seconds)
-        
-        playbackSlider?.maximumValue = Float(seconds)
-        playbackSlider?.isContinuous = false
-        playbackSlider?.tintColor = UIColor.green
-        
-        if let slider = playbackSlider {
-            self.addSubview(slider)
-        }
         
         playerLayer = AVPlayerLayer(player: player)
         playerLayer?.videoGravity = .resize
@@ -96,22 +112,14 @@ class EpisodeScreenView: UIView {
             videoView.layer.addSublayer(playerLayer!)
         }
         
-//        videoView.addSubview(pauseVideo)
-        
         player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (CMTime) -> Void in
             if self.player?.currentItem?.status == .readyToPlay {
                 let time : Int = Int(CMTimeGetSeconds(self.player!.currentTime()));
-                self.playbackSlider?.value = Float (time);
+                self.playbackSlider.value = Float (time);
 
                 self.setCurrentDuration(allSecondsVideo: time)
             }
         }
-        
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func setCurrentDuration(allSecondsVideo: Int) {
@@ -145,6 +153,10 @@ extension EpisodeScreenView {
         configureActions()
     }
     
+    func configureUI() {
+        self.backgroundColor = .backgroundApplication
+    }
+    
     func configureConstraints() {
         videoView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
@@ -152,26 +164,53 @@ extension EpisodeScreenView {
             make.height.equalTo(250)
         }
         
-//        pauseVideo.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.centerY.equalToSuperview()
-//        }
+        pauseVideoImage.snp.makeConstraints { make in
+            make.centerX.equalTo(videoView.snp.centerX)
+            make.centerY.equalTo(videoView.snp.centerY)
+        }
+        
+        currentDuration.snp.makeConstraints { make in
+            make.bottom.equalTo(videoView.snp.bottom).inset(8)
+            make.leading.equalTo(videoView.snp.leading).inset(8)
+        }
+        
+        endDuration.snp.makeConstraints { make in
+            make.centerY.equalTo(currentDuration.snp.centerY)
+            make.bottom.equalTo(videoView.snp.bottom).inset(8)
+        }
+        
+        playbackSlider.snp.makeConstraints { make in
+            make.centerY.equalTo(currentDuration.snp.centerY)
+            make.leading.equalTo(currentDuration.snp.trailing).inset(-8)
+            make.trailing.equalTo(endDuration.snp.leading).inset(-8)
+            make.height.equalTo(100)
+        }
+        
+        soundVideoImage.snp.makeConstraints { make in
+            make.centerY.equalTo(endDuration.snp.centerY)
+            make.leading.equalTo(endDuration.snp.trailing).inset(-10.67)
+            make.trailing.equalTo(videoView.snp.trailing).inset(8)
+        }
     }
     
     func configureActions() {
-//        self.pauseVideo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
-//        self.videoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
-        playbackSlider?.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
+        self.videoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
+        playbackSlider.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
     }
     
     @objc
     func onPauseVideo(_ sender: AnyObject) {
         if isVideoPlaying {
             player?.pause()
-            self.pauseVideo.layer.opacity = 1
+            self.pauseVideoImage.layer.opacity = 1
+            
+            isVideoPlaying = false
+            
         } else {
             player?.play()
-            self.pauseVideo.layer.opacity = 0
+            self.pauseVideoImage.layer.opacity = 0
+            
+            isVideoPlaying = true
         }
     }
     
