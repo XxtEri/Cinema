@@ -20,6 +20,10 @@ extension UIColor {
         #colorLiteral(red: 0.2924827337, green: 0.2927675247, blue: 0.3014470339, alpha: 1)
     }
     
+    static var textEpisodeScreen: UIColor {
+        #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)
+    }
+    
     static var textTextField: UIColor {
         #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)
     }

@@ -7,94 +7,54 @@
 
 import UIKit
 import SnapKit
-import AVFoundation
-import AVKit
 
 class EpisodeScreenView: UIView {
     
-    lazy var videoView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
-    
-    private lazy var pauseVideoImage: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "PlayVideo")
-        view.contentMode = .scaleAspectFit
-        view.layer.opacity = 0
-        
-        return view
-    }()
-    
-    private lazy var videoManagement: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
-    
-    private lazy var currentDuration: UILabel = {
+    private lazy var titleEpisode: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 10)
-        view.textAlignment = .center
+        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.textAlignment = .left
         view.textColor = .white
-        view.numberOfLines = 1
-        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: -0.17])
+        view.numberOfLines = .max
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
         
         return view
     }()
     
-    private lazy var endDuration: UILabel = {
+    private lazy var informationMovie = InformationMovieView()
+    
+    private lazy var titleDescription: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 10)
-        view.textAlignment = .center
+        view.font = UIFont(name: "SFProText-Bold", size: 29)
+        view.textAlignment = .left
         view.textColor = .white
-        view.numberOfLines = 1
-        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: -0.17])
+        view.attributedText = NSAttributedString(string: "Описание", attributes: [.kern: -0.17])
         
         return view
     }()
     
-    private lazy var playbackSlider: UISlider = {
-        let slider = UISlider()
-        slider.minimumValue = 0
-        slider.isContinuous = false
-        slider.minimumTrackTintColor = .accentColorApplication
-        slider.maximumTrackTintColor = .inactiveSlider
-        slider.setThumbImage(UIImage(named: "CircleSlider"), for: .normal)
-        
-        return slider
-    }()
-    
-    private lazy var soundVideoImage: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "ActiveSoundVideo")
-        view.contentMode = .scaleAspectFit
-        view.isUserInteractionEnabled = true
+    private lazy var descriptionText: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
+        view.textAlignment = .left
+        view.textColor = .white
+        view.numberOfLines = .max
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
         
         return view
     }()
     
-    let url = URL(string:"https://drive.google.com/uc?export=view&id=1VHZO8ggicv1yBOrPLW-OB-Jw2_K_wAQb")!
-    
-    var player: AVPlayer?
-    var playerLayer: AVPlayerLayer?
-    
-    var isVideoPlaying = true
+    lazy var videoPlayerView = VideoPlayerView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(videoView)
-        self.addSubview(pauseVideoImage)
-        self.addSubview(videoManagement)
+        self.addSubview(videoPlayerView)
+        self.addSubview(titleEpisode)
+        self.addSubview(informationMovie)
+        self.addSubview(titleDescription)
+        self.addSubview(descriptionText)
         
-        self.addSubview(currentDuration)
-        self.addSubview(endDuration)
-        self.addSubview(playbackSlider)
-        self.addSubview(soundVideoImage)
-        
-        configurePlayer()
         setup()
     }
     
@@ -102,60 +62,20 @@ class EpisodeScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configurePlayer() {
-        let playerItem: AVPlayerItem = AVPlayerItem(url: url)
-        player = AVPlayer(playerItem: playerItem)
-
-        let duration: CMTime = playerItem.asset.duration
-        let seconds: Int = Int((CMTimeGetSeconds(duration)))
+    func configureUIData(movie: Movie, episode: Episode) {
+        self.videoPlayerView.configureURLVideo(urlEpisode: episode.filePath)
         
-        playbackSlider.maximumValue = Float(seconds)
-        setEndDuration(allSecondsVideo: seconds)
+        self.titleEpisode.text = episode.name
         
-        playerLayer = AVPlayerLayer(player: player)
-        playerLayer?.videoGravity = .resize
-
-        if playerLayer != nil {
-            videoView.layer.addSublayer(playerLayer!)
-        }
+        self.informationMovie.configureUIData(movie: movie, episode: episode)
         
-        player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (CMTime) -> Void in
-            if self.player?.currentItem?.status == .readyToPlay {
-                let time : Int = Int(CMTimeGetSeconds(self.player!.currentTime()));
-                self.playbackSlider.value = Float (time);
-
-                self.setCurrentDuration(allSecondsVideo: time)
-            }
-        }
-    }
-    
-    private func setCurrentDuration(allSecondsVideo: Int) {
-        currentDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
-    }
-    
-    private func setEndDuration(allSecondsVideo: Int) {
-        endDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
-    }
-    
-    func getMinutesVideo(allSecondsVideo: Int) -> String {
-        if allSecondsVideo / 60 < 10 {
-            return "0\(allSecondsVideo / 60)"
-        }
-        
-        return "\(allSecondsVideo / 60)"
-    }
-    
-    func getSecondsVideo(allSecondsVideo: Int) -> String {
-        if allSecondsVideo % 60 < 10 {
-            return "0\(allSecondsVideo % 60)"
-        }
-        
-        return "\(allSecondsVideo % 60)"
+        self.descriptionText.text = episode.description
     }
 }
 
 extension EpisodeScreenView {
     func setup() {
+        configureUI()
         configureConstraints()
         configureActions()
     }
@@ -165,89 +85,36 @@ extension EpisodeScreenView {
     }
     
     func configureConstraints() {
-        videoView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+        videoPlayerView.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-            make.height.equalTo(250)
+            make.horizontalEdges.equalToSuperview()
         }
         
-        pauseVideoImage.snp.makeConstraints { make in
-            make.centerX.equalTo(videoView.snp.centerX)
-            make.centerY.equalTo(videoView.snp.centerY)
+        titleEpisode.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(videoPlayerView.snp.bottom).inset(-16)
         }
         
-        videoManagement.snp.makeConstraints { make in
-            make.bottom.equalTo(playbackSlider.snp.top)
-            make.horizontalEdges.top.equalToSuperview()
+        informationMovie.snp.makeConstraints { make in
+            make.leading.equalTo(titleEpisode.snp.leading)
+            make.trailing.equalToSuperview().inset(18.02)
+            make.top.equalTo(titleEpisode.snp.bottom).inset(-16)
         }
         
-        currentDuration.snp.makeConstraints { make in
-            make.bottom.equalTo(videoView.snp.bottom).inset(8)
-            make.leading.equalTo(videoView.snp.leading).inset(8)
+        titleDescription.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(informationMovie.snp.bottom).inset(-32)
         }
         
-        endDuration.snp.makeConstraints { make in
-            make.centerY.equalTo(currentDuration.snp.centerY)
-            make.bottom.equalTo(videoView.snp.bottom).inset(8)
-        }
-        
-        playbackSlider.snp.makeConstraints { make in
-            make.centerY.equalTo(currentDuration.snp.centerY)
-            make.leading.equalTo(currentDuration.snp.trailing).inset(-8)
-            make.trailing.equalTo(endDuration.snp.leading).inset(-8)
-            make.height.equalTo(20)
-        }
-        
-        soundVideoImage.snp.makeConstraints { make in
-            make.centerY.equalTo(endDuration.snp.centerY)
-            make.leading.equalTo(endDuration.snp.trailing).inset(-10.67)
-            make.trailing.equalTo(videoView.snp.trailing).inset(8)
+        descriptionText.snp.makeConstraints { make in
+            make.leading.equalTo(titleDescription.snp.leading)
+            make.trailing.equalToSuperview().inset(18)
+            make.top.equalTo(titleDescription.snp.bottom).inset(-8)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(10)
         }
     }
     
     func configureActions() {
-        videoManagement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
-        playbackSlider.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
-        soundVideoImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(configureSound(sender:))))
-    }
-    
-    @objc
-    func onPauseVideo(_ sender: AnyObject) {
-        if isVideoPlaying {
-            player?.pause()
-            self.pauseVideoImage.layer.opacity = 1
-            
-            isVideoPlaying = false
-            
-        } else {
-            player?.play()
-            self.pauseVideoImage.layer.opacity = 0
-            
-            isVideoPlaying = true
-        }
-    }
-    
-    @objc
-    func playbackSliderValueChanged(_ playbackSlider:UISlider)
-    {
         
-        let seconds : Int64 = Int64(playbackSlider.value)
-        let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
-        
-        player?.seek(to: targetTime)
-        
-        if player?.rate == 0
-        {
-            player?.play()
-        }
-    }
-    
-    @objc
-    func configureSound(sender: AnyObject) {
-        if let turnOnSound = player?.isMuted {
-            player?.isMuted = !turnOnSound ? true : false
-            
-            soundVideoImage.image = UIImage(named: !turnOnSound ? "ActiveSoundVideo" : "InactiveSoundVideo")
-        }
     }
 }
