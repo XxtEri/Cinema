@@ -17,11 +17,13 @@ class MovieScreenView: UIView {
         view.alwaysBounceVertical = true
         view.frame = self.bounds
         view.contentInsetAdjustmentBehavior = .never
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
 
         return view
     }()
     
-    private lazy var imageFilmCover: UIImageView = {
+    private lazy var coverMovieImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "FilmMovieScreen")
         view.contentMode = .scaleToFill
@@ -49,7 +51,7 @@ class MovieScreenView: UIView {
     
     private lazy var ageRestriction: UILabel = {
         let view = UILabel()
-        view.attributedText = NSAttributedString(string: "18+", attributes: [.kern: -0.17])
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
         view.font = UIFont(name: "SFProText-Bold", size: 14)
         view.textColor = .accentColorApplication
         
@@ -74,7 +76,6 @@ class MovieScreenView: UIView {
         let view = TitleWithTextView()
         
         view.setTitle("Описание")
-        view.setText("Eliot is in his happy place, unaware that he is being possessed by the Monster. To have control over his body, Eliot must travel to the place that contains his greatest regret: turning down Quentin when he suggests he and Eliot should be together after their memories are restored of their life in past-Fillory, happily living together and raising a family.")
         
         return view
     }()
@@ -90,8 +91,7 @@ class MovieScreenView: UIView {
         
         return view
     }()
-    
-    let tags1 = ["Фэнтези", "Приключения", "США", "Телесериал"]
+
     var widthAllCells: CGFloat = 0
     
     override init(frame: CGRect) {
@@ -99,8 +99,8 @@ class MovieScreenView: UIView {
 
         self.addSubview(scrollView)
 
-        scrollView.addSubview(imageFilmCover)
-        imageFilmCover.addSubview(watchButton)
+        scrollView.addSubview(coverMovieImage)
+        coverMovieImage.addSubview(watchButton)
         scrollView.addSubview(content)
         
         content.addSubview(ageRestriction)
@@ -115,6 +115,18 @@ class MovieScreenView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setMovie(movie: Movie) {
+        coverMovieImage.downloaded(from: movie.poster, contentMode: coverMovieImage.contentMode)
+        ageRestriction.text = movie.age.rawValue
+        informationMovie.setTagList(tags: movie.tags)
+        descriptionMovie.setText(movie.description)
+        footagesMovie.setFootagesMovie(footages: movie.imageUrls)
+    }
+    
+    func setEpisodes(episodes: [Episode]) {
+        episodesMovie.setArrayEpisodes(episodes)
     }
 }
 
@@ -133,9 +145,10 @@ private extension MovieScreenView {
             make.edges.equalToSuperview()
         }
 
-        imageFilmCover.snp.makeConstraints { make in
+        coverMovieImage.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
             make.top.equalToSuperview()
+            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height * 58 / 100)
         }
         
         watchButton.snp.makeConstraints { make in
@@ -145,12 +158,12 @@ private extension MovieScreenView {
         
         content.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
-            make.top.equalTo(imageFilmCover.snp.bottom)
+            make.top.equalTo(coverMovieImage.snp.bottom)
             make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
         }
         
         ageRestriction.snp.makeConstraints { make in
-            make.top.equalTo(imageFilmCover.snp.bottom).inset(-20)
+            make.top.equalTo(coverMovieImage.snp.bottom).inset(-20)
             make.trailing.equalTo(discussions.snp.leading).inset(-17.99)
             make.centerY.equalTo(discussions.snp.centerY)
         }

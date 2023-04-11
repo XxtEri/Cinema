@@ -49,6 +49,8 @@ class MainScreenView: UIView {
         return view
     }()
     
+    private var coverMovie: CoverMovie?
+    
     lazy var content: ContentMainScreenView = {
         let view = ContentMainScreenView()
         
@@ -117,5 +119,7 @@ private extension MainScreenView {
 extension MainScreenView {
     func setCoverImageMoview(with model: CoverMovie) {
         imageFilmCover.downloaded(from: model.backgroundImage, contentMode: imageFilmCover.contentMode)
+        
+        coverMovie = model
     }
 }

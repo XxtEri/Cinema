@@ -47,6 +47,10 @@ class LastWatchMovieBlockView: UIStackView {
         return view
     }()
     
+    private var lastWatchMovie: EpisodeView?
+    
+    var lastWatchMoviePressed: ((EpisodeView) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -71,8 +75,10 @@ class LastWatchMovieBlockView: UIStackView {
         return titleHeight + filmImageHeight + spacing
     }
     
-    func setImageLastWatchMovie(url: String) {
-        movieImage.downloaded(from: url, contentMode: movieImage.contentMode)
+    func setLastWatchMovie(with model: EpisodeView) {
+        movieImage.downloaded(from: model.preview, contentMode: movieImage.contentMode)
+        
+        lastWatchMovie = model
     }
     
     func setTitleMovie(title: String) {
@@ -103,6 +109,17 @@ private extension LastWatchMovieBlockView {
         
         movieImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(0)
+        }
+    }
+    
+    func configureAction() {
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showLastWatchMovieScreen)))
+    }
+    
+    @objc
+    func showLastWatchMovieScreen() {
+        if let movie = lastWatchMovie {
+            lastWatchMoviePressed?(movie)
         }
     }
 }

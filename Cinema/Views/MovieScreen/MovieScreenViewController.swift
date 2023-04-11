@@ -11,8 +11,13 @@ class MovieScreenViewController: UIViewController {
     
     private var ui: MovieScreenView
     
-    init() {
+    var viewModel: MainViewModel?
+    
+    var movie: Movie
+    
+    init(movie: Movie) {
         self.ui = MovieScreenView()
+        self.movie = movie
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -27,8 +32,21 @@ class MovieScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.ui.setMovie(movie: movie)
+        
+        bindListener()
+        
+        viewModel?.getEpisodesMovie(movieId: movie.movieId)
     }
+}
 
+extension MovieScreenViewController {
+    func bindListener() {
+        self.viewModel?.episodesMovie.subscribe(with: { [ weak self ] episodes in
+            guard let self = self else { return }
+            
+            self.ui.setEpisodes(episodes: episodes)
+        })
+    }
 }

@@ -18,7 +18,7 @@ class FootageMovieView: UIView {
         return view
     }()
 
-    private lazy var footageMovieList: UICollectionView = {
+    private lazy var footagesMovieCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = CGFLOAT_MAX
@@ -38,17 +38,25 @@ class FootageMovieView: UIView {
         return view
     }()
     
+    private lazy var footagesMovie = [String]()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.addSubview(titleFootageBlock)
-        self.addSubview(footageMovieList)
+        self.addSubview(footagesMovieCollection)
         
         self.setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setFootagesMovie(footages: [String]) {
+        footagesMovie = footages
+        
+        footagesMovieCollection.reloadData()
     }
 }
 
@@ -64,7 +72,7 @@ private extension FootageMovieView {
             make.top.equalToSuperview()
         }
         
-        footageMovieList.snp.makeConstraints { make in
+        footagesMovieCollection.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(titleFootageBlock.snp.horizontalEdges)
             make.top.equalTo(titleFootageBlock.snp.bottom).inset(-16)
             make.bottom.equalToSuperview()
@@ -74,7 +82,7 @@ private extension FootageMovieView {
 
 extension FootageMovieView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        footagesMovie.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -82,7 +90,7 @@ extension FootageMovieView: UICollectionViewDelegate, UICollectionViewDataSource
             return UICollectionViewCell()
         }
         
-        cell.congifure(imageName: "Footage")
+        cell.congifure(imageUrl: footagesMovie[indexPath.row])
         
         return cell
     }

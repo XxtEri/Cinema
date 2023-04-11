@@ -42,6 +42,8 @@ class TrendMoviesBlockView: UIStackView {
     
     private var arrayTrendMovies = [Movie]()
     
+    var trendMoviePressed: ((Movie) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -118,7 +120,7 @@ extension TrendMoviesBlockView: UICollectionViewDataSource {
 
 extension TrendMoviesBlockView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        trendMoviePressed?(arrayTrendMovies[indexPath.row])
     }
 }
 

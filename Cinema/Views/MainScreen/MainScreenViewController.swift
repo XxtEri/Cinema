@@ -14,7 +14,7 @@ class MainScreenViewController: UIViewController {
     
     private var ui: MainScreenView
     
-    var viewModel: MainScreenViewModel?
+    var viewModel: MainViewModel?
     
     //- MARK: Initial
     
@@ -39,6 +39,7 @@ class MainScreenViewController: UIViewController {
         super.viewDidLoad()
         
         bindListener()
+        handler()
         
         viewModel?.getCoverImage()
         viewModel?.getMovies()
@@ -91,5 +92,31 @@ extension MainScreenViewController {
     
     func showError(_ error: Error) {
         print(error.localizedDescription)
+    }
+    
+    func handler() {
+        self.ui.content.lastWatchBlock.lastWatchMoviePressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            
+        }
+        
+        self.ui.content.newBlock.newMoviePressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToMovieScreen(movie: movie)
+        }
+        
+        self.ui.content.recomendationBlock.recomendationMoviePressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToMovieScreen(movie: movie)
+        }
+        
+        self.ui.content.trendBlock.trendMoviePressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToMovieScreen(movie: movie)
+        }
     }
 }

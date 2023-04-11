@@ -43,6 +43,8 @@ class RecomendationMoviesBlockView: UIStackView {
     
     private var arrayRecomendationMovies = [Movie]()
     
+    var recomendationMoviePressed: ((Movie) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     
@@ -124,7 +126,7 @@ extension RecomendationMoviesBlockView: UICollectionViewDataSource {
 
 extension RecomendationMoviesBlockView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        recomendationMoviePressed?(arrayRecomendationMovies[indexPath.row])
     }
     
 }

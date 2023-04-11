@@ -10,7 +10,7 @@ import SnapKit
 
 class InformationMovieBlockView: UIView {
     
-    let genres = ["Фэнтези", "Приключения", "США", "Телесериал","Фэнтези", "Приключения", "США", "Телесериал"]
+    private var tags = [Tag]()
 
     private lazy var informationMovie: UICollectionView = {
         let alignedFlowLayout = AlignedCollectionViewFlowLayout(horizontalAlignment: .left, verticalAlignment: .top)
@@ -46,14 +46,11 @@ class InformationMovieBlockView: UIView {
     }
     
     func getHeightView(w: CGFloat) -> CGFloat {
-        print(UIScreen.main.bounds.width)
         let widthScreen = UIScreen.main.bounds.width * 50.89 / 100
         let spacing: CGFloat = 8
         var heightView: CGFloat = 0
         
         calculateWidthAllCells()
-
-        print(widthAllCells)
         
         while widthAllCells > widthScreen {
             heightView += 24 + spacing
@@ -65,6 +62,12 @@ class InformationMovieBlockView: UIView {
         }
         
         return heightView
+    }
+    
+    func setTagList(tags: [Tag]) {
+        self.tags = tags
+        
+        informationMovie.reloadData()
     }
 }
 
@@ -80,9 +83,9 @@ private extension InformationMovieBlockView {
     }
     
     func calculateWidthAllCells() {
-        for element in genres {
+        for element in tags {
             let label = UILabel()
-            label.attributedText = NSAttributedString(string: element, attributes: [.kern: -0.41])
+            label.attributedText = NSAttributedString(string: element.tagName, attributes: [.kern: -0.41])
             label.font = UIFont(name: "SFProText-Regular", size: 14)
             
             widthAllCells += label.intrinsicContentSize.width
@@ -92,14 +95,14 @@ private extension InformationMovieBlockView {
 
 extension InformationMovieBlockView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        genres.count
+        tags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InformationMovieBlockCollectionViewCell.reuseIdentifier, for: indexPath) as! InformationMovieBlockCollectionViewCell
     
         
-        cell.configure(title: genres[indexPath.row])
+        cell.configure(title: tags[indexPath.row].tagName)
         
         return cell
     }

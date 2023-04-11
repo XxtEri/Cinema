@@ -30,8 +30,8 @@ class FootageMovieCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func congifure(imageName: String) {
-        posterFootage.image = UIImage(named: imageName)
+    func congifure(imageUrl: String) {
+        posterFootage.downloaded(from: imageUrl, contentMode: posterFootage.contentMode)
     }
 }
 

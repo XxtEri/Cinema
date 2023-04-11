@@ -25,7 +25,7 @@ class ApiRepository {
     }
 }
 
-extension ApiRepository: IApiRepositoryAuthScreen {
+extension ApiRepository: IApiRepositoryAuth {
     func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void) {
         
         self.session.request(
@@ -129,7 +129,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
     }
 }
 
-extension ApiRepository: IApiRepositoryProfileScreen {
+extension ApiRepository: IApiRepositoryProfile {
     func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
@@ -183,7 +183,7 @@ extension ApiRepository: IApiRepositoryProfileScreen {
     }
 }
 
-extension ApiRepository: IApiRepositoryMainScreen {
+extension ApiRepository: IApiRepositoryMain {
     func getCoverFilm(completion: @escaping (Result<CoverMovie, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
@@ -258,6 +258,10 @@ extension ApiRepository: IApiRepositoryMainScreen {
                             self.getMovies(typeListMovie: typeListMovie, completion: completion)
                         case .failure(_):
                             self.requestStatus = .notAuthorized
+                            
+                            self.keychain.synchronizable = true
+                            self.keychain.clear()
+                            
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                         }
                     }
@@ -277,7 +281,7 @@ extension ApiRepository: IApiRepositoryMainScreen {
         }
     }
     
-    func getLastWatchMovie(completion: @escaping (Result<[EpisodeView], Error>) -> Void) {
+    func getHistoryMovie(completion: @escaping (Result<[EpisodeView], Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
         keychain.synchronizable = true
@@ -300,7 +304,7 @@ extension ApiRepository: IApiRepositoryMainScreen {
                     self.refreshToken { result in
                         switch result {
                         case .success(_):
-                            self.getLastWatchMovie(completion: completion)
+                            self.getHistoryMovie(completion: completion)
                         case .failure(_):
                             self.requestStatus = .notAuthorized
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
@@ -318,6 +322,55 @@ extension ApiRepository: IApiRepositoryMainScreen {
             }
             
             completion(.success(historyWatch))
+        }
+    }
+    
+    func getEpisodesMovie(movieId: String, completion: @escaping (Result<[Episode], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/movies/\(movieId)/episodes",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: [Episode].self) { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getEpisodesMovie(movieId: movieId, completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            
+                            self.keychain.synchronizable = true
+                            self.keychain.clear()
+                            
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            
+            guard let episodes = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(episodes))
         }
     }
 }

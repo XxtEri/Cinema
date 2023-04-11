@@ -9,7 +9,7 @@ import UIKit
 
 final class SignInViewController: UIViewController {
     
-    var viewModel: SignScreenViewModel?
+    var viewModel: AuthViewModel?
     
     private let ui: SingInScreenView
     

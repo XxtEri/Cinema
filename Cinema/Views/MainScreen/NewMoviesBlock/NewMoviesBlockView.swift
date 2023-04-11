@@ -43,6 +43,8 @@ class NewMoviesBlockView: UIStackView {
     
     private var arrayNewMovies = [Movie]()
     
+    var newMoviePressed: ((Movie) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -66,7 +68,6 @@ class NewMoviesBlockView: UIStackView {
     
     func addNewMovie(movie: Movie) {
         arrayNewMovies.append(movie)
-        print(movie)
         
         DispatchQueue.main.async {
             self.reloadCollectionViewData()
@@ -120,7 +121,7 @@ extension NewMoviesBlockView: UICollectionViewDataSource {
 
 extension NewMoviesBlockView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        newMoviePressed?(arrayNewMovies[indexPath.row])
     }
     
 }

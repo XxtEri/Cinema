@@ -30,7 +30,7 @@ class ContentMainScreenView: UIView {
     }()
     
     let trendBlock = TrendMoviesBlockView()
-    let watchBlock = LastWatchMovieBlockView()
+    let lastWatchBlock = LastWatchMovieBlockView()
     let newBlock = NewMoviesBlockView()
     let recomendationBlock = RecomendationMoviesBlockView()
 
@@ -39,7 +39,7 @@ class ContentMainScreenView: UIView {
         
         self.addSubview(contentStack)
         contentStack.addArrangedSubview(trendBlock)
-        contentStack.addArrangedSubview(watchBlock)
+        contentStack.addArrangedSubview(lastWatchBlock)
         contentStack.addArrangedSubview(newBlock)
         contentStack.addArrangedSubview(recomendationBlock)
         contentStack.addArrangedSubview(specifyInterests)
@@ -66,8 +66,8 @@ private extension ContentMainScreenView {
             make.height.equalTo(trendBlock.getHeightView())
         }
         
-        watchBlock.snp.makeConstraints { make in
-            make.height.equalTo(watchBlock.getHeightView())
+        lastWatchBlock.snp.makeConstraints { make in
+            make.height.equalTo(lastWatchBlock.getHeightView())
         }
         
         newBlock.snp.makeConstraints { make in
@@ -101,14 +101,14 @@ extension ContentMainScreenView {
     
     func setLastWatchMovie(with model: EpisodeView?) {
         guard let movie = model else {
-            contentStack.removeArrangedSubview(watchBlock)
-            watchBlock.removeFromSuperview()
+            contentStack.removeArrangedSubview(lastWatchBlock)
+            lastWatchBlock.removeFromSuperview()
             
             return
         }
         
-        self.watchBlock.setImageLastWatchMovie(url: movie.preview)
-        self.watchBlock.setTitleMovie(title: movie.episodeName)
+        self.lastWatchBlock.setLastWatchMovie(with: movie)
+        self.lastWatchBlock.setTitleMovie(title: movie.episodeName)
     }
     
     func setMovieImageInNewBlock(with model: [Movie]) {

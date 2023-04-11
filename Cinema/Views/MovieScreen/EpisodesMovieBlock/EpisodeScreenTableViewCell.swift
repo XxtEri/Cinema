@@ -72,12 +72,12 @@ class EpisodeScreenTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func congifure(imageName: String, titleEpisode: String, descriptionEpisode: String, yearEpisode: String) {
+    func congifure(with model: Episode) {
         
-        self.posterEpisode.image = UIImage(named: imageName)
-        self.titleEpisode.text = titleEpisode
-        self.descriptionEpisode.text = descriptionEpisode
-        self.yearEpisode.text = yearEpisode
+        posterEpisode.downloaded(from: model.preview, contentMode: posterEpisode.contentMode)
+        titleEpisode.text = model.name
+        descriptionEpisode.text = model.description
+        yearEpisode.text = "\(model.year)"
     }
 }
 
