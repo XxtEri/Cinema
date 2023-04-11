@@ -12,9 +12,9 @@ protocol IApiRepositoryAuthScreen {
 }
 
 protocol IApiRepositoryMainScreen {
-    func getCoverFilm(competion: @escaping (Result<CoverMovie, Error>) -> Void)
-    func getMovies(typeListMovie: TypeListMovieMainScreen,competion: @escaping (Result<[Movie], Error>) -> Void)
-    func getLastWatchMovie(competion: @escaping (Result<[EpisodeView], Error>) -> Void)
+    func getCoverFilm(completion: @escaping (Result<CoverMovie, Error>) -> Void)
+    func getMovies(typeListMovie: TypeListMovieMainScreen,completion: @escaping (Result<[Movie], Error>) -> Void)
+    func getLastWatchMovie(completion: @escaping (Result<[EpisodeView], Error>) -> Void)
 }
 
 protocol IApiRepositoryProfileScreen {

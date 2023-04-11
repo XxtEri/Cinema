@@ -33,6 +33,7 @@ final class SingUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setupToHideKeyboardOnTapOnView()
     }
     
     private func setHandlers() {

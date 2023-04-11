@@ -48,17 +48,21 @@ private extension ProfileViewModel {
 
 extension ProfileViewModel: IProfileViewModel {
     func getInformationProfile() {
-        self.api.getInformationProfile { result in
+        self.api.getInformationProfile { [ self ] result in
             switch result {
             case .success(let user):
-                self.successLoadingHandle(with: user)
+                successLoadingHandle(with: user)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if api.requestStatus == .notAuthorized {
+                    navigation?.goToAuthorizationScreen()
+                } else {
+                    failureLoadingHandle(with: error)
+                }
             }
         }
     }
     
     func signOut() {
-        //очистить данные пользователя
+        navigation?.goToAuthorizationScreen()
     }
 }

@@ -17,6 +17,8 @@ class ApiRepository {
     
     private let baseURL = "http://107684.web.hosting-russia.ru:8000/api"
     
+    var requestStatus: RequestStatus = .notSend
+    
     init() {
         self.session = .default
         self.keychain = KeychainSwift()
@@ -51,7 +53,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             self.keychain.set("\(token.refreshToken)", forKey: "refreshToken")
             
             print(token)
-
+            
             completion(.success(()))
         }
     }
@@ -83,7 +85,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             self.keychain.set("\(token.refreshToken)", forKey: "refreshToken")
             
             print(token)
-
+            
             completion(.success(()))
         }
     }
@@ -95,7 +97,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             headers["Authorization"] = "Bearer" + token
         }
         
-            
+        
         self.session.request(
             "\(baseURL)/auth/refresh",
             method: .post,
@@ -104,7 +106,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             if let request = response.request {
                 print("Request: \(request)")
             }
-
+            
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
             }
@@ -141,13 +143,26 @@ extension ApiRepository: IApiRepositoryProfileScreen {
             method: .get,
             headers: headers
         ).responseDecodable(of: User.self) { response in
-                
+            
             if let request = response.request {
                 print("Request: \(request)")
             }
             
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getInformationProfile(completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
             }
             
             guard let user = response.value else {
@@ -169,7 +184,7 @@ extension ApiRepository: IApiRepositoryProfileScreen {
 }
 
 extension ApiRepository: IApiRepositoryMainScreen {
-    func getCoverFilm(competion: @escaping (Result<CoverMovie, Error>) -> Void) {
+    func getCoverFilm(completion: @escaping (Result<CoverMovie, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
         keychain.synchronizable = true
@@ -182,29 +197,38 @@ extension ApiRepository: IApiRepositoryMainScreen {
             method: .get,
             headers: headers
         ).responseDecodable(of: CoverMovie.self) { response in
-
+            
             if let request = response.request {
                 print("Request: \(request)")
             }
-
+            
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
                 if statusCode == 401 {
-                    self.keychain.synchronizable = true
-                    self.keychain.clear()
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getCoverFilm(completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
                 }
             }
-
+            
             guard let coverMovie = response.value else {
-                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 return
             }
-
-            competion(.success(coverMovie))
+            
+            completion(.success(coverMovie))
         }
     }
     
-    func getMovies(typeListMovie: TypeListMovieMainScreen, competion: @escaping (Result<[Movie], Error>) -> Void) {
+    func getMovies(typeListMovie: TypeListMovieMainScreen, completion: @escaping (Result<[Movie], Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         let parameters: Parameters = [
             "filter" : typeListMovie.rawValue
@@ -224,24 +248,38 @@ extension ApiRepository: IApiRepositoryMainScreen {
             if let request = response.request {
                 print("Request: \(request)")
             }
-
+            
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getMovies(typeListMovie: typeListMovie, completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+                
             }
-
-
+            
+            
             guard let movies = response.value else {
-                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 return
             }
-
-            competion(.success(movies))
+            
+            completion(.success(movies))
         }
     }
     
-    func getLastWatchMovie(competion: @escaping (Result<[EpisodeView], Error>) -> Void) {
+    func getLastWatchMovie(completion: @escaping (Result<[EpisodeView], Error>) -> Void) {
         var headers: HTTPHeaders = [:]
-
+        
         keychain.synchronizable = true
         if let token = self.keychain.get("accessToken") {
             headers["Authorization"] = "Bearer " + token
@@ -255,19 +293,31 @@ extension ApiRepository: IApiRepositoryMainScreen {
             if let request = response.request {
                 print("Request: \(request)")
             }
-
+            
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getLastWatchMovie(completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
             }
-
-
+            
+            
             guard let historyWatch = response.value else {
-                competion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 return
             }
-    
-            competion(.success(historyWatch))
+            
+            completion(.success(historyWatch))
         }
     }
-    
 }
