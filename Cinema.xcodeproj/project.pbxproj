@@ -52,7 +52,6 @@
 		F3A414E629DBD71500D3DEF4 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414E529DBD71500D3DEF4 /* Chat.swift */; };
 		F3A414E829DBD75900D3DEF4 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A414E729DBD75900D3DEF4 /* Tag.swift */; };
 		F3F15E3229E5260200A650E4 /* RequestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F15E3129E5260200A650E4 /* RequestStatus.swift */; };
-		F3F15E3429E5278600A650E4 /* KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F15E3329E5278600A650E4 /* KeyboardExtension.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */; };
@@ -112,7 +111,6 @@
 		F3A414E529DBD71500D3DEF4 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		F3A414E729DBD75900D3DEF4 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		F3F15E3129E5260200A650E4 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
-		F3F15E3329E5278600A650E4 /* KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignScreenViewModel.swift; sourceTree = "<group>"; };
@@ -222,7 +220,6 @@
 			children = (
 				F33CA42729D910560084D256 /* UIColorExtension.swift */,
 				F3A414A229DA211800D3DEF4 /* UIImageViewExtension.swift */,
-				F3F15E3329E5278600A650E4 /* KeyboardExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -504,7 +501,6 @@
 				F36EC54629CAACF5000523D3 /* SignInViewController.swift in Sources */,
 				F3A414C129DA9CCD00D3DEF4 /* TrendMovieCollectionViewCell.swift in Sources */,
 				F3A414AC29DA225100D3DEF4 /* ProfileScreenView.swift in Sources */,
-				F3F15E3429E5278600A650E4 /* KeyboardExtension.swift in Sources */,
 				F3A414E029DAB13500D3DEF4 /* IMainScreenViewModel.swift in Sources */,
 				F3A414DE29DAADEC00D3DEF4 /* CoverMovie.swift in Sources */,
 				F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */,
