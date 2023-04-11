@@ -22,17 +22,17 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
-//        print("App coordinator start")
-//        keychain.synchronizable = true
-//
-//        if keychain.get("accessToken") != nil {
-//            goToHome()
-//
-//        } else {
-//            goToAuth()
-//        }
+        print("App coordinator start")
+        keychain.synchronizable = true
+
+        if keychain.get("accessToken") != nil {
+            goToHome()
+
+        } else {
+            goToAuth()
+        }
         
-        goToEpisodeScreen()
+//        goToEpisodeScreen()
     }
     
     func goToAuth() {
