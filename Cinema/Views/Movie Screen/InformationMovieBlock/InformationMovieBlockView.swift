@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class InformationMovieView: UIView {
+class InformationMovieBlockView: UIView {
     
     let genres = ["Фэнтези", "Приключения", "США", "Телесериал","Фэнтези", "Приключения", "США", "Телесериал"]
 
@@ -18,7 +18,7 @@ class InformationMovieView: UIView {
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: alignedFlowLayout)
         
-        view.register(InformationMovieCollectionViewCell.self, forCellWithReuseIdentifier: InformationMovieCollectionViewCell.reuseIdentifier)
+        view.register(InformationMovieBlockCollectionViewCell.self, forCellWithReuseIdentifier: InformationMovieBlockCollectionViewCell.reuseIdentifier)
         view.delegate = self
         view.dataSource = self
         
@@ -68,7 +68,7 @@ class InformationMovieView: UIView {
     }
 }
 
-private extension InformationMovieView {
+private extension InformationMovieBlockView {
     func setup() {
         configureConstraints()
     }
@@ -90,13 +90,13 @@ private extension InformationMovieView {
     }
 }
 
-extension InformationMovieView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension InformationMovieBlockView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         genres.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InformationMovieCollectionViewCell.reuseIdentifier, for: indexPath) as! InformationMovieCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InformationMovieBlockCollectionViewCell.reuseIdentifier, for: indexPath) as! InformationMovieBlockCollectionViewCell
     
         
         cell.configure(title: genres[indexPath.row])

@@ -64,8 +64,8 @@ class MovieScreenView: UIView {
         return view
     }()
 
-    private lazy var informationMovie: InformationMovieView = {
-        let view = InformationMovieView()
+    private lazy var informationMovie: InformationMovieBlockView = {
+        let view = InformationMovieBlockView()
         
         return view
     }()

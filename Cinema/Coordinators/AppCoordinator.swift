@@ -31,8 +31,6 @@ final class AppCoordinator: Coordinator {
         } else {
             goToAuth()
         }
-        
-//        goToEpisodeScreen()
     }
     
     func goToAuth() {

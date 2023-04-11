@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class InformationMovieCollectionViewCell: UICollectionViewCell {
+class InformationMovieBlockCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "InformationMovieCollectionViewCell"
     
     private lazy var title: UILabel = {
@@ -43,7 +43,7 @@ class InformationMovieCollectionViewCell: UICollectionViewCell {
     }
 }
 
-private extension InformationMovieCollectionViewCell {
+private extension InformationMovieBlockCollectionViewCell {
     func setup() {
         configureConstraints()
         configureCell()
