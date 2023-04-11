@@ -17,6 +17,8 @@ class MainScreenView: UIView {
         view.alwaysBounceVertical = true
         view.frame = self.bounds
         view.contentInsetAdjustmentBehavior = .never
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
 
         return view
     }()
@@ -80,7 +82,6 @@ private extension MainScreenView {
     
     func configureUI() {
         self.backgroundColor = .backgroundApplication
-        print(UIScreen.main.bounds.height)
     }
     
     func configureConstraints() {

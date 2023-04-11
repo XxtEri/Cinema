@@ -15,7 +15,7 @@ class LastWatchMovieBlockView: UIStackView {
         view.font = UIFont(name: "SFProText-Bold", size: 24)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
-        view.bounds.size.height = 29
+        view.frame.size.height = 29
         
         return view
     }()
@@ -24,7 +24,7 @@ class LastWatchMovieBlockView: UIStackView {
         let view = UIImageView()
         view.image = UIImage(named: "WatchFilm")
         view.contentMode = .scaleAspectFill
-        view.bounds.size.height = 240
+        view.frame.size.height = 230
         
         return view
     }()
@@ -64,8 +64,8 @@ class LastWatchMovieBlockView: UIStackView {
     }
     
     func getHeightView() -> CGFloat {
-        let titleHeight = titleBlock.bounds.size.height
-        let filmImageHeight = movieImage.bounds.size.height
+        let titleHeight = titleBlock.frame.size.height
+        let filmImageHeight = movieImage.frame.size.height
         let spacing = self.spacing
         
         return titleHeight + filmImageHeight + spacing
