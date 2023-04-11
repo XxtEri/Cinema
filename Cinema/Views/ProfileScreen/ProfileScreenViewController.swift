@@ -91,15 +91,18 @@ extension ProfileScreenViewController {
         let actionChooseCamera = UIAlertAction(title: "Камера", style: .default) { _ in
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            
+            imagePicker.sourceType = .camera
+
             imagePicker.showsCameraControls = true
-            
+
             self.present(imagePicker, animated: true, completion: nil)
         }
         let actionChooseGalery = UIAlertAction(title: "Галерея", style: .default) { _ in
             let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            
             self.present(imagePicker, animated: true, completion: nil)
         }
         let actionCancel = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
@@ -111,6 +114,18 @@ extension ProfileScreenViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    private func chooseImage(source: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(source) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = source
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 extension ProfileScreenViewController: UICollectionViewDataSource {
@@ -153,16 +168,17 @@ extension ProfileScreenViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProfileScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let imageFromPC = info[UIImagePickerController.InfoKey.originalImage.rawValue] as! UIImage
-//        self.ui.profileInformationBlock.updateAvatar(image: imageFromPC)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("\(info)")
         
+        if let imageFromPhone = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.ui.profileInformationBlock.updateAvatar(image: imageFromPhone)
+            
+            picker.dismiss(animated: true, completion: nil)
+        }
         
-        
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true, completion: nil)
+        }
     }
 }
