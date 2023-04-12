@@ -53,9 +53,9 @@ final class AppCoordinator: Coordinator {
         mainCoordinator.start()
     }
     
-    func goToEpisodeScreen() {
-        let vc = EpisodeScreenViewController()
-        
-        navigationController.pushViewController(vc, animated: true)
-    }
+//    func goToEpisodeScreen() {
+//        let vc = EpisodeScreenViewController()
+//        
+//        navigationController.pushViewController(vc, animated: true)
+//    }
 }
