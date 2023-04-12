@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import KeychainSwift
+import UIKit
 
 class ApiRepository {
     
@@ -185,41 +186,59 @@ extension ApiRepository: IApiRepositoryProfileScreen {
         }
     }
     
-    func uploadPhoto(completion: @escaping (Result<Void, Error>) -> Void) {
-//        var headers: HTTPHeaders = [:]
-//
-//        self.keychain.synchronizable = true
-//        if let token = self.keychain.get("accessToken") {
-//            headers["Authorization"] = "Bearer " + token
-//        }
-//
-//        AF.upload(.POST, URL, multipartFormData: {
-//            multipartFormData in
-//
-//            if let _image = image {
-//                if let imageData = UIImageJPEGRepresentation(_image, 0.5) {
-//                    multipartFormData.appendBodyPart(data: imageData, name: "file", fileName: "file.jpg", mimeType: "image/jpg")
-//                }
-//            }
-//
-//        }, encodingCompletion: {
-//            encodingResult in
-//
-//            switch encodingResult {
-//            case .Success(let upload, _, _):
-//                upload.responseObject { (response: Response<UploadData, NSError>) -> Void in
-//
-//                    switch response.result {
-//                    case .Success:
-//                        completion(.success(()))
-//                    case .Failure(let error):
-//                        completion(.failure(error))
-//                    }
-//
-//                }
-//            case .Failure(let encodingError):
-//                print(encodingError)
-//            }
-//        })
+    func uploadPhoto(imageUrl: URL, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        let fileURL = URL(fileURLWithPath: "\(imageUrl)")
+        guard let fileData = readFileDataFromFileURL(fileURL: fileURL) else { return }
+        
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(fileData, withName: "file", fileName: "file.jpg", mimeType: "image/jpeg")
+            },
+            to: "",
+            method: .post,
+            headers: headers)
+        .response { responce in
+            if let data = responce.data {
+                print(String(data: data, encoding: .utf8))
+            } else {
+                print("Smth went wrong")
+            }
+            
+            // Обработка результата загрузки
+            switch responce {
+            case .success(let upload):
+                upload.uploadProgress { progress in
+                    // Обработка прогресса загрузки
+                    print("Прогресс загрузки: \(progress.fractionCompleted)")
+                }
+                upload.responseJSON { response in
+                    // Обработка ответа сервера
+                    if let jsonResponse = response.result.value as? [String: Any] {
+                        print("Ответ сервера: \(jsonResponse)")
+                    }
+                }
+            case .failure(let encodingError):
+                // Обработка ошибки загрузки файла
+                print("Ошибка загрузки файла: \(encodingError)")
+            }
+            }
+    }
+    
+    func readFileDataFromFileURL(fileURL: URL) -> Data? {
+        do {
+            // Чтение данных из файла в память
+            let fileData = try Data(contentsOf: fileURL)
+            return fileData
+        } catch {
+            print("Ошибка чтения файла: \(error.localizedDescription)")
+            return nil
+        }
     }
 }

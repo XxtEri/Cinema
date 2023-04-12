@@ -62,8 +62,8 @@ extension ProfileViewModel: IProfileViewModel {
         }
     }
     
-    func editAvatarProfile() {
-        self.api.uploadPhoto { [ self ] result in
+    func editAvatarProfile(imageUrl: URL) {
+        self.api.uploadPhoto(imageUrl: imageUrl) { [ self ] result in
             switch result {
             case .success():
                 getInformationProfile()

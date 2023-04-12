@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 final class ProfileScreenViewController: UIViewController {
     
@@ -25,6 +26,10 @@ final class ProfileScreenViewController: UIViewController {
     private var ui: ProfileScreenView
     
     var viewModel: ProfileViewModel?
+    
+    // MARK: - Properties
+    private var tags: [String]?
+    private var colors: [PhotoColor]?
     
     init() {
         ui = ProfileScreenView()
@@ -92,9 +97,9 @@ extension ProfileScreenViewController {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
-
+            
             imagePicker.showsCameraControls = true
-
+            
             self.present(imagePicker, animated: true, completion: nil)
         }
         let actionChooseGalery = UIAlertAction(title: "Галерея", style: .default) { _ in
@@ -171,14 +176,43 @@ extension ProfileScreenViewController: UIImagePickerControllerDelegate, UINaviga
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print("\(info)")
         
-        if let imageFromPhone = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.ui.profileInformationBlock.updateAvatar(image: imageFromPhone)
-            
-            picker.dismiss(animated: true, completion: nil)
+        guard let imageFromPhone = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        
+        self.ui.profileInformationBlock.updateAvatar(image: imageFromPhone)
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+        let image = info[UIImagePickerController.InfoKey.mediaURL]
+        
+        uploadImage(
+            imageFromPhone,
+            completion: { [unowned self] tags, colors in
+                self.tags = tags
+                self.colors = colors
+        })
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileScreenViewController {
+    func uploadImage(_ image: UIImage, completion: (_ tags: [String], _ colors: [PhotoColor]) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            print("Could not get JPEG representation of UIImage")
+            return
         }
         
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true, completion: nil)
-        }
+        
     }
+}
+
+struct PhotoColor {
+  var red: Int?
+  var green: Int?
+  var blue: Int?
+  var colorName: String?
 }
