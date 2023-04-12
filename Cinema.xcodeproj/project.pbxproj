@@ -69,7 +69,6 @@
 		E290297EC8CDDE2A12AF21A1 /* SignScreenViewModel.swift~HEAD_3 in Resources */ = {isa = PBXBuildFile; fileRef = 13EF73081314FD8660A9C65E /* SignScreenViewModel.swift~HEAD_3 */; };
 		E4C483550E93C45502E1A858 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3706049E01CFF26C8F2244 /* SignUpViewController.swift */; };
 		EFE1FE4795066ACF5C87F241 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E92831647BC2B3389F6B67A /* TabBarViewController.swift */; };
-		F9CD3711B7FB5D78A5202F45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68632CC0DEA8ACCC00E5FF88 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,7 +97,6 @@
 		5CBDAB137B328B69FBB7C59E /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		60237F4B8B08D5CCD873A71E /* SFProText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.ttf"; sourceTree = "<group>"; };
 		61156BC3F3D0C6DDB647EF56 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		68632CC0DEA8ACCC00E5FF88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6A2B3809DCF2D81DE523B4AB /* ProfileScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		6B84C8B6EB4AEECEE9221D01 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		72F97C9123C6E1285AEFA6BE /* CollectionsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsScreenViewController.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 				6A2B3809DCF2D81DE523B4AB /* ProfileScreenCollectionViewCell.swift */,
 				AACE15BA7C50685EEDEFB976 /* ProfileScreenView.swift */,
 				4BBF9D3D4D441A638ABBA526 /* ProfileScreenViewController.swift */,
-				68632CC0DEA8ACCC00E5FF88 /* ViewController.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -548,7 +545,6 @@
 				B95AA7F68E8FA14563B00A67 /* UIImageViewExtension.swift in Sources */,
 				5B95F9E1188F968924B7EB43 /* User.swift in Sources */,
 				1BE8608274C5022B9380681E /* ValidationAuthScreen.swift in Sources */,
-				F9CD3711B7FB5D78A5202F45 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
