@@ -75,6 +75,13 @@ class VideoPlayerView: UIView {
         return view
     }()
     
+    private lazy var barBackButton: UIButton = {
+        let view = UIButton()
+        view.setBackgroundImage(UIImage(named: "ArrowNavigation"), for: .normal)
+        
+        return view
+    }()
+    
     private var url: URL?
     
     var player: AVPlayer?
@@ -87,6 +94,7 @@ class VideoPlayerView: UIView {
         
         self.addSubview(videoView)
         self.addSubview(pauseVideoImage)
+        self.addSubview(barBackButton)
         self.addSubview(videoManagement)
         
         self.addSubview(currentDuration)
@@ -174,6 +182,12 @@ private extension VideoPlayerView {
             make.horizontalEdges.equalToSuperview()
             make.verticalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(210)
+        }
+        
+        barBackButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(8.5)
+            make.top.equalToSuperview().inset(11.5)
+            
         }
         
         pauseVideoImage.snp.makeConstraints { make in

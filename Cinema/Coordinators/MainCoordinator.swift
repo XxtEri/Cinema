@@ -22,7 +22,7 @@ final class MainCoordinator: Coordinator {
         print("Main coordinator start")
     }
     
-    func generateProfileScreen() -> UIViewController {
+    func generateMainScreen() -> UIViewController {
         let vc = MainScreenViewController()
         vc.viewModel = MainViewModel(navigation: self)
         
@@ -41,8 +41,11 @@ extension MainCoordinator: MainScreenNavigation {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func goToEpisodeScreen(movie: Movie, epidose: Episode) {
+    func goToEpisodeScreen(movie: Movie, episode: Episode) {
+        let vc = EpisodeScreenViewController(movie: movie, episode: episode)
+        vc.viewModel = MainViewModel(navigation: self)
         
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func goToAuthorizationScreen() {

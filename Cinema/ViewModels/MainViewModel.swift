@@ -35,7 +35,7 @@ class MainViewModel {
     }
     
     func goToEpisodeScreen(movie: Movie, episode: Episode) {
-        navigation?.goToEpisodeScreen(movie: movie, epidose: episode)
+        navigation?.goToEpisodeScreen(movie: movie, episode: episode)
     }
 }
 

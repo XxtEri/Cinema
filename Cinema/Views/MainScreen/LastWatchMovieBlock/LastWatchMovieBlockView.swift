@@ -49,7 +49,7 @@ class LastWatchMovieBlockView: UIStackView {
     
     private var lastWatchMovie: EpisodeView?
     
-    var lastWatchMoviePressed: ((EpisodeView) -> Void)?
+    var lastWatchMovieEpisodePressed: ((EpisodeView) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -119,7 +119,7 @@ private extension LastWatchMovieBlockView {
     @objc
     func showLastWatchMovieScreen() {
         if let movie = lastWatchMovie {
-            lastWatchMoviePressed?(movie)
+            lastWatchMovieEpisodePressed?(movie)
         }
     }
 }

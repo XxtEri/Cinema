@@ -56,7 +56,7 @@ private extension HomeCoordinator {
         
         profileCoordinator.start()
         
-        return profileCoordinator.generateProfileScreen()
+        return profileCoordinator.generateMainScreen()
     }
     
     func generateCompilationScreenController() -> UIViewController {

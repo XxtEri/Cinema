@@ -495,8 +495,8 @@
 		F65FB553AD6C973380592C89 /* EpisodeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				2CDD6DF0C513598F41702C88 /* EpisodeScreenView.swift */,
 				E741903C8BE12EEAB30AA82C /* EpisodeScreenViewController.swift */,
+				2CDD6DF0C513598F41702C88 /* EpisodeScreenView.swift */,
 				F2E3D84EC4453C89E1B83CE1 /* InformationMovieView.swift */,
 				CCB3FF7B43EEBF436E8071EC /* VideoPlayerView.swift */,
 			);

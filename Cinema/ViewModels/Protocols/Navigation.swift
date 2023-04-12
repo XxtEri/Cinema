@@ -15,7 +15,7 @@ protocol SignScreenNavigation: AnyObject {
 
 protocol MainScreenNavigation: AnyObject {
     func goToMovieScreen(movie: Movie)
-    func goToEpisodeScreen(movie: Movie, epidose: Episode)
+    func goToEpisodeScreen(movie: Movie, episode: Episode)
     func goToAuthorizationScreen()
 }
 

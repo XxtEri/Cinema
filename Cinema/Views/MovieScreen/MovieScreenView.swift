@@ -86,7 +86,7 @@ class MovieScreenView: UIView {
         return view
     }()
     
-    private lazy var episodesMovie: EpisodesMovieView = {
+    lazy var episodesMovie: EpisodesMovieView = {
         let view = EpisodesMovieView()
         
         return view

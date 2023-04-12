@@ -43,6 +43,8 @@ class MainScreenViewController: UIViewController {
         
         viewModel?.getCoverImage()
         viewModel?.getMovies()
+        
+        self.navigationController?.isNavigationBarHidden = true
     }
 }
 
@@ -95,7 +97,7 @@ extension MainScreenViewController {
     }
     
     func handler() {
-        self.ui.content.lastWatchBlock.lastWatchMoviePressed = { [ weak self ] movie in
+        self.ui.content.lastWatchBlock.lastWatchMovieEpisodePressed = { [ weak self ] movie in
             guard let self = self else { return }
             
             

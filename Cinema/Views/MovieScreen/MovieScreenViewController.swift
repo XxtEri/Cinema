@@ -36,8 +36,18 @@ class MovieScreenViewController: UIViewController {
         self.ui.setMovie(movie: movie)
         
         bindListener()
+        handler()
         
         viewModel?.getEpisodesMovie(movieId: movie.movieId)
+        
+        let customButton = UIBarButtonItem(image: UIImage(named: "ArrowNavigation"), style: .plain, target: self, action: #selector(customButtonTapped))
+        navigationItem.leftBarButtonItem = customButton
+        navigationController?.navigationBar.backgroundColor = .clear
+    }
+    
+    @objc
+    private func customButtonTapped() {
+        print("Кастомная кнопка на навигационном баре нажата")
     }
 }
 
@@ -48,5 +58,13 @@ extension MovieScreenViewController {
             
             self.ui.setEpisodes(episodes: episodes)
         })
+    }
+    
+    func handler() {
+        self.ui.episodesMovie.episodePressed = { [ weak self ] episode in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToEpisodeScreen(movie: self.movie, episode: episode)
+        }
     }
 }

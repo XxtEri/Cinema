@@ -37,6 +37,8 @@ class EpisodesMovieView: UIView {
     
     private var episodes = [Episode]()
     
+    var episodePressed: ((Episode) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -97,6 +99,11 @@ extension EpisodesMovieView: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        episodePressed?(episodes[indexPath.row])
+    }
+
 }
 
 //class MyCustomUITableView: UITableView {
