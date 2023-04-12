@@ -8,8 +8,6 @@
 import UIKit
 
 final class ProfileScreenView: UIView {
-    
-    private let profileInformationBlock = ProfileInformationBlockView()
 
     private lazy var buttons: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -34,6 +32,8 @@ final class ProfileScreenView: UIView {
                 
             return view
     }()
+    
+    let profileInformationBlock = ProfileInformationBlockView()
     
     var signOutButtonPressed: (() -> Void)?
     
@@ -90,7 +90,6 @@ private extension ProfileScreenView {
     
     func configureActions() {
         signOutButton.addTarget(self, action: #selector(signOut(sender:)), for: .touchDown)
-        
     }
     
     @objc
@@ -105,7 +104,7 @@ extension ProfileScreenView {
         self.profileInformationBlock.email.text = model.email
         
         if let link = model.avatar {
-            self.profileInformationBlock.avatarImage.downloaded(from: link)
+            self.profileInformationBlock.avatarImage.downloaded(from: link, contentMode: profileInformationBlock.avatarImage.contentMode)
         }
     }
 }

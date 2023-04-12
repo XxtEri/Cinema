@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 final class ProfileScreenViewController: UIViewController {
     
@@ -74,11 +75,58 @@ extension ProfileScreenViewController {
             
             self.viewModel?.signOut()
         }
+        
+        self.ui.profileInformationBlock.avatarChangeButtonPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.showAlertChoosePhoto()
+        }
     }
     
     func showError(_ error: Error) {
         print("error")
     }
+    
+    func showAlertChoosePhoto() {
+        let alertController = UIAlertController(title: "Выберите источник фотографии", message: nil, preferredStyle: .alert)
+        let actionChooseCamera = UIAlertAction(title: "Камера", style: .default) { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            
+            imagePicker.showsCameraControls = true
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        let actionChooseGalery = UIAlertAction(title: "Галерея", style: .default) { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        let actionCancel = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        
+        alertController.addAction(actionChooseGalery)
+        alertController.addAction(actionChooseCamera)
+        alertController.addAction(actionCancel)
+        
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func chooseImage(source: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(source) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = source
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 extension ProfileScreenViewController: UICollectionViewDataSource {
@@ -135,3 +183,30 @@ extension ProfileScreenViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension ProfileScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("\(info)")
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let imageURl = info[.imageURL] as? URL {
+            self.viewModel?.editAvatarProfile(imageUrl: imageURl)
+        }
+        
+        if let pickedImage = info[.originalImage] as? UIImage {
+            if let imageData = pickedImage.jpegData(compressionQuality: 0.8),
+               let imageURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("image.jpg") {
+                do  {
+                    try? imageData.write(to: imageURL)
+                    print("Фотография успешно сохранена: \(imageURL)")
+                    
+                    self.viewModel?.editAvatarProfile(imageUrl: imageURL)
+                }
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}

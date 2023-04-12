@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import KeychainSwift
+import UIKit
 
 class ApiRepository {
     
@@ -185,9 +186,64 @@ extension ApiRepository: IApiRepositoryProfileScreen {
         }
     }
     
-    func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void) {
+    func uploadPhoto(imageUrl: URL, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+     
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
         
+        guard let fileData = readFileDataFromFileURL(fileURL: imageUrl) else { return }
+        
+        self.session.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(fileData, withName: "file", fileName: "file.jpg", mimeType: "image/jpeg")
+            },
+            to: "\(baseURL)/profile/avatar",
+            headers: headers)
+        .response { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.uploadPhoto(imageUrl: imageUrl, completion: completion)
+                        case .failure(_):
+//                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            // Обработка результата загрузки
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                // Обработка ошибки загрузки файла
+                print("Ошибка загрузки файла: \(error)")
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+            }
+        }
     }
     
-    
+    func readFileDataFromFileURL(fileURL: URL) -> Data? {
+        do {
+            // Чтение данных из файла в память
+            let fileData = try Data(contentsOf: fileURL)
+            return fileData
+        } catch {
+            print("Ошибка чтения файла: \(error.localizedDescription)")
+            return nil
+        }
+    }
 }

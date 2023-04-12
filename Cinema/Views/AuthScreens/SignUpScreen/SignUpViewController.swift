@@ -32,7 +32,6 @@ final class SingUpViewController: UIViewController {
         super.viewDidLoad()
 
         self.setHandlers()
-        
         setupToHideKeyboardOnTapOnView()
     }
     
