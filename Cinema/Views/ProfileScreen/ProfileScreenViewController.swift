@@ -27,10 +27,6 @@ final class ProfileScreenViewController: UIViewController {
     
     var viewModel: ProfileViewModel?
     
-    // MARK: - Properties
-    private var tags: [String]?
-    private var colors: [PhotoColor]?
-    
     init() {
         ui = ProfileScreenView()
         
@@ -97,6 +93,7 @@ extension ProfileScreenViewController {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
             
             imagePicker.showsCameraControls = true
             
@@ -104,7 +101,6 @@ extension ProfileScreenViewController {
         }
         let actionChooseGalery = UIAlertAction(title: "Галерея", style: .default) { _ in
             let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             
@@ -175,44 +171,26 @@ extension ProfileScreenViewController: UIImagePickerControllerDelegate, UINaviga
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print("\(info)")
-        
-        guard let imageFromPhone = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-        
-        self.ui.profileInformationBlock.updateAvatar(image: imageFromPhone)
-        
         picker.dismiss(animated: true, completion: nil)
         
-        let image = info[UIImagePickerController.InfoKey.mediaURL]
+        if let imageURl = info[.imageURL] as? URL {
+            self.viewModel?.editAvatarProfile(imageUrl: imageURl)
+        }
         
-        uploadImage(
-            imageFromPhone,
-            completion: { [unowned self] tags, colors in
-                self.tags = tags
-                self.colors = colors
-        })
-        
-        picker.dismiss(animated: true, completion: nil)
+        if let pickedImage = info[.originalImage] as? UIImage {
+            if let imageData = pickedImage.jpegData(compressionQuality: 0.8),
+               let imageURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("image.jpg") {
+                do  {
+                    try? imageData.write(to: imageURL)
+                    print("Фотография успешно сохранена: \(imageURL)")
+                    
+                    self.viewModel?.editAvatarProfile(imageUrl: imageURL)
+                }
+            }
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-}
-
-extension ProfileScreenViewController {
-    func uploadImage(_ image: UIImage, completion: (_ tags: [String], _ colors: [PhotoColor]) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            print("Could not get JPEG representation of UIImage")
-            return
-        }
-        
-        
-    }
-}
-
-struct PhotoColor {
-  var red: Int?
-  var green: Int?
-  var blue: Int?
-  var colorName: String?
 }

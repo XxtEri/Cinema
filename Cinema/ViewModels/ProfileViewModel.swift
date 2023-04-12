@@ -63,12 +63,17 @@ extension ProfileViewModel: IProfileViewModel {
     }
     
     func editAvatarProfile(imageUrl: URL) {
+        print(imageUrl)
         self.api.uploadPhoto(imageUrl: imageUrl) { [ self ] result in
             switch result {
             case .success():
                 getInformationProfile()
             case .failure(let error):
-                failureLoadingHandle(with: error)
+                if api.requestStatus == .notAuthorized {
+                    navigation?.goToAuthorizationScreen()
+                } else {
+                    failureLoadingHandle(with: error)
+                }
             }
         }
     }

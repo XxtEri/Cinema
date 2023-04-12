@@ -188,47 +188,52 @@ extension ApiRepository: IApiRepositoryProfileScreen {
     
     func uploadPhoto(imageUrl: URL, completion: @escaping (Result<Void, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
-
+     
         self.keychain.synchronizable = true
         if let token = self.keychain.get("accessToken") {
             headers["Authorization"] = "Bearer " + token
         }
         
-        let fileURL = URL(fileURLWithPath: "\(imageUrl)")
-        guard let fileData = readFileDataFromFileURL(fileURL: fileURL) else { return }
+        guard let fileData = readFileDataFromFileURL(fileURL: imageUrl) else { return }
         
-        AF.upload(
+        self.session.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(fileData, withName: "file", fileName: "file.jpg", mimeType: "image/jpeg")
             },
-            to: "",
-            method: .post,
+            to: "\(baseURL)/profile/avatar",
             headers: headers)
-        .response { responce in
-            if let data = responce.data {
-                print(String(data: data, encoding: .utf8))
-            } else {
-                print("Smth went wrong")
+        .response { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.uploadPhoto(imageUrl: imageUrl, completion: completion)
+                        case .failure(_):
+//                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
             }
             
             // Обработка результата загрузки
-            switch responce {
-            case .success(let upload):
-                upload.uploadProgress { progress in
-                    // Обработка прогресса загрузки
-                    print("Прогресс загрузки: \(progress.fractionCompleted)")
-                }
-                upload.responseJSON { response in
-                    // Обработка ответа сервера
-                    if let jsonResponse = response.result.value as? [String: Any] {
-                        print("Ответ сервера: \(jsonResponse)")
-                    }
-                }
-            case .failure(let encodingError):
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
                 // Обработка ошибки загрузки файла
-                print("Ошибка загрузки файла: \(encodingError)")
+                print("Ошибка загрузки файла: \(error)")
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
             }
-            }
+        }
     }
     
     func readFileDataFromFileURL(fileURL: URL) -> Data? {
