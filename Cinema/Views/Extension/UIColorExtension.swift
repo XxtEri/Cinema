@@ -47,5 +47,19 @@ extension UIColor {
     static var tabBarBackgroundColor: UIColor {
         #colorLiteral(red: 0.1098039216, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
     }
+    
+    
+    // MARK: - Colors Age Restriction
+    static var sixPlus: UIColor {
+        #colorLiteral(red: 0.9803921569, green: 0.8352941176, blue: 0.7882352941, alpha: 1)
+    }
+    
+    static var twelvePlus: UIColor {
+        #colorLiteral(red: 0.9568627451, green: 0.662745098, blue: 0.5725490196, alpha: 1)
+    }
+    
+    static var sixteenPlus: UIColor {
+        #colorLiteral(red: 0.9490196078, green: 0.431372549, blue: 0.2705882353, alpha: 1)
+    }
 }
 

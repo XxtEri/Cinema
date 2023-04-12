@@ -119,7 +119,7 @@ class MovieScreenView: UIView {
     
     func setMovie(movie: Movie) {
         coverMovieImage.downloaded(from: movie.poster, contentMode: coverMovieImage.contentMode)
-        ageRestriction.text = movie.age.rawValue
+        self.setLabelAgeMovie(age: movie.age)
         informationMovie.setTagList(tags: movie.tags)
         descriptionMovie.setText(movie.description)
         footagesMovie.setFootagesMovie(footages: movie.imageUrls)
@@ -197,5 +197,22 @@ private extension MovieScreenView {
             make.bottom.equalToSuperview()
             make.height.equalTo(250)
         }
+    }
+    
+    func setLabelAgeMovie(age: Age) {
+        switch age {
+        case .zero:
+            ageRestriction.textColor = .white
+        case .six:
+            ageRestriction.textColor = .sixPlus
+        case .twelve:
+            ageRestriction.textColor = .twelvePlus
+        case .sixteen:
+            ageRestriction.textColor = .sixteenPlus
+        case .eighteen:
+            ageRestriction.textColor = .accentColorApplication
+        }
+        
+        ageRestriction.text = age.rawValue
     }
 }
