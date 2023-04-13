@@ -20,9 +20,10 @@ final class TabBarViewController: UITabBarController {
     }
     
     private func setTabBarAppearance() {
-        self.view.tintColor = .tabBarItemAccent
-        tabBar.backgroundColor = .tabBarBackgroundColor
-        tabBar.unselectedItemTintColor = .tabBarItemLight
+        self.tabBar.barTintColor = .tabBarBackgroundColor
+        self.tabBar.tintColor = .tabBarItemAccent
+        self.tabBar.isTranslucent = false
+      //  tabBar.unselectedItemTintColor = .tabBarItemLight
     }
 
 }
