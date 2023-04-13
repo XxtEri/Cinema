@@ -39,10 +39,6 @@ class MovieScreenViewController: UIViewController {
         handler()
         
         viewModel?.getEpisodesMovie(movieId: movie.movieId)
-        
-        let customButton = UIBarButtonItem(image: UIImage(named: "ArrowNavigation"), style: .plain, target: self, action: #selector(customButtonTapped))
-        navigationItem.leftBarButtonItem = customButton
-        navigationController?.navigationBar.backgroundColor = .clear
     }
     
     @objc

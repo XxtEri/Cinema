@@ -23,6 +23,13 @@ class MovieScreenView: UIView {
         return view
     }()
     
+    private lazy var barBackButton: UIButton = {
+        let view = UIButton()
+        view.setBackgroundImage(UIImage(named: "ArrowNavigation"), for: .normal)
+        
+        return view
+    }()
+    
     private lazy var coverMovieImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "FilmMovieScreen")
@@ -101,6 +108,7 @@ class MovieScreenView: UIView {
 
         scrollView.addSubview(coverMovieImage)
         coverMovieImage.addSubview(watchButton)
+        self.addSubview(barBackButton)
         scrollView.addSubview(content)
         
         content.addSubview(ageRestriction)
@@ -141,6 +149,12 @@ private extension MovieScreenView {
     }
     
     func configureConstraints() {
+        
+        barBackButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(8.5)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(18.5)
+        }
+        
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
