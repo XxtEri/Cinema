@@ -73,8 +73,8 @@ class MovieScreenView: UIView {
         return view
     }()
 
-    private lazy var informationMovie: InformationMovieBlockView = {
-        let view = InformationMovieBlockView()
+    private lazy var informationMovie: TagLabelsView = {
+        let view = TagLabelsView()
         
         return view
     }()
@@ -128,7 +128,7 @@ class MovieScreenView: UIView {
     func setMovie(movie: Movie) {
         coverMovieImage.downloaded(from: movie.poster, contentMode: coverMovieImage.contentMode)
         self.setLabelAgeMovie(age: movie.age)
-        informationMovie.setTagList(tags: movie.tags)
+        informationMovie.tagNames = movie.tags
         descriptionMovie.setText(movie.description)
         footagesMovie.setFootagesMovie(footages: movie.imageUrls)
     }
@@ -142,6 +142,7 @@ private extension MovieScreenView {
     func setup() {
         configureUI()
         configureConstraints()
+        configureActions()
     }
     
     func configureUI() {
@@ -190,7 +191,6 @@ private extension MovieScreenView {
         informationMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(ageRestriction.snp.bottom).inset(-25)
-            make.height.equalTo(informationMovie.getHeightView(w: informationMovie.bounds.size.width))
         }
         
         descriptionMovie.snp.makeConstraints { make in
@@ -211,6 +211,10 @@ private extension MovieScreenView {
             make.bottom.equalToSuperview()
             make.height.equalTo(250)
         }
+    }
+    
+    func configureActions() {
+        
     }
     
     func setLabelAgeMovie(age: Age) {

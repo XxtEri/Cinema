@@ -13,10 +13,7 @@ class InformationMovieBlockView: UIView {
     private var tags = [Tag]()
 
     private lazy var informationMovie: UICollectionView = {
-        let alignedFlowLayout = AlignedCollectionViewFlowLayout(horizontalAlignment: .left, verticalAlignment: .top)
-        alignedFlowLayout.estimatedItemSize = .init(width: 0, height: 24)
-
-        let view = UICollectionView(frame: .zero, collectionViewLayout: alignedFlowLayout)
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         
         view.register(InformationMovieBlockCollectionViewCell.self, forCellWithReuseIdentifier: InformationMovieBlockCollectionViewCell.reuseIdentifier)
         view.delegate = self

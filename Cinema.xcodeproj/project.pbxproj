@@ -11,7 +11,6 @@
 		05BCD2DE7A9563316478C0E0 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 630C161B64303AA52DF2F086 /* KeychainSwift */; };
 		09A6F2753FCE909125575117 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27C43590ED08A98E88FB94FC /* SFProText-Regular.ttf */; };
 		0A9AA5643EB129C1E313C177 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBFE4B19BE94B278178C3 /* Tag.swift */; };
-		0B7906C718F8348105482C16 /* AlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7911229C3C93696CB2481D /* AlignedCollectionViewFlowLayout.swift */; };
 		0C2C234BCE811064A7750E01 /* RecomendationMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972768A4AC7F8C168A3C1990 /* RecomendationMovieCollectionViewCell.swift */; };
 		0D3E1C31E98390CA3B8F4918 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD8C68F8802DF796648BE2 /* AppDelegate.swift */; };
 		10D3EE6A4FDFEBE00953676E /* EpisodeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E741903C8BE12EEAB30AA82C /* EpisodeScreenViewController.swift */; };
@@ -79,6 +78,8 @@
 		E4C483550E93C45502E1A858 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3706049E01CFF26C8F2244 /* SignUpViewController.swift */; };
 		EFE1FE4795066ACF5C87F241 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E92831647BC2B3389F6B67A /* TabBarViewController.swift */; };
 		F0B59590BE1342430A373F16 /* IMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB26BE8512A63D95C35C48B /* IMainViewModel.swift */; };
+		F329205629E84AE20073EB4F /* TagLabelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F329205529E84AE20073EB4F /* TagLabelsViewController.swift */; };
+		F329205829E84C5A0073EB4F /* TagLabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F329205729E84C5A0073EB4F /* TagLabelsView.swift */; };
 		F3F465E829E57F2A00DA41FC /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F465E729E57F2A00DA41FC /* MainCoordinator.swift */; };
 		F9CD3711B7FB5D78A5202F45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68632CC0DEA8ACCC00E5FF88 /* ViewController.swift */; };
 		FB3E10B71711F3BD9558CD56 /* TitleWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009C7283290BD855EE66A6D /* TitleWithTextView.swift */; };
@@ -108,7 +109,6 @@
 		3E92831647BC2B3389F6B67A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4381F3908A54387E7EB8C772 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		4BBF9D3D4D441A638ABBA526 /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
-		4E7911229C3C93696CB2481D /* AlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		5205325C13A157C1B4693CB7 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		53DEBFE4B19BE94B278178C3 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		5CBDAB137B328B69FBB7C59E /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -153,6 +153,8 @@
 		EE8596B1D273BC4737851DA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2E3D84EC4453C89E1B83CE1 /* InformationMovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationMovieView.swift; sourceTree = "<group>"; };
 		F2F29B8773DD64E13E49D9EF /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
+		F329205529E84AE20073EB4F /* TagLabelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelsViewController.swift; sourceTree = "<group>"; };
+		F329205729E84C5A0073EB4F /* TagLabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelsView.swift; sourceTree = "<group>"; };
 		F3F465E729E57F2A00DA41FC /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F60EF0F360543A1783B40796 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 		F61D8B6B1D2E6CC139C8B5A1 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		163843E9A661C6F8AEC8328B /* MovieScreen */ = {
 			isa = PBXGroup;
 			children = (
+				F329205529E84AE20073EB4F /* TagLabelsViewController.swift */,
 				745968B55D6C70DA83987383 /* MovieScreenViewController.swift */,
 				1C36989E9C1EBAA46CCA64B0 /* MovieScreenView.swift */,
 				769F804C94B2B63942BA6DE0 /* InformationMovieBlock */,
@@ -264,7 +267,6 @@
 		3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				4E7911229C3C93696CB2481D /* AlignedCollectionViewFlowLayout.swift */,
 				3B98E04F83C6C90C758B5127 /* CircleImageView.swift */,
 				8D6E221F04FF23F7BCA63A00 /* PaddingLabel.swift */,
 				A009C7283290BD855EE66A6D /* TitleWithTextView.swift */,
@@ -350,6 +352,7 @@
 		769F804C94B2B63942BA6DE0 /* InformationMovieBlock */ = {
 			isa = PBXGroup;
 			children = (
+				F329205729E84C5A0073EB4F /* TagLabelsView.swift */,
 				BE0B4679B6FA5D719B5A5037 /* InformationMovieBlockView.swift */,
 				95156AC6AA4662B71436C50A /* InformationMovieBlockCollectionViewCell.swift */,
 			);
@@ -587,7 +590,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B7906C718F8348105482C16 /* AlignedCollectionViewFlowLayout.swift in Sources */,
 				3B515F4B537ED891DFCB62F1 /* ApiRepository.swift in Sources */,
 				BFD7D1D1B38F1C6C42AF353B /* AppCoordinator.swift in Sources */,
 				0D3E1C31E98390CA3B8F4918 /* AppDelegate.swift in Sources */,
@@ -601,6 +603,7 @@
 				17F0738C56C5FE000AD7B1FA /* Episode.swift in Sources */,
 				7E0314BFAFBF1CD2EA184244 /* EpisodeScreenTableViewCell.swift in Sources */,
 				D74AC0C7801C3E96D6CBFF98 /* EpisodeScreenView.swift in Sources */,
+				F329205629E84AE20073EB4F /* TagLabelsViewController.swift in Sources */,
 				10D3EE6A4FDFEBE00953676E /* EpisodeScreenViewController.swift in Sources */,
 				B6969AB4424404438A4B23E1 /* EpisodeView.swift in Sources */,
 				E143811290AF202759036727 /* EpisodesMovieView.swift in Sources */,
@@ -626,6 +629,7 @@
 				28D76CC82B4B8969D8A3964D /* NewMoviesBlockView.swift in Sources */,
 				628329DA4F2B9C3E0A964D17 /* Observable.swift in Sources */,
 				CACC52BE3C86A1968586FD04 /* PaddingLabel.swift in Sources */,
+				F329205829E84C5A0073EB4F /* TagLabelsView.swift in Sources */,
 				CD3454F02B7299135C9C862D /* ProfileInformationBlockView.swift in Sources */,
 				8E20BE80BB8B017AE6344D1F /* ProfileScreenCollectionViewCell.swift in Sources */,
 				D089CDBB293B51FAD66C7D3E /* ProfileScreenView.swift in Sources */,
