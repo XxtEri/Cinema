@@ -113,6 +113,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
     func refreshToken(completion: @escaping (Result<Void, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
+        self.keychain.synchronizable = true
         if let token = self.keychain.get("refreshToken") {
             headers["Authorization"] = "Bearer" + token
         }
@@ -151,11 +152,93 @@ extension ApiRepository: IApiRepositoryAuthScreen {
 
 extension ApiRepository: IApiRepositoryCollectionScreen {
     func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
         
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: [Collection].self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getCollections(completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let collections = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(collections))
+        }
     }
     
-    func addNewCollection(completion: @escaping (Result<Collection, Error>) -> Void) {
+    func addNewCollection(collection: CollectionForm, completion: @escaping (Result<Collection, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
         
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections",
+            method: .post,
+            parameters: collection,
+            encoder: JSONParameterEncoder.default,
+            headers: headers
+        ).responseDecodable(of: Collection.self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.addNewCollection(collection: collection, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let collection = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(collection))
+        }
     }
     
     func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void) {

@@ -28,6 +28,17 @@ class CollectionService {
     
     func addNewCollection(collection: CollectionList, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: { migration, oldSchemaVersion in
+                    if oldSchemaVersion < 1 {
+
+                    }
+                }
+            )
+            
+            Realm.Configuration.defaultConfiguration = configuration
+            
             let realm = try Realm()
 
             let newCollection = CollectionList()
@@ -42,6 +53,7 @@ class CollectionService {
 
         } catch let error as NSError {
             print("Ошибка при добавлении объекта в базу данных Realm: \(error.localizedDescription)")
+            
             completion(.failure(error))
         }
     }

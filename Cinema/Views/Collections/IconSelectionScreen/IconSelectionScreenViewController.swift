@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SheetViewControllerDelegate: class {
+    func didDismissSheetViewController(withData data: String)
+}
+
 class IconSelectionScreenViewController: UIViewController {
     
     private enum Metrics {
@@ -19,6 +23,11 @@ class IconSelectionScreenViewController: UIViewController {
     }
     
     private var ui: IconSelectionScreenView
+    var viewModel: CollectionScreenViewModel?
+    
+    weak var delegate: SheetViewControllerDelegate?
+    
+    var selectedIconName: String?
     
     var iconsImageName: [String] = {
         var array = [String]()
@@ -59,12 +68,26 @@ class IconSelectionScreenViewController: UIViewController {
         
         self.ui.reloadData()
     }
+    
+    // Функция для закрытия модального представления и передачи данных обратно
+    private func dismiss(imageName: String) {
+        // Вызов метода делегата перед закрытием модального представления
+        // В этом примере данные передаются обратно на предыдущий экран
+        let data = imageName
+        delegate?.didDismissSheetViewController(withData: data)
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 extension IconSelectionScreenViewController {
     func handler() {
         self.ui.closeSheetScreenButtonPressed = {
-            self.dismiss(animated: true, completion: nil)
+            if let imageName = self.selectedIconName{
+                self.dismiss(imageName: imageName)
+                
+            } else {
+                self.viewModel?.backGoToCreateEditingCollectionScreen()
+            }
         }
     }
 }
@@ -87,7 +110,9 @@ extension IconSelectionScreenViewController: UICollectionViewDataSource {
 
 extension IconSelectionScreenViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIconName = iconsImageName[indexPath.row]
         
+        self.ui.closeSheetScreenButtonPressed?()
     }
 }
 

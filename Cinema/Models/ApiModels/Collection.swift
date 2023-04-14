@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct Collection {
+struct Collection: Decodable {
     let collectionId: String
+    let name: String
+}
+
+struct CollectionForm: Encodable {
     let name: String
 }

@@ -29,6 +29,7 @@ class CollectionsScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         ui.configureCollectionView(delegate: self, dataSource: self)
+        initArrayCollections()
     }
     
     required init?(coder: NSCoder) {
@@ -44,6 +45,27 @@ class CollectionsScreenViewController: UIViewController {
 
         handler()
     }
+    
+    private func initArrayCollections() {
+        do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: { migration, oldSchemaVersion in
+                    if oldSchemaVersion < 1 {
+
+                    }
+                }
+            )
+            Realm.Configuration.defaultConfiguration = configuration
+            
+            let realm = try Realm()
+            
+            collectionList = realm.objects(CollectionList.self)
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension CollectionsScreenViewController {
@@ -51,25 +73,22 @@ extension CollectionsScreenViewController {
         self.ui.buttonAddingNewCollectionPressed = { [ weak self ] in
             guard let self = self else { return }
             
-            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: true)
+            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: true, titleCollection: nil)
         }
-    }
-    
-    func clearRealmDatabase() {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.deleteAll()
-            }
-        } catch let error as NSError {
-            print("Ошибка очистки базы данных Realm: \(error.localizedDescription)")
+        
+        //не отлавливает
+        self.viewModel?.endChangeDatabase = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.initArrayCollections()
+            self.ui.reloadData()
         }
     }
 }
 
 extension CollectionsScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let collections = collectionList else { return 0}
+        guard let collections = collectionList else { return 0 }
         
         if !collections.isEmpty {
             print(collections.count)
@@ -91,6 +110,14 @@ extension CollectionsScreenViewController: UICollectionViewDataSource {
         cell.configure(title: collection.collectionName, imageName: collection.nameImageCollection)
         
         return cell
+    }
+}
+
+extension CollectionsScreenViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let collections = collectionList else { return }
+        
+        self.viewModel?.goToCollectionScreenDetail(titleCollection: collections[indexPath.row].collectionName)
     }
 }
 

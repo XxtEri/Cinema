@@ -13,6 +13,7 @@ class CollectionScreenViewModel {
     
     weak var navigation: CollectionsNavigation?
     
+    var selectedImage: String?
     var endChangeDatabase: (() -> Void)?
     
     var collections = Observable<Collection>()
@@ -24,16 +25,24 @@ class CollectionScreenViewModel {
         self.api = ApiRepository()
     }
     
-    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool) {
-        navigation?.goToCreateEditingCollectionScreen(isCreatingCollection: isCreatingCollection)
+    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, titleCollection: String?) {
+        navigation?.goToCreateEditingCollectionScreen(isCreatingCollection: isCreatingCollection, titleCollection: titleCollection)
     }
     
-    func goToIconSelectionScreen() {
-        navigation?.goToIconSelectionScreen()
+    func backGoToCreateEditingCollectionScreen() {
+        navigation?.backGoToCreateEditingCollectionScreen()
+    }
+    
+    func goToIconSelectionScreen(delegate: SheetViewControllerDelegate) {
+        navigation?.goToIconSelectionScreen(delegate: delegate)
     }
     
     func goToCollectionsScreen() {
         navigation?.goToCollectionsScreen()
+    }
+    
+    func goToCollectionScreenDetail(titleCollection: String) {
+        navigation?.goToCollectionScreenDetail(titleCollection: titleCollection)
     }
 }
 
@@ -45,7 +54,9 @@ private extension CollectionScreenViewModel {
 
 extension CollectionScreenViewModel: ICollectionScreenViewModel {
     func addNewCollection(collectionName: String, imageCollectionName: String) {
-        self.api.addNewCollection { [ self ] result in
+        let collection = CollectionForm(name: collectionName)
+        
+        self.api.addNewCollection(collection: collection) { [ self ] result in
             switch result {
             case .success(let collection):
                 let collectionDatabase = CollectionList()
@@ -64,8 +75,11 @@ extension CollectionScreenViewModel: ICollectionScreenViewModel {
     
             case .failure(let error):
                 failureLoadingHandle(with: error)
+                print(error.localizedDescription)
             }
         }
+        
+        self.goToCollectionsScreen()
     }
     
     func updateCollection() {

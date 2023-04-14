@@ -35,7 +35,6 @@ class CreateEditingCollectionsScreenView: UIView {
     
     private var iconCollection: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Group 1")
         
         return view
     }()
@@ -77,10 +76,12 @@ class CreateEditingCollectionsScreenView: UIView {
         return view
     }()
     
+    private var selectedImage: String?
+    
     var isCreatingCollection: Bool = true
     
     var chooseIconCollectionButtonPressed: (() -> Void)?
-    var saveCollectionButtonPressed: (() -> Void)?
+    var saveCollectionButtonPressed: ((String, String) -> Void)?
     var deleteCollectionButtonPressed: (() -> Void)?
     var backToGoCollectionsScreenButtonPressed: (() -> Void)?
     
@@ -101,6 +102,26 @@ class CreateEditingCollectionsScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func updateIconImage(imageName: String) {
+        selectedImage = imageName
+        iconCollection.image = UIImage(named: imageName)
+    }
+    
+    func updateUI() {
+        if !isCreatingCollection {
+            buttonDeleteCollection.layer.opacity = 1
+            titleScreen.text = "Изменить коллекцию"
+            
+        } else {
+            buttonDeleteCollection.layer.opacity = 0
+            titleScreen.text = "Создать коллекцию"
+        }
+    }
+    
+    func setTitleCollection(titleCollection: String) {
+        self.titleCollection.text = titleCollection
+    }
 }
 
 extension CreateEditingCollectionsScreenView {
@@ -112,15 +133,6 @@ extension CreateEditingCollectionsScreenView {
     
     func configureUI() {
         self.backgroundColor = .backgroundApplication
-        
-        if !isCreatingCollection {
-            buttonDeleteCollection.layer.opacity = 1
-            titleScreen.text = "Изменить коллекцию"
-            
-        } else {
-            buttonDeleteCollection.layer.opacity = 0
-            titleScreen.text = "Создать коллекцию"
-        }
     }
     
     func configureConstraints() {
@@ -170,8 +182,8 @@ extension CreateEditingCollectionsScreenView {
     
     func configureActions() {
         buttonChooseIconCollection.addTarget(self, action: #selector(chooseIconCollection), for: .touchUpInside)
-        buttonSaveCollection.addTarget(self, action: #selector(saveCollection), for: .touchUpOutside)
-        buttonDeleteCollection.addTarget(self, action: #selector(deleteCollection), for: .touchUpOutside)
+        buttonSaveCollection.addTarget(self, action: #selector(saveCollection), for: .touchUpInside)
+        buttonDeleteCollection.addTarget(self, action: #selector(deleteCollection), for: .touchUpInside)
         backArrow.addTarget(self, action: #selector(backToGoCollectionsScreen), for: .touchUpInside)
     }
     
@@ -182,7 +194,9 @@ extension CreateEditingCollectionsScreenView {
     
     @objc
     func saveCollection() {
-        saveCollectionButtonPressed?()
+        if let titleCollection = titleCollection.text, let imageName = selectedImage {
+            saveCollectionButtonPressed?(titleCollection, imageName)
+        }
     }
     
     @objc

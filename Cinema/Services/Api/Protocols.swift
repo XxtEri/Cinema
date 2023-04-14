@@ -13,7 +13,7 @@ protocol IApiRepositoryAuthScreen {
 
 protocol IApiRepositoryCollectionScreen {
     func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void)
-    func addNewCollection(completion: @escaping (Result<Collection, Error>) -> Void)
+    func addNewCollection(collection: CollectionForm, completion: @escaping (Result<Collection, Error>) -> Void)
     func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void)
     func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void)
     func addMoviesInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void)

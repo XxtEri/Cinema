@@ -18,9 +18,11 @@ protocol HomeNavigation: AnyObject {
 }
 
 protocol CollectionsNavigation: AnyObject {
-    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool)
-    func goToIconSelectionScreen()
+    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, titleCollection: String?)
+    func backGoToCreateEditingCollectionScreen()
+    func goToIconSelectionScreen(delegate: SheetViewControllerDelegate)
     func goToCollectionsScreen()
+    func goToCollectionScreenDetail(titleCollection: String)
 }
 
 protocol ProfileNavigation: AnyObject {
