@@ -35,6 +35,7 @@ final class HomeCoordinator: Coordinator {
         vc.generateTabBar(viewControllers: viewControllers)
         
         navigationController.viewControllers.removeAll()
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
     

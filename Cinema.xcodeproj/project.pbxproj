@@ -26,6 +26,20 @@
 		F3772B1729E2404C00E6186A /* CollectionsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B1629E2404C00E6186A /* CollectionsScreenView.swift */; };
 		F3772B1929E248C700E6186A /* CollectionsCoorditanor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B1829E248C700E6186A /* CollectionsCoorditanor.swift */; };
 		F3772B1B29E2513B00E6186A /* CollectionsScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3772B1A29E2513B00E6186A /* CollectionsScreenCollectionViewCell.swift */; };
+		F39FF79329E94DB600F00FFE /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F39FF79229E94DB600F00FFE /* RealmSwift */; };
+		F39FF79729E95F1D00F00FFE /* CollectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF79629E95F1D00F00FFE /* CollectionService.swift */; };
+		F39FF79929E9664E00F00FFE /* CreateEditingCollectionsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF79829E9664E00F00FFE /* CreateEditingCollectionsScreenViewController.swift */; };
+		F39FF79B29E9665F00F00FFE /* CreateEditingCollectionsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF79A29E9665F00F00FFE /* CreateEditingCollectionsScreenView.swift */; };
+		F39FF79E29E96E6B00F00FFE /* IconSelectionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF79D29E96E6B00F00FFE /* IconSelectionScreenView.swift */; };
+		F39FF7A029E96E7D00F00FFE /* IconSelectionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF79F29E96E7D00F00FFE /* IconSelectionScreenViewController.swift */; };
+		F39FF7A429E979E100F00FFE /* CollectionScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7A329E979E100F00FFE /* CollectionScreenViewModel.swift */; };
+		F39FF7A629E97AEE00F00FFE /* ICollectionScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7A529E97AEE00F00FFE /* ICollectionScreenViewModel.swift */; };
+		F39FF7A829E97D1900F00FFE /* CollectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7A729E97D1900F00FFE /* CollectionList.swift */; };
+		F39FF7AA29E97D7000F00FFE /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7A929E97D7000F00FFE /* Collection.swift */; };
+		F39FF7B129E9843F00F00FFE /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7B029E9843F00F00FFE /* Movie.swift */; };
+		F39FF7B329E9848700F00FFE /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7B229E9848700F00FFE /* Tag.swift */; };
+		F39FF7B529E984A800F00FFE /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7B429E984A800F00FFE /* Chat.swift */; };
+		F39FF7B729E9A5D500F00FFE /* IconSelectionScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39FF7B629E9A5D500F00FFE /* IconSelectionScreenCollectionViewCell.swift */; };
 		F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */; };
 		F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149D29DA20BF00D3DEF4 /* Observable.swift */; };
 		F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4149F29DA20DB00D3DEF4 /* User.swift */; };
@@ -77,6 +91,19 @@
 		F3772B1629E2404C00E6186A /* CollectionsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsScreenView.swift; sourceTree = "<group>"; };
 		F3772B1829E248C700E6186A /* CollectionsCoorditanor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCoorditanor.swift; sourceTree = "<group>"; };
 		F3772B1A29E2513B00E6186A /* CollectionsScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsScreenCollectionViewCell.swift; sourceTree = "<group>"; };
+		F39FF79629E95F1D00F00FFE /* CollectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionService.swift; sourceTree = "<group>"; };
+		F39FF79829E9664E00F00FFE /* CreateEditingCollectionsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditingCollectionsScreenViewController.swift; sourceTree = "<group>"; };
+		F39FF79A29E9665F00F00FFE /* CreateEditingCollectionsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditingCollectionsScreenView.swift; sourceTree = "<group>"; };
+		F39FF79D29E96E6B00F00FFE /* IconSelectionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectionScreenView.swift; sourceTree = "<group>"; };
+		F39FF79F29E96E7D00F00FFE /* IconSelectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectionScreenViewController.swift; sourceTree = "<group>"; };
+		F39FF7A329E979E100F00FFE /* CollectionScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionScreenViewModel.swift; sourceTree = "<group>"; };
+		F39FF7A529E97AEE00F00FFE /* ICollectionScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICollectionScreenViewModel.swift; sourceTree = "<group>"; };
+		F39FF7A729E97D1900F00FFE /* CollectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionList.swift; sourceTree = "<group>"; };
+		F39FF7A929E97D7000F00FFE /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		F39FF7B029E9843F00F00FFE /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		F39FF7B229E9848700F00FFE /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		F39FF7B429E984A800F00FFE /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		F39FF7B629E9A5D500F00FFE /* IconSelectionScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectionScreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		F3A4149A29DA14EE00D3DEF4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		F3A4149D29DA20BF00D3DEF4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		F3A4149F29DA20DB00D3DEF4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -114,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F39FF79329E94DB600F00FFE /* RealmSwift in Frameworks */,
 				F352372729DA09F2002D2C80 /* KeychainSwift in Frameworks */,
 				F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */,
 				F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */,
@@ -201,6 +229,49 @@
 			path = CollectionsScreen;
 			sourceTree = "<group>";
 		};
+		F39FF79429E952C900F00FFE /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				F3772B1329E1DC8A00E6186A /* CollectionsScreen */,
+				F39FF79529E952E700F00FFE /* CreateEditingCollectionsScreen */,
+				F39FF79C29E96E5000F00FFE /* IconSelectionScreen */,
+			);
+			path = Collections;
+			sourceTree = "<group>";
+		};
+		F39FF79529E952E700F00FFE /* CreateEditingCollectionsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F39FF79829E9664E00F00FFE /* CreateEditingCollectionsScreenViewController.swift */,
+				F39FF79A29E9665F00F00FFE /* CreateEditingCollectionsScreenView.swift */,
+			);
+			path = CreateEditingCollectionsScreen;
+			sourceTree = "<group>";
+		};
+		F39FF79C29E96E5000F00FFE /* IconSelectionScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F39FF79F29E96E7D00F00FFE /* IconSelectionScreenViewController.swift */,
+				F39FF79D29E96E6B00F00FFE /* IconSelectionScreenView.swift */,
+				F39FF7B629E9A5D500F00FFE /* IconSelectionScreenCollectionViewCell.swift */,
+			);
+			path = IconSelectionScreen;
+			sourceTree = "<group>";
+		};
+		F39FF7AF29E9813800F00FFE /* ApiModels */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3C3F029D3E283002C9E45 /* AuthUser.swift */,
+				F39FF7A929E97D7000F00FFE /* Collection.swift */,
+				F3A4149F29DA20DB00D3DEF4 /* User.swift */,
+				F3F3C3EE29D3E18D002C9E45 /* Token.swift */,
+				F39FF7B029E9843F00F00FFE /* Movie.swift */,
+				F39FF7B229E9848700F00FFE /* Tag.swift */,
+				F39FF7B429E984A800F00FFE /* Chat.swift */,
+			);
+			path = ApiModels;
+			sourceTree = "<group>";
+		};
 		F3A4149C29DA20B100D3DEF4 /* Bindings */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,13 +335,12 @@
 		F3F3C3D429D31DDC002C9E45 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F39FF7AF29E9813800F00FFE /* ApiModels */,
 				F3A4638D29DD48BA0013E33C /* DTOs */,
 				F3A4638829DD46BD0013E33C /* Validation */,
 				F3A4149C29DA20B100D3DEF4 /* Bindings */,
-				F3F3C3EE29D3E18D002C9E45 /* Token.swift */,
-				F3F3C3F029D3E283002C9E45 /* AuthUser.swift */,
-				F3A4149F29DA20DB00D3DEF4 /* User.swift */,
 				F3A4638E29DD68BE0013E33C /* RequestStatus.swift */,
+				F39FF7A729E97D1900F00FFE /* CollectionList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,7 +351,7 @@
 				F352372129DA04AD002D2C80 /* Storyboards */,
 				F3F3C3DF29D31E9D002C9E45 /* AuthScreens */,
 				F3A414A729DA21F000D3DEF4 /* TabBar */,
-				F3772B1329E1DC8A00E6186A /* CollectionsScreen */,
+				F39FF79429E952C900F00FFE /* Collections */,
 				F3A414A829DA220200D3DEF4 /* ProfileScreen */,
 				F3A414A429DA213C00D3DEF4 /* CustomViews */,
 				F3A414A129DA210500D3DEF4 /* Extension */,
@@ -295,6 +365,7 @@
 				F3F3C3F229D3E359002C9E45 /* Protocols */,
 				F3F3C3E129D31ED2002C9E45 /* SignScreenViewModel.swift */,
 				F3A414B329DA232600D3DEF4 /* ProfileViewModel.swift */,
+				F39FF7A329E979E100F00FFE /* CollectionScreenViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -348,6 +419,7 @@
 				F3F3C3F629D3E432002C9E45 /* ISignInViewModel.swift */,
 				F3F3C3F829D3E448002C9E45 /* ISignUpViewModel.swift */,
 				F3A414B129DA22FF00D3DEF4 /* IProfileViewModel.swift */,
+				F39FF7A529E97AEE00F00FFE /* ICollectionScreenViewModel.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -355,6 +427,7 @@
 		F3F3C3FA29D3E4A5002C9E45 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F39FF79629E95F1D00F00FFE /* CollectionService.swift */,
 				F3F3C3FB29D3E4AE002C9E45 /* Api */,
 			);
 			path = Services;
@@ -389,6 +462,7 @@
 				F36EC55629CACE2E000523D3 /* SnapKit */,
 				F36EC55929CACE44000523D3 /* Alamofire */,
 				F352372629DA09F2002D2C80 /* KeychainSwift */,
+				F39FF79229E94DB600F00FFE /* RealmSwift */,
 			);
 			productName = Cinema;
 			productReference = F36EC53E29CAACF5000523D3 /* Cinema.app */;
@@ -422,6 +496,7 @@
 				F36EC55529CACE2E000523D3 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F36EC55829CACE44000523D3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F352372529DA09F2002D2C80 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				F39FF79129E94DB600F00FFE /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = F36EC53F29CAACF5000523D3 /* Products */;
 			projectDirPath = "";
@@ -456,6 +531,7 @@
 				F3772B1729E2404C00E6186A /* CollectionsScreenView.swift in Sources */,
 				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
+				F39FF7A429E979E100F00FFE /* CollectionScreenViewModel.swift in Sources */,
 				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
 				F3772B1529E1DCA700E6186A /* CollectionsScreenViewController.swift in Sources */,
 				F3F3C3F929D3E448002C9E45 /* ISignUpViewModel.swift in Sources */,
@@ -464,21 +540,28 @@
 				F3A414AC29DA225100D3DEF4 /* ProfileScreenView.swift in Sources */,
 				F33CA42829D910560084D256 /* UIColorExtension.swift in Sources */,
 				F3A414F629DC3E1C00D3DEF4 /* ProfileCoordinator.swift in Sources */,
+				F39FF7B329E9848700F00FFE /* Tag.swift in Sources */,
 				F33CA42629D90FFF0084D256 /* TabBarViewController.swift in Sources */,
 				F3F3C3E829D33578002C9E45 /* SignUpViewController.swift in Sources */,
 				F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */,
 				F3F3C3E229D31ED2002C9E45 /* SignScreenViewModel.swift in Sources */,
+				F39FF7B529E984A800F00FFE /* Chat.swift in Sources */,
 				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
+				F39FF79929E9664E00F00FFE /* CreateEditingCollectionsScreenViewController.swift in Sources */,
 				F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */,
+				F39FF7A829E97D1900F00FFE /* CollectionList.swift in Sources */,
 				F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */,
 				F3F3C3FD29D3E4BC002C9E45 /* ApiRepository.swift in Sources */,
 				F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */,
+				F39FF7B729E9A5D500F00FFE /* IconSelectionScreenCollectionViewCell.swift in Sources */,
+				F39FF7A029E96E7D00F00FFE /* IconSelectionScreenViewController.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
 				F3A4638F29DD68BE0013E33C /* RequestStatus.swift in Sources */,
 				F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */,
 				F3A414B229DA22FF00D3DEF4 /* IProfileViewModel.swift in Sources */,
 				F3A414A629DA21D300D3DEF4 /* CircleImageView.swift in Sources */,
 				F3F3C3F529D3E37D002C9E45 /* Navigation.swift in Sources */,
+				F39FF7AA29E97D7000F00FFE /* Collection.swift in Sources */,
 				F3772B1B29E2513B00E6186A /* CollectionsScreenCollectionViewCell.swift in Sources */,
 				F3A4636229DC5BFE0013E33C /* CompilationCoordinator.swift in Sources */,
 				F3A4638A29DD46D20013E33C /* ValidationAuthScreen.swift in Sources */,
@@ -486,13 +569,18 @@
 				F3A414AA29DA223000D3DEF4 /* ProfileScreenViewController.swift in Sources */,
 				F3A4638C29DD48A60013E33C /* AuthUserDTO.swift in Sources */,
 				F3A414A329DA211800D3DEF4 /* UIImageViewExtension.swift in Sources */,
+				F39FF7A629E97AEE00F00FFE /* ICollectionScreenViewModel.swift in Sources */,
+				F39FF79E29E96E6B00F00FFE /* IconSelectionScreenView.swift in Sources */,
 				F3772B1929E248C700E6186A /* CollectionsCoorditanor.swift in Sources */,
 				F356E91C29CC679600D90D5C /* SingInScreenView.swift in Sources */,
+				F39FF79B29E9665F00F00FFE /* CreateEditingCollectionsScreenView.swift in Sources */,
+				F39FF79729E95F1D00F00FFE /* CollectionService.swift in Sources */,
 				F3F3C3EB29D3366A002C9E45 /* UICustomTextField.swift in Sources */,
 				F3F3C3F729D3E432002C9E45 /* ISignInViewModel.swift in Sources */,
 				F352372329DA04CD002D2C80 /* SignUpScreenView.swift in Sources */,
 				F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */,
 				F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */,
+				F39FF7B129E9843F00F00FFE /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,6 +824,14 @@
 				kind = branch;
 			};
 		};
+		F39FF79129E94DB600F00FFE /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -753,6 +849,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F36EC55829CACE44000523D3 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		F39FF79229E94DB600F00FFE /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F39FF79129E94DB600F00FFE /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

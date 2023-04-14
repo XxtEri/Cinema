@@ -18,7 +18,9 @@ protocol HomeNavigation: AnyObject {
 }
 
 protocol CollectionsNavigation: AnyObject {
-    
+    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool)
+    func goToIconSelectionScreen()
+    func goToCollectionsScreen()
 }
 
 protocol ProfileNavigation: AnyObject {

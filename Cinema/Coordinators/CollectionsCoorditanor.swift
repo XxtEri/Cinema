@@ -21,16 +21,35 @@ final class CollectionsCoorditanor: Coordinator {
     func start() {
         print("Collections coordinator start")
     }
-}
-
-extension CollectionsCoorditanor: CollectionsNavigation {
+    
     func generateCollectionsScreen() -> UIViewController {
         let vc = CollectionsScreenViewController()
-//        vc.viewModel = ProfileViewModel(navigation: self)
+        vc.viewModel = CollectionScreenViewModel(navigation: self)
         
         vc.tabBarItem.title = "Коллекции"
         vc.tabBarItem.image = UIImage(named: "TabItemCollectionScreen")
         
         return vc
+    }
+}
+
+extension CollectionsCoorditanor: CollectionsNavigation {
+    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool) {
+        let vc = CreateEditingCollectionsScreenViewController(isCreatingCollection: isCreatingCollection)
+        vc.viewModel = CollectionScreenViewModel(navigation: self)
+        
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToIconSelectionScreen() {
+        let vc = IconSelectionScreenViewController()
+        
+        navigationController.present(vc, animated: true)
+    }
+    
+    func goToCollectionsScreen() {
+        navigationController.popViewController(animated: true)
     }
 }

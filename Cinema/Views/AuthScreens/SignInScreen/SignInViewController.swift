@@ -30,7 +30,8 @@ final class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setHandlers()
+        self.setHandlers()
+        self.setupToHideKeyboardOnTapOnView()
     }
 
 }
@@ -75,5 +76,21 @@ private extension SignInViewController {
         alertController.view.tintColor = .accentColorApplication
         
         self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+private extension SignInViewController {
+    func setupToHideKeyboardOnTapOnView() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard(sender:)))
+        
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    func dismissKeyboard(sender: AnyObject) {
+        view.endEditing(true)
     }
 }

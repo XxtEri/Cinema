@@ -56,6 +56,15 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             self.keychain.set("\(token.accessToken)", forKey: "accessToken")
             self.keychain.set("\(token.refreshToken)", forKey: "refreshToken")
             
+            self.getInformationProfile { result in
+                switch result {
+                case .success(let user):
+                    self.keychain.set("\(user.userId)", forKey: "userId")
+                case .failure(_):
+                    completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                }
+            }
+            
             print(token)
 
             completion(.success(RequestStatus.success))
@@ -137,6 +146,32 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             
             completion(.success(()))
         }
+    }
+}
+
+extension ApiRepository: IApiRepositoryCollectionScreen {
+    func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void) {
+        
+    }
+    
+    func addNewCollection(completion: @escaping (Result<Collection, Error>) -> Void) {
+        
+    }
+    
+    func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+    }
+    
+    func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
+        
+    }
+    
+    func addMoviesInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+    }
+    
+    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
     }
 }
 

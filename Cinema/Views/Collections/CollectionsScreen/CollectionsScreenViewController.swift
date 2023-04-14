@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CollectionsScreenViewController: UIViewController {
     
@@ -18,8 +19,9 @@ class CollectionsScreenViewController: UIViewController {
     }
     
     private let ui: CollectionsScreenView
+    var viewModel: CollectionScreenViewModel?
     
-    var titleCollections = ["Избранное"]
+    var collectionList: Results<CollectionList>?
     
     init() {
         self.ui = CollectionsScreenView()
@@ -40,14 +42,41 @@ class CollectionsScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        handler()
     }
+}
 
+extension CollectionsScreenViewController {
+    func handler() {
+        self.ui.buttonAddingNewCollectionPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: true)
+        }
+    }
+    
+    func clearRealmDatabase() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.deleteAll()
+            }
+        } catch let error as NSError {
+            print("Ошибка очистки базы данных Realm: \(error.localizedDescription)")
+        }
+    }
 }
 
 extension CollectionsScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        titleCollections.count
+        guard let collections = collectionList else { return 0}
+        
+        if !collections.isEmpty {
+            print(collections.count)
+            return collections.count
+        }
+        
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -55,7 +84,11 @@ extension CollectionsScreenViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configure(title: titleCollections[indexPath.row], imageName: "FavoriteIcon")
+        guard let collections = collectionList else { return UICollectionViewCell()}
+        
+        let collection = collections[indexPath.row]
+        
+        cell.configure(title: collection.collectionName, imageName: collection.nameImageCollection)
         
         return cell
     }

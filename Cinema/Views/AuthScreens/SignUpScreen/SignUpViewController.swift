@@ -32,6 +32,7 @@ final class SingUpViewController: UIViewController {
         super.viewDidLoad()
 
         self.setHandlers()
+        self.setupToHideKeyboardOnTapOnView()
     }
     
     private func setHandlers() {
@@ -64,5 +65,21 @@ final class SingUpViewController: UIViewController {
         alertController.addTextField(configurationHandler: nil)
         
         self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+private extension SingUpViewController {
+    func setupToHideKeyboardOnTapOnView() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard(sender:)))
+        
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    func dismissKeyboard(sender: AnyObject) {
+        view.endEditing(true)
     }
 }

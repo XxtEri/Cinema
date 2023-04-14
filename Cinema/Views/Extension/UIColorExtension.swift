@@ -16,6 +16,14 @@ extension UIColor {
         #colorLiteral(red: 0.937254902, green: 0.2274509804, blue: 0.003921568627, alpha: 1)
     }
     
+    static var iconSelectionScreenHeadBackground: UIColor {
+        #colorLiteral(red: 0.2081992924, green: 0.1980744004, blue: 0.1929920912, alpha: 1)
+    }
+    
+    static var iconSelectionScreenBackground: UIColor {
+        #colorLiteral(red: 0.1462551653, green: 0.1466015875, blue: 0.1569609344, alpha: 1)
+    }
+    
     static var textTextField: UIColor {
         #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)
     }
