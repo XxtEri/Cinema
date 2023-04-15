@@ -8,7 +8,7 @@
 import Foundation
 
 class SignViewModel {
-    private var api: ApiRepository
+    private var api: IApiRepositoryAuthScreen
     weak var navigation: SignNavigation?
     
     init(navigation: SignNavigation) {

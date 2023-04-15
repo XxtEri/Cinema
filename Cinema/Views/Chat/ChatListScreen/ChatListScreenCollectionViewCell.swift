@@ -57,17 +57,50 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
         self.addSubview(lastMessage)
         self.addSubview(line)
         
-        configureConstraints()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(modelChat: Chat, modelLastMessage: MessageServer) {
+    private func getLabelTitleChatInList() -> UILabel {
+        let label = UILabel()
+        
+        label.text = getAbbrevationChat()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont(name: "SFProText-Bold", size: 24)
+        
+        return label
+    }
+    
+    private func getAbbrevationChat() -> String {
+        var abbrevationChat = String()
+        
+        guard let words = titleChat.text?.split(separator: " ") else { return "" }
+        
+        if words.count > 1 {
+            if let firstLetter = words[0].first {
+                if let secondLetter = words[1].first {
+                    abbrevationChat = "\(firstLetter)\(secondLetter)"
+                }
+            }
+        }
+        
+        if words.count == 1 {
+            if let letters = words.first?.prefix(2) {
+                abbrevationChat = "\(letters)"
+            }
+        }
+       
+        return abbrevationChat.uppercased()
+    }
+    
+    func configureCell(modelChat: Chat) {
         titleChat.text = modelChat.chatName
-        let authorName = modelLastMessage.authorName + ":"
-        let message = modelLastMessage.text
+        let authorName = modelChat.lastMessage.authorName + ":"
+        let message = modelChat.lastMessage.text
         let authorAndMessage = authorName + " " + message
 
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: authorAndMessage)
@@ -78,20 +111,21 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
         
         avatarChat.backgroundColor = .accentColorApplication
         
-        let label = UILabel()
-        label.text = "ИП"
-        label.textAlignment = .center
-        label.textColor = .white
-        label.font = UIFont(name: "SFProText-Bold", size: 24)
-        
+        let label = getLabelTitleChatInList()
         avatarChat.addSubview(label)
         
         label.snp.makeConstraints { make in
             make.centerY.centerX.equalToSuperview()
         }
     }
+}
+
+private extension ChatListScreenCollectionViewCell {
+    func setup() {
+        configureConstraints()
+    }
     
-    private func configureConstraints() {
+    func configureConstraints() {
         avatarChat.snp.makeConstraints { make in
             make.top.leading.equalToSuperview()
             make.height.width.equalTo(64)
@@ -100,6 +134,7 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
         titleChat.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview()
             make.leading.equalTo(avatarChat.snp.trailing).inset(-16)
+            make.trailing.equalToSuperview().inset(16)
         }
         
         lastMessage.snp.makeConstraints { make in

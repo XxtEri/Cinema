@@ -7,6 +7,8 @@
 
 import UIKit
 import MessageKit
+import SnapKit
+
 
 struct Sender: SenderType {
     var senderId: String
@@ -30,8 +32,6 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        messagesCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        
         messagesCollectionView.register(MyMessageCollectionViewCell.self, forCellWithReuseIdentifier: MyMessageCollectionViewCell.reuseIdentifier)
         
         messagesCollectionView.register(OtherMessageCollectionViewCell.self, forCellWithReuseIdentifier: OtherMessageCollectionViewCell.reuseIdentifier)
@@ -42,6 +42,11 @@ class ChatViewController: MessagesViewController {
         self.setupToHideKeyboardOnTapOnView()
         
         print(messagesCollectionView.alpha)
+        
+        messagesCollectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        messagesCollectionView.isHidden = false
     }
     
     func configureCollectionView() {
@@ -135,16 +140,14 @@ class ChatViewController: MessagesViewController {
 
                 cell.textMessage.text = text
                 cell.infoMessage.text = message.sender.displayName
-                
-                cell.snp.makeConstraints { make in
-                    make.height.equalTo(50)
-                }
+        
 
                 return cell
             default:
                 break
             }
             return super.collectionView(collectionView, cellForItemAt: indexPath)
+            
         } else {
             switch message.kind {
             case .text(let text):
@@ -194,8 +197,7 @@ extension ChatViewController: MessagesDataSource {
 // MARK: - MessagesLayoutDelegate
 extension ChatViewController: MessagesLayoutDelegate {
     
-    func avatarSize(for message: MessageType, at indexPath: IndexPath,
-                    in messagesCollectionView: MessagesCollectionView) -> CGSize {
+    func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize? {
         return CGSize(width: 32, height: 32)
     }
     

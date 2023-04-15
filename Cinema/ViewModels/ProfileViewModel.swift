@@ -8,7 +8,7 @@
 import Foundation
 
 class ProfileViewModel {
-    private let api: ApiRepository
+    private let api: IApiRepositoryProfileScreen
     weak var navigation: ProfileNavigation?
     
     var informationProfile = Observable<User>()

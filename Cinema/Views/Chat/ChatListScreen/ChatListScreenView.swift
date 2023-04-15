@@ -60,6 +60,10 @@ class ChatListScreenView: UIView {
         collectionChats.delegate = delegate
         collectionChats.dataSource = dataSource
     }
+    
+    func reloadData() {
+        collectionChats.reloadData()
+    }
 }
 
 private extension ChatListScreenView {

@@ -23,16 +23,14 @@ final class AppCoordinator: Coordinator {
     
     func start() {
         print("App coordinator start")
-//        keychain.synchronizable = true
-//
-//        if keychain.get("accessToken") != nil {
-//            goToHome()
-//
-//        } else {
-//            goToAuth()
-//        }
-        let vc = ChatViewController()
-        navigationController.pushViewController(vc, animated: true)
+        keychain.synchronizable = true
+
+        if keychain.get("accessToken") != nil {
+            goToHome()
+
+        } else {
+            goToAuth()
+        }
     }
     
     func goToAuth() {

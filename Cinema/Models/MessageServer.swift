@@ -5,7 +5,7 @@
 //  Created by Елена on 05.04.2023.
 //
 
-struct MessageServer {
+struct MessageServer: Decodable {
     let messageId: String
     let creationDateTime: String
     let authorId: String?

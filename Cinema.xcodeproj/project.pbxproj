@@ -206,6 +206,7 @@
 		F36EC54029CAACF5000523D3 /* Cinema */ = {
 			isa = PBXGroup;
 			children = (
+				F3E8AA9E29EA68130076B905 /* Managers */,
 				F36EC54129CAACF5000523D3 /* AppDelegate.swift */,
 				F3F3C3D729D31DF3002C9E45 /* Coordinators */,
 				F3F3C3FA29D3E4A5002C9E45 /* Services */,
@@ -222,12 +223,9 @@
 		F3772B2129E2981700E6186A /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				F3B1AB8129E3EC3A008806DD /* ChatViewController.swift */,
-				F3772B9829E306AC00E6186A /* MessageListViewController.swift */,
 				F3A4637B29DC9D790013E33C /* ChatListScreen */,
 				F3772B2229E2995000E6186A /* ChatScreen */,
-				F3B1AB8329E3F157008806DD /* CustomMessagesFlowLayout.swift */,
-				F3B1AB8529E41673008806DD /* Vc.swift */,
+				F3E8AA9F29EA70250076B905 /* Library */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -298,6 +296,24 @@
 				F3A4638029DCA2810013E33C /* ChatListScreenCollectionViewCell.swift */,
 			);
 			path = ChatListScreen;
+			sourceTree = "<group>";
+		};
+		F3E8AA9E29EA68130076B905 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		F3E8AA9F29EA70250076B905 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				F3B1AB8529E41673008806DD /* Vc.swift */,
+				F3B1AB8329E3F157008806DD /* CustomMessagesFlowLayout.swift */,
+				F3B1AB8129E3EC3A008806DD /* ChatViewController.swift */,
+				F3772B9829E306AC00E6186A /* MessageListViewController.swift */,
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 		F3F3C3D429D31DDC002C9E45 /* Models */ = {

@@ -6,8 +6,11 @@
 //
 
 class ChatViewModel {
-    private let api: ApiRepository
+    private let api: IApiRepositoryChatScreen
     weak var navigation: ChatNavigation?
+    
+    var chats = Observable<[Chat]>()
+    var errorOnLoading = Observable<Error>()
     
     init(navigation: ChatNavigation) {
         self.navigation = navigation
@@ -22,3 +25,27 @@ class ChatViewModel {
         navigation?.goToChat()
     }
 }
+
+private extension ChatViewModel {
+    func successLoadingHandle(with chats: [Chat]) {
+        self.chats.updateModel(with: chats)
+    }
+    
+    func failureLoadingHandle(with error: Error) {
+        self.errorOnLoading.updateModel(with: error)
+    }
+}
+
+extension ChatViewModel: IChatViewModel {
+    func getChatList() {
+        self.api.getChatList { result in
+            switch result {
+            case .success(let chats):
+                self.successLoadingHandle(with: chats)
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
+}
+

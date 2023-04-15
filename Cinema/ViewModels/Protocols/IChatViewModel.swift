@@ -6,7 +6,5 @@
 //
 
 protocol IChatViewModel {
-    func goToChatListScreen()
-    
-    func goToChatScreen()
+    func getChatList()
 }

@@ -13,6 +13,7 @@ class MyMessageCollectionViewCell: UICollectionViewCell {
     private lazy var avatar: CircleImageView = {
         let view = CircleImageView()
         view.contentMode = .scaleAspectFill
+        view.image = UIImage(named: "ProfileAnonymous")
         
         return view
     }()

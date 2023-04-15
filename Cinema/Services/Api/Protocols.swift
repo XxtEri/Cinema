@@ -17,3 +17,6 @@ protocol IApiRepositoryProfileScreen {
     func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void)
 }
 
+protocol IApiRepositoryChatScreen {
+    func getChatList(completion: @escaping (Result<[Chat], Error>) -> Void)
+}

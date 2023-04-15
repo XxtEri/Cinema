@@ -20,8 +20,8 @@ final class ChatCoordinator: Coordinator {
     
     func start() {
         print("Chat coordinator start")
-//        goToChatList()
-        goToChat()
+        goToChatList()
+//        goToChat()
     }
 }
 

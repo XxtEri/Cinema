@@ -13,6 +13,8 @@ class ChatListScreenViewController: UIViewController {
     private var ui: ChatListScreenView
     var viewModel: ChatViewModel?
     
+    var chats = [Chat]()
+    
     init() {
         self.ui = ChatListScreenView()
         
@@ -32,11 +34,14 @@ class ChatListScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
-        
         handler()
+        bindListener()
+        
+        self.viewModel?.getChatList()
     }
-    
+}
+
+private extension ChatListScreenViewController {
     func handler() {
         self.ui.goBackButtonPressed = { [ weak self ] in
             guard let self = self else { return }
@@ -44,11 +49,20 @@ class ChatListScreenViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
+    
+    func bindListener() {
+        self.viewModel?.chats.subscribe(with: { [ weak self ] chats in
+            guard let self = self else { return }
+            
+            self.chats = chats
+            self.ui.reloadData()
+        })
+    }
 }
 
-extension ChatListScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ChatListScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        24
+        chats.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -56,14 +70,23 @@ extension ChatListScreenViewController: UICollectionViewDelegate, UICollectionVi
             return UICollectionViewCell()
         }
         
-        let chat = Chat(chatId: "1", chatName: "Игра престолов")
-        let message = MessageServer(messageId: "1", creationDateTime: "12:12:12", authorId: "1", authorName: "Иван", authorAvatar: nil, text: "Смотрели уже последнюю серию? Я просто поверить не могу в...")
+//        let message = MessageServer(messageId: "1", creationDateTime: "12:12:12", authorId: "1", authorName: "Иван", authorAvatar: nil, text: "Смотрели уже последнюю серию? Я просто поверить не могу в...")
+//
+//        let chat = Chat(chatId: "1", chatName: "Игра престолов", lastMessage: message)
         
-        cell.configureCell(modelChat: chat, modelLastMessage: message)
+        cell.configureCell(modelChat: chats[indexPath.row])
         
         return cell
     }
-    
+}
+
+extension ChatListScreenViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+}
+
+extension ChatListScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath ) -> CGSize {
             
         return CGSize(width: collectionView.frame.width, height: 73)
@@ -71,10 +94,5 @@ extension ChatListScreenViewController: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         8
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
     }
 }

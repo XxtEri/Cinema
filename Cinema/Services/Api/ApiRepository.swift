@@ -91,6 +91,7 @@ extension ApiRepository: IApiRepositoryAuthScreen {
     func refreshToken(completion: @escaping (Result<Void, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
+        self.keychain.synchronizable = true
         if let token = self.keychain.get("refreshToken") {
             headers["Authorization"] = "Bearer" + token
         }
@@ -170,6 +171,49 @@ extension ApiRepository: IApiRepositoryProfileScreen {
     func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void) {
         
     }
-    
-    
+}
+
+extension ApiRepository: IApiRepositoryChatScreen {
+    func getChatList(completion: @escaping (Result<[Chat], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/chats",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: [Chat].self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getChatList(completion: completion)
+                        case .failure(let error):
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let chats = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(chats))
+        }
+    }
 }
