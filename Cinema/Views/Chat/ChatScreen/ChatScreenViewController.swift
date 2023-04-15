@@ -13,22 +13,23 @@ class ChatScreenViewController: UIViewController {
     
     private var currentDate: DateMessage?
     
+    private var chatModel: Chat
+    
     var viewModel: ChatViewModel?
     
-    var messages = [
-        MessageServer(messageId: "3", creationDateTime: "2023-04-09T09:55:25.192531", authorId: "337a3473-b2e3-4736-ba8a-13e035b72d90", authorName: "Green Greenpix", authorAvatar: "https://ucarecdn.com/21b75d2f-14bf-4ecb-8a49-1883a00f4d3a/", text: "Ha\n-ha"),
-        MessageServer(messageId: "2", creationDateTime: "2023-04-09T09:54:37.234769", authorId: "337a3473-b2e3-4736-ba8a-13e035b72d90", authorName: "Green Greenpix", authorAvatar: "https://ucarecdn.com/21b75d2f-14bf-4ecb-8a49-1883a00f4d3a/", text: "Ha\n-ha"),
-        MessageServer(messageId: "1", creationDateTime: "2023-04-09T09:54:22.808868", authorId: "337a3473-b2e3-4736-ba8a-13e035b72d90", authorName: "Green Greenpix", authorAvatar: "https://ucarecdn.com/21b75d2f-14bf-4ecb-8a49-1883a00f4d3a/", text: "Ha\n-ha")
-    ]
+    var currentUserId: String?
     
-    init(titleChat: String) {
+    var messages = [MessageServer]()
+    
+    init(chatModel: Chat) {
         self.ui = ChatScreenView()
+        self.chatModel = chatModel
         
         super.init(nibName: nil, bundle: nil)
         
         self.ui.configureCollection(delegate: self, dataSource: self)
         self.ui.configureTextView(delegate: self)
-        self.ui.setTitleScreen(titleChat: titleChat)
+        self.ui.setTitleScreen(titleChat: chatModel.chatName)
     }
     
     required init?(coder: NSCoder) {
@@ -42,13 +43,18 @@ class ChatScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.viewModel?.getUserId()
+        self.viewModel?.connectToChat(chatId: chatModel.chatId)
+        
         setupToHideKeyboardOnTapOnView()
         
         handler()
     }
     
     func reloadDataChat() {
-        self.ui.chat.reloadData()
+        DispatchQueue.main.async {
+            self.ui.chat.reloadData()
+        }
     }
 }
 
@@ -58,14 +64,29 @@ private extension ChatScreenViewController {
             guard let self = self else { return }
             
             self.viewModel?.backGoToChatList()
+            self.viewModel?.disconnectToChat()
         }
         
-        self.ui.addNewMessagePressed = { [ weak self ] message in
+//        self.ui.addNewMessagePressed = { [ weak self ] message in
+//            guard let self = self else { return }
+//
+//            self.reloadDataChat()
+//
+//            self.viewModel?.disconnectToChat()
+//        }
+        
+        self.viewModel?.newMessages.subscribe(with: { [ weak self ] message in
             guard let self = self else { return }
             
-            self.messages.append(MessageServer(messageId: "3", creationDateTime: "2023-04-09T09:55:25.192531", authorId: "337a3473-b2e3-4736-ba8a-13e035b72d90", authorName: "Green Greenpix", authorAvatar: "https://ucarecdn.com/21b75d2f-14bf-4ecb-8a49-1883a00f4d3a/", text: message))
+            self.messages.append(message)
             self.reloadDataChat()
-        }
+        })
+        
+        self.viewModel?.userId.subscribe(with: { [ weak self ] userId in
+            guard let self = self else { return }
+            
+            self.currentUserId = userId
+        })
     }
 }
 
@@ -75,10 +96,22 @@ extension ChatScreenViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MyMessageCollectionViewCell.reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = messages[indexPath.row].text
-        cell.textLabel?.textColor = .white
-        cell.backgroundColor = .backgroundApplication
+        guard let currentUserId = self.currentUserId else { return UITableViewCell() }
+        
+        let message = messages[indexPath.row]
+        
+        if currentUserId == message.authorId {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyMessageTableViewCell.reuseIdentifier, for: indexPath) as? MyMessageTableViewCell else { return UITableViewCell() }
+            
+            cell.configureCell(message: message)
+            
+            return cell
+            
+        }
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherMessageTableViewCell.reuseIdentifier, for: indexPath) as? OtherMessageTableViewCell else { return UITableViewCell() }
+        
+        cell.configureCell(message: message)
         
         return cell
     }

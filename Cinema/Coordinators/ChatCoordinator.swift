@@ -28,8 +28,8 @@ final class ChatCoordinator: Coordinator {
 }
 
 extension ChatCoordinator: ChatNavigation {
-    func goToChat(chatName: String) {
-        let vc = ChatScreenViewController(titleChat: chatName)
+    func goToChat(chatModel: Chat) {
+        let vc = ChatScreenViewController(chatModel: chatModel)
         vc.viewModel = ChatViewModel(navigation: self)
         
         navigationController.pushViewController(vc, animated: true)

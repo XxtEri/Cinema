@@ -19,4 +19,7 @@ protocol IApiRepositoryProfileScreen {
 
 protocol IApiRepositoryChatScreen {
     func getChatList(completion: @escaping (Result<[Chat], Error>) -> Void)
+    func connectToChat(chatId: String, completion: @escaping (Result<MessageServer, Error>) -> Void)
+    func disconnectChat()
+    func getUserId(completion: @escaping (Result<String, Error>) -> Void)
 }

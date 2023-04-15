@@ -13,6 +13,8 @@ class ApiRepository {
     
     private let session: Alamofire.Session
     
+    var webSocketManager: WebSocketManager
+    
     private let keychain: KeychainSwift
     
     private let baseURL = "http://107684.web.hosting-russia.ru:8000/api"
@@ -20,6 +22,7 @@ class ApiRepository {
     init() {
         self.session = .default
         self.keychain = KeychainSwift()
+        self.webSocketManager = WebSocketManager()
     }
 }
 
@@ -49,8 +52,6 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             self.keychain.synchronizable = true
             self.keychain.set("\(token.accessToken)", forKey: "accessToken")
             self.keychain.set("\(token.refreshToken)", forKey: "refreshToken")
-            
-            print(token)
 
             completion(.success(()))
         }
@@ -116,10 +117,17 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             }
             
             self.keychain.synchronizable = true
+            guard let userId = self.keychain.get("userId") else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                
+                return
+            }
+            
             self.keychain.clear()
             
             self.keychain.set("\(token.accessToken)", forKey: "accessToken")
             self.keychain.set("\(token.refreshToken)", forKey: "refreshToken")
+            self.keychain.set("\(userId)", forKey: "userId")
             
             print(token)
             
@@ -158,6 +166,10 @@ extension ApiRepository: IApiRepositoryProfileScreen {
             guard let user = response.value else {
                 completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 return
+            }
+            
+            if self.keychain.get("userId") == nil {
+                self.keychain.set("\(user.userId)", forKey: "userId")
             }
             
             completion(.success(user))
@@ -215,5 +227,25 @@ extension ApiRepository: IApiRepositoryChatScreen {
             
             completion(.success(chats))
         }
+    }
+    
+    func connectToChat(chatId: String, completion: @escaping (Result<MessageServer, Error>) -> Void) {
+        webSocketManager.connect(chatId: chatId, completion: completion)
+    }
+    
+    func disconnectChat() {
+        webSocketManager.disconnect()
+    }
+    
+    func getUserId(completion: @escaping (Result<String, Error>) -> Void) {
+        self.keychain.synchronizable = true
+        
+        if let userId = self.keychain.get("userId") {
+            completion(.success(userId))
+            
+            return
+        }
+        
+        completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
     }
 }

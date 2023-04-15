@@ -78,7 +78,7 @@ extension ChatListScreenViewController: UICollectionViewDataSource {
 
 extension ChatListScreenViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.viewModel?.goToChatScreen(chatName: chats[indexPath.row].chatName)
+        self.viewModel?.goToChatScreen(chatModel: chats[indexPath.row])
     }
 }
 

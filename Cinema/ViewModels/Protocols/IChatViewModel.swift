@@ -7,4 +7,7 @@
 
 protocol IChatViewModel {
     func getChatList()
+    func connectToChat(chatId: String)
+    func disconnectToChat()
+    func getUserId()
 }

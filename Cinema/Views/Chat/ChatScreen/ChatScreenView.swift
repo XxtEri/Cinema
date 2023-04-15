@@ -33,6 +33,7 @@ class ChatScreenView: UIView {
         view.separatorStyle = .none
         view.allowsSelection = false
         view.backgroundColor = .backgroundApplication
+        view.showsVerticalScrollIndicator = false
         
         return view
     }()
@@ -94,9 +95,9 @@ class ChatScreenView: UIView {
     func configureCollection(delegate: UITableViewDelegate, dataSource: UITableViewDataSource) {
         chat.delegate = delegate
         chat.dataSource = dataSource
-        chat.register(UITableViewCell.self, forCellReuseIdentifier: MyMessageCollectionViewCell.reuseIdentifier)
-        chat.register(UITableViewCell.self, forCellReuseIdentifier: OtherMessageCollectionViewCell.reuseIdentifier)
-        chat.register(UITableViewCell.self, forCellReuseIdentifier: DateCollectionViewCell.reuseIdentifier)
+        chat.register(MyMessageTableViewCell.self, forCellReuseIdentifier: MyMessageTableViewCell.reuseIdentifier)
+        chat.register(OtherMessageTableViewCell.self, forCellReuseIdentifier: OtherMessageTableViewCell.reuseIdentifier)
+        chat.register(DateTableViewCell.self, forCellReuseIdentifier: DateTableViewCell.reuseIdentifier)
     }
     
     func configureTextView(delegate: UITextViewDelegate) {

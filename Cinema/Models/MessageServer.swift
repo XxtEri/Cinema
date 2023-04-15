@@ -13,3 +13,7 @@ struct MessageServer: Decodable {
     let authorAvatar: String?
     let text: String
 }
+
+struct MessageForm: Encodable {
+    let text: String
+}

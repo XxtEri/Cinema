@@ -58,7 +58,11 @@
 		F3B1AB8229E3EC3A008806DD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1AB8129E3EC3A008806DD /* ChatViewController.swift */; };
 		F3B1AB8429E3F157008806DD /* CustomMessagesFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1AB8329E3F157008806DD /* CustomMessagesFlowLayout.swift */; };
 		F3B1AB8629E41673008806DD /* Vc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1AB8529E41673008806DD /* Vc.swift */; };
-		F3E8AAA129EA7A460076B905 /* ChatViewControllerBla.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8AAA029EA7A460076B905 /* ChatViewControllerBla.swift */; };
+		F3E8AAA429EABE870076B905 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8AAA329EABE870076B905 /* WebSocketManager.swift */; };
+		F3E8AAA729EABF040076B905 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = F3E8AAA629EABF040076B905 /* Starscream */; };
+		F3E8AAB129EAEF0D0076B905 /* MyMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8AAB029EAEF0D0076B905 /* MyMessageTableViewCell.swift */; };
+		F3E8AAB329EAF14E0076B905 /* OtherMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8AAB229EAF14E0076B905 /* OtherMessageTableViewCell.swift */; };
+		F3E8AAB529EAF1EC0076B905 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8AAB429EAF1EC0076B905 /* DateTableViewCell.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
@@ -123,7 +127,10 @@
 		F3B1AB8129E3EC3A008806DD /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		F3B1AB8329E3F157008806DD /* CustomMessagesFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessagesFlowLayout.swift; sourceTree = "<group>"; };
 		F3B1AB8529E41673008806DD /* Vc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vc.swift; sourceTree = "<group>"; };
-		F3E8AAA029EA7A460076B905 /* ChatViewControllerBla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerBla.swift; sourceTree = "<group>"; };
+		F3E8AAA329EABE870076B905 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		F3E8AAB029EAEF0D0076B905 /* MyMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessageTableViewCell.swift; sourceTree = "<group>"; };
+		F3E8AAB229EAF14E0076B905 /* OtherMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherMessageTableViewCell.swift; sourceTree = "<group>"; };
+		F3E8AAB429EAF1EC0076B905 /* DateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -146,6 +153,7 @@
 				F352372729DA09F2002D2C80 /* KeychainSwift in Frameworks */,
 				F36EC55729CACE2E000523D3 /* SnapKit in Frameworks */,
 				F36EC55A29CACE44000523D3 /* Alamofire in Frameworks */,
+				F3E8AAA729EABF040076B905 /* Starscream in Frameworks */,
 				F3B1AB5929E3A57E008806DD /* MessageKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,10 +245,7 @@
 			children = (
 				F3772B2329E2996700E6186A /* ChatScreenViewController.swift */,
 				F3772B2529E2997200E6186A /* ChatScreenView.swift */,
-				F3772B3529E2AF4000E6186A /* DateCollectionViewCell.swift */,
-				F3772B3729E2AF5000E6186A /* MyMessageCollectionViewCell.swift */,
-				F3772B3929E2AF6A00E6186A /* OtherMessageCollectionViewCell.swift */,
-				F3E8AAA029EA7A460076B905 /* ChatViewControllerBla.swift */,
+				F3E8AAAF29EAC57F0076B905 /* Cells */,
 			);
 			path = ChatScreen;
 			sourceTree = "<group>";
@@ -318,6 +323,27 @@
 				F3772B9829E306AC00E6186A /* MessageListViewController.swift */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		F3E8AAA229EABE780076B905 /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				F3E8AAA329EABE870076B905 /* WebSocketManager.swift */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
+		F3E8AAAF29EAC57F0076B905 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F3772B3529E2AF4000E6186A /* DateCollectionViewCell.swift */,
+				F3772B3929E2AF6A00E6186A /* OtherMessageCollectionViewCell.swift */,
+				F3772B3729E2AF5000E6186A /* MyMessageCollectionViewCell.swift */,
+				F3E8AAB029EAEF0D0076B905 /* MyMessageTableViewCell.swift */,
+				F3E8AAB229EAF14E0076B905 /* OtherMessageTableViewCell.swift */,
+				F3E8AAB429EAF1EC0076B905 /* DateTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		F3F3C3D429D31DDC002C9E45 /* Models */ = {
@@ -415,6 +441,7 @@
 		F3F3C3FA29D3E4A5002C9E45 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F3E8AAA229EABE780076B905 /* WebSocket */,
 				F3F3C3FB29D3E4AE002C9E45 /* Api */,
 			);
 			path = Services;
@@ -450,6 +477,7 @@
 				F36EC55929CACE44000523D3 /* Alamofire */,
 				F352372629DA09F2002D2C80 /* KeychainSwift */,
 				F3B1AB5829E3A57E008806DD /* MessageKit */,
+				F3E8AAA629EABF040076B905 /* Starscream */,
 			);
 			productName = Cinema;
 			productReference = F36EC53E29CAACF5000523D3 /* Cinema.app */;
@@ -484,6 +512,7 @@
 				F36EC55829CACE44000523D3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F352372529DA09F2002D2C80 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				F3B1AB5729E3A57E008806DD /* XCRemoteSwiftPackageReference "MessageKit" */,
+				F3E8AAA529EABF040076B905 /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = F36EC53F29CAACF5000523D3 /* Products */;
 			projectDirPath = "";
@@ -515,6 +544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3E8AAA429EABE870076B905 /* WebSocketManager.swift in Sources */,
 				F3A4149B29DA14EE00D3DEF4 /* HomeCoordinator.swift in Sources */,
 				F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */,
 				F3A414B429DA232600D3DEF4 /* ProfileViewModel.swift in Sources */,
@@ -534,13 +564,16 @@
 				F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */,
 				F3772B2C29E2AD9F00E6186A /* IChatViewModel.swift in Sources */,
 				F3B1AB8629E41673008806DD /* Vc.swift in Sources */,
+				F3E8AAB129EAEF0D0076B905 /* MyMessageTableViewCell.swift in Sources */,
 				F3A4638129DCA2810013E33C /* ChatListScreenCollectionViewCell.swift in Sources */,
 				F3F3C3E629D32E80002C9E45 /* AuthCoordinator.swift in Sources */,
 				F3A4638329DCFE980013E33C /* Chat.swift in Sources */,
 				F3A414A029DA20DB00D3DEF4 /* User.swift in Sources */,
 				F3A4149E29DA20BF00D3DEF4 /* Observable.swift in Sources */,
 				F3F3C3FD29D3E4BC002C9E45 /* ApiRepository.swift in Sources */,
+				F3E8AAB529EAF1EC0076B905 /* DateTableViewCell.swift in Sources */,
 				F3A414B629DA237400D3DEF4 /* Protocols.swift in Sources */,
+				F3E8AAB329EAF14E0076B905 /* OtherMessageTableViewCell.swift in Sources */,
 				F3772B2A29E2A34300E6186A /* ChatViewModel.swift in Sources */,
 				F36EC54229CAACF5000523D3 /* AppDelegate.swift in Sources */,
 				F3F3C3F129D3E283002C9E45 /* AuthUser.swift in Sources */,
@@ -567,7 +600,6 @@
 				F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */,
 				F3772B2829E2A04800E6186A /* ChatCoordinator.swift in Sources */,
 				F3A4637F29DC9D910013E33C /* ChatListScreenView.swift in Sources */,
-				F3E8AAA129EA7A460076B905 /* ChatViewControllerBla.swift in Sources */,
 				F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -820,6 +852,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		F3E8AAA529EABF040076B905 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -842,6 +882,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F3B1AB5729E3A57E008806DD /* XCRemoteSwiftPackageReference "MessageKit" */;
 			productName = MessageKit;
+		};
+		F3E8AAA629EABF040076B905 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3E8AAA529EABF040076B905 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
