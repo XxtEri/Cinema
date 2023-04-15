@@ -58,6 +58,7 @@
 		F3B1AB8229E3EC3A008806DD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1AB8129E3EC3A008806DD /* ChatViewController.swift */; };
 		F3B1AB8429E3F157008806DD /* CustomMessagesFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1AB8329E3F157008806DD /* CustomMessagesFlowLayout.swift */; };
 		F3B1AB8629E41673008806DD /* Vc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1AB8529E41673008806DD /* Vc.swift */; };
+		F3E8AAA129EA7A460076B905 /* ChatViewControllerBla.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8AAA029EA7A460076B905 /* ChatViewControllerBla.swift */; };
 		F3F3C3DA29D31E4A002C9E45 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */; };
 		F3F3C3DC29D31E68002C9E45 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */; };
 		F3F3C3E229D31ED2002C9E45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */; };
@@ -122,6 +123,7 @@
 		F3B1AB8129E3EC3A008806DD /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		F3B1AB8329E3F157008806DD /* CustomMessagesFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessagesFlowLayout.swift; sourceTree = "<group>"; };
 		F3B1AB8529E41673008806DD /* Vc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vc.swift; sourceTree = "<group>"; };
+		F3E8AAA029EA7A460076B905 /* ChatViewControllerBla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerBla.swift; sourceTree = "<group>"; };
 		F3F3C3D929D31E4A002C9E45 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F3F3C3DB29D31E68002C9E45 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F3F3C3E129D31ED2002C9E45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				F3772B3529E2AF4000E6186A /* DateCollectionViewCell.swift */,
 				F3772B3729E2AF5000E6186A /* MyMessageCollectionViewCell.swift */,
 				F3772B3929E2AF6A00E6186A /* OtherMessageCollectionViewCell.swift */,
+				F3E8AAA029EA7A460076B905 /* ChatViewControllerBla.swift */,
 			);
 			path = ChatScreen;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 		F3A414A429DA213C00D3DEF4 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */,
 				F3A414A529DA21D300D3DEF4 /* CircleImageView.swift */,
 			);
 			path = CustomViews;
@@ -381,7 +385,6 @@
 		F3F3C3DF29D31E9D002C9E45 /* AuthScreens */ = {
 			isa = PBXGroup;
 			children = (
-				F3F3C3EA29D3366A002C9E45 /* UICustomTextField.swift */,
 				F3F3C3E929D33589002C9E45 /* SignUpScreen */,
 				F356E91A29CC675400D90D5C /* SignInScreen */,
 			);
@@ -564,6 +567,7 @@
 				F3F3C3EF29D3E18D002C9E45 /* Token.swift in Sources */,
 				F3772B2829E2A04800E6186A /* ChatCoordinator.swift in Sources */,
 				F3A4637F29DC9D910013E33C /* ChatListScreenView.swift in Sources */,
+				F3E8AAA129EA7A460076B905 /* ChatViewControllerBla.swift in Sources */,
 				F3A414B029DA228D00D3DEF4 /* ProfileInformationBlockView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

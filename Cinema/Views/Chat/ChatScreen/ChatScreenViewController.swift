@@ -11,8 +11,6 @@ class ChatScreenViewController: UIViewController {
     
     private let ui: ChatScreenView
     
-    private var blocks: [MessageServer]
-    
     private var currentDate: DateMessage?
     
     var viewModel: ChatViewModel?
@@ -23,13 +21,14 @@ class ChatScreenViewController: UIViewController {
         MessageServer(messageId: "1", creationDateTime: "2023-04-09T09:54:22.808868", authorId: "337a3473-b2e3-4736-ba8a-13e035b72d90", authorName: "Green Greenpix", authorAvatar: "https://ucarecdn.com/21b75d2f-14bf-4ecb-8a49-1883a00f4d3a/", text: "Ha\n-ha")
     ]
     
-    init() {
+    init(titleChat: String) {
         self.ui = ChatScreenView()
-        blocks = messages
         
         super.init(nibName: nil, bundle: nil)
         
         self.ui.configureCollection(delegate: self, dataSource: self)
+        self.ui.configureTextView(delegate: self)
+        self.ui.setTitleScreen(titleChat: titleChat)
     }
     
     required init?(coder: NSCoder) {
@@ -43,17 +42,9 @@ class ChatScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
+        setupToHideKeyboardOnTapOnView()
         
         handler()
-    }
-    
-    func handler() {
-        self.ui.goBackButtonPressed = { [ weak self ] in
-            guard let self = self else { return }
-            
-            self.navigationController?.popViewController(animated: true)
-        }
     }
     
     func reloadDataChat() {
@@ -61,31 +52,41 @@ class ChatScreenViewController: UIViewController {
     }
 }
 
-extension ChatScreenViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        messages.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let element = blocks[blocks.endIndex - 1]
-        var defaultCell = UICollectionViewCell()
-        
-        let date = getDateMessage(date: element.creationDateTime)
-
-        if currentDate != nil && date != nil {
-            if !isDatesEqual(firstDate: date!, secondDate: currentDate!) {
-                currentDate = date
-            }
+private extension ChatScreenViewController {
+    func handler() {
+        self.ui.goBackButtonPressed = { [ weak self ] in
+            guard let self = self else { return }
             
-        } else {
-            currentDate = date
+            self.viewModel?.backGoToChatList()
         }
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.reuseIdentifier, for: indexPath) as? DateCollectionViewCell else { return defaultCell }
-        
-        
+        self.ui.addNewMessagePressed = { [ weak self ] message in
+            guard let self = self else { return }
+            
+            self.messages.append(MessageServer(messageId: "3", creationDateTime: "2023-04-09T09:55:25.192531", authorId: "337a3473-b2e3-4736-ba8a-13e035b72d90", authorName: "Green Greenpix", authorAvatar: "https://ucarecdn.com/21b75d2f-14bf-4ecb-8a49-1883a00f4d3a/", text: message))
+            self.reloadDataChat()
+        }
+    }
+}
+
+extension ChatScreenViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MyMessageCollectionViewCell.reuseIdentifier, for: indexPath)
+        cell.textLabel?.text = messages[indexPath.row].text
+        cell.textLabel?.textColor = .white
+        cell.backgroundColor = .backgroundApplication
         
         return cell
+    }
+}
+
+extension ChatScreenViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -176,5 +177,37 @@ extension ChatScreenViewController {
         }
         
         return month
+    }
+}
+
+extension ChatScreenViewController {
+    func setupToHideKeyboardOnTapOnView() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard(sender:)))
+
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc
+    func dismissKeyboard(sender: AnyObject) {
+        view.endEditing(true)
+    }
+}
+
+extension ChatScreenViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .placeholderChatInputMessage {
+            textView.text = nil
+            textView.textColor = .white
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Напишите сообщение..."
+            textView.textColor = .placeholderChatInputMessage
+        }
     }
 }

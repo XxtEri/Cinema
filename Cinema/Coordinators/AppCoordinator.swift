@@ -22,7 +22,9 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
+        navigationController.setNavigationBarHidden(true, animated: false)
         print("App coordinator start")
+        
         keychain.synchronizable = true
 
         if keychain.get("accessToken") != nil {

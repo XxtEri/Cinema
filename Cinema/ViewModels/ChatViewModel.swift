@@ -21,8 +21,12 @@ class ChatViewModel {
         navigation?.goToChatList()
     }
     
-    func goToChatScreen() {
-        navigation?.goToChat()
+    func goToChatScreen(chatName: String) {
+        navigation?.goToChat(chatName: chatName)
+    }
+    
+    func backGoToChatList() {
+        navigation?.backGoToChatList()
     }
 }
 

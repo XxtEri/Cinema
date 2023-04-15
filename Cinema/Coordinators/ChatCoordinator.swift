@@ -20,16 +20,23 @@ final class ChatCoordinator: Coordinator {
     
     func start() {
         print("Chat coordinator start")
+        
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
         goToChatList()
-//        goToChat()
     }
 }
 
 extension ChatCoordinator: ChatNavigation {
-    func goToChat() {
-        let vc = ChatScreenViewController()
+    func goToChat(chatName: String) {
+        let vc = ChatScreenViewController(titleChat: chatName)
+        vc.viewModel = ChatViewModel(navigation: self)
         
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func backGoToChatList() {
+        self.navigationController.popViewController(animated: true)
     }
     
     func goToChatList() {
