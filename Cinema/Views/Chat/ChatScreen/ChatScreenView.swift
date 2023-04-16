@@ -199,8 +199,18 @@ private extension ChatScreenView {
     @objc func sendButtonTapped() {
         if let message = messageInput.text, !message.isEmpty {
             addNewMessagePressed?(message)
-            messageInput.text = ""
-            messageInput.resignFirstResponder()
+            messageInput.text = "Напишите сообщение..."
+            messageInput.textColor = .placeholderChatInputMessage
+            
+            messageInput.constraints.forEach { constraint in
+                if constraint.firstAttribute == .height {
+                    messageInput.isScrollEnabled = false
+                    
+                    maxHeightMessageInput = 32
+                    constraint.constant = maxHeightMessageInput
+                    messageInput.setNeedsUpdateConstraints()
+                }
+            }
         }
     }
 }
@@ -234,7 +244,6 @@ extension ChatScreenView: UITextViewDelegate {
         
         textView.constraints.forEach { constraint in
             if constraint.firstAttribute == .height {
-                //Disable the scroll
                 textView.isScrollEnabled = false
                 
                 if estimatedSize.height < textViewMinHeight {

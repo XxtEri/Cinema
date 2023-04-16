@@ -51,43 +51,6 @@ class ChatScreenViewController: UIViewController {
         handler()
     }
     
-//    private func initArrayMessage() {
-//        var blocks = [Any]()
-//
-//        guard let newMessage = messagesFromServer.last else { return }
-//
-//        if let dateNewMessage = getDateMessage(date: newMessage.creationDateTime) {
-//            let dateString = "\(dateNewMessage.day) \(dateNewMessage.month)"
-//
-//            if messagesTableView.isEmpty {
-//                blocks.append(dateString)
-//                blocks.append(newMessage)
-//
-//                messagesTableView.append(blocks)
-//            } else {
-//                if let lastBlocks = messagesTableView.last {
-//                    if let block = lastBlocks.last {
-//                        guard let message = block as? MessageServer else { return }
-//                        guard let dateLastMessage = getDateMessage(date: message.creationDateTime) else { return }
-//
-//                        if isDatesEqual(firstDate: dateLastMessage, secondDate: dateNewMessage) {
-//                            messagesTableView[messagesTableView.endIndex - 1].append(newMessage)
-//
-//                        } else {
-//                            blocks.append(dateString)
-//                            blocks.append(newMessage)
-//
-//                            messagesTableView.append(blocks)
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//        print(messagesTableView.count)
-//    }
-    
     private func initArrayMessage() {
         guard let newMessage = messagesFromServer.last else { return }
         
