@@ -234,10 +234,10 @@
 		124E602B31159B6DE8E114DF /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
+				4BBF9D3D4D441A638ABBA526 /* ProfileScreenViewController.swift */,
+				AACE15BA7C50685EEDEFB976 /* ProfileScreenView.swift */,
 				E7011E2D68544EDD46ABC416 /* ProfileInformationBlockView.swift */,
 				6A2B3809DCF2D81DE523B4AB /* ProfileScreenCollectionViewCell.swift */,
-				AACE15BA7C50685EEDEFB976 /* ProfileScreenView.swift */,
-				4BBF9D3D4D441A638ABBA526 /* ProfileScreenViewController.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";

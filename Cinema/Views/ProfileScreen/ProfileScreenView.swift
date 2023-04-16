@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ProfileScreenView: UIView {
 
@@ -72,7 +73,7 @@ private extension ProfileScreenView {
     func configureConstraints() {
         profileInformationBlock.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(28)
         }
         
         buttons.snp.makeConstraints { make in
