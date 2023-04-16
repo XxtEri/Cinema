@@ -29,7 +29,7 @@ class OtherMessageTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var avatar: CircleImageView = {
+    lazy var avatar: CircleImageView = {
         let view = CircleImageView()
         view.contentMode = .scaleAspectFill
         view.image = UIImage(named: "ProfileAnonymous")

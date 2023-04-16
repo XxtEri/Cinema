@@ -55,7 +55,19 @@ class ChatScreenViewController: UIViewController {
         guard let newMessage = messagesFromServer.last else { return }
         
         if let dateNewMessage = getDateMessage(date: newMessage.creationDateTime) {
-            let dateString = "\(dateNewMessage.day) \(dateNewMessage.month)"
+            let currentDate = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            
+            let currentDateFormatter = dateFormatter.string(from: currentDate)
+            var dateString = String()
+            
+            if isDateToday(date: dateNewMessage, dateNow: currentDateFormatter) {
+                dateString = "Cегодня"
+                
+            } else {
+                dateString = "\(dateNewMessage.day) \(dateNewMessage.month)"
+            }
             
             if messagesTableView.isEmpty {
                 messagesTableView.append(dateString)
@@ -89,6 +101,11 @@ class ChatScreenViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.ui.chat.reloadData()
+            
+            if !self.messagesTableView.isEmpty {
+                let indexPath = IndexPath(row: self.messagesTableView.count - 1, section: 0)
+                self.ui.chat.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
         }
     }
 }
@@ -166,6 +183,8 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                         if nextMessage.authorId == currentUserId {
                             cell.addEmptyViewForIndent(indent: 4)
                             
+                            cell.avatar.isHidden = true
+                            
                         } else {
                             cell.addEmptyViewForIndent(indent: 16)
                         }
@@ -188,6 +207,7 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                 if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
                     if nextMessage.authorId == message.authorId {
                         cell.addEmptyViewForIndent(indent: 4)
+                        cell.avatar.isHidden = true
                         
                     } else {
                         cell.addEmptyViewForIndent(indent: 16)
@@ -256,6 +276,28 @@ extension ChatScreenViewController {
             print("invalid regex: \(error.localizedDescription)")
             return []
         }
+    }
+    
+    func isDateToday(date: DateMessage, dateNow: String) -> Bool {
+        var matchedDay = matches(for: "\\d{2}.", in: dateNow)
+        matchedDay = matches(for: "\\d{2}", in: matchedDay[0])
+        let day = matchedDay[0]
+        
+        var matchedMonth = matches(for: ".\\d{2}.", in: dateNow)
+        matchedMonth = matches(for: "\\d{2}", in: matchedMonth[0])
+        let month = matchedMonth[0]
+        
+        let matchedYear = matches(for: ".\\d{2}$", in: dateNow)
+        let year = "20" + matchedYear[0]
+        
+        if String(date.day) != day ||
+            date.month != getNameMonth(numberMonth: month) ||
+            String(date.year) != year {
+            
+            return false
+        }
+        
+        return true
     }
     
     func getNameMonth(numberMonth: String) -> String {
