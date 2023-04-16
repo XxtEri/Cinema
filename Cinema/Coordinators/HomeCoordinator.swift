@@ -34,6 +34,8 @@ final class HomeCoordinator: Coordinator {
         
         vc.generateTabBar(viewControllers: viewControllers)
         
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
         navigationController.viewControllers.removeAll()
         navigationController.pushViewController(vc, animated: true)
     }
@@ -44,17 +46,19 @@ final class HomeCoordinator: Coordinator {
         appc?.goToAuth()
         appc?.childDidFinish(self)
     }
+
 }
 
 private extension HomeCoordinator {
     func generateMainScreenController() -> UIViewController {
-        let vc = ProfileScreenViewController()
-//        vc.viewModel = ProfileViewModel(navigation: self)
+        let profileCoordinator = MainCoordinator(navigationController: navigationController)
         
-        vc.tabBarItem.title = "Главное"
-        vc.tabBarItem.image = UIImage(named: "TabItemMainScreen")
+        profileCoordinator.parentCoordinator = self
+        children.append(profileCoordinator)
         
-        return vc
+        profileCoordinator.start()
+        
+        return profileCoordinator.generateMainScreen()
     }
     
     func generateCompilationScreenController() -> UIViewController {
@@ -89,4 +93,3 @@ private extension HomeCoordinator {
         return profileCoordinator.generateProfileScreen()
     }
 }
-

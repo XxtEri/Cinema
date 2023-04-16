@@ -82,4 +82,3 @@ extension ProfileViewModel: IProfileViewModel {
         navigation?.goToAuthorizationScreen()
     }
 }
-

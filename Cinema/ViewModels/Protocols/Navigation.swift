@@ -7,14 +7,17 @@
 
 import Foundation
 
-protocol SignNavigation: AnyObject {
+protocol SignScreenNavigation: AnyObject {
     func goToSignInScreen()
     func goToSignUpScreen()
     func goToHomeScreen()
 }
 
-protocol HomeNavigation: AnyObject {
-    func goToHomeScreen()
+protocol MainScreenNavigation: AnyObject {
+    func goToMovieScreen(movie: Movie)
+    func goToEpisodeScreen(movie: Movie, currentEpisode: Episode, episodes: [Episode])
+    func backToGoLastScreen()
+    func goToAuthorizationScreen()
 }
 
 protocol CollectionsNavigation: AnyObject {

@@ -24,17 +24,15 @@ final class AuthCoordinator: Coordinator {
         
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore  {
-            print("Not first launch.")
             goToSignInScreen()
         } else {
-            print("First launch, setting UserDefault.")
             goToSignUpScreen()
             UserDefaults.standard.set(true, forKey: "launchedBefore")
         }
     }
 }
 
-extension AuthCoordinator: SignNavigation {
+extension AuthCoordinator: SignScreenNavigation {
     func goToHomeScreen() {
         let appc = parentCoordinator as? AppCoordinator
         
@@ -44,7 +42,7 @@ extension AuthCoordinator: SignNavigation {
     
     func goToSignUpScreen() {
         let vc = SingUpViewController()
-        let viewModel = SignScreenViewModel(navigation: self)
+        let viewModel = AuthViewModel(navigation: self)
         
         vc.viewModel = viewModel
         vc.navigationItem.hidesBackButton = true
@@ -55,7 +53,7 @@ extension AuthCoordinator: SignNavigation {
     
     func goToSignInScreen() {
         let vc = SignInViewController()
-        let viewModel = SignScreenViewModel(navigation: self)
+        let viewModel = AuthViewModel(navigation: self)
         
         vc.viewModel = viewModel
         vc.navigationItem.hidesBackButton = true
