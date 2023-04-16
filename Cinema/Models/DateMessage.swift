@@ -9,7 +9,7 @@ struct DateMessage {
     let day: Int
     let month: String
     let year: Int
-    let hour: Int
-    let minute: Int
-    let second: Int
+    let hour: String
+    let minute: String
+    let second: String
 }

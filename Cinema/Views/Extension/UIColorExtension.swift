@@ -32,6 +32,13 @@ extension UIColor {
         #colorLiteral(red: 0.2373671234, green: 0.2227519751, blue: 0.2177195847, alpha: 1)
     }
     
+    static var informationAboutOtherMessage: UIColor {
+        #colorLiteral(red: 0.6537085176, green: 0.650031507, blue: 0.646508038, alpha: 1)
+    }
+    
+    static var informationAboutMyMessage: UIColor {
+        #colorLiteral(red: 1, green: 0.7490196078, blue: 0.6705882353, alpha: 1)
+    }
     
     static var textTextField: UIColor {
         #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)

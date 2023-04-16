@@ -19,7 +19,8 @@ class ChatScreenViewController: UIViewController {
     
     var currentUserId: String?
     
-    var messages = [MessageServer]()
+    var messagesFromServer = [MessageServer]()
+    var messagesTableView = [Any]()
     
     init(chatModel: Chat) {
         self.ui = ChatScreenView()
@@ -51,7 +52,79 @@ class ChatScreenViewController: UIViewController {
         handler()
     }
     
+//    private func initArrayMessage() {
+//        var blocks = [Any]()
+//
+//        guard let newMessage = messagesFromServer.last else { return }
+//
+//        if let dateNewMessage = getDateMessage(date: newMessage.creationDateTime) {
+//            let dateString = "\(dateNewMessage.day) \(dateNewMessage.month)"
+//
+//            if messagesTableView.isEmpty {
+//                blocks.append(dateString)
+//                blocks.append(newMessage)
+//
+//                messagesTableView.append(blocks)
+//            } else {
+//                if let lastBlocks = messagesTableView.last {
+//                    if let block = lastBlocks.last {
+//                        guard let message = block as? MessageServer else { return }
+//                        guard let dateLastMessage = getDateMessage(date: message.creationDateTime) else { return }
+//
+//                        if isDatesEqual(firstDate: dateLastMessage, secondDate: dateNewMessage) {
+//                            messagesTableView[messagesTableView.endIndex - 1].append(newMessage)
+//
+//                        } else {
+//                            blocks.append(dateString)
+//                            blocks.append(newMessage)
+//
+//                            messagesTableView.append(blocks)
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//
+//        print(messagesTableView.count)
+//    }
+    
+    private func initArrayMessage() {
+        guard let newMessage = messagesFromServer.last else { return }
+        
+        if let dateNewMessage = getDateMessage(date: newMessage.creationDateTime) {
+            let dateString = "\(dateNewMessage.day) \(dateNewMessage.month)"
+            
+            if messagesTableView.isEmpty {
+                messagesTableView.append(dateString)
+                messagesTableView.append(newMessage)
+        
+            } else {
+                if let lastBlocks = messagesTableView.last {
+                    guard let message = lastBlocks as? MessageServer else {
+                        messagesTableView.append(dateString)
+                        messagesTableView.append(newMessage)
+                        
+                        return
+                    }
+                    guard let dateLastMessage = getDateMessage(date: message.creationDateTime) else { return }
+                    
+                    if isDatesEqual(firstDate: dateLastMessage, secondDate: dateNewMessage) {
+                        messagesTableView.append(newMessage)
+                        
+                    } else {
+                        messagesTableView.append(dateString)
+                        messagesTableView.append(newMessage)
+                    }
+                }
+                
+            }
+        }
+    }
+    
     func reloadDataChat() {
+        self.initArrayMessage()
+        
         DispatchQueue.main.async {
             self.ui.chat.reloadData()
         }
@@ -67,18 +140,18 @@ private extension ChatScreenViewController {
             self.viewModel?.disconnectToChat()
         }
         
-//        self.ui.addNewMessagePressed = { [ weak self ] message in
-//            guard let self = self else { return }
-//
-//            self.reloadDataChat()
-//
-//            self.viewModel?.disconnectToChat()
-//        }
+        //        self.ui.addNewMessagePressed = { [ weak self ] message in
+        //            guard let self = self else { return }
+        //
+        //            self.reloadDataChat()
+        //
+        //            self.viewModel?.disconnectToChat()
+        //        }
         
         self.viewModel?.newMessages.subscribe(with: { [ weak self ] message in
             guard let self = self else { return }
             
-            self.messages.append(message)
+            self.messagesFromServer.append(message)
             self.reloadDataChat()
         })
         
@@ -90,36 +163,133 @@ private extension ChatScreenViewController {
     }
 }
 
-extension ChatScreenViewController: UITableViewDataSource {
+extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        messagesTableView.count
     }
-
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let currentUserId = self.currentUserId else { return UITableViewCell() }
-        
-        let message = messages[indexPath.row]
-        
-        if currentUserId == message.authorId {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyMessageTableViewCell.reuseIdentifier, for: indexPath) as? MyMessageTableViewCell else { return UITableViewCell() }
+        if let date = messagesTableView[indexPath.row] as? String {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTableViewCell.reuseIdentifier, for: indexPath) as? DateTableViewCell else {
+                
+                return UITableViewCell()
+            }
             
-            cell.configureCell(message: message)
+            cell.configureCell(date: date)
             
             return cell
             
+        } else {
+            guard let currentUserId = self.currentUserId else { return UITableViewCell() }
+            
+            guard let message = messagesTableView[indexPath.row] as? MessageServer else {
+                
+                return UITableViewCell()
+            }
+            
+            if currentUserId == message.authorId {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: MyMessageTableViewCell.reuseIdentifier, for: indexPath) as? MyMessageTableViewCell else { return UITableViewCell() }
+                
+                cell.configureCell(message: message)
+                
+                if indexPath.row + 1 < messagesTableView.count {
+                    if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
+                        if nextMessage.authorId == currentUserId {
+                            cell.addEmptyViewForIndent(indent: 4)
+                            
+                        } else {
+                            cell.addEmptyViewForIndent(indent: 16)
+                        }
+                    }
+                    
+                    if let _ = messagesTableView[indexPath.row + 1] as? String {
+                        cell.addEmptyViewForIndent(indent: 24)
+                    }
+                }
+                
+                return cell
+                
+            }
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherMessageTableViewCell.reuseIdentifier, for: indexPath) as? OtherMessageTableViewCell else { return UITableViewCell() }
+            
+            cell.configureCell(message: message)
+            
+            if indexPath.row + 1 < messagesTableView.count {
+                if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
+                    if nextMessage.authorId == message.authorId {
+                        cell.addEmptyViewForIndent(indent: 4)
+                        
+                    } else {
+                        cell.addEmptyViewForIndent(indent: 16)
+                    }
+                }
+                
+                if let _ = messagesTableView[indexPath.row + 1] as? String {
+                    cell.addEmptyViewForIndent(indent: 24)
+                }
+            }
+            
+            return cell
         }
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherMessageTableViewCell.reuseIdentifier, for: indexPath) as? OtherMessageTableViewCell else { return UITableViewCell() }
-        
-        cell.configureCell(message: message)
-        
-        return cell
     }
 }
 
-extension ChatScreenViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension ChatScreenViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .placeholderChatInputMessage {
+            textView.text = nil
+            textView.textColor = .white
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Напишите сообщение..."
+            textView.textColor = .placeholderChatInputMessage
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        let textViewMinHeight = textView.text.calculateLabelSize(font: textView.font!, widthInset: 32, heightInset: 14).height
+        let textViewMaxHeight = textView.text.calculateLabelSize(font: textView.font, widthInset: 32, heightInset: 0).height * 3 + 2 * 7 + 10
         
+        guard estimatedSize.height <= textViewMaxHeight else {
+            textView.isScrollEnabled = true
+            
+            return
+        }
+        
+        textView.constraints.forEach { constraint in
+            if constraint.firstAttribute == .height {
+                //Disable the scroll
+                textView.isScrollEnabled = false
+                if estimatedSize.height < textViewMinHeight {
+                    constraint.constant = textViewMinHeight
+                    
+                } else {
+                    constraint.constant = estimatedSize.height
+                }
+            }
+        }
+    }
+}
+
+extension String {
+    func calculateLabelSize(font: UIFont, widthInset: CGFloat, heightInset: CGFloat) -> CGSize {
+        
+        
+        return CGSize(width: 0, height: 0)
     }
 }
 
@@ -141,7 +311,7 @@ extension ChatScreenViewController {
         
         var matchedMonth = matches(for: "-\\d{2}-", in: date)
         matchedMonth = matches(for: "\\d{2}", in: matchedMonth[0])
-        guard let month = Int(matchedMonth[0]) else { return nil }
+        let month = matchedMonth[0]
         
         var matchedDay = matches(for: "\\d{2}T", in: date)
         matchedDay = matches(for: "\\d{2}", in: matchedDay[0])
@@ -149,16 +319,16 @@ extension ChatScreenViewController {
         
         var matchedHour = matches(for: "T\\d{2}", in: date)
         matchedHour = matches(for: "\\d{2}", in: matchedHour[0])
-        guard let hour = Int(matchedHour[0]) else { return nil }
+        let hour = matchedHour[0]
         
         var matchedMinute = matches(for: ":\\d{2}:", in: date)
         matchedMinute = matches(for: "\\d{2}", in: matchedMinute[0])
-        guard let minute = Int(matchedMinute[0]) else { return nil }
+        let minute = matchedMinute[0]
         
         var matchedSecond = matches(for: ":\\d+[.]*\\d*$", in: date)
         matchedSecond = matches(for: ":\\d{2}", in: matchedSecond[0])
         matchedSecond = matches(for: "\\d{2}", in: matchedSecond[0])
-        guard let second = Int(matchedSecond[0]) else { return nil }
+        let second = matchedSecond[0]
         
         return DateMessage(day: day, month: getNameMonth(numberMonth: String(month)), year: year, hour: hour, minute: minute, second: second)
     }
@@ -176,7 +346,7 @@ extension ChatScreenViewController {
             return []
         }
     }
-
+    
     func getNameMonth(numberMonth: String) -> String {
         let month: String
         
@@ -218,29 +388,13 @@ extension ChatScreenViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
             action: #selector(dismissKeyboard(sender:)))
-
+        
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
     @objc
     func dismissKeyboard(sender: AnyObject) {
         view.endEditing(true)
-    }
-}
-
-extension ChatScreenViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .placeholderChatInputMessage {
-            textView.text = nil
-            textView.textColor = .white
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "Напишите сообщение..."
-            textView.textColor = .placeholderChatInputMessage
-        }
     }
 }

@@ -97,7 +97,6 @@ extension ApiRepository: IApiRepositoryAuthScreen {
             headers["Authorization"] = "Bearer" + token
         }
         
-            
         self.session.request(
             "\(baseURL)/auth/refresh",
             method: .post,
