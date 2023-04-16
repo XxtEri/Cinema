@@ -79,10 +79,10 @@ extension MovieScreenViewController {
     }
     
     func handler() {
-        self.ui.episodesMovie.episodePressed = { [ weak self ] episode in
+        self.ui.episodesMovie.episodePressed = { [ weak self ] (currentEpisode, episodes) in
             guard let self = self else { return }
             
-            self.viewModel?.goToEpisodeScreen(movie: self.movie, episode: episode)
+            self.viewModel?.goToEpisodeScreen(movie: self.movie, episode: currentEpisode, episodes: episodes)
         }
         
         self.ui.backToGoMainScreen = { [ weak self ] in

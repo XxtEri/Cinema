@@ -15,12 +15,15 @@ class EpisodeScreenViewController: UIViewController {
     
     var movie: Movie
     
-    var episode: Episode
+    var currentEpisode: Episode
+    
+    var episodes: [Episode]
 
-    init(movie: Movie, episode: Episode) {
+    init(movie: Movie, currentEpisode: Episode, episodes: [Episode]) {
         self.ui = EpisodeScreenView()
         self.movie = movie
-        self.episode = episode
+        self.currentEpisode = currentEpisode
+        self.episodes = episodes
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,14 +40,17 @@ class EpisodeScreenViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        handler()
 
-        self.ui.configureUIData(movie: movie, episode: episode)
+        self.ui.configureUIData(movie: movie, episode: currentEpisode)
+        self.ui.setYearsMovie(episodes: episodes)
+        
+        self.viewModel?.getEpisodeTime(episodeId: currentEpisode.episodeId)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        self.ui.videoPlayerView.player?.play()
     }
 
     override func viewDidLayoutSubviews() {
@@ -54,10 +60,18 @@ class EpisodeScreenViewController: UIViewController {
 
 extension EpisodeScreenViewController {
     func handler() {
-        self.ui.buttonBackGoToLastScreenPressed = { [ weak self ] in
+        self.ui.buttonBackGoToLastScreenPressed = { [ weak self ] time in
             guard let self = self else { return }
             
+            self.ui.stopVideo()
+            self.viewModel?.saveEpisodeTime(episodeId: self.currentEpisode.episodeId, time: time)
             self.viewModel?.backToGoLastScreen()
         }
+        
+        self.viewModel?.currentEpisodeTime.subscribe(with: { [ weak self ] time in
+            guard let self = self else { return }
+            
+            self.ui.setTimeVideo(time: time)
+        })
     }
 }

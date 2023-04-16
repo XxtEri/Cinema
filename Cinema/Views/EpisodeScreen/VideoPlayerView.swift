@@ -89,7 +89,7 @@ class VideoPlayerView: UIView {
     
     var isVideoPlaying = true
     
-    var buttonBackGoToLastScreenPressed: (() -> Void)?
+    var buttonBackGoToLastScreenPressed: ((EpisodeTime) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -109,6 +109,30 @@ class VideoPlayerView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setCurrentDuration(allSecondsVideo: Int) {
+        currentDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
+    }
+    
+    private func setEndDuration(allSecondsVideo: Int) {
+        endDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
+    }
+    
+    private func changeTimeEpisode(seconds: Int64) {
+        let targetTime: CMTime = CMTimeMake(value: seconds, timescale: 1)
+        
+        player?.seek(to: targetTime)
+        
+        if player?.rate == 0
+        {
+            if !isVideoPlaying {
+                player?.pause()
+                
+            } else {
+                player?.play()
+            }
+        }
     }
     
     func configurePlayer() {
@@ -140,14 +164,6 @@ class VideoPlayerView: UIView {
         }
     }
     
-    private func setCurrentDuration(allSecondsVideo: Int) {
-        currentDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
-    }
-    
-    private func setEndDuration(allSecondsVideo: Int) {
-        endDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
-    }
-    
     func getMinutesVideo(allSecondsVideo: Int) -> String {
         if allSecondsVideo / 60 < 10 {
             return "0\(allSecondsVideo / 60)"
@@ -170,6 +186,16 @@ class VideoPlayerView: UIView {
             
             configurePlayer()
         }
+    }
+    
+    func setValueSecond(time: EpisodeTime) {
+        changeTimeEpisode(seconds: Int64(time.timeInSeconds))
+    }
+    
+    func getCurrentTimeVideo() -> Int {
+        let seconds : Int = Int(playbackSlider.value)
+        
+        return seconds
     }
 }
 
@@ -250,16 +276,9 @@ private extension VideoPlayerView {
     }
     
     @objc
-    func playbackSliderValueChanged(_ playbackSlider:UISlider) {
+    func playbackSliderValueChanged(_ playbackSlider: UISlider) {
         let seconds : Int64 = Int64(playbackSlider.value)
-        let targetTime: CMTime = CMTimeMake(value: seconds, timescale: 1)
-        
-        player?.seek(to: targetTime)
-        
-        if player?.rate == 0
-        {
-            player?.play()
-        }
+        changeTimeEpisode(seconds: seconds)
     }
     
     @objc
@@ -273,6 +292,11 @@ private extension VideoPlayerView {
     
     @objc
     func backGoToLastScreen() {
-        buttonBackGoToLastScreenPressed?()
+        var time = getCurrentTimeVideo()
+        if time == Int(playbackSlider.maximumValue) {
+            time = 0
+        }
+        
+        buttonBackGoToLastScreenPressed?(EpisodeTime(timeInSeconds: time))
     }
 }

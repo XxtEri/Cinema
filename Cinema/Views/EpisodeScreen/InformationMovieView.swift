@@ -116,6 +116,10 @@ class InformationMovieView: UIView {
         titleMovie.text = movie.name
         poster.downloaded(from: movie.poster, contentMode: poster.contentMode)
     }
+    
+    func setYearsMovie(years: String) {
+        releaseYears.text = years
+    }
 }
 
 private extension InformationMovieView {

@@ -35,9 +35,9 @@ class EpisodesMovieView: UIView {
         return view
     }()
     
-    private var episodes = [Episode]()
+    var episodes = [Episode]()
     
-    var episodePressed: ((Episode) -> Void)?
+    var episodePressed: ((Episode, [Episode]) -> Void)?
     
     var tableViewHeight: CGFloat = 0
     
@@ -104,7 +104,7 @@ extension EpisodesMovieView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        episodePressed?(episodes[indexPath.row])
+        episodePressed?(episodes[indexPath.row], episodes)
     }
     
 }

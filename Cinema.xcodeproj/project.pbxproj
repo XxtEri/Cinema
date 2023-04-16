@@ -80,6 +80,7 @@
 		F0B59590BE1342430A373F16 /* IMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB26BE8512A63D95C35C48B /* IMainViewModel.swift */; };
 		F329205629E84AE20073EB4F /* TagLabelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F329205529E84AE20073EB4F /* TagLabelsViewController.swift */; };
 		F329205829E84C5A0073EB4F /* TagLabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F329205729E84C5A0073EB4F /* TagLabelsView.swift */; };
+		F3C4073729EBB87700B2B189 /* EpisodeTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C4073629EBB87700B2B189 /* EpisodeTime.swift */; };
 		F3F465E829E57F2A00DA41FC /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F465E729E57F2A00DA41FC /* MainCoordinator.swift */; };
 		F9CD3711B7FB5D78A5202F45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68632CC0DEA8ACCC00E5FF88 /* ViewController.swift */; };
 		FB3E10B71711F3BD9558CD56 /* TitleWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009C7283290BD855EE66A6D /* TitleWithTextView.swift */; };
@@ -155,6 +156,7 @@
 		F2F29B8773DD64E13E49D9EF /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
 		F329205529E84AE20073EB4F /* TagLabelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelsViewController.swift; sourceTree = "<group>"; };
 		F329205729E84C5A0073EB4F /* TagLabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelsView.swift; sourceTree = "<group>"; };
+		F3C4073629EBB87700B2B189 /* EpisodeTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTime.swift; sourceTree = "<group>"; };
 		F3F465E729E57F2A00DA41FC /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F60EF0F360543A1783B40796 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 		F61D8B6B1D2E6CC139C8B5A1 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				61156BC3F3D0C6DDB647EF56 /* Token.swift */,
 				938663EDEDA73263C5B6ED55 /* User.swift */,
 				4DFD26DC4CD5BFE9F6FE250C /* Bindings */,
+				F3C4073629EBB87700B2B189 /* EpisodeTime.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				64D29EF9B2C231CF128A9D1B /* CoverMovie.swift in Sources */,
 				17F0738C56C5FE000AD7B1FA /* Episode.swift in Sources */,
 				7E0314BFAFBF1CD2EA184244 /* EpisodeScreenTableViewCell.swift in Sources */,
+				F3C4073729EBB87700B2B189 /* EpisodeTime.swift in Sources */,
 				D74AC0C7801C3E96D6CBFF98 /* EpisodeScreenView.swift in Sources */,
 				F329205629E84AE20073EB4F /* TagLabelsViewController.swift in Sources */,
 				10D3EE6A4FDFEBE00953676E /* EpisodeScreenViewController.swift in Sources */,

@@ -8,7 +8,7 @@
 import Foundation
 
 class MainViewModel {
-    private let api: IApiRepositoryMain
+    private let api: ApiRepository
     weak var navigation: MainScreenNavigation?
     
     var coverMovie = Observable<CoverMovie>()
@@ -23,6 +23,8 @@ class MainViewModel {
     
     var episodesMovie = Observable<[Episode]>()
     
+    var currentEpisodeTime = Observable<EpisodeTime>()
+    
     var errorOnLoading = Observable<Error>()
     
     init(navigation: MainScreenNavigation) {
@@ -34,8 +36,8 @@ class MainViewModel {
         navigation?.goToMovieScreen(movie: movie)
     }
     
-    func goToEpisodeScreen(movie: Movie, episode: Episode) {
-        navigation?.goToEpisodeScreen(movie: movie, episode: episode)
+    func goToEpisodeScreen(movie: Movie, episode: Episode, episodes: [Episode]) {
+        navigation?.goToEpisodeScreen(movie: movie, currentEpisode: episode, episodes: episodes)
     }
     
     func backToGoLastScreen() {
@@ -65,6 +67,10 @@ private extension MainViewModel {
     
     func successLoadingHandle(with episodes: [Episode]) {
         self.episodesMovie.updateModel(with: episodes)
+    }
+    
+    func successLoadingHandle(with time: EpisodeTime) {
+        self.currentEpisodeTime.updateModel(with: time)
     }
     
     func failureLoadingHandle(with error: Error) {
@@ -129,6 +135,36 @@ extension MainViewModel: IMainViewModel {
                 self.successLoadingHandle(with: episodes)
             case .failure(let error):
                 self.failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
+    func getEpisodeTime(episodeId: String) {
+        self.api.getCurrentEpisodeTime(episodeId: episodeId) { [ self ] result in
+            switch result {
+            case .success(let time):
+                successLoadingHandle(with: time)
+            case .failure(let error):
+                if api.requestStatus == .notAuthorized {
+                    navigation?.goToAuthorizationScreen()
+                } else {
+                    failureLoadingHandle(with: error)
+                }
+            }
+        }
+    }
+    
+    func saveEpisodeTime(episodeId: String, time: EpisodeTime) {
+        self.api.saveCurrentEpisodeTime(episodeId: episodeId, time: time) { [ self ] result in
+            switch result {
+            case .success(_):
+                return
+            case .failure(let error):
+                if api.requestStatus == .notAuthorized {
+                    navigation?.goToAuthorizationScreen()
+                } else {
+                    failureLoadingHandle(with: error)
+                }
             }
         }
     }

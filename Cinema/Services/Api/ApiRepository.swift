@@ -93,10 +93,10 @@ extension ApiRepository: IApiRepositoryAuth {
     func refreshToken(completion: @escaping (Result<Void, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         
+        self.keychain.synchronizable = true
         if let token = self.keychain.get("refreshToken") {
             headers["Authorization"] = "Bearer" + token
         }
-        
         
         self.session.request(
             "\(baseURL)/auth/refresh",
@@ -371,6 +371,104 @@ extension ApiRepository: IApiRepositoryMain {
             }
             
             completion(.success(episodes))
+        }
+    }
+    
+    func getCurrentEpisodeTime(episodeId: String, completion: @escaping (Result<EpisodeTime, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/episodes/\(episodeId)/time",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: EpisodeTime.self) { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getCurrentEpisodeTime(episodeId: episodeId, completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            
+                            self.keychain.synchronizable = true
+                            self.keychain.clear()
+                            
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let time = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(time))
+        }
+    }
+    
+    func saveCurrentEpisodeTime(episodeId: String, time: EpisodeTime, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/episodes/\(episodeId)/time",
+            method: .post,
+            parameters: time,
+            encoder: JSONParameterEncoder.default,
+            headers: headers
+        ).responseData { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.saveCurrentEpisodeTime(episodeId: episodeId, time: time, completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            
+                            self.keychain.synchronizable = true
+                            self.keychain.clear()
+                            
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 }

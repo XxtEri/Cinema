@@ -41,8 +41,8 @@ extension MainCoordinator: MainScreenNavigation {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func goToEpisodeScreen(movie: Movie, episode: Episode) {
-        let vc = EpisodeScreenViewController(movie: movie, episode: episode)
+    func goToEpisodeScreen(movie: Movie, currentEpisode: Episode, episodes: [Episode]) {
+        let vc = EpisodeScreenViewController(movie: movie, currentEpisode: currentEpisode, episodes: episodes)
         vc.viewModel = MainViewModel(navigation: self)
         
         navigationController.pushViewController(vc, animated: true)

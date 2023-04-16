@@ -12,4 +12,6 @@ protocol IMainViewModel {
     func getCoverImage()
     func getMovies()
     func getEpisodesMovie(movieId: String)
+    func getEpisodeTime(episodeId: String)
+    func saveEpisodeTime(episodeId: String, time: EpisodeTime)
 }

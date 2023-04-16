@@ -65,7 +65,7 @@ class EpisodeScreenView: UIView {
     
     lazy var videoPlayerView = VideoPlayerView()
     
-    var buttonBackGoToLastScreenPressed: (() -> Void)?
+    var buttonBackGoToLastScreenPressed: ((EpisodeTime) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -95,6 +95,33 @@ class EpisodeScreenView: UIView {
         self.informationMovie.configureUIData(movie: movie, episode: episode)
         
         self.descriptionText.text = episode.description
+    }
+    
+    func setYearsMovie(episodes: [Episode]) {
+        var years = [Int]()
+        
+        episodes.forEach { episode in
+            years.append(episode.year)
+        }
+        
+        if let firstYear = years.min() {
+            if let lasYear = years.max() {
+                if firstYear == lasYear {
+                    informationMovie.setYearsMovie(years: "\(firstYear)")
+                    
+                } else {
+                    informationMovie.setYearsMovie(years: "\(firstYear) - \(lasYear)")
+                }
+            }
+        }
+    }
+    
+    func setTimeVideo(time: EpisodeTime) {
+        videoPlayerView.setValueSecond(time: time)
+    }
+    
+    func stopVideo() {
+        videoPlayerView.player?.pause()
     }
 }
 
@@ -154,10 +181,10 @@ extension EpisodeScreenView {
     }
     
     func handler() {
-        self.videoPlayerView.buttonBackGoToLastScreenPressed = { [ weak self ] in
+        self.videoPlayerView.buttonBackGoToLastScreenPressed = { [ weak self ] time in
             guard let self = self else { return }
             
-            self.buttonBackGoToLastScreenPressed?()
+            self.buttonBackGoToLastScreenPressed?(time)
         }
     }
 }
