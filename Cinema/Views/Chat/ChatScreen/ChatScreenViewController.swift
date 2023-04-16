@@ -96,17 +96,23 @@ class ChatScreenViewController: UIViewController {
         }
     }
     
+    private func updateLayout() {
+        if !self.messagesTableView.isEmpty {
+            let indexPath = IndexPath(row: self.messagesTableView.count - 1, section: 0)
+            DispatchQueue.main.async {
+                self.ui.chat.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+    }
+    
     func reloadDataChat() {
         self.initArrayMessage()
         
         DispatchQueue.main.async {
             self.ui.chat.reloadData()
-            
-            if !self.messagesTableView.isEmpty {
-                let indexPath = IndexPath(row: self.messagesTableView.count - 1, section: 0)
-                self.ui.chat.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            }
         }
+        
+        //updateLayout()
     }
 }
 
