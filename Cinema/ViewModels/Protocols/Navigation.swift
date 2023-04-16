@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SignScreenNavigation: AnyObject {
+protocol AuthNavigation: AnyObject {
     func goToSignInScreen()
     func goToSignUpScreen()
     func goToHomeScreen()

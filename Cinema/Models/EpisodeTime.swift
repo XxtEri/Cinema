@@ -8,5 +8,5 @@
 import Foundation
 
 struct EpisodeTime: Decodable, Encodable {
-    var timeInSeconds: Int
+    var timeInSeconds: Int?
 }

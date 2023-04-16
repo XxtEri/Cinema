@@ -27,7 +27,7 @@ class ApiRepository {
 }
 
 extension ApiRepository: IApiRepositoryAuth {
-    func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void) {
+    func signIn(user: LoginCredential, completion: @escaping (Result<RequestStatus, Error>) -> Void) {
         
         self.session.request(
             "\(baseURL)/auth/login",
@@ -59,7 +59,7 @@ extension ApiRepository: IApiRepositoryAuth {
             
             print(token)
             
-            completion(.success(()))
+            completion(.success(RequestStatus.success))
         }
     }
     
@@ -98,9 +98,10 @@ extension ApiRepository: IApiRepositoryAuth {
             
             print(token)
             
-            completion(.success(()))
+            completion(.success(RequestStatus.success))
         }
     }
+    
     
     func refreshToken(completion: @escaping (Result<Void, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
@@ -188,7 +189,7 @@ extension ApiRepository: IApiRepositoryProfile {
     
     func uploadPhoto(imageUrl: URL, completion: @escaping (Result<Void, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
-     
+        
         self.keychain.synchronizable = true
         if let token = self.keychain.get("accessToken") {
             headers["Authorization"] = "Bearer " + token
@@ -206,7 +207,7 @@ extension ApiRepository: IApiRepositoryProfile {
             if let request = response.request {
                 print("Request: \(request)")
             }
-
+            
             if let statusCode = response.response?.statusCode {
                 print("Status code: \(statusCode)")
                 if statusCode == 401 {
@@ -215,7 +216,7 @@ extension ApiRepository: IApiRepositoryProfile {
                         case .success(_):
                             self.uploadPhoto(imageUrl: imageUrl, completion: completion)
                         case .failure(_):
-//                            self.requestStatus = .notAuthorized
+                            self.requestStatus = .notAuthorized
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                         }
                     }
@@ -324,9 +325,6 @@ extension ApiRepository: IApiRepositoryMain {
                         case .failure(_):
                             self.requestStatus = .notAuthorized
                             
-                            self.keychain.synchronizable = true
-                            self.keychain.clear()
-                            
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                         }
                     }
@@ -418,9 +416,6 @@ extension ApiRepository: IApiRepositoryMain {
                         case .failure(_):
                             self.requestStatus = .notAuthorized
                             
-                            self.keychain.synchronizable = true
-                            self.keychain.clear()
-                            
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                         }
                     }
@@ -466,9 +461,6 @@ extension ApiRepository: IApiRepositoryMain {
                             self.getCurrentEpisodeTime(episodeId: episodeId, completion: completion)
                         case .failure(_):
                             self.requestStatus = .notAuthorized
-                            
-                            self.keychain.synchronizable = true
-                            self.keychain.clear()
                             
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                         }
@@ -516,10 +508,7 @@ extension ApiRepository: IApiRepositoryMain {
                             self.saveCurrentEpisodeTime(episodeId: episodeId, time: time, completion: completion)
                         case .failure(_):
                             self.requestStatus = .notAuthorized
-                            
-                            self.keychain.synchronizable = true
-                            self.keychain.clear()
-                            
+
                             completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                         }
                     }

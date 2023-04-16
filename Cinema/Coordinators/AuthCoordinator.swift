@@ -32,7 +32,7 @@ final class AuthCoordinator: Coordinator {
     }
 }
 
-extension AuthCoordinator: SignScreenNavigation {
+extension AuthCoordinator: AuthNavigation {
     func goToHomeScreen() {
         let appc = parentCoordinator as? AppCoordinator
         
@@ -42,9 +42,8 @@ extension AuthCoordinator: SignScreenNavigation {
     
     func goToSignUpScreen() {
         let vc = SingUpViewController()
-        let viewModel = AuthViewModel(navigation: self)
-        
-        vc.viewModel = viewModel
+
+        vc.viewModel = AuthViewModel(navigation: self)
         vc.navigationItem.hidesBackButton = true
         
         navigationController.viewControllers.removeAll()
@@ -53,9 +52,8 @@ extension AuthCoordinator: SignScreenNavigation {
     
     func goToSignInScreen() {
         let vc = SignInViewController()
-        let viewModel = AuthViewModel(navigation: self)
-        
-        vc.viewModel = viewModel
+
+        vc.viewModel = AuthViewModel(navigation: self)
         vc.navigationItem.hidesBackButton = true
         
         navigationController.viewControllers.removeAll()

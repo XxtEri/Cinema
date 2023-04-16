@@ -189,7 +189,12 @@ class VideoPlayerView: UIView {
     }
     
     func setValueSecond(time: EpisodeTime) {
-        changeTimeEpisode(seconds: Int64(time.timeInSeconds))
+        if let time = time.timeInSeconds {
+            changeTimeEpisode(seconds: Int64(time))
+            return
+        }
+                              
+        changeTimeEpisode(seconds: 0)
     }
     
     func getCurrentTimeVideo() -> Int {

@@ -27,6 +27,8 @@ class MainViewModel {
     
     var errorOnLoading = Observable<Error>()
     
+    var goToAuthScreen = false
+    
     init(navigation: MainScreenNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
@@ -85,7 +87,12 @@ extension MainViewModel: IMainViewModel {
             case .success(let coverImageMovie):
                 self.successLoadingHandle(with: coverImageMovie)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
+                    self.goToAuthScreen = true
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
     }
@@ -96,7 +103,12 @@ extension MainViewModel: IMainViewModel {
             case .success(let movies):
                 self.successLoadingHandle(with: movies, typeListMovie: .trend)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
+                    self.goToAuthScreen = true
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
         
@@ -105,7 +117,12 @@ extension MainViewModel: IMainViewModel {
             case .success(let movie):
                 self.successLoadingHandle(with: movie)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
+                    self.goToAuthScreen = true
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
         
@@ -114,7 +131,12 @@ extension MainViewModel: IMainViewModel {
             case .success(let movies):
                 self.successLoadingHandle(with: movies, typeListMovie: .new)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
+                    self.goToAuthScreen = true
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
         
@@ -123,7 +145,12 @@ extension MainViewModel: IMainViewModel {
             case .success(let movies):
                 self.successLoadingHandle(with: movies, typeListMovie: .recomendation)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
+                    self.goToAuthScreen = true
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
     }
@@ -134,7 +161,11 @@ extension MainViewModel: IMainViewModel {
             case .success(let episodes):
                 self.successLoadingHandle(with: episodes)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if self.api.requestStatus == .notAuthorized {
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
     }
@@ -145,10 +176,10 @@ extension MainViewModel: IMainViewModel {
             case .success(let time):
                 successLoadingHandle(with: time)
             case .failure(let error):
-                if api.requestStatus == .notAuthorized {
-                    navigation?.goToAuthorizationScreen()
+                if self.api.requestStatus == .notAuthorized {
+                    self.navigation?.goToAuthorizationScreen()
                 } else {
-                    failureLoadingHandle(with: error)
+                    self.failureLoadingHandle(with: error)
                 }
             }
         }
@@ -160,10 +191,10 @@ extension MainViewModel: IMainViewModel {
             case .success(_):
                 return
             case .failure(let error):
-                if api.requestStatus == .notAuthorized {
-                    navigation?.goToAuthorizationScreen()
+                if self.api.requestStatus == .notAuthorized {
+                    self.navigation?.goToAuthorizationScreen()
                 } else {
-                    failureLoadingHandle(with: error)
+                    self.failureLoadingHandle(with: error)
                 }
             }
         }

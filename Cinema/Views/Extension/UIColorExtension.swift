@@ -60,6 +60,8 @@ extension UIColor {
     
     static var sixteenPlus: UIColor {
         #colorLiteral(red: 0.9490196078, green: 0.431372549, blue: 0.2705882353, alpha: 1)
+    }
+    
     static var lineDisscusionScreen: UIColor {
         #colorLiteral(red: 0.3536455631, green: 0.3536455333, blue: 0.3536455333, alpha: 1)
     }

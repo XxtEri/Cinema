@@ -5,9 +5,11 @@
 //  Created by Елена on 03.04.2023.
 //
 
+import Foundation
+
 protocol IApiRepositoryAuth {
-    func signIn(user: LoginCredential, completion: @escaping (Result<Void, Error>) -> Void)
-    func signUp(user: RegisterCredential, completion: @escaping (Result<Void, Error>) -> Void)
+    func signIn(user: LoginCredential, completion: @escaping (Result<RequestStatus, Error>) -> Void)
+    func signUp(user: RegisterCredential, completion: @escaping (Result<RequestStatus, Error>) -> Void)
     func refreshToken(completion: @escaping (Result<Void, Error>) -> Void)
 }
 
