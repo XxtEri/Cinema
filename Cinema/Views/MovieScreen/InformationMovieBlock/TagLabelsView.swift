@@ -89,7 +89,6 @@ class TagLabelsView: UIView {
         // update intrinsic height
         intrinsicHeight = currentOriginY + tagHeight
         invalidateIntrinsicContentSize()
-        
     }
     
     override var intrinsicContentSize: CGSize {

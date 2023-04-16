@@ -79,10 +79,23 @@ class MovieScreenView: UIView {
         return view
     }()
     
-    private lazy var descriptionMovie: TitleWithTextView = {
-        let view = TitleWithTextView()
+    private lazy var descriptionTitle: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.textColor = .white
+        view.text = "Описание"
+        view.textAlignment = .left
+        view.bounds.size.height = 29
         
-        view.setTitle("Описание")
+        return view
+    }()
+    
+    private lazy var descriptionText: UILabel = {
+        let view = UILabel()
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
+        view.textColor = .white
+        view.numberOfLines = .max
         
         return view
     }()
@@ -98,8 +111,8 @@ class MovieScreenView: UIView {
         
         return view
     }()
-
-    var widthAllCells: CGFloat = 0
+    
+    var backToGoMainScreen: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -114,7 +127,8 @@ class MovieScreenView: UIView {
         content.addSubview(ageRestriction)
         content.addSubview(discussions)
         content.addSubview(informationMovie)
-        content.addSubview(descriptionMovie)
+        content.addSubview(descriptionTitle)
+        content.addSubview(descriptionText)
         content.addSubview(footagesMovie)
         content.addSubview(episodesMovie)
         
@@ -129,12 +143,12 @@ class MovieScreenView: UIView {
         coverMovieImage.downloaded(from: movie.poster, contentMode: coverMovieImage.contentMode)
         self.setLabelAgeMovie(age: movie.age)
         informationMovie.tagNames = movie.tags
-        descriptionMovie.setText(movie.description)
+        descriptionText.text = movie.description
         footagesMovie.setFootagesMovie(footages: movie.imageUrls)
     }
     
     func setEpisodes(episodes: [Episode]) {
-        episodesMovie.setArrayEpisodes(episodes)
+        self.episodesMovie.setArrayEpisodes(episodes)
     }
 }
 
@@ -193,15 +207,19 @@ private extension MovieScreenView {
             make.top.equalTo(ageRestriction.snp.bottom).inset(-25)
         }
         
-        descriptionMovie.snp.makeConstraints { make in
+        descriptionTitle.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(informationMovie.snp.bottom).inset(-32)
-            make.height.equalTo(155)
+        }
+        
+        descriptionText.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(descriptionTitle.snp.bottom).inset(-8)
+            make.bottom.equalTo(footagesMovie.snp.top).inset(-32)
         }
         
         footagesMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(descriptionMovie.snp.bottom).inset(-32)
             make.height.equalTo(117)
         }
         
@@ -214,7 +232,7 @@ private extension MovieScreenView {
     }
     
     func configureActions() {
-        
+        barBackButton.addTarget(self, action: #selector(backGoToMainScreen), for: .touchUpInside)
     }
     
     func setLabelAgeMovie(age: Age) {
@@ -232,5 +250,10 @@ private extension MovieScreenView {
         }
         
         ageRestriction.text = age.rawValue
+    }
+    
+    @objc
+    func backGoToMainScreen() {
+        backToGoMainScreen?()
     }
 }

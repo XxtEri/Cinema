@@ -73,7 +73,6 @@ class EpisodeScreenTableViewCell: UITableViewCell {
     }
     
     func congifure(with model: Episode) {
-        
         posterEpisode.downloaded(from: model.preview, contentMode: posterEpisode.contentMode)
         titleEpisode.text = model.name
         descriptionEpisode.text = model.description

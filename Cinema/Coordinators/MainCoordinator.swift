@@ -48,6 +48,10 @@ extension MainCoordinator: MainScreenNavigation {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func backToGoLastScreen() {
+        navigationController.popViewController(animated: true)
+    }
+    
     func goToAuthorizationScreen() {
         let appc = parentCoordinator as? HomeCoordinator
         

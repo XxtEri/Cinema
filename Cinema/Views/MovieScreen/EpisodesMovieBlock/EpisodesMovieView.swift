@@ -8,7 +8,7 @@
 import UIKit
 
 class EpisodesMovieView: UIView {
-
+    
     private lazy var titleFootageBlock: UILabel = {
         let view = UILabel()
         view.textColor = .white
@@ -18,20 +18,20 @@ class EpisodesMovieView: UIView {
         
         return view
     }()
-
     
-    private lazy var footageMovieCollection: UITableView = {
+    
+    lazy var episodesMovie: UITableView = {
         var view = UITableView(frame: .zero)
-
+        
         view.register(EpisodeScreenTableViewCell.self, forCellReuseIdentifier: EpisodeScreenTableViewCell.reuseIdentifier)
         view.delegate = self
         view.dataSource = self
-
+        
         view.backgroundColor = UIColor(named: "BackgroundApplication")
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
-//        view.isScrollEnabled = false
-
+        view.isScrollEnabled = false
+        
         return view
     }()
     
@@ -39,11 +39,13 @@ class EpisodesMovieView: UIView {
     
     var episodePressed: ((Episode) -> Void)?
     
+    var tableViewHeight: CGFloat = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.addSubview(titleFootageBlock)
-        self.addSubview(footageMovieCollection)
+        self.addSubview(episodesMovie)
         
         self.setup()
     }
@@ -55,14 +57,7 @@ class EpisodesMovieView: UIView {
     func setArrayEpisodes(_ episodes: [Episode]) {
         self.episodes = episodes
         
-        footageMovieCollection.reloadData()
-    }
-    
-    func getHeightView() -> CGFloat {
-        let titleHeight = titleFootageBlock.frame.size.height
-        let collectionHeight = footageMovieCollection.intrinsicContentSize.height
-        
-        return titleHeight + 16 + collectionHeight
+        episodesMovie.reloadData()
     }
 }
 
@@ -77,7 +72,7 @@ private extension EpisodesMovieView {
             make.top.equalToSuperview()
         }
         
-        footageMovieCollection.snp.makeConstraints { make in
+        episodesMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(titleFootageBlock.snp.horizontalEdges)
             make.top.equalTo(titleFootageBlock.snp.bottom).inset(-16)
             make.bottom.equalToSuperview()
@@ -90,20 +85,28 @@ extension EpisodesMovieView: UITableViewDelegate, UITableViewDataSource {
         episodes.count
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        72
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EpisodeScreenTableViewCell.reuseIdentifier, for: indexPath) as? EpisodeScreenTableViewCell else {
             return UITableViewCell()
         }
         
         cell.congifure(with: episodes[indexPath.row])
-
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         episodePressed?(episodes[indexPath.row])
     }
-
+    
 }
 
 //class MyCustomUITableView: UITableView {

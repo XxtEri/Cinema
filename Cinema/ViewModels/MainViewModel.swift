@@ -37,6 +37,10 @@ class MainViewModel {
     func goToEpisodeScreen(movie: Movie, episode: Episode) {
         navigation?.goToEpisodeScreen(movie: movie, episode: episode)
     }
+    
+    func backToGoLastScreen() {
+        navigation?.backToGoLastScreen()
+    }
 }
 
 private extension MainViewModel {

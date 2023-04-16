@@ -89,14 +89,16 @@ class VideoPlayerView: UIView {
     
     var isVideoPlaying = true
     
+    var buttonBackGoToLastScreenPressed: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.addSubview(videoView)
         self.addSubview(pauseVideoImage)
-        self.addSubview(barBackButton)
         self.addSubview(videoManagement)
         
+        self.addSubview(barBackButton)
         self.addSubview(currentDuration)
         self.addSubview(endDuration)
         self.addSubview(playbackSlider)
@@ -228,6 +230,7 @@ private extension VideoPlayerView {
         videoManagement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
         playbackSlider.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
         soundVideoImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(configureSound(sender:))))
+        barBackButton.addTarget(self, action: #selector(backGoToLastScreen), for: .touchUpInside)
     }
     
     @objc
@@ -266,5 +269,10 @@ private extension VideoPlayerView {
             
             soundVideoImage.image = UIImage(named: turnOnSound ? "ActiveSoundVideo" : "InactiveSoundVideo")
         }
+    }
+    
+    @objc
+    func backGoToLastScreen() {
+        buttonBackGoToLastScreenPressed?()
     }
 }

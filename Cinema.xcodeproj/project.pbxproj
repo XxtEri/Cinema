@@ -219,9 +219,9 @@
 		163843E9A661C6F8AEC8328B /* MovieScreen */ = {
 			isa = PBXGroup;
 			children = (
-				F329205529E84AE20073EB4F /* TagLabelsViewController.swift */,
 				745968B55D6C70DA83987383 /* MovieScreenViewController.swift */,
 				1C36989E9C1EBAA46CCA64B0 /* MovieScreenView.swift */,
+				F329205529E84AE20073EB4F /* TagLabelsViewController.swift */,
 				769F804C94B2B63942BA6DE0 /* InformationMovieBlock */,
 				79DFD5CEA81DEDA3661643B4 /* FootageMovieBlock */,
 				CE34534C334132CE67CBB3FB /* EpisodesMovieBlock */,
@@ -387,9 +387,9 @@
 		87207E40FA4AC9413D62DEFB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7FB0FCE1A3DF28AED0BC35EC /* AuthViewModel.swift */,
 				A0DF5A5DDE99A9358AED4911 /* MainViewModel.swift */,
 				CA8B1CF88D15A8FD2F3F12C1 /* ProfileViewModel.swift */,
-				7FB0FCE1A3DF28AED0BC35EC /* AuthViewModel.swift */,
 				69F0860B23CACC74441A1C13 /* Protocols */,
 			);
 			path = ViewModels;

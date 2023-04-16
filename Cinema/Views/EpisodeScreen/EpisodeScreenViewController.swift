@@ -51,3 +51,13 @@ class EpisodeScreenViewController: UIViewController {
         self.ui.videoPlayerView.playerLayer?.frame = self.ui.videoPlayerView.videoView.bounds
     }
 }
+
+extension EpisodeScreenViewController {
+    func handler() {
+        self.ui.buttonBackGoToLastScreenPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.viewModel?.backToGoLastScreen()
+        }
+    }
+}
