@@ -73,6 +73,17 @@ extension ChatViewModel: IChatViewModel {
         }
     }
     
+    func sendMessage(chatId: String, message: String) {
+        self.api.sendMessage(chatId: chatId, message: message) { result in
+            switch result {
+            case .success(_):
+                print("Success")
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
     func disconnectToChat() {
         self.api.disconnectChat()
     }

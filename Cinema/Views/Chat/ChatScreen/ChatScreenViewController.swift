@@ -102,13 +102,12 @@ private extension ChatScreenViewController {
             self.viewModel?.disconnectToChat()
         }
         
-        //        self.ui.addNewMessagePressed = { [ weak self ] message in
-        //            guard let self = self else { return }
-        //
-        //            self.reloadDataChat()
-        //
-        //            self.viewModel?.disconnectToChat()
-        //        }
+        self.ui.addNewMessagePressed = { [ weak self ] message in
+            guard let self = self else { return }
+            
+            self.viewModel?.sendMessage(chatId: self.chatModel.chatId, message: message)
+            self.reloadDataChat()
+        }
         
         self.viewModel?.newMessages.subscribe(with: { [ weak self ] message in
             guard let self = self else { return }

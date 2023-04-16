@@ -34,7 +34,6 @@ class ChatScreenView: UIView {
         view.allowsSelection = false
         view.backgroundColor = .backgroundApplication
         view.showsVerticalScrollIndicator = false
-        view.isScrollEnabled = false
         
         return view
     }()

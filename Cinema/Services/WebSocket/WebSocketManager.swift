@@ -72,12 +72,22 @@ class WebSocketManager {
         })
     }
     
-    func sendMessage(text: String) {
+    func sendMessage(text: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let message = URLSessionWebSocketTask.Message.string(text)
         
-        webSocket?.send(message, completionHandler: { error in
-            print("WebSocket send failed: \(error?.localizedDescription)")
-        })
+//        webSocket?.send(message, completionHandler: { error in
+//            print("WebSocket send failed: \(String(describing: error?.localizedDescription))")
+//        })
+        
+        webSocket?.send(message) { error in
+            if let error = error {
+                print("Failed to send WebSocket message: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                print("WebSocket message sent successfully")
+                completion(.success(()))
+            }
+        }
     }
     
     func disconnect() {

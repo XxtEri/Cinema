@@ -232,6 +232,10 @@ extension ApiRepository: IApiRepositoryChatScreen {
         webSocketManager.connect(chatId: chatId, completion: completion)
     }
     
+    func sendMessage(chatId: String, message: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        webSocketManager.sendMessage(text: message, completion: completion)
+    }
+    
     func disconnectChat() {
         webSocketManager.disconnect()
     }
