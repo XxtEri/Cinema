@@ -43,16 +43,18 @@ class ChatScreenView: UIView {
         var view = UITextView()
         view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         
+        view.text = "Напишите сообщение..."
+        view.textColor = .placeholderChatInputMessage
+        
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.borderColorInputMessage.cgColor
         
         
         view.textContainerInset = UIEdgeInsets(top: 7, left: 16, bottom: 7, right: 16)
-        view.textColor = .white
         view.textAlignment = .left
         
-        view.backgroundColor = .backgroundApplication
+        view.backgroundColor = .clear
         
         view.isScrollEnabled = false
         
@@ -97,6 +99,21 @@ class ChatScreenView: UIView {
         return screenWidth - sendButtonWidth - 16 * 3
     }
     
+    @objc
+    private func keyboardWillShow(notification: Notification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        self.frame.origin.y -= keyboardHeight + 10
+    }
+    
+    @objc
+    private func keyboardWillHide() {
+        self.frame.origin.y = 0
+    }
+    
     func configureCollection(delegate: UITableViewDelegate, dataSource: UITableViewDataSource) {
         chat.delegate = delegate
         chat.dataSource = dataSource
@@ -111,21 +128,6 @@ class ChatScreenView: UIView {
     
     func reloadData() {
         chat.reloadData()
-    }
-    
-    @objc
-    func keyboardWillShow(notification: Notification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            return
-        }
-        
-        let keyboardHeight = keyboardFrame.cgRectValue.height
-        self.frame.origin.y -= keyboardHeight + 10
-    }
-    
-    @objc
-    func keyboardWillHide() {
-        self.frame.origin.y = 0
     }
     
     deinit {
@@ -197,7 +199,7 @@ private extension ChatScreenView {
     @objc func sendButtonTapped() {
         if let message = messageInput.text, !message.isEmpty {
             addNewMessagePressed?(message)
-            messageInput.text = nil
+            messageInput.text = ""
             messageInput.resignFirstResponder()
         }
     }
@@ -206,7 +208,7 @@ private extension ChatScreenView {
 extension ChatScreenView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .placeholderChatInputMessage {
-            textView.text = nil
+            textView.text = ""
             textView.textColor = .white
         }
     }
