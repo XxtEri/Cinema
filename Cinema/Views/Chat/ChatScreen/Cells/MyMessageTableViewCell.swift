@@ -40,7 +40,7 @@ class MyMessageTableViewCell: UITableViewCell {
     
     lazy var textMessage: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
         view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
         view.textColor = .white
         view.numberOfLines = 0

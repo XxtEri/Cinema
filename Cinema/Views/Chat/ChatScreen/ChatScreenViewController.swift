@@ -29,7 +29,6 @@ class ChatScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.ui.configureCollection(delegate: self, dataSource: self)
-        self.ui.configureTextView(delegate: self)
         self.ui.setTitleScreen(titleChat: chatModel.chatName)
     }
     
@@ -240,56 +239,6 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
             
             return cell
         }
-    }
-}
-
-extension ChatScreenViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .placeholderChatInputMessage {
-            textView.text = nil
-            textView.textColor = .white
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "Напишите сообщение..."
-            textView.textColor = .placeholderChatInputMessage
-        }
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: textView.frame.width, height: .infinity)
-        let estimatedSize = textView.sizeThatFits(size)
-        let textViewMinHeight = textView.text.calculateLabelSize(font: textView.font!, widthInset: 32, heightInset: 14).height
-        let textViewMaxHeight = textView.text.calculateLabelSize(font: textView.font, widthInset: 32, heightInset: 0).height * 3 + 2 * 7 + 10
-        
-        guard estimatedSize.height <= textViewMaxHeight else {
-            textView.isScrollEnabled = true
-            
-            return
-        }
-        
-        textView.constraints.forEach { constraint in
-            if constraint.firstAttribute == .height {
-                //Disable the scroll
-                textView.isScrollEnabled = false
-                if estimatedSize.height < textViewMinHeight {
-                    constraint.constant = textViewMinHeight
-                    
-                } else {
-                    constraint.constant = estimatedSize.height
-                }
-            }
-        }
-    }
-}
-
-extension String {
-    func calculateLabelSize(font: UIFont, widthInset: CGFloat, heightInset: CGFloat) -> CGSize {
-        
-        
-        return CGSize(width: 0, height: 0)
     }
 }
 

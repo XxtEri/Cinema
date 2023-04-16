@@ -34,6 +34,7 @@ class ChatScreenView: UIView {
         view.allowsSelection = false
         view.backgroundColor = .backgroundApplication
         view.showsVerticalScrollIndicator = false
+        view.isScrollEnabled = false
         
         return view
     }()
@@ -53,7 +54,6 @@ class ChatScreenView: UIView {
         
         view.backgroundColor = .backgroundApplication
         
-        view.sizeToFit()
         view.isScrollEnabled = false
         
         return view
@@ -66,6 +66,8 @@ class ChatScreenView: UIView {
         return button
     }()
 
+    private var maxHeightMessageInput: CGFloat = 32
+    
     var goBackButtonPressed: (() -> Void)?
     var addNewMessagePressed: ((String) -> Void)?
     
@@ -79,6 +81,9 @@ class ChatScreenView: UIView {
         self.addSubview(sendButton)
         
         setup()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -100,10 +105,6 @@ class ChatScreenView: UIView {
         chat.register(DateTableViewCell.self, forCellReuseIdentifier: DateTableViewCell.reuseIdentifier)
     }
     
-    func configureTextView(delegate: UITextViewDelegate) {
-        messageInput.delegate = delegate
-    }
-    
     func setTitleScreen(titleChat: String) {
         titleScreen.text = titleChat
     }
@@ -111,13 +112,38 @@ class ChatScreenView: UIView {
     func reloadData() {
         chat.reloadData()
     }
+    
+    @objc
+    func keyboardWillShow(notification: Notification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        self.frame.origin.y -= keyboardHeight + 10
+    }
+    
+    @objc
+    func keyboardWillHide() {
+        self.frame.origin.y = 0
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
 }
 
 private extension ChatScreenView {
     func setup() {
         configureConstraints()
+        configureTextView()
         configureUI()
         configureActions()
+    }
+    
+    func configureTextView() {
+        messageInput.delegate = self
     }
     
     func configureUI() {
@@ -148,6 +174,7 @@ private extension ChatScreenView {
             make.top.equalTo(chat.snp.bottom).inset(-24)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(42)
             make.width.equalTo(getWidthUITextView())
+            make.height.equalTo(maxHeightMessageInput)
         }
         
         sendButton.snp.makeConstraints { make in
@@ -172,6 +199,52 @@ private extension ChatScreenView {
             addNewMessagePressed?(message)
             messageInput.text = nil
             messageInput.resignFirstResponder()
+        }
+    }
+}
+
+extension ChatScreenView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .placeholderChatInputMessage {
+            textView.text = nil
+            textView.textColor = .white
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Напишите сообщение..."
+            textView.textColor = .placeholderChatInputMessage
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        let textViewMinHeight: CGFloat = 32
+        let textViewMaxHeight: CGFloat = textViewMinHeight * 2 + 2 * 7 + 10
+        
+        guard estimatedSize.height <= textViewMaxHeight else {
+            textView.isScrollEnabled = true
+            
+            return
+        }
+        
+        textView.constraints.forEach { constraint in
+            if constraint.firstAttribute == .height {
+                //Disable the scroll
+                textView.isScrollEnabled = false
+                
+                if estimatedSize.height < textViewMinHeight {
+                    constraint.constant = textViewMinHeight
+                    
+                } else {
+                    maxHeightMessageInput = estimatedSize.height
+                    constraint.constant = estimatedSize.height
+                    
+                    messageInput.setNeedsUpdateConstraints()
+                }
+            }
         }
     }
 }
