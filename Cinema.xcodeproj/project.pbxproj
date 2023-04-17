@@ -232,11 +232,6 @@
 		05B00472227209A5830F8964 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CB2F7836A1541F71260D4F92 /* CoverMovie.swift */,
-				B35818B4A6C4042FA5E7AB1B /* Episode.swift */,
-				66036F99F28E5FA4C917379E /* EpisodeTime.swift */,
-				8F806E4A474C4EC456FCAE49 /* EpisodeView.swift */,
-				C04196C4758C75E27E93066C /* Message.swift */,
 				F60EF0F360543A1783B40796 /* RequestStatus.swift */,
 				54808DAE3847FDFED94B55D4 /* ApiModels */,
 				4DFD26DC4CD5BFE9F6FE250C /* Bindings */,
@@ -368,6 +363,11 @@
 		54808DAE3847FDFED94B55D4 /* ApiModels */ = {
 			isa = PBXGroup;
 			children = (
+				CB2F7836A1541F71260D4F92 /* CoverMovie.swift */,
+				B35818B4A6C4042FA5E7AB1B /* Episode.swift */,
+				66036F99F28E5FA4C917379E /* EpisodeTime.swift */,
+				8F806E4A474C4EC456FCAE49 /* EpisodeView.swift */,
+				C04196C4758C75E27E93066C /* Message.swift */,
 				BC9E491D44CEAE0EA966146D /* AuthUser.swift */,
 				CE058C815246EE017BE95F2D /* Chat.swift */,
 				E3EEBB2C0E996E598B82D5A5 /* Collection.swift */,
@@ -468,8 +468,8 @@
 			isa = PBXGroup;
 			children = (
 				E01EE642409AEB2A66A2DFBA /* AuthViewModel.swift */,
-				55A6F12164CF674CBDD5515C /* CollectionScreenViewModel.swift */,
 				147C8E236F04FFE39F1915EA /* MainViewModel.swift */,
+				55A6F12164CF674CBDD5515C /* CollectionScreenViewModel.swift */,
 				CA8B1CF88D15A8FD2F3F12C1 /* ProfileViewModel.swift */,
 				69F0860B23CACC74441A1C13 /* Protocols */,
 			);
@@ -500,9 +500,9 @@
 				5FE53F20BE49306F13B5BD90 /* Application */,
 				ED1EF37D32016B2313874FC9 /* Coordinators */,
 				FED61C6B9023AEFFFDCA304B /* Services */,
-				05B00472227209A5830F8964 /* Models */,
 				87207E40FA4AC9413D62DEFB /* ViewModels */,
 				8B47CF54B9F43D961B073846 /* Views */,
+				05B00472227209A5830F8964 /* Models */,
 				4CC4E819521FDB9A8BD2A9D5 /* Resources */,
 			);
 			path = Cinema;
