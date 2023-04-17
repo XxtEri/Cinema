@@ -16,6 +16,12 @@ extension UIColor {
         #colorLiteral(red: 0.937254902, green: 0.2274509804, blue: 0.003921568627, alpha: 1)
     }
     
+    static var iconSelectionScreenHeadBackground: UIColor {
+        #colorLiteral(red: 0.2081992924, green: 0.1980744004, blue: 0.1929920912, alpha: 1)
+    }
+    
+    static var iconSelectionScreenBackground: UIColor {
+        #colorLiteral(red: 0.1462551653, green: 0.1466015875, blue: 0.1569609344, alpha: 1)
     static var inactiveSlider: UIColor {
         #colorLiteral(red: 0.2924827337, green: 0.2927675247, blue: 0.3014470339, alpha: 1)
     }

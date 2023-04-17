@@ -20,6 +20,18 @@ protocol IApiRepositoryMain {
     func getEpisodesMovie(movieId: String, completion: @escaping (Result<[Episode], Error>) -> Void)
     func getCurrentEpisodeTime(episodeId: String, completion: @escaping (Result<EpisodeTime, Error>) -> Void)
     func saveCurrentEpisodeTime(episodeId: String, time: EpisodeTime, completion: @escaping (Result<Void, Error>) -> Void)
+protocol IApiRepositoryCollectionScreen {
+    func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void)
+    func addNewCollection(collection: CollectionForm, completion: @escaping (Result<Collection, Error>) -> Void)
+    func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void)
+    func addMoviesInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+protocol IApiRepositoryProfileScreen {
+    func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void)
+    func uploadPhoto(completion: @escaping (Result<User, Error>) -> Void)
 }
 
 protocol IApiRepositoryProfile {

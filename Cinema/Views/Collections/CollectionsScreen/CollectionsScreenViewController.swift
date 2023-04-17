@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CollectionsScreenViewController: UIViewController {
     
@@ -18,8 +19,9 @@ class CollectionsScreenViewController: UIViewController {
     }
     
     private let ui: CollectionsScreenView
+    var viewModel: CollectionScreenViewModel?
     
-    var titleCollections = ["Избранное"]
+    var collectionList: Results<CollectionList>?
     
     init() {
         self.ui = CollectionsScreenView()
@@ -27,6 +29,7 @@ class CollectionsScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         ui.configureCollectionView(delegate: self, dataSource: self)
+//        initArrayCollections()
     }
     
     required init?(coder: NSCoder) {
@@ -40,14 +43,62 @@ class CollectionsScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        handler()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.viewModel?.getCollection()
+    }
+    
+//    private func initArrayCollections() {
+//        do {
+//            let configuration = Realm.Configuration(
+//                schemaVersion: 1,
+//                migrationBlock: { migration, oldSchemaVersion in
+//                    if oldSchemaVersion < 1 {
+//
+//                    }
+//                }
+//            )
+//            Realm.Configuration.defaultConfiguration = configuration
+//
+//            let realm = try Realm()
+//
+//            collectionList = realm.objects(CollectionList.self)
+//
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//    }
+}
 
+extension CollectionsScreenViewController {
+    func handler() {
+        self.ui.buttonAddingNewCollectionPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: true, collection: nil)
+        }
+        
+        self.viewModel?.collectionsDatabase.subscribe(with: { [ weak self ] collections in
+            guard let self = self else { return }
+            
+            self.collectionList = collections
+            self.ui.reloadData()
+        })
+    }
 }
 
 extension CollectionsScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        titleCollections.count
+        guard let collections = collectionList else { return 0 }
+        
+        if !collections.isEmpty {
+            print(collections.count)
+            return collections.count
+        }
+        
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -55,9 +106,21 @@ extension CollectionsScreenViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configure(title: titleCollections[indexPath.row], imageName: "FavoriteIcon")
+        guard let collections = collectionList else { return UICollectionViewCell()}
+        
+        let collection = collections[indexPath.row]
+        
+        cell.configure(title: collection.collectionName, imageName: collection.nameImageCollection)
         
         return cell
+    }
+}
+
+extension CollectionsScreenViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let collections = collectionList else { return }
+        
+        self.viewModel?.goToCollectionScreenDetail(collection: collections[indexPath.row])
     }
 }
 

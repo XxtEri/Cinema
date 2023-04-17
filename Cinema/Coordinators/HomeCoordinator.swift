@@ -37,6 +37,7 @@ final class HomeCoordinator: Coordinator {
         navigationController.setNavigationBarHidden(true, animated: false)
         
         navigationController.viewControllers.removeAll()
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
     

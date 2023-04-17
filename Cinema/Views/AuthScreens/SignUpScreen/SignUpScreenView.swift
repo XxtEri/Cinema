@@ -28,6 +28,7 @@ final class SignUpScreenView: UIView {
     private lazy var firstNameInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Имя", isSecured: false)
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         return view
     }()
@@ -35,6 +36,7 @@ final class SignUpScreenView: UIView {
     private lazy var lastNameInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Фамилия", isSecured: false)
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         return view
     }()
@@ -42,6 +44,7 @@ final class SignUpScreenView: UIView {
     private lazy var emailInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "E-mail", isSecured: false)
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         return view
     }()
@@ -49,6 +52,7 @@ final class SignUpScreenView: UIView {
     private lazy var passwordInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Пароль", isSecured: false)
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 
         return view
     }()
@@ -56,6 +60,7 @@ final class SignUpScreenView: UIView {
     private lazy var confirmPasswordInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Повторите пароль", isSecured: false)
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 
         return view
     }()
@@ -109,6 +114,10 @@ final class SignUpScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc
+    func textFieldDidChange(sender: UITextField) {
+        sender.text = sender.text?.lowercased()
+    }
 }
 
 private extension SignUpScreenView {
