@@ -77,7 +77,7 @@ class VideoPlayerView: UIView {
     
     private lazy var barBackButton: UIButton = {
         let view = UIButton()
-        view.setBackgroundImage(UIImage(named: "ArrowNavigation"), for: .normal)
+        view.setBackgroundImage(UIImage(named: "ArrowBack"), for: .normal)
         
         return view
     }()

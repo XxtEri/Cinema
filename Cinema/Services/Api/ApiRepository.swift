@@ -299,7 +299,7 @@ extension ApiRepository: IApiRepositoryCollectionScreen {
     }
 }
 
-extension ApiRepository: IApiRepositoryProfileScreen {
+extension ApiRepository: IApiRepositoryProfile {
     func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         

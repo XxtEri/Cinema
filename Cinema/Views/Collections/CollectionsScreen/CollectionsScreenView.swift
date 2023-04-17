@@ -22,7 +22,7 @@ class CollectionsScreenView: UIView {
     
     lazy var plusImage: UIImageView = {
        let view = UIImageView()
-        view.image = UIImage(named: "AddCollection")
+        view.image = UIImage(named: "Plus")
         view.contentMode = .scaleAspectFit
         view.isUserInteractionEnabled = true
         

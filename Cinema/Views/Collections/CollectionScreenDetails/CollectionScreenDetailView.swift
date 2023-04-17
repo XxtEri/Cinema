@@ -28,7 +28,7 @@ class CollectionScreenDetailView: UIView {
     
     lazy var editImage: UIImageView = {
        let view = UIImageView()
-        view.image = UIImage(named: "EditCollection")
+        view.image = UIImage(named: "Edit")
         view.contentMode = .scaleAspectFit
         view.isUserInteractionEnabled = true
         
