@@ -83,7 +83,11 @@ extension CreateEditingCollectionsScreenViewController {
         self.ui.backToGoCollectionsScreenButtonPressed = { [ weak self ] in
             guard let self = self else { return }
             
-            self.viewModel?.goToCollectionsScreen()
+            if self.isCreatinCollection {
+                self.viewModel?.goToCollectionsScreen()
+            } else {
+                self.viewModel?.goToLastScreen()
+            }
         }
         
         self.ui.saveCollectionButtonPressed = { [ weak self ] (titleCollection, imageName) in
