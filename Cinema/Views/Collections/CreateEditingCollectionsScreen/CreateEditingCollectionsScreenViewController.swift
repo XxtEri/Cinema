@@ -12,6 +12,8 @@ class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewC
     private var ui: CreateEditingCollectionsScreenView
     var viewModel: CollectionScreenViewModel?
     
+    var isCreatinCollection: Bool
+    
     var iconsImageName: [String] = {
         var array = [String]()
         
@@ -22,12 +24,26 @@ class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewC
         return array
     }()
 
-    init(isCreatingCollection: Bool, titleCollection: String?) {
+    init(isCreatingCollection: Bool, currentCollection: CollectionList?) {
         self.ui = CreateEditingCollectionsScreenView()
         self.ui.isCreatingCollection = isCreatingCollection
+        self.isCreatinCollection = isCreatingCollection
         
-        if let title = titleCollection {
+        if let collection = currentCollection {
+            self.ui.setCollection(collection: collection)
+        }
+        
+        if let title = currentCollection?.collectionName {
             self.ui.setTitleCollection(titleCollection: title)
+        }
+        
+        if isCreatingCollection {
+            self.ui.updateIconImage(imageName: iconsImageName[0])
+            
+        } else {
+            if let imageName = currentCollection?.nameImageCollection {
+                self.ui.updateIconImage(imageName: imageName)
+            }
         }
         
         super.init(nibName: nil, bundle: nil)
@@ -48,8 +64,6 @@ class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewC
         
         handler()
         setupToHideKeyboardOnTapOnView()
-        
-        self.ui.updateIconImage(imageName: iconsImageName[0])
     }
 
     // Метод делегата для обработки переданных данных
@@ -77,10 +91,17 @@ extension CreateEditingCollectionsScreenViewController {
             
             self.viewModel?.addNewCollection(collectionName: titleCollection, imageCollectionName: imageName)
         }
-
-        self.ui.deleteCollectionButtonPressed = { [ weak self ] in
+        
+        self.ui.updateCollectionButtonPressed = { [ weak self ] (collection, imageCollectionName) in
             guard let self = self else { return }
             
+            self.viewModel?.updateCollection(collection: collection, imageCollectionName: imageCollectionName)
+        }
+
+        self.ui.deleteCollectionButtonPressed = { [ weak self ] collectionId in
+            guard let self = self else { return }
+            
+            self.viewModel?.deleteCollection(collectionId: collectionId)
         }
     }
 }

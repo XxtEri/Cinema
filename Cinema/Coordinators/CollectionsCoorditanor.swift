@@ -34,8 +34,8 @@ final class CollectionsCoorditanor: Coordinator {
 }
 
 extension CollectionsCoorditanor: CollectionsNavigation {
-    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, titleCollection: String?) {
-        let vc = CreateEditingCollectionsScreenViewController(isCreatingCollection: isCreatingCollection, titleCollection: titleCollection)
+    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, collection: CollectionList?) {
+        let vc = CreateEditingCollectionsScreenViewController(isCreatingCollection: isCreatingCollection, currentCollection: collection)
         vc.viewModel = CollectionScreenViewModel(navigation: self)
         
         navigationController.setNavigationBarHidden(true, animated: false)
@@ -57,10 +57,15 @@ extension CollectionsCoorditanor: CollectionsNavigation {
     
     func goToCollectionsScreen() {
         navigationController.popViewController(animated: true)
+        navigationController.popViewController(animated: true)
     }
     
-    func goToCollectionScreenDetail(titleCollection: String) {
-        let vc = CollectionScreenDetailViewController(titleCollection: titleCollection)
+    func goToLastScreen() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func goToCollectionScreenDetail(collection: CollectionList) {
+        let vc = CollectionScreenDetailViewController(collection: collection)
         vc.viewModel = CollectionScreenViewModel(navigation: self)
         
         navigationController.pushViewController(vc, animated: true)

@@ -6,6 +6,7 @@
 //
 
 import KeychainSwift
+import RealmSwift
 
 class CollectionScreenViewModel {
     private let api: ApiRepository
@@ -16,7 +17,8 @@ class CollectionScreenViewModel {
     var selectedImage: String?
     var endChangeDatabase: (() -> Void)?
     
-    var collections = Observable<Collection>()
+    var collection = Observable<Collection>()
+    var collectionsDatabase = Observable<Results<CollectionList>>()
     var errorOnLoading = Observable<Error>()
     
     init(navigation: CollectionsNavigation) {
@@ -25,8 +27,8 @@ class CollectionScreenViewModel {
         self.api = ApiRepository()
     }
     
-    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, titleCollection: String?) {
-        navigation?.goToCreateEditingCollectionScreen(isCreatingCollection: isCreatingCollection, titleCollection: titleCollection)
+    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, collection: CollectionList?) {
+        navigation?.goToCreateEditingCollectionScreen(isCreatingCollection: isCreatingCollection, collection: collection)
     }
     
     func backGoToCreateEditingCollectionScreen() {
@@ -41,52 +43,134 @@ class CollectionScreenViewModel {
         navigation?.goToCollectionsScreen()
     }
     
-    func goToCollectionScreenDetail(titleCollection: String) {
-        navigation?.goToCollectionScreenDetail(titleCollection: titleCollection)
+    func goToLastScreen() {
+        navigation?.goToLastScreen()
+    }
+    
+    func goToCollectionScreenDetail(collection: CollectionList) {
+        navigation?.goToCollectionScreenDetail(collection: collection)
     }
 }
 
 private extension CollectionScreenViewModel {
+    func successLoadingHandle(with model: [Collection]) {
+        let defaultImageCollectionName = "Group 33"
+        
+        model.forEach { collection in
+            if !self.service.checkEntityExistsInRealm(collectionId: collection.collectionId) {
+                addCollectionToDatabase(with: collection, imageCollectionName: defaultImageCollectionName)
+            }
+        }
+        
+        self.service.getCollections { [ self ] result in
+            switch result {
+            case .success(let collections):
+                collectionsDatabase.updateModel(with: collections)
+            case .failure(let error):
+                failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
+    //удаление из базы данных после успешного удаления на сервере
+    func successLoadingHandle(with collectionId: String) {
+        self.service.deleteCollection(collectionId: collectionId) { [ self ] result in
+            switch result {
+            case .success(_):
+                goToCollectionsScreen()
+            case .failure(let error):
+                failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
     func failureLoadingHandle(with error: Error) {
         self.errorOnLoading.updateModel(with: error)
+    }
+    
+    func addCollectionToDatabase(with model: Collection, imageCollectionName: String) {
+        let collectionDatabase = CollectionList()
+        collectionDatabase.collectionName = model.name
+        collectionDatabase.collectionId = model.collectionId
+        collectionDatabase.nameImageCollection = imageCollectionName
+        
+        self.service.addNewCollection(collection: collectionDatabase) { [ self ] result in
+            switch result {
+            case .success(_):
+                print("Add successfully")
+            case .failure(let error):
+                failureLoadingHandle(with: error)
+            }
+        }
     }
 }
 
 extension CollectionScreenViewModel: ICollectionScreenViewModel {
-    func addNewCollection(collectionName: String, imageCollectionName: String) {
-        let collection = CollectionForm(name: collectionName)
-        
-        self.api.addNewCollection(collection: collection) { [ self ] result in
+    func getCollection() {
+        self.api.getCollections { result in
             switch result {
-            case .success(let collection):
-                let collectionDatabase = CollectionList()
-                collectionDatabase.collectionName = collection.name
-                collectionDatabase.collectionId = collection.collectionId
-                collectionDatabase.nameImageCollection = imageCollectionName
-                
-                self.service.addNewCollection(collection: collectionDatabase) { [ self ] result in
-                    switch result {
-                    case .success(_):
-                        endChangeDatabase?()
-                    case .failure(let error):
-                        failureLoadingHandle(with: error)
-                    }
-                }
+            case .success(let collections):
+                self.successLoadingHandle(with: collections)
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
     
+    func addNewCollection(collectionName: String, imageCollectionName: String) {
+        let collectionForm = CollectionForm(name: collectionName)
+        
+        self.api.addNewCollection(collection: collectionForm) { [ self ] result in
+            switch result {
+            case .success(let newColletion):
+                addCollectionToDatabase(with: newColletion, imageCollectionName: imageCollectionName)
+                goToLastScreen()
             case .failure(let error):
                 failureLoadingHandle(with: error)
                 print(error.localizedDescription)
             }
         }
-        
-        self.goToCollectionsScreen()
     }
     
-    func updateCollection() {
-        
+    func updateCollection(collection: Collection, imageCollectionName: String) {
+        //удаляем коллекцию
+        deleteCollection(collectionId: collection.collectionId)
+
+        //создаем новую коллекцию на сервере
+        let collectionForm = CollectionForm(name: collection.name)
+        self.api.addNewCollection(collection: collectionForm) { [ self ] result in
+            switch result {
+            case .success(let newCollection):
+                //обновляем данные в БД
+                let newCollectionDatabase = CollectionList()
+                newCollectionDatabase.collectionName = newCollection.name
+                newCollectionDatabase.collectionId = newCollection.collectionId
+                newCollectionDatabase.nameImageCollection = imageCollectionName
+
+                self.service.updateCollection(oldCollectionId: collection.collectionId, newCollection: newCollectionDatabase) { [ self ] result in
+                    switch result {
+                    case .success(_):
+                        goToCollectionsScreen()
+                    case .failure(let error):
+                        failureLoadingHandle(with: error)
+                    }
+                }
+
+            case .failure(let error):
+                failureLoadingHandle(with: error)
+                print(error.localizedDescription)
+            }
+        }
     }
     
-    func deleteCollection() {
-        
+    func deleteCollection(collectionId: String) {
+        self.api.deleteCollection(collectionId: collectionId) { [ self ] result in
+            switch result {
+            case .success(_):
+                successLoadingHandle(with: collectionId)
+            case .failure(let error):
+                failureLoadingHandle(with: error)
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 protocol ICollectionScreenViewModel {
     func addNewCollection(collectionName: String, imageCollectionName: String)
     
-    func updateCollection()
+    func updateCollection(collection: Collection, imageCollectionName: String)
     
-    func deleteCollection()
+    func deleteCollection(collectionId: String)
 }

@@ -15,26 +15,29 @@ class CollectionService {
     
     func getCollections(completion: @escaping (Result<Results<CollectionList>, Error>) -> Void) {
         do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: nil
+            )
+            Realm.Configuration.defaultConfiguration = configuration
+
             let realm = try Realm()
-            
+
             collectionList = realm.objects(CollectionList.self)
-            
+
             completion(.success(collectionList))
-            
+
         } catch let error as NSError {
             completion(.failure(error))
         }
+
     }
     
     func addNewCollection(collection: CollectionList, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             let configuration = Realm.Configuration(
                 schemaVersion: 1,
-                migrationBlock: { migration, oldSchemaVersion in
-                    if oldSchemaVersion < 1 {
-
-                    }
-                }
+                migrationBlock: nil
             )
             
             Realm.Configuration.defaultConfiguration = configuration
@@ -42,6 +45,7 @@ class CollectionService {
             let realm = try Realm()
 
             let newCollection = CollectionList()
+            newCollection.collectionId = collection.collectionId
             newCollection.collectionName = collection.collectionName
             newCollection.nameImageCollection = collection.nameImageCollection
 
@@ -58,42 +62,112 @@ class CollectionService {
         }
     }
     
-    func updateCollection(collection: CollectionList) {
+    func updateCollection(oldCollectionId: String, newCollection: CollectionList, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: nil
+            )
+            
+            Realm.Configuration.defaultConfiguration = configuration
+            
+            
             let realm = try Realm()
 
             let collectionToUpdate = realm.objects(CollectionList.self).filter { object in
-                return object.collectionId == collection.collectionId
-            }
+                return object.collectionId == oldCollectionId
+            }.first
             
-            try realm.write {
-                collectionToUpdate[0].collectionName = collection.collectionName
-                collectionToUpdate[0].nameImageCollection = collection.nameImageCollection
+            if let collection = collectionToUpdate {
+                try realm.write {
+                    collection.collectionId = newCollection.collectionId
+                    collection.collectionName = newCollection.collectionName
+                    collection.nameImageCollection = newCollection.nameImageCollection
+                }
+                
+                completion(.success(()))
+            } else {
+                print("Сущность не найдена")
             }
-            
-            endingChangeDatabase?()
 
         } catch let error as NSError {
             print("Ошибка при изменении объекта в базу данных Realm: \(error.localizedDescription)")
+            completion(.failure(error))
         }
     }
     
-    func deleteCollection(collection: CollectionList) {
+    func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: nil
+            )
+            
+            Realm.Configuration.defaultConfiguration = configuration
+            
             let realm = try Realm()
 
             let collectionToDelete = realm.objects(CollectionList.self).filter { object in
-                return object.collectionId == collection.collectionId
+                return object.collectionId == collectionId
             }
             
             try realm.write {
                 realm.delete(collectionToDelete)
             }
             
-            endingChangeDatabase?()
+            completion(.success(()))
 
         } catch let error as NSError {
             print("Ошибка при удалении объекта в базу данных Realm: \(error.localizedDescription)")
+            completion(.failure(error))
+        }
+    }
+    
+    func checkEntityExistsInRealm(collectionId: String) -> Bool {
+        do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: { migration, oldSchemaVersion in
+                    if oldSchemaVersion < 1 {
+
+                    }
+                }
+            )
+            
+            Realm.Configuration.defaultConfiguration = configuration
+            
+            let realm = try Realm()
+            let results = realm.objects(CollectionList.self).filter { object in
+                return object.collectionId == collectionId
+            }
+            
+            if !results.isEmpty {
+                return true
+            }
+            
+            return false
+            
+        } catch let error as NSError {
+            print("Ошибка при работе с Realm: \(error.localizedDescription)")
+            return false
+        }
+    }
+    
+    func clearDatabase() {
+        do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: nil
+            )
+            
+            Realm.Configuration.defaultConfiguration = configuration
+            
+            let realm = try Realm()
+            try realm.write {
+                realm.deleteAll()
+            }
+        } catch let error as NSError {
+            print("Ошибка при работе с Realm: \(error.localizedDescription)")
         }
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 class CollectionScreenDetailView: UIView {
 
-    lazy var titleScreen: UILabel = {
+    private lazy var titleScreen: UILabel = {
         let view = UILabel()
         view.font = UIFont(name: "SFProText-Semibold", size: 20)
         view.textAlignment = .center
@@ -46,7 +46,9 @@ class CollectionScreenDetailView: UIView {
         return view
     }()
     
-    var buttonEditCollectionPressed: ((String) -> Void)?
+    private var collection: CollectionList?
+    
+    var buttonEditCollectionPressed: ((CollectionList) -> Void)?
     var backToGoCollectionsScreenButtonPressed: (() -> Void)?
 
     override init(frame: CGRect) {
@@ -64,14 +66,20 @@ class CollectionScreenDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func configureTitleCollection(title: String) {
+        titleScreen.text = title
+    }
+    
     func configureCollectionView(delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource) {
         
         collections.delegate = delegate
         collections.dataSource = dataSource
     }
     
-    func configureTitleScreen(title: String) {
-        titleScreen.text = title
+    func setCollection(collection: CollectionList) {
+        self.collection = collection
+        
+        configureTitleCollection(title: collection.collectionName)
     }
     
     func reloadData() {
@@ -128,8 +136,8 @@ private extension CollectionScreenDetailView {
     
     @objc
     func pressedEditImage() {
-        if let title = titleScreen.text {
-            self.buttonEditCollectionPressed?(title)
+        if let currentCollection = collection {
+            self.buttonEditCollectionPressed?(currentCollection)
         }
     }
     

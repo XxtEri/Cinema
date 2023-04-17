@@ -29,7 +29,7 @@ class CollectionsScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         ui.configureCollectionView(delegate: self, dataSource: self)
-        initArrayCollections()
+//        initArrayCollections()
     }
     
     required init?(coder: NSCoder) {
@@ -46,26 +46,30 @@ class CollectionsScreenViewController: UIViewController {
         handler()
     }
     
-    private func initArrayCollections() {
-        do {
-            let configuration = Realm.Configuration(
-                schemaVersion: 1,
-                migrationBlock: { migration, oldSchemaVersion in
-                    if oldSchemaVersion < 1 {
-
-                    }
-                }
-            )
-            Realm.Configuration.defaultConfiguration = configuration
-            
-            let realm = try Realm()
-            
-            collectionList = realm.objects(CollectionList.self)
-            
-        } catch let error {
-            print(error.localizedDescription)
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        self.viewModel?.getCollection()
     }
+    
+//    private func initArrayCollections() {
+//        do {
+//            let configuration = Realm.Configuration(
+//                schemaVersion: 1,
+//                migrationBlock: { migration, oldSchemaVersion in
+//                    if oldSchemaVersion < 1 {
+//
+//                    }
+//                }
+//            )
+//            Realm.Configuration.defaultConfiguration = configuration
+//
+//            let realm = try Realm()
+//
+//            collectionList = realm.objects(CollectionList.self)
+//
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//    }
 }
 
 extension CollectionsScreenViewController {
@@ -73,16 +77,15 @@ extension CollectionsScreenViewController {
         self.ui.buttonAddingNewCollectionPressed = { [ weak self ] in
             guard let self = self else { return }
             
-            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: true, titleCollection: nil)
+            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: true, collection: nil)
         }
         
-        //не отлавливает
-        self.viewModel?.endChangeDatabase = { [ weak self ] in
+        self.viewModel?.collectionsDatabase.subscribe(with: { [ weak self ] collections in
             guard let self = self else { return }
             
-            self.initArrayCollections()
+            self.collectionList = collections
             self.ui.reloadData()
-        }
+        })
     }
 }
 
@@ -117,7 +120,7 @@ extension CollectionsScreenViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let collections = collectionList else { return }
         
-        self.viewModel?.goToCollectionScreenDetail(titleCollection: collections[indexPath.row].collectionName)
+        self.viewModel?.goToCollectionScreenDetail(collection: collections[indexPath.row])
     }
 }
 

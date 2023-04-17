@@ -242,7 +242,47 @@ extension ApiRepository: IApiRepositoryCollectionScreen {
     }
     
     func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
         
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections/\(collectionId)",
+            method: .delete,
+            headers: headers
+        ).responseData { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.deleteCollection(collectionId: collectionId, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
     func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void) {

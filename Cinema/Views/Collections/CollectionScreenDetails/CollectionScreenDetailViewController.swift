@@ -12,12 +12,12 @@ class CollectionScreenDetailViewController: UIViewController {
     private let ui: CollectionScreenDetailView
     var viewModel: CollectionScreenViewModel?
     
-    init(titleCollection: String) {
+    init(collection: CollectionList) {
         self.ui = CollectionScreenDetailView()
         
         super.init(nibName: nil, bundle: nil)
         
-        self.ui.configureTitleScreen(title: titleCollection)
+        self.ui.setCollection(collection: collection)
     }
     
     required init?(coder: NSCoder) {
@@ -43,10 +43,10 @@ extension CollectionScreenDetailViewController {
             self.viewModel?.goToCollectionsScreen()
         }
         
-        self.ui.buttonEditCollectionPressed = { [ weak self ] titleCollection in
+        self.ui.buttonEditCollectionPressed = { [ weak self ] collection in
             guard let self = self else { return }
             
-            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: false, titleCollection: titleCollection)
+            self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: false, collection: collection)
         }
     }
 }

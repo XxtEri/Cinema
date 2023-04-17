@@ -76,13 +76,15 @@ class CreateEditingCollectionsScreenView: UIView {
         return view
     }()
     
-    private var selectedImage: String?
+    private var selectedImageName: String?
+    private var collection: CollectionList?
     
     var isCreatingCollection: Bool = true
     
     var chooseIconCollectionButtonPressed: (() -> Void)?
     var saveCollectionButtonPressed: ((String, String) -> Void)?
-    var deleteCollectionButtonPressed: (() -> Void)?
+    var updateCollectionButtonPressed: ((Collection, String) -> Void)?
+    var deleteCollectionButtonPressed: ((String) -> Void)?
     var backToGoCollectionsScreenButtonPressed: (() -> Void)?
     
     override init(frame: CGRect) {
@@ -103,9 +105,17 @@ class CreateEditingCollectionsScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setCollection(collection: CollectionList) {
+        self.collection = collection
+    }
+    
     func updateIconImage(imageName: String) {
-        selectedImage = imageName
+        selectedImageName = imageName
         iconCollection.image = UIImage(named: imageName)
+    }
+    
+    func setTitleCollection(titleCollection: String) {
+        self.titleCollection.text = titleCollection
     }
     
     func updateUI() {
@@ -117,10 +127,6 @@ class CreateEditingCollectionsScreenView: UIView {
             buttonDeleteCollection.layer.opacity = 0
             titleScreen.text = "Создать коллекцию"
         }
-    }
-    
-    func setTitleCollection(titleCollection: String) {
-        self.titleCollection.text = titleCollection
     }
 }
 
@@ -194,14 +200,26 @@ extension CreateEditingCollectionsScreenView {
     
     @objc
     func saveCollection() {
-        if let titleCollection = titleCollection.text, let imageName = selectedImage {
-            saveCollectionButtonPressed?(titleCollection, imageName)
+        if isCreatingCollection {
+            if let titleCollection = titleCollection.text, let imageName = selectedImageName {
+                saveCollectionButtonPressed?(titleCollection, imageName)
+            }
+            
+        } else {
+            if let collectionList = collection {
+                if let title = titleCollection.text {
+                    let oldCollection = Collection(collectionId: collectionList.collectionId, name: title)
+                    updateCollectionButtonPressed?(oldCollection, selectedImageName ?? "Group 33")
+                }
+            }
         }
     }
     
     @objc
     func deleteCollection() {
-        deleteCollectionButtonPressed?()
+        if let collectionId = collection?.collectionId {
+            deleteCollectionButtonPressed?(collectionId)
+        }
     }
     
     @objc
