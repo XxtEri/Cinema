@@ -10,12 +10,13 @@ import RealmSwift
 
 class CollectionScreenViewModel {
     private let api: ApiRepository
+    private var validation: ValidationCollectionScreen
     private let service: CollectionService
     
     weak var navigation: CollectionsNavigation?
-    
-    var selectedImage: String?
-    var endChangeDatabase: (() -> Void)?
+
+    var isCreatingAnotherFavoritesCollection: (() -> Void)?
+    var isNotValidData: ((String) -> Void)?
     
     var collection = Observable<Collection>()
     var collectionsDatabase = Observable<Results<CollectionList>>()
@@ -25,6 +26,7 @@ class CollectionScreenViewModel {
         self.navigation = navigation
         self.service = CollectionService()
         self.api = ApiRepository()
+        self.validation = ValidationCollectionScreen()
     }
     
     func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, collection: CollectionList?) {
@@ -55,10 +57,17 @@ class CollectionScreenViewModel {
 private extension CollectionScreenViewModel {
     func successLoadingHandle(with model: [Collection]) {
         let defaultImageCollectionName = "Group 33"
+        let imageNameForFavoriteCollection = "Group 1"
+        
         
         model.forEach { collection in
             if !self.service.checkEntityExistsInRealm(collectionId: collection.collectionId) {
-                addCollectionToDatabase(with: collection, imageCollectionName: defaultImageCollectionName)
+                if collection.name == "Избранное" {
+                    addCollectionToDatabase(with: collection, imageCollectionName: imageNameForFavoriteCollection)
+                    
+                } else {
+                    addCollectionToDatabase(with: collection, imageCollectionName: defaultImageCollectionName)
+                }
             }
         }
         
@@ -124,6 +133,19 @@ extension CollectionScreenViewModel: ICollectionScreenViewModel {
     }
     
     func addNewCollection(collectionName: String, imageCollectionName: String) {
+        validation.collection = Collection(collectionId: String(), name: collectionName)
+        let result = validation.isValidateDataCollection()
+        
+        if result == .fieldsEmpty {
+            isNotValidData?(result.rawValue)
+            return
+        }
+        
+        if collectionName == "Избранное" {
+            isCreatingAnotherFavoritesCollection?()
+            return
+        }
+        
         let collectionForm = CollectionForm(name: collectionName)
         
         self.api.addNewCollection(collection: collectionForm) { [ self ] result in
@@ -133,7 +155,6 @@ extension CollectionScreenViewModel: ICollectionScreenViewModel {
                 goToLastScreen()
             case .failure(let error):
                 failureLoadingHandle(with: error)
-                print(error.localizedDescription)
             }
         }
     }

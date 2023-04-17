@@ -79,6 +79,10 @@ class CollectionScreenDetailView: UIView {
     func setCollection(collection: CollectionList) {
         self.collection = collection
         
+        if collection.collectionName == "Избранное" {
+            editImage.isHidden = true
+        }
+        
         configureTitleCollection(title: collection.collectionName)
     }
     

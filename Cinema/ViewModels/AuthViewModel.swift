@@ -15,7 +15,7 @@ class AuthViewModel {
     
     weak var navigation: AuthNavigation?
 
-    var isNotValidData: ((ResultValidation, String) -> Void)?
+    var isNotValidData: ((ResultValidationAuthScreen, String) -> Void)?
     var errorReceivedFromServer: ((RequestStatus) -> Void)?
     
     init(navigation: AuthNavigation) {
@@ -98,7 +98,7 @@ extension AuthViewModel: ISignInViewModel {
 }
 
 private extension AuthViewModel {
-    func checkResultValidData(resultValid: ResultValidation) -> Bool {
+    func checkResultValidData(resultValid: ResultValidationAuthScreen) -> Bool {
         switch resultValid {
         case .susccess:
             return true

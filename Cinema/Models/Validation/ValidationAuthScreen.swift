@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ResultValidation: String {
+enum ResultValidationAuthScreen: String {
     case susccess
     case fieldsEmpty = "Не все поля заполнены данными. Заполните и повторите попытку"
     case notCorrectEmail = "Некорретно введена почта. Попробуйте еще раз. Почта должна быть размером от 2 до 64 символов. Имя и доменное имя должно состоять только из маленьких букв и цифр."
@@ -57,35 +57,35 @@ class ValidationAuthScreen {
         return true
     }
     
-    func isValidateDataUserLogin() -> ResultValidation {
-        guard let user = userLogin else { return ResultValidation.error}
+    func isValidateDataUserLogin() -> ResultValidationAuthScreen {
+        guard let user = userLogin else { return ResultValidationAuthScreen.error}
         
         if !isFieldsNotEmpty() {
-            return ResultValidation.fieldsEmpty
+            return ResultValidationAuthScreen.fieldsEmpty
         }
         
         if !isValidateEmail(user.email) {
-            return ResultValidation.notCorrectEmail
+            return ResultValidationAuthScreen.notCorrectEmail
         }
         
-        return ResultValidation.susccess
+        return ResultValidationAuthScreen.susccess
     }
     
-    func isValidateDataUserRegister() -> ResultValidation {
-        guard let user = userRegister else { return ResultValidation.error}
+    func isValidateDataUserRegister() -> ResultValidationAuthScreen {
+        guard let user = userRegister else { return ResultValidationAuthScreen.error}
         
         if !isFieldsNotEmpty() {
-            return ResultValidation.fieldsEmpty
+            return ResultValidationAuthScreen.fieldsEmpty
         }
         
         if !isValidateEmail(user.email) {
-            return ResultValidation.notCorrectEmail
+            return ResultValidationAuthScreen.notCorrectEmail
         }
         
         if !isPasswordsMatch(password: user.password, confirmPassword: user.confirmPassword) {
-            return ResultValidation.isNotMatchPassword
+            return ResultValidationAuthScreen.isNotMatchPassword
         }
         
-        return ResultValidation.susccess
+        return ResultValidationAuthScreen.susccess
     }
 }

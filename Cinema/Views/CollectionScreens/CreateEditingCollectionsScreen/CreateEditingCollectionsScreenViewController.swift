@@ -103,6 +103,18 @@ extension CreateEditingCollectionsScreenViewController {
             
             self.viewModel?.deleteCollection(collectionId: collectionId)
         }
+        
+        self.viewModel?.isCreatingAnotherFavoritesCollection = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.showError("Вы не можете создать еще одну коллекцию с названием 'Избранное'")
+        }
+        
+        self.viewModel?.isNotValidData = { [ weak self ] error in
+            guard let self = self else { return }
+            
+            self.showError(error)
+        }
     }
 }
 
@@ -119,5 +131,16 @@ private extension CreateEditingCollectionsScreenViewController {
     @objc
     func dismissKeyboard(sender: AnyObject) {
         view.endEditing(true)
+    }
+    
+    private func showError(_ error: String) {
+        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
+        
+        alertController.addAction(action)
+        
+        alertController.view.tintColor = .accentColorApplication
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
