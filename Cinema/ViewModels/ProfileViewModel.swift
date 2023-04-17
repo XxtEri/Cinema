@@ -9,6 +9,8 @@ import Foundation
 
 class ProfileViewModel {
     private let api: ApiRepository
+    private var service: CollectionService
+    
     weak var navigation: ProfileNavigation?
     
     var informationProfile = Observable<User>()
@@ -17,6 +19,7 @@ class ProfileViewModel {
     init(navigation: ProfileNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
+        self.service = CollectionService()
     }
     
     func goToDisscusion() {
@@ -54,6 +57,7 @@ extension ProfileViewModel: IProfileViewModel {
                 successLoadingHandle(with: user)
             case .failure(let error):
                 if api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
                     navigation?.goToAuthorizationScreen()
                 } else {
                     failureLoadingHandle(with: error)
@@ -70,6 +74,7 @@ extension ProfileViewModel: IProfileViewModel {
                 getInformationProfile()
             case .failure(let error):
                 if api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
                     navigation?.goToAuthorizationScreen()
                 } else {
                     failureLoadingHandle(with: error)
@@ -79,6 +84,7 @@ extension ProfileViewModel: IProfileViewModel {
     }
     
     func signOut() {
+        service.clearDatabase()
         navigation?.goToAuthorizationScreen()
     }
 }

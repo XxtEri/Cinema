@@ -9,6 +9,7 @@ import Foundation
 
 class MainViewModel {
     private let api: ApiRepository
+    private let service: CollectionService
     weak var navigation: MainScreenNavigation?
     
     var coverMovie = Observable<CoverMovie>()
@@ -31,6 +32,7 @@ class MainViewModel {
     
     init(navigation: MainScreenNavigation) {
         self.navigation = navigation
+        self.service = CollectionService()
         self.api = ApiRepository()
     }
     
@@ -89,6 +91,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
+                    self.service.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -105,6 +108,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
+                    self.service.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -119,6 +123,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
+                    self.service.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -133,6 +138,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
+                    self.service.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -147,6 +153,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
+                    self.service.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -162,6 +169,7 @@ extension MainViewModel: IMainViewModel {
                 self.successLoadingHandle(with: episodes)
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -177,6 +185,7 @@ extension MainViewModel: IMainViewModel {
                 successLoadingHandle(with: time)
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -194,7 +203,12 @@ extension MainViewModel: IMainViewModel {
                 if self.api.requestStatus == .notAuthorized {
                     self.navigation?.goToAuthorizationScreen()
                 } else {
-                    self.failureLoadingHandle(with: error)
+                    if self.api.requestStatus == .notAuthorized {
+                        self.service.clearDatabase()
+                        self.navigation?.goToAuthorizationScreen()
+                    } else {
+                        self.failureLoadingHandle(with: error)
+                    }
                 }
             }
         }

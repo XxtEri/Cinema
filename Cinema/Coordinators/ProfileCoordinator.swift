@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import KeychainSwift
 
 final class ProfileCoordinator: Coordinator {
+    private var keychain: KeychainSwift
+    
     var parentCoordinator: Coordinator?
     
     var children: [Coordinator] = []
@@ -16,6 +19,7 @@ final class ProfileCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.keychain = KeychainSwift()
     }
     
     func start() {
@@ -37,11 +41,6 @@ extension ProfileCoordinator: ProfileNavigation {
     func goToDisscusionScreen() {
         let vc = DisscusionScreenViewController()
         
-        
-//        let customArrowBack = UIImage(named: "ArrowBack")
-//        navigationController.navigationBar.backIndicatorImage = UIImage(named: "ArrowBack")
-//        navigationController.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "ArrowBack")
-        
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -55,6 +54,9 @@ extension ProfileCoordinator: ProfileNavigation {
     
     func goToAuthorizationScreen() {
         let appc = parentCoordinator as? HomeCoordinator
+        
+        keychain.synchronizable = true
+        keychain.clear()
         
         appc?.goToAuthScreen()
         appc?.childDidFinish(self)

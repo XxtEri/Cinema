@@ -11,6 +11,8 @@ import Foundation
 class AuthViewModel {
     private var api: ApiRepository
     private var validation: ValidationAuthScreen
+    private var service: CollectionService
+    
     weak var navigation: AuthNavigation?
 
     var isNotValidData: ((ResultValidation, String) -> Void)?
@@ -19,6 +21,7 @@ class AuthViewModel {
     init(navigation: AuthNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
+        self.service = CollectionService()
         self.validation = ValidationAuthScreen()
     }
     
@@ -82,6 +85,7 @@ extension AuthViewModel: ISignInViewModel {
             case .success(let status):
                 switch status {
                 case RequestStatus.success:
+                    createFavoriteCollection()
                     goToHome()
                 default:
                     print("error")
@@ -100,6 +104,32 @@ private extension AuthViewModel {
             return true
         default:
             return false
+        }
+    }
+    
+    func createFavoriteCollection() {
+        let collectionForm = CollectionForm(name: "Избранное")
+        
+        self.api.addNewCollection(collection: collectionForm) { [ self ] result in
+            switch result {
+            case .success(let newColletion):
+                let collectionDatabase = CollectionList()
+                collectionDatabase.collectionName = newColletion.name
+                collectionDatabase.collectionId = newColletion.collectionId
+                collectionDatabase.nameImageCollection = "Group 1"
+                
+                self.service.addNewCollection(collection: collectionDatabase) { [ self ] result in
+                    switch result {
+                    case .success(_):
+                        print("Add successfully")
+                    case .failure(let error):
+                        failureLoadingHandle(with: error)
+                    }
+                }
+            case .failure(let error):
+                failureLoadingHandle(with: error)
+                print(error.localizedDescription)
+            }
         }
     }
     

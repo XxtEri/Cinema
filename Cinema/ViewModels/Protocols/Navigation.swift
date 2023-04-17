@@ -27,6 +27,7 @@ protocol CollectionsNavigation: AnyObject {
     func goToCollectionsScreen()
     func goToLastScreen()
     func goToCollectionScreenDetail(collection: CollectionList)
+    func goToAuthorizationScreen()
 }
 
 protocol ProfileNavigation: AnyObject {

@@ -151,261 +151,6 @@ extension ApiRepository: IApiRepositoryAuth {
     }
 }
 
-extension ApiRepository: IApiRepositoryCollectionScreen {
-    func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void) {
-        var headers: HTTPHeaders = [:]
-        
-        self.keychain.synchronizable = true
-        if let token = self.keychain.get("accessToken") {
-            headers["Authorization"] = "Bearer " + token
-        }
-        
-        self.session.request(
-            "\(baseURL)/collections",
-            method: .get,
-            headers: headers
-        ).responseDecodable(of: [Collection].self) { response in
-                
-            if let request = response.request {
-                print("Request: \(request)")
-            }
-            
-            if let statusCode = response.response?.statusCode {
-                print("Status code: \(statusCode)")
-                if statusCode == 401 {
-                    self.refreshToken { result in
-                        switch result {
-                        case .success(_):
-                            self.getCollections(completion: completion)
-                        case .failure(let error):
-                            self.requestStatus = .notAuthorized
-                            completion(.failure(error))
-                        }
-                    }
-                    
-                    return
-                }
-            }
-            
-            guard let collections = response.value else {
-                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-                return
-            }
-            
-            completion(.success(collections))
-        }
-    }
-    
-    func addNewCollection(collection: CollectionForm, completion: @escaping (Result<Collection, Error>) -> Void) {
-        var headers: HTTPHeaders = [:]
-        
-        self.keychain.synchronizable = true
-        if let token = self.keychain.get("accessToken") {
-            headers["Authorization"] = "Bearer " + token
-        }
-        
-        self.session.request(
-            "\(baseURL)/collections",
-            method: .post,
-            parameters: collection,
-            encoder: JSONParameterEncoder.default,
-            headers: headers
-        ).responseDecodable(of: Collection.self) { response in
-                
-            if let request = response.request {
-                print("Request: \(request)")
-            }
-            
-            if let statusCode = response.response?.statusCode {
-                print("Status code: \(statusCode)")
-                if statusCode == 401 {
-                    self.refreshToken { result in
-                        switch result {
-                        case .success(_):
-                            self.addNewCollection(collection: collection, completion: completion)
-                        case .failure(let error):
-                            self.requestStatus = .notAuthorized
-                            completion(.failure(error))
-                        }
-                    }
-                    
-                    return
-                }
-            }
-            
-            guard let collection = response.value else {
-                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-                return
-            }
-            
-            completion(.success(collection))
-        }
-    }
-    
-    func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        var headers: HTTPHeaders = [:]
-        
-        self.keychain.synchronizable = true
-        if let token = self.keychain.get("accessToken") {
-            headers["Authorization"] = "Bearer " + token
-        }
-        
-        self.session.request(
-            "\(baseURL)/collections/\(collectionId)",
-            method: .delete,
-            headers: headers
-        ).responseData { response in
-                
-            if let request = response.request {
-                print("Request: \(request)")
-            }
-            
-            if let statusCode = response.response?.statusCode {
-                print("Status code: \(statusCode)")
-                if statusCode == 401 {
-                    self.refreshToken { result in
-                        switch result {
-                        case .success(_):
-                            self.deleteCollection(collectionId: collectionId, completion: completion)
-                        case .failure(let error):
-                            self.requestStatus = .notAuthorized
-                            completion(.failure(error))
-                        }
-                    }
-                    
-                    return
-                }
-            }
-            
-            switch response.result {
-            case .success(_):
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
-        
-    }
-    
-    func addMoviesInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-    }
-    
-    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-    }
-}
-
-extension ApiRepository: IApiRepositoryProfile {
-    func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
-        var headers: HTTPHeaders = [:]
-        
-        self.keychain.synchronizable = true
-        if let token = self.keychain.get("accessToken") {
-            headers["Authorization"] = "Bearer " + token
-        }
-        
-        self.session.request(
-            "\(baseURL)/profile",
-            method: .get,
-            headers: headers
-        ).responseDecodable(of: User.self) { response in
-            
-            if let request = response.request {
-                print("Request: \(request)")
-            }
-            
-            if let statusCode = response.response?.statusCode {
-                print("Status code: \(statusCode)")
-                if statusCode == 401 {
-                    self.refreshToken { result in
-                        switch result {
-                        case .success(_):
-                            self.getInformationProfile(completion: completion)
-                        case .failure(_):
-                            self.requestStatus = .notAuthorized
-                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-                        }
-                    }
-                    
-                    return
-                }
-            }
-            
-            guard let user = response.value else {
-                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-                return
-            }
-            
-            completion(.success(user))
-        }
-    }
-    
-    func uploadPhoto(imageUrl: URL, completion: @escaping (Result<Void, Error>) -> Void) {
-        var headers: HTTPHeaders = [:]
-        
-        self.keychain.synchronizable = true
-        if let token = self.keychain.get("accessToken") {
-            headers["Authorization"] = "Bearer " + token
-        }
-        
-        guard let fileData = readFileDataFromFileURL(fileURL: imageUrl) else { return }
-        
-        self.session.upload(
-            multipartFormData: { multipartFormData in
-                multipartFormData.append(fileData, withName: "file", fileName: "file.jpg", mimeType: "image/jpeg")
-            },
-            to: "\(baseURL)/profile/avatar",
-            headers: headers)
-        .response { response in
-            if let request = response.request {
-                print("Request: \(request)")
-            }
-            
-            if let statusCode = response.response?.statusCode {
-                print("Status code: \(statusCode)")
-                if statusCode == 401 {
-                    self.refreshToken { result in
-                        switch result {
-                        case .success(_):
-                            self.uploadPhoto(imageUrl: imageUrl, completion: completion)
-                        case .failure(_):
-                            self.requestStatus = .notAuthorized
-                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-                        }
-                    }
-                    
-                    return
-                }
-            }
-            
-            // Обработка результата загрузки
-            switch response.result {
-            case .success(_):
-                completion(.success(()))
-            case .failure(let error):
-                // Обработка ошибки загрузки файла
-                print("Ошибка загрузки файла: \(error)")
-                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-            }
-        }
-    }
-    
-    func readFileDataFromFileURL(fileURL: URL) -> Data? {
-        do {
-            // Чтение данных из файла в память
-            let fileData = try Data(contentsOf: fileURL)
-            return fileData
-        } catch {
-            print("Ошибка чтения файла: \(error.localizedDescription)")
-            return nil
-        }
-    }
-}
-
 extension ApiRepository: IApiRepositoryMain {
     func getCoverFilm(completion: @escaping (Result<CoverMovie, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
@@ -680,6 +425,261 @@ extension ApiRepository: IApiRepositoryMain {
             case .failure(let error):
                 completion(.failure(error))
             }
+        }
+    }
+}
+
+extension ApiRepository: IApiRepositoryCollectionScreen {
+    func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: [Collection].self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getCollections(completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let collections = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(collections))
+        }
+    }
+    
+    func addNewCollection(collection: CollectionForm, completion: @escaping (Result<Collection, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections",
+            method: .post,
+            parameters: collection,
+            encoder: JSONParameterEncoder.default,
+            headers: headers
+        ).responseDecodable(of: Collection.self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.addNewCollection(collection: collection, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let collection = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(collection))
+        }
+    }
+    
+    func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections/\(collectionId)",
+            method: .delete,
+            headers: headers
+        ).responseData { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.deleteCollection(collectionId: collectionId, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
+        
+    }
+    
+    func addMoviesInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+    }
+    
+    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+    }
+}
+
+extension ApiRepository: IApiRepositoryProfile {
+    func getInformationProfile(completion: @escaping (Result<User, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/profile",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: User.self) { response in
+            
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getInformationProfile(completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let user = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(user))
+        }
+    }
+    
+    func uploadPhoto(imageUrl: URL, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        guard let fileData = readFileDataFromFileURL(fileURL: imageUrl) else { return }
+        
+        self.session.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(fileData, withName: "file", fileName: "file.jpg", mimeType: "image/jpeg")
+            },
+            to: "\(baseURL)/profile/avatar",
+            headers: headers)
+        .response { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.uploadPhoto(imageUrl: imageUrl, completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            // Обработка результата загрузки
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                // Обработка ошибки загрузки файла
+                print("Ошибка загрузки файла: \(error)")
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+            }
+        }
+    }
+    
+    func readFileDataFromFileURL(fileURL: URL) -> Data? {
+        do {
+            // Чтение данных из файла в память
+            let fileData = try Data(contentsOf: fileURL)
+            return fileData
+        } catch {
+            print("Ошибка чтения файла: \(error.localizedDescription)")
+            return nil
         }
     }
 }

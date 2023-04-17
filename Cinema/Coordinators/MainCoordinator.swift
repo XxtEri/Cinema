@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import KeychainSwift
 
 final class MainCoordinator: Coordinator {
+    private var keychain: KeychainSwift
+    
     var parentCoordinator: Coordinator?
     
     var children: [Coordinator] = []
@@ -16,6 +19,7 @@ final class MainCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.keychain = KeychainSwift()
     }
     
     func start() {
@@ -54,6 +58,9 @@ extension MainCoordinator: MainScreenNavigation {
     
     func goToAuthorizationScreen() {
         let appc = parentCoordinator as? HomeCoordinator
+        
+        keychain.synchronizable = true
+        keychain.clear()
         
         appc?.goToAuthScreen()
         appc?.childDidFinish(self)

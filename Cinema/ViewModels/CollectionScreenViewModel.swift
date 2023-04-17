@@ -112,7 +112,13 @@ extension CollectionScreenViewModel: ICollectionScreenViewModel {
             case .success(let collections):
                 self.successLoadingHandle(with: collections)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if self.api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
+                    self.navigation?.goToAuthorizationScreen()
+                    
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
             }
         }
     }

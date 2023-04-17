@@ -621,10 +621,10 @@
 			children = (
 				39D41914FFAAACF706B6D27C /* AppCoordinator.swift */,
 				D126F9D5B30261E579CD6259 /* AuthCoordinator.swift */,
-				4CEB346FAFB6D69A25D288A4 /* CollectionsCoorditanor.swift */,
-				A963AF278BE9F86E10C26D70 /* CompilationCoordinator.swift */,
 				5205325C13A157C1B4693CB7 /* HomeCoordinator.swift */,
 				F51D67BAC8FE3CB43C88CA25 /* MainCoordinator.swift */,
+				A963AF278BE9F86E10C26D70 /* CompilationCoordinator.swift */,
+				4CEB346FAFB6D69A25D288A4 /* CollectionsCoorditanor.swift */,
 				ECA43B464AED596BFEBF1732 /* ProfileCoordinator.swift */,
 				37092E9F1C5E1EFAE5DBA5A3 /* Protocol */,
 			);

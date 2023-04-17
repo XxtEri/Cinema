@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import KeychainSwift
 
 final class CollectionsCoorditanor: Coordinator {
+    private var keychain: KeychainSwift
+    
     var parentCoordinator: Coordinator?
     
     var children: [Coordinator] = []
@@ -16,6 +19,7 @@ final class CollectionsCoorditanor: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.keychain = KeychainSwift()
     }
     
     func start() {
@@ -69,5 +73,15 @@ extension CollectionsCoorditanor: CollectionsNavigation {
         vc.viewModel = CollectionScreenViewModel(navigation: self)
         
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToAuthorizationScreen() {
+        let appc = parentCoordinator as? HomeCoordinator
+        
+        keychain.synchronizable = true
+        keychain.clear()
+        
+        appc?.goToAuthScreen()
+        appc?.childDidFinish(self)
     }
 }
