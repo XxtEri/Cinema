@@ -479,17 +479,15 @@
 		8B47CF54B9F43D961B073846 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				22F6CA83E2A264C3FFC152FC /* AuthScreens */,
-				F188669EBC793558B550EFDC /* Collections */,
-				3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */,
-				A55A395F9BC2FACDF317143C /* DisscusionScreen */,
-				F65FB553AD6C973380592C89 /* EpisodeScreen */,
-				D7FE06B645EFFAB1751C3DFE /* Extension */,
-				EC63F7BD299117635C43BC04 /* MainScreen */,
-				CA529169B4F70B0982D152A2 /* MovieScreen */,
-				124E602B31159B6DE8E114DF /* ProfileScreen */,
 				790574AA7A53CE473BECD376 /* Storyboards */,
+				22F6CA83E2A264C3FFC152FC /* AuthScreens */,
 				6445C63166E6023C80D2C96D /* TabBar */,
+				F3C3A77629ED30BE00D97554 /* MainScreens */,
+				F188669EBC793558B550EFDC /* CollectionScreens */,
+				124E602B31159B6DE8E114DF /* ProfileScreen */,
+				A55A395F9BC2FACDF317143C /* DisscusionScreen */,
+				3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */,
+				D7FE06B645EFFAB1751C3DFE /* Extension */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -640,7 +638,7 @@
 			path = SignInScreen;
 			sourceTree = "<group>";
 		};
-		F188669EBC793558B550EFDC /* Collections */ = {
+		F188669EBC793558B550EFDC /* CollectionScreens */ = {
 			isa = PBXGroup;
 			children = (
 				A4F42E000558C31AE41E5B70 /* CollectionsScreen */,
@@ -648,7 +646,17 @@
 				2B624ABEA1696885E2AE4863 /* CreateEditingCollectionsScreen */,
 				0FCE000E6FE2D42D898A96A2 /* IconSelectionScreen */,
 			);
-			path = Collections;
+			path = CollectionScreens;
+			sourceTree = "<group>";
+		};
+		F3C3A77629ED30BE00D97554 /* MainScreens */ = {
+			isa = PBXGroup;
+			children = (
+				EC63F7BD299117635C43BC04 /* MainScreen */,
+				CA529169B4F70B0982D152A2 /* MovieScreen */,
+				F65FB553AD6C973380592C89 /* EpisodeScreen */,
+			);
+			path = MainScreens;
 			sourceTree = "<group>";
 		};
 		F65FB553AD6C973380592C89 /* EpisodeScreen */ = {
