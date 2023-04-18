@@ -114,6 +114,7 @@
 		EFE1FE4795066ACF5C87F241 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E92831647BC2B3389F6B67A /* TabBarViewController.swift */; };
 		F3C3A7E129EE6EB600D97554 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F3C3A7E029EE6EB600D97554 /* RealmSwift */; };
 		F3C3A7E329EE84BE00D97554 /* MovieValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3A7E229EE84BD00D97554 /* MovieValue.swift */; };
+		F3C3A7E529EEF5A600D97554 /* ContentMovieScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3A7E429EEF5A600D97554 /* ContentMovieScreenView.swift */; };
 		F82722C4310FDA1D0C8885FD /* IconSelectionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBD30D5B366CA89CC9A0463 /* IconSelectionScreenView.swift */; };
 		FB3E10B71711F3BD9558CD56 /* TitleWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009C7283290BD855EE66A6D /* TitleWithTextView.swift */; };
 		FD6126891ECF01C1BD54CF7B /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01EE642409AEB2A66A2DFBA /* AuthViewModel.swift */; };
@@ -224,6 +225,7 @@
 		F1170D3A546DF3240D0FD5A6 /* AuthUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserDTO.swift; sourceTree = "<group>"; };
 		F2F29B8773DD64E13E49D9EF /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
 		F3C3A7E229EE84BD00D97554 /* MovieValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieValue.swift; sourceTree = "<group>"; };
+		F3C3A7E429EEF5A600D97554 /* ContentMovieScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMovieScreenView.swift; sourceTree = "<group>"; };
 		F51D67BAC8FE3CB43C88CA25 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F60EF0F360543A1783B40796 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 		FF4F1DFFD486E936369BA7DD /* CreateEditingCollectionsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditingCollectionsScreenView.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 			children = (
 				C415C8183F27329C76AB2972 /* MovieScreenViewController.swift */,
 				89A642B2913BCA80BBC47A2B /* MovieScreenView.swift */,
+				F3C3A7E429EEF5A600D97554 /* ContentMovieScreenView.swift */,
 				5DDAB5F79AA03E16BC7C8222 /* InformationMovieBlock */,
 				8D8D95B697FAA3E3373A6795 /* FootageMovieBlock */,
 				AEAD7DD1A292176C2DE6C8ED /* EpisodesMovieBlock */,
@@ -796,6 +799,7 @@
 				80F038F7E871F4E8CCCDD56C /* AuthUser.swift in Sources */,
 				0F611A743E8A351FC985E7DF /* AuthUserDTO.swift in Sources */,
 				FD6126891ECF01C1BD54CF7B /* AuthViewModel.swift in Sources */,
+				F3C3A7E529EEF5A600D97554 /* ContentMovieScreenView.swift in Sources */,
 				45B1F9F4044300F6E00D44AC /* CardCompilationView.swift in Sources */,
 				63BBE2FE902DE3FA6EFD5FEC /* Chat.swift in Sources */,
 				67948ACBF5BEF2776D23D99A /* CircleImageView.swift in Sources */,
