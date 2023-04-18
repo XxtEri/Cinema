@@ -40,33 +40,6 @@ class MovieScreenViewController: UIViewController {
         
         viewModel?.getEpisodesMovie(movieId: movie.movieId)
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        self.ui.episodesMovie.episodesMovie.addObserver(self.ui.episodesMovie, forKeyPath: "contentSize", options: .new, context: nil)
-//        self.ui.episodesMovie.episodesMovie.reloadData()
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//
-//        self.ui.episodesMovie.episodesMovie.removeObserver(self.ui.episodesMovie, forKeyPath: "contentSize")
-//    }
-//
-//    override class func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//        if keyPath == "contentSize" {
-//            if let newValue = change?[.newKey] { [ self ]
-//                let newSize = newValue as! CGSize
-//                self.episodesMovie.tableViewHeight = newSize.width
-//            }
-//        }
-//    }
-    
-    @objc
-    private func customButtonTapped() {
-        print("Кастомная кнопка на навигационном баре нажата")
-    }
 }
 
 extension MovieScreenViewController {
