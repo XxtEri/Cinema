@@ -41,8 +41,8 @@ class LastWatchMovieBlockView: UIStackView {
     
     private lazy var imagePlay: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Play")
-        view.contentMode = .scaleAspectFill
+        view.image = UIImage(named: "PlayLastWatchVideo")
+        view.contentMode = .scaleAspectFit
         
         return view
     }()
@@ -100,7 +100,8 @@ private extension LastWatchMovieBlockView {
     func configureConstraints() {
         imagePlay.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.verticalEdges.lessThanOrEqualToSuperview().inset(50)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
         titleMovie.snp.makeConstraints { make in

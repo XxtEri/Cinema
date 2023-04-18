@@ -22,3 +22,15 @@ final class CompilationCoordinator: Coordinator {
         print("Compilation coordinator start")
     }
 }
+
+extension CompilationCoordinator: CompilationNavigation {
+    func generateCompilationScreen() -> UIViewController {
+        let vc = CompilationScreenViewController()
+        vc.viewModel = CompilationScreenViewModel(navigation: self)
+        
+        vc.tabBarItem.title = "Подборка"
+        vc.tabBarItem.image = UIImage(named: "TabItemCompilationScreen")
+        
+        return vc
+    }
+}

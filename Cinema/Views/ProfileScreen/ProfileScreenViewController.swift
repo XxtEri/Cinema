@@ -24,7 +24,7 @@ final class ProfileScreenViewController: UIViewController {
     
     private var ui: ProfileScreenView
     
-    var viewModel: ProfileViewModel?
+    var viewModel: ProfileScreenViewModel?
     
     init() {
         ui = ProfileScreenView()

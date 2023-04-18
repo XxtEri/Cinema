@@ -50,41 +50,27 @@ final class HomeCoordinator: Coordinator {
 
 }
 
-
-extension HomeCoordinator: CompilationNavigation {
-    func generateCompilationScreenController() -> UIViewController {
-        let vc = CompilationScreenViewController()
-        vc.viewModel = CompilationScreenViewModel(navigation: self)
-        
-        vc.tabBarItem.title = "Подборка"
-        vc.tabBarItem.image = UIImage(named: "TabItemCompilationScreen")
-        
-        return vc
-    }
-}
-
 private extension HomeCoordinator {
     func generateMainScreenController() -> UIViewController {
-        let profileCoordinator = MainCoordinator(navigationController: navigationController)
+        let mainCoordinator = MainCoordinator(navigationController: navigationController)
         
-        profileCoordinator.parentCoordinator = self
-        children.append(profileCoordinator)
+        mainCoordinator.parentCoordinator = self
+        children.append(mainCoordinator)
         
-        profileCoordinator.start()
+        mainCoordinator.start()
         
-        return profileCoordinator.generateMainScreen()
+        return mainCoordinator.generateMainScreen()
     }
     
     func generateCompilationScreenController() -> UIViewController {
-        let vc = ProfileScreenViewController()
-//        vc.viewModel = ProfileViewModel(navigation: self)
+        let compilationCoordinator = CompilationCoordinator(navigationController: navigationController)
         
-        vc.tabBarItem.title = "Коллекции"
-        vc.tabBarItem.image = UIImage(named: "TabItemCollectionScreen")
-        vc.tabBarItem.title = "Подборка"
-        vc.tabBarItem.image = UIImage(named: "TabItemCompilationScreen")
+        compilationCoordinator.parentCoordinator = self
+        children.append(compilationCoordinator)
         
-        return vc
+        compilationCoordinator.start()
+        
+        return compilationCoordinator.generateCompilationScreen()
     }
     
     func generateCollectionScreenController() -> UIViewController {

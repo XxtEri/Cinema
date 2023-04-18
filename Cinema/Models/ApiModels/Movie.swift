@@ -5,6 +5,8 @@
 //  Created by Елена on 14.04.2023.
 //
 
+import Foundation
+
 struct Movie: Decodable {
     let movieId: String
     let name: String
@@ -28,4 +30,12 @@ enum TypeListMovieMainScreen: String, Decodable {
     case trend = "inTrend"
     case new = "new"
     case recomendation = "forMe"
+}
+
+enum TypeListMovie: String, Decodable {
+    case trend = "inTrend"
+    case alreadyWatch = "lastView"
+    case new = "new"
+    case recomendation = "forMe"
+    case compilation = "compilation"
 }

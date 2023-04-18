@@ -30,7 +30,7 @@ final class ProfileCoordinator: Coordinator {
 extension ProfileCoordinator: ProfileNavigation {
     func generateProfileScreen() -> UIViewController {
         let vc = ProfileScreenViewController()
-        vc.viewModel = ProfileViewModel(navigation: self)
+        vc.viewModel = ProfileScreenViewModel(navigation: self)
         
         vc.tabBarItem.title = "Профиль"
         vc.tabBarItem.image = UIImage(named: "TabItemProfileScreen")

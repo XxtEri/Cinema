@@ -28,6 +28,8 @@ protocol CollectionsNavigation: AnyObject {
     func goToLastScreen()
     func goToCollectionScreenDetail(collection: CollectionList)
     func goToAuthorizationScreen()
+}
+
 protocol CompilationNavigation: AnyObject {
     
 }
