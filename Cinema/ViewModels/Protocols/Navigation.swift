@@ -7,12 +7,27 @@
 
 import Foundation
 
-protocol SignNavigation: AnyObject {
+protocol AuthNavigation: AnyObject {
     func goToSignInScreen()
     func goToSignUpScreen()
     func goToHomeScreen()
 }
 
+protocol MainScreenNavigation: AnyObject {
+    func goToMovieScreen(movie: Movie)
+    func goToEpisodeScreen(movie: Movie, currentEpisode: Episode, episodes: [Episode])
+    func backToGoLastScreen()
+    func goToAuthorizationScreen()
+}
+
+protocol CollectionsNavigation: AnyObject {
+    func goToCreateEditingCollectionScreen(isCreatingCollection: Bool, collection: CollectionList?)
+    func backGoToCreateEditingCollectionScreen()
+    func goToIconSelectionScreen(delegate: SheetViewControllerDelegate)
+    func goToCollectionsScreen()
+    func goToLastScreen()
+    func goToCollectionScreenDetail(collection: CollectionList)
+    func goToAuthorizationScreen()
 protocol CompilationNavigation: AnyObject {
     
 }

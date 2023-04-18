@@ -9,14 +9,17 @@ import Foundation
 
 class ProfileScreenViewModel {
     private let api: ApiRepository
+    private var service: CollectionService
+    
     weak var navigation: ProfileNavigation?
     
     var informationProfile = Observable<User>()
     var errorOnLoading = Observable<Error>()
     
-    init(navigation: ProfileNavigation?) {
+    init(navigation: ProfileNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
+        self.service = CollectionService()
     }
     
     func goToDisscusion() {
@@ -48,18 +51,40 @@ private extension ProfileScreenViewModel {
 
 extension ProfileScreenViewModel: IProfileViewModel {
     func getInformationProfile() {
-        self.api.getInformationProfile { result in
+        self.api.getInformationProfile { [ self ] result in
             switch result {
             case .success(let user):
-                self.successLoadingHandle(with: user)
+                successLoadingHandle(with: user)
             case .failure(let error):
-                self.failureLoadingHandle(with: error)
+                if api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
+                    navigation?.goToAuthorizationScreen()
+                } else {
+                    failureLoadingHandle(with: error)
+                }
+            }
+        }
+    }
+    
+    func editAvatarProfile(imageUrl: URL) {
+        print(imageUrl)
+        self.api.uploadPhoto(imageUrl: imageUrl) { [ self ] result in
+            switch result {
+            case .success():
+                getInformationProfile()
+            case .failure(let error):
+                if api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
+                    navigation?.goToAuthorizationScreen()
+                } else {
+                    failureLoadingHandle(with: error)
+                }
             }
         }
     }
     
     func signOut() {
-        //очистить данные пользователя
+        service.clearDatabase()
+        navigation?.goToAuthorizationScreen()
     }
 }
-

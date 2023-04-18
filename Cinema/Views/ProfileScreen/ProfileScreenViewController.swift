@@ -24,11 +24,10 @@ final class ProfileScreenViewController: UIViewController {
     
     private var ui: ProfileScreenView
     
-    var viewModel: ProfileScreenViewModel
+    var viewModel: ProfileViewModel?
     
     init() {
         ui = ProfileScreenView()
-        viewModel = ProfileScreenViewModel(navigation: nil)
         
         titleCell = ["Обсуждения", "Истории", "Настройки"]
         titleImageCell = ["Discussions", "History", "Settings"]
@@ -51,24 +50,82 @@ final class ProfileScreenViewController: UIViewController {
         
         bind()
         
-        viewModel.getInformationProfile()
+        viewModel?.getInformationProfile()
     }
+    
 }
 
 extension ProfileScreenViewController {
     func bind() {
-        self.viewModel.informationProfile.subscribe(with: { [ weak self ] user in
-            self?.ui.set(with: user)
+        self.viewModel?.informationProfile.subscribe(with: { [ weak self ] user in
+            guard let self = self else { return }
+            
+            self.ui.set(with: user)
         })
         
-        self.viewModel.errorOnLoading.subscribe(with: { [ weak self ] error in
-            self?.showError(error)
+        self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
+            guard let self = self else { return }
+            
+            self.showError(error)
         })
+        
+        self.ui.signOutButtonPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.viewModel?.signOut()
+        }
+        
+        self.ui.profileInformationBlock.avatarChangeButtonPressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.showAlertChoosePhoto()
+        }
     }
     
     func showError(_ error: Error) {
         print("error")
     }
+    
+    func showAlertChoosePhoto() {
+        let alertController = UIAlertController(title: "Выберите источник фотографии", message: nil, preferredStyle: .alert)
+        let actionChooseCamera = UIAlertAction(title: "Камера", style: .default) { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            
+            imagePicker.showsCameraControls = true
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        let actionChooseGalery = UIAlertAction(title: "Галерея", style: .default) { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        let actionCancel = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        
+        alertController.addAction(actionChooseGalery)
+        alertController.addAction(actionChooseCamera)
+        alertController.addAction(actionCancel)
+        
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func chooseImage(source: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(source) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = source
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 extension ProfileScreenViewController: UICollectionViewDataSource {
@@ -84,6 +141,22 @@ extension ProfileScreenViewController: UICollectionViewDataSource {
         cell.configure(title: titleCell[indexPath.row], imageName: titleImageCell[indexPath.row])
         
         return cell
+    }
+}
+
+extension ProfileScreenViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch titleCell[indexPath.row] {
+        case "Обсуждения":
+            viewModel?.goToDisscusion()
+        case "Истории":
+            viewModel?.goToHistory()
+        case "Настройки":
+            viewModel?.goToSettings()
+        default:
+            print("")
+        }
     }
 }
 
@@ -109,3 +182,30 @@ extension ProfileScreenViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension ProfileScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("\(info)")
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let imageURl = info[.imageURL] as? URL {
+            self.viewModel?.editAvatarProfile(imageUrl: imageURl)
+        }
+        
+        if let pickedImage = info[.originalImage] as? UIImage {
+            if let imageData = pickedImage.jpegData(compressionQuality: 0.8),
+               let imageURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("image.jpg") {
+                do  {
+                    try? imageData.write(to: imageURL)
+                    print("Фотография успешно сохранена: \(imageURL)")
+                    
+                    self.viewModel?.editAvatarProfile(imageUrl: imageURL)
+                }
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}

@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ProfileScreenView: UIView {
-    
-    private let profileInformationBlock = ProfileInformationBlockView()
 
     private lazy var buttons: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -34,6 +33,10 @@ final class ProfileScreenView: UIView {
                 
             return view
     }()
+    
+    let profileInformationBlock = ProfileInformationBlockView()
+    
+    var signOutButtonPressed: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,6 +63,7 @@ private extension ProfileScreenView {
     func setup() {
         configureUI()
         configureConstraints()
+        configureActions()
     }
     
     func configureUI() {
@@ -69,7 +73,7 @@ private extension ProfileScreenView {
     func configureConstraints() {
         profileInformationBlock.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(28)
         }
         
         buttons.snp.makeConstraints { make in
@@ -84,6 +88,15 @@ private extension ProfileScreenView {
             make.top.equalTo(buttons.snp.bottom).inset(-52)
         }
     }
+    
+    func configureActions() {
+        signOutButton.addTarget(self, action: #selector(signOut(sender:)), for: .touchDown)
+    }
+    
+    @objc
+    func signOut(sender: AnyObject) {
+        signOutButtonPressed?()
+    }
 }
 
 extension ProfileScreenView {
@@ -92,7 +105,7 @@ extension ProfileScreenView {
         self.profileInformationBlock.email.text = model.email
         
         if let link = model.avatar {
-            self.profileInformationBlock.avatarImage.downloaded(from: link)
+            self.profileInformationBlock.avatarImage.downloaded(from: link, contentMode: profileInformationBlock.avatarImage.contentMode)
         }
     }
 }

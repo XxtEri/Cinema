@@ -19,7 +19,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        print("Main coordinator start")
+        print("Home coordinator start")
         launchTabBar()
     }
     
@@ -34,27 +34,20 @@ final class HomeCoordinator: Coordinator {
         
         vc.generateTabBar(viewControllers: viewControllers)
         
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
         navigationController.viewControllers.removeAll()
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(vc, animated: true)
     }
-}
+    
+    func goToAuthScreen() {
+        let appc = parentCoordinator as? AppCoordinator
+        
+        appc?.goToAuth()
+        appc?.childDidFinish(self)
+    }
 
-extension HomeCoordinator: ProfileNavigation {
-    func goToDisscusionScreen() {
-        
-    }
-    
-    func goToHistoryScreen() {
-        
-    }
-    
-    func goToSettingsScreen() {
-        
-    }
-    
-    func goToAuthorizationScreen() {
-        
-    }
 }
 
 
@@ -72,33 +65,47 @@ extension HomeCoordinator: CompilationNavigation {
 
 private extension HomeCoordinator {
     func generateMainScreenController() -> UIViewController {
-        let vc = ProfileScreenViewController()
-        vc.viewModel = ProfileScreenViewModel(navigation: self)
+        let profileCoordinator = MainCoordinator(navigationController: navigationController)
         
-        vc.tabBarItem.title = "Главное"
-        vc.tabBarItem.image = UIImage(named: "TabItemMainScreen")
+        profileCoordinator.parentCoordinator = self
+        children.append(profileCoordinator)
+        
+        profileCoordinator.start()
+        
+        return profileCoordinator.generateMainScreen()
+    }
+    
+    func generateCompilationScreenController() -> UIViewController {
+        let vc = ProfileScreenViewController()
+//        vc.viewModel = ProfileViewModel(navigation: self)
+        
+        vc.tabBarItem.title = "Коллекции"
+        vc.tabBarItem.image = UIImage(named: "TabItemCollectionScreen")
+        vc.tabBarItem.title = "Подборка"
+        vc.tabBarItem.image = UIImage(named: "TabItemCompilationScreen")
         
         return vc
     }
     
     func generateCollectionScreenController() -> UIViewController {
-        let vc = ProfileScreenViewController()
-        vc.viewModel = ProfileScreenViewModel(navigation: self)
+        let collectionsCoordinator = CollectionsCoorditanor(navigationController: navigationController)
         
-        vc.tabBarItem.title = "Коллекции"
-        vc.tabBarItem.image = UIImage(named: "TabItemCollectionScreen")
+        collectionsCoordinator.parentCoordinator = self
+        children.append(collectionsCoordinator)
         
-        return vc
+        collectionsCoordinator.start()
+        
+        return collectionsCoordinator.generateCollectionsScreen()
     }
     
     func generateProfileScreenController() -> UIViewController {
-        let vc = ProfileScreenViewController()
-//        vc.viewModel = ProfileViewModel(navigation: self)
+        let profileCoordinator = ProfileCoordinator(navigationController: navigationController)
         
-        vc.tabBarItem.title = "Профиль"
-        vc.tabBarItem.image = UIImage(named: "TabItemProfileScreen")
+        profileCoordinator.parentCoordinator = self
+        children.append(profileCoordinator)
         
-        return vc
+        profileCoordinator.start()
+        
+        return profileCoordinator.generateProfileScreen()
     }
 }
-

@@ -16,6 +16,20 @@ extension UIColor {
         #colorLiteral(red: 0.937254902, green: 0.2274509804, blue: 0.003921568627, alpha: 1)
     }
     
+    static var iconSelectionScreenHeadBackground: UIColor {
+        #colorLiteral(red: 0.2081992924, green: 0.1980744004, blue: 0.1929920912, alpha: 1)
+    }
+    
+    static var iconSelectionScreenBackground: UIColor {
+        #colorLiteral(red: 0.1462551653, green: 0.1466015875, blue: 0.1569609344, alpha: 1)
+    }
+    
+    static var inactiveSlider: UIColor {
+        #colorLiteral(red: 0.2924827337, green: 0.2927675247, blue: 0.3014470339, alpha: 1)
+    }
+    
+    static var textEpisodeScreen: UIColor {
+        #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)
     static var textStub: UIColor {
         #colorLiteral(red: 0.6862745098, green: 0.6862745098, blue: 0.6862745098, alpha: 1)
     }
@@ -42,6 +56,28 @@ extension UIColor {
     
     static var tabBarBackgroundColor: UIColor {
         #colorLiteral(red: 0.1098039216, green: 0.1019607843, blue: 0.09803921569, alpha: 1)
+    }
+    
+    
+    // MARK: - Colors Age Restriction
+    static var sixPlus: UIColor {
+        #colorLiteral(red: 0.9803921569, green: 0.8352941176, blue: 0.7882352941, alpha: 1)
+    }
+    
+    static var twelvePlus: UIColor {
+        #colorLiteral(red: 0.9568627451, green: 0.662745098, blue: 0.5725490196, alpha: 1)
+    }
+    
+    static var sixteenPlus: UIColor {
+        #colorLiteral(red: 0.9490196078, green: 0.431372549, blue: 0.2705882353, alpha: 1)
+    }
+    
+    static var lineDisscusionScreen: UIColor {
+        #colorLiteral(red: 0.3536455631, green: 0.3536455333, blue: 0.3536455333, alpha: 1)
+    }
+    
+    static var authorNameDisscusionScreen: UIColor {
+        #colorLiteral(red: 0.7404738665, green: 0.7404738069, blue: 0.7404738069, alpha: 1)
     }
 }
 
