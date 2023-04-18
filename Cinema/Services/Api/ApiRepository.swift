@@ -482,7 +482,7 @@ extension ApiRepository: IApiRepositoryCompilationScreen {
             "\(baseURL)/movies/\(movieId)/dislike",
             method: .delete,
             headers: headers
-        ).responseData { response in
+        ).response { response in
                 
             if let request = response.request {
                 print("Request: \(request)")

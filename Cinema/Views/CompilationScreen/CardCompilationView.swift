@@ -77,6 +77,8 @@ class CardCompilationView: UIView {
         
         self.imageCard.downloaded(from: card.poster, contentMode: imageCard.contentMode)
         self.titleCard.text = card.name
+        
+        resetCard()
     }
     
     func resetCard() {
@@ -85,6 +87,20 @@ class CardCompilationView: UIView {
             self.reactionImage.alpha = 0
             self.card.transform = .identity
             self.card.alpha = 1
+        }
+    }
+    
+    func startAnimationLike() {
+        UIView.animate(withDuration: 0.5) {
+            self.card.center = CGPoint(x: 0, y: UIScreen.main.bounds.height / 2)
+            self.card.alpha = 0
+        }
+    }
+    
+    func startAnimationDislike() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: [.curveLinear]) {
+            self.card.center = CGPoint(x: UIScreen.main.bounds.width, y: UIScreen.main.bounds.width / 2)
+            self.card.alpha = 0
         }
     }
 }
