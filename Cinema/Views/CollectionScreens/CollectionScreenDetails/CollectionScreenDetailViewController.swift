@@ -46,9 +46,7 @@ class CollectionScreenDetailViewController: UIViewController {
         
         handler()
         bindListener()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        
         self.viewModel?.getMovieInCollection(collectionId: self.collection.collectionId)
     }
 }
