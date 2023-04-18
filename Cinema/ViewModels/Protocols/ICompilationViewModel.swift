@@ -12,4 +12,7 @@ protocol ICompulationViewModel {
     var errorOnLoading: Observable<Error> { get }
     
     func getCompilation()
+    func setLikeToMove(movie: Movie)
+    func deleteMovieInCollection(movieId: String)
+    func setDislike(favoriteCollectionId: String, movieId: String)
 }

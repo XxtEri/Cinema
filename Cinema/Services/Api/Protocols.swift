@@ -26,9 +26,8 @@ protocol IApiRepositoryCollectionScreen {
     func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void)
     func addNewCollection(collection: CollectionForm, completion: @escaping (Result<Collection, Error>) -> Void)
     func deleteCollection(collectionId: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void)
-    func addMoviesInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func getMovieInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void)
 }
 
 protocol IApiRepositoryProfile {
@@ -37,6 +36,8 @@ protocol IApiRepositoryProfile {
 }
 protocol IApiRepositoryCompilationScreen {
     func getCompilationMovies(completion: @escaping (Result<[Movie], Error>) -> Void)
-    func setLikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
-//    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func addMovieToColletion(collectionId: String, movieValue: MovieValue, completion: @escaping (Result<Void, Error>) -> Void)
+    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }

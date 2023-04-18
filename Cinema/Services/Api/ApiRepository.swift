@@ -428,6 +428,188 @@ extension ApiRepository: IApiRepositoryMain {
     }
 }
 
+extension ApiRepository: IApiRepositoryCompilationScreen {
+    func getCompilationMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        let parameters: Parameters = [
+            "filter" : "compilation"
+        ]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/movies",
+            method: .get,
+            parameters: parameters,
+            headers: headers
+        )
+        .validate()
+        .responseDecodable(of: [Movie].self) { response in
+            
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.keychain.synchronizable = true
+                    self.keychain.clear()
+                }
+            }
+            
+            guard let movies = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(movies))
+        }
+    }
+    
+    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/movies/\(movieId)/dislike",
+            method: .delete,
+            headers: headers
+        ).responseData { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.setDislikeMovie(movieId: movieId, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func addMovieToColletion(collectionId: String, movieValue: MovieValue, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections/\(collectionId)/movies",
+            method: .post,
+            parameters: movieValue,
+            encoder: JSONParameterEncoder.default,
+            headers: headers
+        ).responseData { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.addMovieToColletion(collectionId: collectionId, movieValue: movieValue, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        let parameters: Parameters = [
+            "movieId" : "\(movieId)"
+        ]
+        
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/collections/\(collectionId)/movies",
+            method: .delete,
+            parameters: parameters,
+            encoding: URLEncoding.queryString,
+            headers: headers
+        ).responseData { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.deleteMovieInCollection(collectionId: collectionId, movieId: movieId, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            switch response.result {
+            case .success(_):
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+}
+
 extension ApiRepository: IApiRepositoryCollectionScreen {
     func getCollections(completion: @escaping (Result<[Collection], Error>) -> Void) {
         var headers: HTTPHeaders = [:]
@@ -563,16 +745,48 @@ extension ApiRepository: IApiRepositoryCollectionScreen {
         }
     }
     
-    func getMoviesInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
+    func getMovieInCollection(collectionId: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
         
-    }
-    
-    func addMoviesInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        self.keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
         
-    }
-    
-    func deleteMovieInCollection(collectionId: String, movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
+        self.session.request(
+            "\(baseURL)/collections/\(collectionId)/movies",
+            method: .get,
+            headers: headers
+        ).responseDecodable(of: [Movie].self) { response in
+                
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getMovieInCollection(collectionId: collectionId, completion: completion)
+                        case .failure(let error):
+                            self.requestStatus = .notAuthorized
+                            completion(.failure(error))
+                        }
+                    }
+                    
+                    return
+                }
+            }
+            
+            guard let movies = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(movies))
+        }
     }
 }
 
@@ -681,55 +895,4 @@ extension ApiRepository: IApiRepositoryProfile {
             return nil
         }
     }
-}
-
-extension ApiRepository: IApiRepositoryCompilationScreen {
-    func getCompilationMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
-        var headers: HTTPHeaders = [:]
-        let parameters: Parameters = [
-            "filter" : "compilation"
-        ]
-        
-        self.keychain.synchronizable = true
-        if let token = self.keychain.get("accessToken") {
-            headers["Authorization"] = "Bearer " + token
-        }
-        
-        self.session.request(
-            "\(baseURL)/movies",
-            method: .get,
-            parameters: parameters,
-            headers: headers
-        )
-        .validate()
-        .responseDecodable(of: [Movie].self) { response in
-            
-            if let request = response.request {
-                print("Request: \(request)")
-            }
-            
-            if let statusCode = response.response?.statusCode {
-                print("Status code: \(statusCode)")
-                if statusCode == 401 {
-                    self.keychain.synchronizable = true
-                    self.keychain.clear()
-                }
-            }
-            
-            guard let movies = response.value else {
-                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-                return
-            }
-            
-            completion(.success(movies))
-        }
-    }
-    
-    func setLikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-    }
-    
-//    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-//        
-//    }
 }

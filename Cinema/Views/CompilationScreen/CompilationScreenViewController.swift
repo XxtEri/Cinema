@@ -31,8 +31,11 @@ class CompilationScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.bindListener()
-        
+        bindListener()
+        handler()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         viewModel?.getCompilation()
     }
 }
@@ -55,6 +58,38 @@ extension CompilationScreenViewController {
             guard let self = self else { return }
             
             self.ui.updateCard()
+        }
+    }
+    
+    func handler() {
+        self.ui.likeToMovieButtonPressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.setLikeToMove(movie: movie)
+        }
+        
+        self.ui.playMovieButtonPressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToMovieScreen(movie: movie)
+        }
+        
+        self.ui.dislikeToMovieButtonPressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.deleteMovieInCollection(movieId: movie.movieId)
+        }
+        
+        self.ui.cardCompilation.likeToMovieButtonPressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.setLikeToMove(movie: movie)
+        }
+        
+        self.ui.cardCompilation.dislikeToMovieButtonPressed = { [ weak self ] movie in
+            guard let self = self else { return }
+            
+            self.viewModel?.deleteMovieInCollection(movieId: movie.movieId)
         }
     }
     

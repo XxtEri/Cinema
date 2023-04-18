@@ -20,6 +20,7 @@ class CollectionScreenViewModel {
     
     var collection = Observable<Collection>()
     var collectionsDatabase = Observable<Results<CollectionList>>()
+    var moviesCollection = Observable<[Movie]>()
     var errorOnLoading = Observable<Error>()
     
     init(navigation: CollectionsNavigation) {
@@ -52,6 +53,10 @@ class CollectionScreenViewModel {
     func goToCollectionScreenDetail(collection: CollectionList) {
         navigation?.goToCollectionScreenDetail(collection: collection)
     }
+    
+    func goToMovieScreen(movie: Movie) {
+        navigation?.goToMovieScreen(movie: movie)
+    }
 }
 
 private extension CollectionScreenViewModel {
@@ -81,7 +86,6 @@ private extension CollectionScreenViewModel {
         }
     }
     
-    //удаление из базы данных после успешного удаления на сервере
     func successLoadingHandle(with collectionId: String) {
         self.service.deleteCollection(collectionId: collectionId) { [ self ] result in
             switch result {
@@ -91,6 +95,10 @@ private extension CollectionScreenViewModel {
                 failureLoadingHandle(with: error)
             }
         }
+    }
+    
+    func successLoadingHandle(with model: [Movie]) {
+        self.moviesCollection.updateModel(with: model)
     }
     
     func failureLoadingHandle(with error: Error) {
@@ -160,10 +168,8 @@ extension CollectionScreenViewModel: ICollectionScreenViewModel {
     }
     
     func updateCollection(collection: Collection, imageCollectionName: String) {
-        //удаляем коллекцию
         deleteCollection(collectionId: collection.collectionId)
 
-        //создаем новую коллекцию на сервере
         let collectionForm = CollectionForm(name: collection.name)
         self.api.addNewCollection(collection: collectionForm) { [ self ] result in
             switch result {
@@ -195,6 +201,17 @@ extension CollectionScreenViewModel: ICollectionScreenViewModel {
             switch result {
             case .success(_):
                 successLoadingHandle(with: collectionId)
+            case .failure(let error):
+                failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
+    func getMovieInCollection(collectionId: String) {
+        self.api.getMovieInCollection(collectionId: collectionId) { [ self ] result in
+            switch result {
+            case .success(let movies):
+                successLoadingHandle(with: movies)
             case .failure(let error):
                 failureLoadingHandle(with: error)
             }

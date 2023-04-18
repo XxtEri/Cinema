@@ -27,11 +27,13 @@ protocol CollectionsNavigation: AnyObject {
     func goToCollectionsScreen()
     func goToLastScreen()
     func goToCollectionScreenDetail(collection: CollectionList)
+    func goToMovieScreen(movie: Movie)
     func goToAuthorizationScreen()
 }
 
 protocol CompilationNavigation: AnyObject {
-    
+    func goToMovieScreen(movie: Movie)
+    func goToAuthorizationScreen()
 }
 
 protocol ProfileNavigation: AnyObject {

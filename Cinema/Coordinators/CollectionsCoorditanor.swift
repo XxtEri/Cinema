@@ -75,6 +75,16 @@ extension CollectionsCoorditanor: CollectionsNavigation {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func goToMovieScreen(movie: Movie) {
+        let homeCoordinator = parentCoordinator as? HomeCoordinator
+        
+        homeCoordinator?.children.forEach({ coordinator in
+            if let mainCoordinator = coordinator as? MainCoordinator {
+                mainCoordinator.goToMovieScreen(movie: movie)
+            }
+        })
+    }
+    
     func goToAuthorizationScreen() {
         let appc = parentCoordinator as? HomeCoordinator
         

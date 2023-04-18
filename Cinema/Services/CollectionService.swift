@@ -127,11 +127,7 @@ class CollectionService {
         do {
             let configuration = Realm.Configuration(
                 schemaVersion: 1,
-                migrationBlock: { migration, oldSchemaVersion in
-                    if oldSchemaVersion < 1 {
-
-                    }
-                }
+                migrationBlock: nil
             )
             
             Realm.Configuration.defaultConfiguration = configuration
@@ -150,6 +146,32 @@ class CollectionService {
         } catch let error as NSError {
             print("Ошибка при работе с Realm: \(error.localizedDescription)")
             return false
+        }
+    }
+    
+    func getFavoriteCollectionId(completion: @escaping (Result<String?, Error>) -> Void) {
+        do {
+            let configuration = Realm.Configuration(
+                schemaVersion: 1,
+                migrationBlock: nil
+            )
+            
+            Realm.Configuration.defaultConfiguration = configuration
+            
+            let realm = try Realm()
+            let results = realm.objects(CollectionList.self).filter { object in
+                return object.collectionName == "Избранное"
+            }
+            
+            if !results.isEmpty {
+                completion(.success(results.first?.collectionId))
+            } else {
+                completion(.success(nil))
+            }
+            
+        } catch let error {
+            print("Ошибка при работе с Realm: \(error.localizedDescription)")
+            completion(.failure(error))
         }
     }
     

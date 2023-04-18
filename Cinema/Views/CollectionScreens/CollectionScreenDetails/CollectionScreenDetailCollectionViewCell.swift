@@ -17,11 +17,22 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private lazy var infoMovie: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 8
+        
+        view.backgroundColor = .clear
+        
+        return view
+    }()
+    
     private lazy var titleMovie: UILabel = {
         let view = UILabel()
         view.font = UIFont(name: "SFProText-Bold", size: 14)
         view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
         view.textColor = .white
+        view.numberOfLines = 0
         
         return view
     }()
@@ -39,7 +50,7 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
     private lazy var imageArrowNext: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "ArrowNext")
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         
         return view
     }()
@@ -48,8 +59,9 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.addSubview(posterImage)
-        self.addSubview(titleMovie)
-        self.addSubview(descriptionMovie)
+        self.addSubview(infoMovie)
+        infoMovie.addArrangedSubview(titleMovie)
+        infoMovie.addArrangedSubview(descriptionMovie)
         self.addSubview(imageArrowNext)
         
         configureConstraints()
@@ -59,13 +71,7 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() {
-       
-    }
-}
-
-private extension CollectionScreenDetailCollectionViewCell {
-    func configureConstraints() {
+    private func configureConstraints() {
         posterImage.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
             make.leading.equalToSuperview()
@@ -73,22 +79,23 @@ private extension CollectionScreenDetailCollectionViewCell {
             make.width.equalTo(56)
         }
         
-        titleMovie.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+        infoMovie.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(posterImage.snp.verticalEdges)
             make.leading.equalTo(posterImage.snp.trailing).inset(-18)
         }
         
-        descriptionMovie.snp.makeConstraints { make in
-            make.top.equalTo(titleMovie.snp.bottom).inset(-8)
-            make.leading.equalTo(titleMovie.snp.leading)
-            make.bottom.equalToSuperview()
-        }
-        
         imageArrowNext.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
-            make.leading.equalTo(descriptionMovie.snp.trailing).inset(-16)
+            make.leading.equalTo(infoMovie.snp.trailing).inset(-16)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
+            make.width.equalTo(12)
+            make.height.equalTo(20.5)
         }
+    }
+    
+    func configure(movie: Movie) {
+        posterImage.downloaded(from: movie.poster, contentMode: posterImage.contentMode)
+        titleMovie.text = movie.name
+        descriptionMovie.text = movie.description
     }
 }

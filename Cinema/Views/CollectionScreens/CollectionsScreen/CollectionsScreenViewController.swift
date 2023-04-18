@@ -29,7 +29,6 @@ class CollectionsScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         ui.configureCollectionView(delegate: self, dataSource: self)
-//        initArrayCollections()
     }
     
     required init?(coder: NSCoder) {
@@ -49,27 +48,6 @@ class CollectionsScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.viewModel?.getCollection()
     }
-    
-//    private func initArrayCollections() {
-//        do {
-//            let configuration = Realm.Configuration(
-//                schemaVersion: 1,
-//                migrationBlock: { migration, oldSchemaVersion in
-//                    if oldSchemaVersion < 1 {
-//
-//                    }
-//                }
-//            )
-//            Realm.Configuration.defaultConfiguration = configuration
-//
-//            let realm = try Realm()
-//
-//            collectionList = realm.objects(CollectionList.self)
-//
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
-//    }
 }
 
 extension CollectionsScreenViewController {

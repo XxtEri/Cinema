@@ -114,6 +114,7 @@
 		EDD4EE620B8DF2462832E840 /* RecomendationMoviesBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4EE79895593ED504FCF0F /* RecomendationMoviesBlockView.swift */; };
 		EFE1FE4795066ACF5C87F241 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E92831647BC2B3389F6B67A /* TabBarViewController.swift */; };
 		F3C3A7E129EE6EB600D97554 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F3C3A7E029EE6EB600D97554 /* RealmSwift */; };
+		F3C3A7E329EE84BE00D97554 /* MovieValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3A7E229EE84BD00D97554 /* MovieValue.swift */; };
 		F82722C4310FDA1D0C8885FD /* IconSelectionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBD30D5B366CA89CC9A0463 /* IconSelectionScreenView.swift */; };
 		FB3E10B71711F3BD9558CD56 /* TitleWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009C7283290BD855EE66A6D /* TitleWithTextView.swift */; };
 		FD6126891ECF01C1BD54CF7B /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01EE642409AEB2A66A2DFBA /* AuthViewModel.swift */; };
@@ -224,6 +225,7 @@
 		EE8596B1D273BC4737851DA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1170D3A546DF3240D0FD5A6 /* AuthUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserDTO.swift; sourceTree = "<group>"; };
 		F2F29B8773DD64E13E49D9EF /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
+		F3C3A7E229EE84BD00D97554 /* MovieValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieValue.swift; sourceTree = "<group>"; };
 		F51D67BAC8FE3CB43C88CA25 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F60EF0F360543A1783B40796 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 		FF4F1DFFD486E936369BA7DD /* CreateEditingCollectionsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditingCollectionsScreenView.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				166C6A3BD01DDD3C9F2EF885 /* Tag.swift */,
 				9EE7937B3C8AE48DCC60A5AB /* Token.swift */,
 				27D1E9E5A8ED50D17F0C3CB0 /* User.swift */,
+				F3C3A7E229EE84BD00D97554 /* MovieValue.swift */,
 			);
 			path = ApiModels;
 			sourceTree = "<group>";
@@ -451,8 +454,8 @@
 		6CB4A7F4FA7F4EDA0DE527A8 /* CollectionScreens */ = {
 			isa = PBXGroup;
 			children = (
-				EF9BC05123435CB9861FECFD /* CollectionScreenDetails */,
 				8B4912B16A3255B1731EB3EC /* CollectionsScreen */,
+				EF9BC05123435CB9861FECFD /* CollectionScreenDetails */,
 				652575E9E4A6FBDDABB7F43B /* CreateEditingCollectionsScreen */,
 				9B1797E3332FC8C0EE0B675E /* IconSelectionScreen */,
 			);
@@ -480,9 +483,9 @@
 			isa = PBXGroup;
 			children = (
 				E01EE642409AEB2A66A2DFBA /* AuthViewModel.swift */,
-				55A6F12164CF674CBDD5515C /* CollectionScreenViewModel.swift */,
-				BA86E4EEFD7A4FE63F2A2310 /* CompilationScreenViewModel.swift */,
 				147C8E236F04FFE39F1915EA /* MainViewModel.swift */,
+				BA86E4EEFD7A4FE63F2A2310 /* CompilationScreenViewModel.swift */,
+				55A6F12164CF674CBDD5515C /* CollectionScreenViewModel.swift */,
 				AC43617BDD1868171CEB4681 /* ProfileScreenViewModel.swift */,
 				69F0860B23CACC74441A1C13 /* Protocols */,
 			);
@@ -492,15 +495,15 @@
 		8B47CF54B9F43D961B073846 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				22F6CA83E2A264C3FFC152FC /* AuthScreens */,
-				6CB4A7F4FA7F4EDA0DE527A8 /* CollectionScreens */,
-				FCDA722022A1F87720FB13A3 /* CompilationScreen */,
-				3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */,
-				A55A395F9BC2FACDF317143C /* DisscusionScreen */,
-				9BFE5C7EAD88FDF04448ADCF /* MainScreens */,
-				124E602B31159B6DE8E114DF /* ProfileScreen */,
 				790574AA7A53CE473BECD376 /* Storyboards */,
+				22F6CA83E2A264C3FFC152FC /* AuthScreens */,
 				6445C63166E6023C80D2C96D /* TabBar */,
+				9BFE5C7EAD88FDF04448ADCF /* MainScreens */,
+				FCDA722022A1F87720FB13A3 /* CompilationScreen */,
+				6CB4A7F4FA7F4EDA0DE527A8 /* CollectionScreens */,
+				A55A395F9BC2FACDF317143C /* DisscusionScreen */,
+				124E602B31159B6DE8E114DF /* ProfileScreen */,
+				3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */,
 				D7FE06B645EFFAB1751C3DFE /* Extension */,
 			);
 			path = Views;
@@ -509,9 +512,9 @@
 		8B4912B16A3255B1731EB3EC /* CollectionsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				8653F06CF5369DD9C9E92B66 /* CollectionsScreenCollectionViewCell.swift */,
-				696F652A938878365D245DAD /* CollectionsScreenView.swift */,
 				6B5371F453E3EDEE5506C0DD /* CollectionsScreenViewController.swift */,
+				696F652A938878365D245DAD /* CollectionsScreenView.swift */,
+				8653F06CF5369DD9C9E92B66 /* CollectionsScreenCollectionViewCell.swift */,
 			);
 			path = CollectionsScreen;
 			sourceTree = "<group>";
@@ -619,9 +622,9 @@
 		C992D486B503F7DA331DDE97 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				C9DB2051EBB4EC0BDFB4733C /* ContentMainScreenView.swift */,
-				E1A3B17A2FA7A7AF0DF0E7B3 /* MainScreenView.swift */,
 				A3EBA159FD8DDA96C752ED49 /* MainScreenViewController.swift */,
+				E1A3B17A2FA7A7AF0DF0E7B3 /* MainScreenView.swift */,
+				C9DB2051EBB4EC0BDFB4733C /* ContentMainScreenView.swift */,
 				2A3281619ED9083D4E54D9C2 /* LastWatchMovieBlock */,
 				4594EB71D58DE099C0B11BD3 /* NewMoviesBlock */,
 				802342DD34CB5372D69F70DB /* RecomendationMoviesBlock */,
@@ -685,9 +688,9 @@
 		EF9BC05123435CB9861FECFD /* CollectionScreenDetails */ = {
 			isa = PBXGroup;
 			children = (
-				29CC5372F454B74E69C6AEEA /* CollectionScreenDetailCollectionViewCell.swift */,
-				50A2ED50974834761F3F693F /* CollectionScreenDetailView.swift */,
 				0566488A67684080BD9C1C25 /* CollectionScreenDetailViewController.swift */,
+				50A2ED50974834761F3F693F /* CollectionScreenDetailView.swift */,
+				29CC5372F454B74E69C6AEEA /* CollectionScreenDetailCollectionViewCell.swift */,
 			);
 			path = CollectionScreenDetails;
 			sourceTree = "<group>";
@@ -695,9 +698,9 @@
 		FCDA722022A1F87720FB13A3 /* CompilationScreen */ = {
 			isa = PBXGroup;
 			children = (
-				2C770CB3979B11417F96AD4A /* CardCompilationView.swift */,
-				8B668AEA3E5C25203A9C6616 /* CompilationScreenView.swift */,
 				13D5D378788BE8AAE7F4BA90 /* CompilationScreenViewController.swift */,
+				8B668AEA3E5C25203A9C6616 /* CompilationScreenView.swift */,
+				2C770CB3979B11417F96AD4A /* CardCompilationView.swift */,
 			);
 			path = CompilationScreen;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 				59DD9A7E4AEAFD1DDCD4B9AE /* EpisodeView.swift in Sources */,
 				ECD3062C28D61F114170EC55 /* EpisodesMovieView.swift in Sources */,
 				2B8E773D57B8E50BFC15DE28 /* FootageMovieCollectionViewCell.swift in Sources */,
+				F3C3A7E329EE84BE00D97554 /* MovieValue.swift in Sources */,
 				E1390B650295CBA2E1CD9EAF /* FootageMovieView.swift in Sources */,
 				6CE86809E46E68E0F2EC887C /* HomeCoordinator.swift in Sources */,
 				ED4EFB4CE730638A55BBF6D3 /* ICollectionScreenViewModel.swift in Sources */,

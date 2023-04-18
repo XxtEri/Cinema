@@ -34,7 +34,7 @@ class CompilationScreenView: UIView {
     private lazy var likeButton: CustomButton = {
         let view = CustomButton()
         view.backgroundColor = .white
-        view.setImage(UIImage(named: "Like"), for: .normal)
+        view.setImage(UIImage(named: "LikeButton"), for: .normal)
         
         return view
     }()
@@ -62,7 +62,6 @@ class CompilationScreenView: UIView {
         view.numberOfLines = .max
         view.attributedText = NSAttributedString(string: "Новые фильмы в подборке закончились", attributes: [.kern: -0.17])
         
-        
         return view
     }()
     
@@ -73,6 +72,10 @@ class CompilationScreenView: UIView {
     }()
     
     var arrayCompilation = [Movie]()
+    
+    var likeToMovieButtonPressed: ((Movie) -> Void)?
+    var dislikeToMovieButtonPressed: ((Movie) -> Void)?
+    var playMovieButtonPressed: ((Movie) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -118,6 +121,7 @@ private extension CompilationScreenView {
     func setup() {
         configureUI()
         configureConstraints()
+        configureActions()
     }
     
     func configureUI() {
@@ -125,7 +129,6 @@ private extension CompilationScreenView {
     }
     
     func configureConstraints() {
-        
         cardCompilation.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.horizontalEdges.equalToSuperview().inset(24)
@@ -178,6 +181,35 @@ private extension CompilationScreenView {
         cardCompilation.alpha = 0
         buttons.alpha = 0
         stub.alpha = 1
+    }
+    
+    func configureActions() {
+        dislikeButton.addTarget(self, action: #selector(setDislikeToMovie), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playMovie), for: .touchUpInside)
+        likeButton.addTarget(self, action: #selector(setLikeToMovie), for: .touchUpInside)
+    }
+    
+    @objc
+    func setDislikeToMovie() {
+        if let movie = self.cardCompilation.currentMovie {
+            dislikeToMovieButtonPressed?(movie)
+            self.cardCompilation.resetCard()
+        }
+    }
+    
+    @objc
+    func playMovie() {
+        if let movie = self.cardCompilation.currentMovie {
+            playMovieButtonPressed?(movie)
+        }
+    }
+    
+    @objc
+    func setLikeToMovie() {
+        if let movie = self.cardCompilation.currentMovie {
+            likeToMovieButtonPressed?(movie)
+            self.cardCompilation.resetCard()
+        }
     }
 }
 

@@ -71,7 +71,6 @@ class CollectionScreenDetailView: UIView {
     }
     
     func configureCollectionView(delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource) {
-        
         collections.delegate = delegate
         collections.dataSource = dataSource
     }

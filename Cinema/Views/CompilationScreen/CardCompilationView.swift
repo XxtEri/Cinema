@@ -48,7 +48,11 @@ class CardCompilationView: UIView {
     
     private var initialCenter: CGPoint = .zero
     
+    var currentMovie: Movie?
+    
     var disappearedCard: (() -> Void)?
+    var likeToMovieButtonPressed: ((Movie) -> Void)?
+    var dislikeToMovieButtonPressed: ((Movie) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,6 +68,28 @@ class CardCompilationView: UIView {
         setup()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setInfoCard(card: Movie) {
+        self.currentMovie = card
+        
+        self.imageCard.downloaded(from: card.poster, contentMode: imageCard.contentMode)
+        self.titleCard.text = card.name
+    }
+    
+    func resetCard() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: [.curveEaseOut]) {
+            self.card.center = self.initialCenter
+            self.reactionImage.alpha = 0
+            self.card.transform = .identity
+            self.card.alpha = 1
+        }
+    }
+}
+
+private extension CardCompilationView {
     @objc
     func didPan(_ sender: UIPanGestureRecognizer) {
         let xFromCenter = card.center.x - self.center.x
@@ -99,7 +125,10 @@ class CardCompilationView: UIView {
                     self.card.alpha = 0
                 }
 
-                self.disappearedCard?()
+                if let movie = self.currentMovie {
+                    self.dislikeToMovieButtonPressed?(movie)
+                    self.disappearedCard?()
+                }
                 
                 return
 
@@ -110,7 +139,10 @@ class CardCompilationView: UIView {
                     self.card.alpha = 0
                 }
                 
-                self.disappearedCard?()
+                if let movie = self.currentMovie {
+                    self.likeToMovieButtonPressed?(movie)
+                    self.disappearedCard?()
+                }
 
                 return
             }
@@ -121,35 +153,16 @@ class CardCompilationView: UIView {
             break
         }
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setInfoCard(card: Movie) {
-        self.imageCard.downloaded(from: card.poster, contentMode: imageCard.contentMode)
-        self.titleCard.text = card.name
-    }
-    
-    func resetCard() {
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: [.curveEaseOut]) {
-            self.card.center = self.initialCenter
-            self.reactionImage.alpha = 0
-            self.card.transform = .identity
-            self.card.alpha = 1
-        }
-    }
-    
 }
 
-extension CardCompilationView {
+private extension CardCompilationView {
     func setup() {
         configureConstraints()
     }
     
     func configureConstraints() {
         titleCard.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().inset(36)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
