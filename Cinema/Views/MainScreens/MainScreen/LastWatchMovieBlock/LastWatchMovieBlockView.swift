@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class LastWatchMovieBlockView: UIStackView {
+    
     private lazy var titleBlock: UILabel = {
         let view = UILabel()
         view.text = "Вы смотрели"
@@ -25,6 +26,7 @@ class LastWatchMovieBlockView: UIStackView {
         view.image = UIImage(named: "WatchFilm")
         view.contentMode = .scaleAspectFill
         view.frame.size.height = 230
+        view.isUserInteractionEnabled = true
         
         return view
     }()
@@ -47,7 +49,7 @@ class LastWatchMovieBlockView: UIStackView {
         return view
     }()
     
-    private var lastWatchMovie: EpisodeView?
+    private var lastWatchEpisode: EpisodeView?
     
     var lastWatchMovieEpisodePressed: ((EpisodeView) -> Void)?
     
@@ -78,7 +80,7 @@ class LastWatchMovieBlockView: UIStackView {
     func setLastWatchMovie(with model: EpisodeView) {
         movieImage.downloaded(from: model.preview, contentMode: movieImage.contentMode)
         
-        lastWatchMovie = model
+        lastWatchEpisode = model
     }
     
     func setTitleMovie(title: String) {
@@ -90,6 +92,7 @@ private extension LastWatchMovieBlockView {
     func setup() {
         configureConstraints()
         configureStack()
+        configureAction()
     }
     
     func configureStack() {
@@ -114,13 +117,13 @@ private extension LastWatchMovieBlockView {
     }
     
     func configureAction() {
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showLastWatchMovieScreen)))
+        movieImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showLastWatchMovieScreen)))
     }
     
     @objc
     func showLastWatchMovieScreen() {
-        if let movie = lastWatchMovie {
-            lastWatchMovieEpisodePressed?(movie)
+        if let episode = lastWatchEpisode {
+            lastWatchMovieEpisodePressed?(episode)
         }
     }
 }

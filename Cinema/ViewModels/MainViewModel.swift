@@ -13,20 +13,16 @@ class MainViewModel {
     weak var navigation: MainScreenNavigation?
     
     var coverMovie = Observable<CoverMovie>()
-    
     var trendsMovie = Observable<[Movie]>()
-    
-    var lastWatchMovies = Observable<[EpisodeView]>()
-    
+    var lastWatchEpisodes = Observable<[EpisodeView]>()
     var newMovie = Observable<[Movie]>()
-    
     var recomendationMovie = Observable<[Movie]>()
-    
     var episodesMovie = Observable<[Episode]>()
-    
     var currentEpisodeTime = Observable<EpisodeTime>()
-    
     var errorOnLoading = Observable<Error>()
+
+    var lastWatchMovies = [Movie]()
+    var episodeLastWatchMovie = [Episode]()
     
     var goToAuthScreen = false
     
@@ -42,6 +38,42 @@ class MainViewModel {
     
     func goToEpisodeScreen(movie: Movie, episode: Episode, episodes: [Episode]) {
         navigation?.goToEpisodeScreen(movie: movie, currentEpisode: episode, episodes: episodes)
+    }
+    
+    func goToEpisodeScreenLastWatchMovie(currentEpisode: EpisodeView) {
+        self.api.getLastWatchMovies { result in
+            switch result {
+            case .success(let movies):
+                movies.forEach { movie in
+                    if movie.movieId == currentEpisode.movieId {
+                        self.api.getEpisodesMovie(movieId: currentEpisode.movieId) { result in
+                            switch result {
+                            case .success(let episodes):
+                                episodes.forEach { episode in
+                                    if episode.episodeId == currentEpisode.episodeId {
+                                        self.navigation?.goToEpisodeScreen(movie: movie, currentEpisode: episode, episodes: episodes)
+                                    }
+                                }
+                            case .failure(let error):
+                                if self.api.requestStatus == .notAuthorized {
+                                    self.service.clearDatabase()
+                                    self.navigation?.goToAuthorizationScreen()
+                                } else {
+                                    self.failureLoadingHandle(with: error)
+                                }
+                            }
+                        }
+                    }
+                }
+            case .failure(let error):
+                if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
+                    self.service.clearDatabase()
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
+            }
+        }
     }
     
     func backToGoLastScreen() {
@@ -62,11 +94,13 @@ private extension MainViewModel {
             self.newMovie.updateModel(with: movies)
         case .recomendation:
             self.recomendationMovie.updateModel(with: movies)
+        case .lastView:
+            self.lastWatchMovies = movies
         }
     }
     
     func successLoadingHandle(with movies: [EpisodeView]) {
-        self.lastWatchMovies.updateModel(with: movies)
+        self.lastWatchEpisodes.updateModel(with: movies)
     }
     
     func successLoadingHandle(with episodes: [Episode]) {
@@ -100,7 +134,7 @@ extension MainViewModel: IMainViewModel {
         }
     }
     
-    func getMovies() {
+    func getMoviesForMainScreen() {
         self.api.getMovies(typeListMovie: .trend) { result in
             switch result {
             case .success(let movies):
@@ -162,11 +196,43 @@ extension MainViewModel: IMainViewModel {
         }
     }
     
+    func getLastWatchMovies() {
+        self.api.getLastWatchMovies { result in
+            switch result {
+            case .success(let movies):
+                self.successLoadingHandle(with: movies, typeListMovie: .lastView)
+            case .failure(let error):
+                if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
+                    self.service.clearDatabase()
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
+            }
+        }
+    }
+    
     func getEpisodesMovie(movieId: String) {
         self.api.getEpisodesMovie(movieId: movieId) { result in
             switch result {
             case .success(let episodes):
                 self.successLoadingHandle(with: episodes)
+            case .failure(let error):
+                if self.api.requestStatus == .notAuthorized {
+                    self.service.clearDatabase()
+                    self.navigation?.goToAuthorizationScreen()
+                } else {
+                    self.failureLoadingHandle(with: error)
+                }
+            }
+        }
+    }
+    
+    func getEpisodesLastWatchMovie(movieId: String) {
+        self.api.getEpisodesMovie(movieId: movieId) { result in
+            switch result {
+            case .success(let episodes):
+                self.episodeLastWatchMovie = episodes
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized {
                     self.service.clearDatabase()

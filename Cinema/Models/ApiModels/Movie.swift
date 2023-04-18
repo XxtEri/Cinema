@@ -16,6 +16,17 @@ struct Movie: Decodable {
     let imageUrls: [String]
     let poster: String
     let tags: [Tag]
+    
+    init() {
+        movieId = String()
+        name = String()
+        description = String()
+        age = Age.zero
+        chatInfo = Chat(chatId: String(), chatName: String())
+        imageUrls = [String]()
+        poster = String()
+        tags = [Tag]()
+    }
 }
 
 enum Age: String, Decodable {
@@ -30,6 +41,7 @@ enum TypeListMovieMainScreen: String, Decodable {
     case trend = "inTrend"
     case new = "new"
     case recomendation = "forMe"
+    case lastView = "lastView"
 }
 
 enum TypeListMovie: String, Decodable {

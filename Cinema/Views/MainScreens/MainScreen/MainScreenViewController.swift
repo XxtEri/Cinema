@@ -42,7 +42,7 @@ class MainScreenViewController: UIViewController {
         handler()
         
         viewModel?.getCoverImage()
-        viewModel?.getMovies()
+        viewModel?.getMoviesForMainScreen()
         
         self.navigationController?.isNavigationBarHidden = true
     }
@@ -62,7 +62,7 @@ extension MainScreenViewController {
             self.ui.content.setMovieImageInTrendBlock(with: movies)
         })
         
-        self.viewModel?.lastWatchMovies.subscribe(with: { [ weak self ] movies in
+        self.viewModel?.lastWatchEpisodes.subscribe(with: { [ weak self ] movies in
             guard let self = self else { return }
             
             if movies.isEmpty {
@@ -97,10 +97,10 @@ extension MainScreenViewController {
     }
     
     func handler() {
-        self.ui.content.lastWatchBlock.lastWatchMovieEpisodePressed = { [ weak self ] movie in
+        self.ui.content.lastWatchBlock.lastWatchMovieEpisodePressed = { [ weak self ] episode in
             guard let self = self else { return }
             
-            
+            self.viewModel?.goToEpisodeScreenLastWatchMovie(currentEpisode: episode)
         }
         
         self.ui.content.newBlock.newMoviePressed = { [ weak self ] movie in

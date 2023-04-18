@@ -10,7 +10,8 @@ protocol IMainViewModel {
     var errorOnLoading: Observable<Error> { get }
     
     func getCoverImage()
-    func getMovies()
+    func getMoviesForMainScreen()
+    func getLastWatchMovies()
     func getEpisodesMovie(movieId: String)
     func getEpisodeTime(episodeId: String)
     func saveEpisodeTime(episodeId: String, time: EpisodeTime)
