@@ -113,7 +113,7 @@ class CompilationScreenView: UIView {
         }
         
         cardCompilation.setInfoCard(card: arrayCompilation[arrayCompilation.startIndex])
-//        cardCompilation.resetCard()
+        cardCompilation.resetCard()
     }
 }
 
@@ -193,7 +193,7 @@ private extension CompilationScreenView {
     func setDislikeToMovie() {
         if let movie = self.cardCompilation.currentMovie {
             dislikeToMovieButtonPressed?(movie)
-            self.cardCompilation.startAnimationDislike()
+            self.cardCompilation.startAnimation()
             self.updateCard()
         }
     }
@@ -209,7 +209,7 @@ private extension CompilationScreenView {
     func setLikeToMovie() {
         if let movie = self.cardCompilation.currentMovie {
             likeToMovieButtonPressed?(movie)
-            self.cardCompilation.startAnimationLike()
+            self.cardCompilation.startAnimation()
             self.updateCard()
         }
     }
