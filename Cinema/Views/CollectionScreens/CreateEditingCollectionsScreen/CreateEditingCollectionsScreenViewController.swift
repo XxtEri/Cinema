@@ -66,7 +66,6 @@ class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewC
         setupToHideKeyboardOnTapOnView()
     }
 
-    // Метод делегата для обработки переданных данных
     func didDismissSheetViewController(withData data: String) {
         self.ui.updateIconImage(imageName: data)
     }

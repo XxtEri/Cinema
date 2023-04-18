@@ -873,12 +873,10 @@ extension ApiRepository: IApiRepositoryProfile {
                 }
             }
             
-            // Обработка результата загрузки
             switch response.result {
             case .success(_):
                 completion(.success(()))
             case .failure(let error):
-                // Обработка ошибки загрузки файла
                 print("Ошибка загрузки файла: \(error)")
                 completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
             }
@@ -887,7 +885,6 @@ extension ApiRepository: IApiRepositoryProfile {
     
     func readFileDataFromFileURL(fileURL: URL) -> Data? {
         do {
-            // Чтение данных из файла в память
             let fileData = try Data(contentsOf: fileURL)
             return fileData
         } catch {

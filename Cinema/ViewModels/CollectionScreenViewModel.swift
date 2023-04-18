@@ -174,7 +174,6 @@ extension CollectionScreenViewModel: ICollectionScreenViewModel {
         self.api.addNewCollection(collection: collectionForm) { [ self ] result in
             switch result {
             case .success(let newCollection):
-                //обновляем данные в БД
                 let newCollectionDatabase = CollectionList()
                 newCollectionDatabase.collectionName = newCollection.name
                 newCollectionDatabase.collectionId = newCollection.collectionId

@@ -57,7 +57,7 @@ class TitleWithTextView: UIView {
     func getHeightView() -> CGFloat {
         let titleHeight = title.bounds.size.height
         
-        let maxSize = CGSize(width: 200, height: CGFloat.greatestFiniteMagnitude) // Задайте максимальные размеры, в пределах которых будет производиться расчет
+        let maxSize = CGSize(width: 200, height: CGFloat.greatestFiniteMagnitude)
         let labelSize = text.sizeThatFits(maxSize)
         let labelHeight = labelSize.height
         

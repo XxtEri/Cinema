@@ -69,10 +69,7 @@ class IconSelectionScreenViewController: UIViewController {
         self.ui.reloadData()
     }
     
-    // Функция для закрытия модального представления и передачи данных обратно
     private func dismiss(imageName: String) {
-        // Вызов метода делегата перед закрытием модального представления
-        // В этом примере данные передаются обратно на предыдущий экран
         let data = imageName
         delegate?.didDismissSheetViewController(withData: data)
         dismiss(animated: true, completion: nil)

@@ -27,7 +27,7 @@ final class CompilationCoordinator: Coordinator {
     }
 }
 
-extension CompilationNavigation {
+extension CompilationCoordinator {
     func generateCompilationScreen() -> UIViewController {
         let vc = CompilationScreenViewController()
         vc.viewModel = CompilationScreenViewModel(navigation: self)
@@ -42,7 +42,7 @@ extension CompilationNavigation {
 extension CompilationCoordinator: CompilationNavigation {
     func goToMovieScreen(movie: Movie) {
         let homeCoordinator = parentCoordinator as? HomeCoordinator
-        
+
         homeCoordinator?.children.forEach({ coordinator in
             if let mainCoordinator = coordinator as? MainCoordinator {
                 mainCoordinator.goToMovieScreen(movie: movie)

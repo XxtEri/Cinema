@@ -78,7 +78,7 @@ extension CompilationScreenViewModel: ICompulationViewModel {
     
     func setLikeToMove(movie: Movie) {
         let favoriteCollectionId = self.getFavoriteCollectionId()
-        
+
         DispatchQueue.main.async {
             self.api.addMovieToColletion(collectionId: favoriteCollectionId, movieValue: MovieValue(movieId: movie.movieId)) { result in
                 switch result {
@@ -89,7 +89,7 @@ extension CompilationScreenViewModel: ICompulationViewModel {
                 }
             }
         }
-        
+
         DispatchQueue.main.async {
             self.setDislike(favoriteCollectionId: favoriteCollectionId, movieId: movie.movieId)
         }
@@ -97,7 +97,7 @@ extension CompilationScreenViewModel: ICompulationViewModel {
     
     func deleteMovieInCollection(movieId: String) {
         let favoriteCollectionId = getFavoriteCollectionId()
-        
+
         DispatchQueue.main.async {
             self.api.deleteMovieInCollection(collectionId: favoriteCollectionId, movieId: movieId) { result in
                 switch result {
@@ -108,7 +108,7 @@ extension CompilationScreenViewModel: ICompulationViewModel {
                 }
             }
         }
-        
+
         DispatchQueue.main.async {
             self.setDislike(favoriteCollectionId: favoriteCollectionId, movieId: movieId)
         }
