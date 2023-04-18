@@ -32,7 +32,6 @@
 		24EFA8CD3680A32FBD40B32D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889F95D4EE2D4881A786FB91 /* CustomButton.swift */; };
 		27C6401BC4F806A72C374011 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBDAB137B328B69FBB7C59E /* Protocols.swift */; };
 		28FD8BFEFF243D42EE969EF2 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43617BDD1868171CEB4681 /* ProfileScreenViewModel.swift */; };
-		2A6588E89F22076BCF793B71 /* TagLabelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DB09F897B4396D1D2924AA /* TagLabelsViewController.swift */; };
 		2B5CA7120E2C9120F5BDB523 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147C8E236F04FFE39F1915EA /* MainViewModel.swift */; };
 		2B8E773D57B8E50BFC15DE28 /* FootageMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B76B146C7D66003F275185 /* FootageMovieCollectionViewCell.swift */; };
 		2E10A688E68FCAF78195B3D2 /* TrendMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2469887AA7C6B6D6A3E20DA5 /* TrendMovieCollectionViewCell.swift */; };
@@ -170,7 +169,6 @@
 		6B0E2A1376E7B02DE89C7BD6 /* CollectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionList.swift; sourceTree = "<group>"; };
 		6B5371F453E3EDEE5506C0DD /* CollectionsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsScreenViewController.swift; sourceTree = "<group>"; };
 		6B84C8B6EB4AEECEE9221D01 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		72DB09F897B4396D1D2924AA /* TagLabelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelsViewController.swift; sourceTree = "<group>"; };
 		74E7548084743BA296603660 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		76B33C9317024691102F9962 /* DisscusionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisscusionScreenViewController.swift; sourceTree = "<group>"; };
 		7AAA748F8933F2383CE64FE8 /* EpisodeScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeScreenTableViewCell.swift; sourceTree = "<group>"; };
@@ -531,12 +529,11 @@
 		91492C6ED3895F800EEF2D04 /* MovieScreen */ = {
 			isa = PBXGroup;
 			children = (
-				89A642B2913BCA80BBC47A2B /* MovieScreenView.swift */,
 				C415C8183F27329C76AB2972 /* MovieScreenViewController.swift */,
-				72DB09F897B4396D1D2924AA /* TagLabelsViewController.swift */,
-				AEAD7DD1A292176C2DE6C8ED /* EpisodesMovieBlock */,
-				8D8D95B697FAA3E3373A6795 /* FootageMovieBlock */,
+				89A642B2913BCA80BBC47A2B /* MovieScreenView.swift */,
 				5DDAB5F79AA03E16BC7C8222 /* InformationMovieBlock */,
+				8D8D95B697FAA3E3373A6795 /* FootageMovieBlock */,
+				AEAD7DD1A292176C2DE6C8ED /* EpisodesMovieBlock */,
 			);
 			path = MovieScreen;
 			sourceTree = "<group>";
@@ -597,8 +594,8 @@
 		AEAD7DD1A292176C2DE6C8ED /* EpisodesMovieBlock */ = {
 			isa = PBXGroup;
 			children = (
-				7AAA748F8933F2383CE64FE8 /* EpisodeScreenTableViewCell.swift */,
 				BB62D1B37C8B4A96BB2DC338 /* EpisodesMovieView.swift */,
+				7AAA748F8933F2383CE64FE8 /* EpisodeScreenTableViewCell.swift */,
 			);
 			path = EpisodesMovieBlock;
 			sourceTree = "<group>";
@@ -881,7 +878,6 @@
 				EFE1FE4795066ACF5C87F241 /* TabBarViewController.swift in Sources */,
 				0F8577A222B51526485470AE /* Tag.swift in Sources */,
 				86E0FE94ABA7506FA48E70FB /* TagLabelsView.swift in Sources */,
-				2A6588E89F22076BCF793B71 /* TagLabelsViewController.swift in Sources */,
 				FB3E10B71711F3BD9558CD56 /* TitleWithTextView.swift in Sources */,
 				1F78F2CC5CA6DAF37AF30535 /* Token.swift in Sources */,
 				2E10A688E68FCAF78195B3D2 /* TrendMovieCollectionViewCell.swift in Sources */,

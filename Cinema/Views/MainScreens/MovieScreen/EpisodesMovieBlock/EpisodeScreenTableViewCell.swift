@@ -18,13 +18,6 @@ class EpisodeScreenTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var posterViewEpisode: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray
-        
-        return view
-    }()
-    
     private lazy var titleEpisode: UILabel = {
         let view = UILabel()
         view.attributedText = NSAttributedString(string: "bla", attributes: [.kern: -0.17])
@@ -60,7 +53,7 @@ class EpisodeScreenTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = .backgroundApplication
-        contentView.addSubview(posterViewEpisode)
+        contentView.addSubview(posterEpisode)
         contentView.addSubview(titleEpisode)
         contentView.addSubview(descriptionEpisode)
         contentView.addSubview(yearEpisode)
@@ -86,16 +79,16 @@ private extension EpisodeScreenTableViewCell {
     }
     
     func configureConstraints() {
-        posterViewEpisode.snp.makeConstraints { make in
+        posterEpisode.snp.makeConstraints { make in
             make.leading.verticalEdges.equalToSuperview()
             make.verticalEdges.equalToSuperview().inset(16)
             make.width.equalTo(128)
         }
         
         titleEpisode.snp.makeConstraints { make in
-            make.top.equalTo(posterViewEpisode.snp.top)
+            make.top.equalTo(posterEpisode.snp.top)
             make.trailing.equalToSuperview()
-            make.leading.equalTo(posterViewEpisode.snp.trailing).inset(-16)
+            make.leading.equalTo(posterEpisode.snp.trailing).inset(-16)
         }
         
         descriptionEpisode.snp.makeConstraints { make in
@@ -108,7 +101,7 @@ private extension EpisodeScreenTableViewCell {
             make.leading.equalTo(descriptionEpisode.snp.leading)
             make.top.equalTo(descriptionEpisode.snp.bottom).inset(-6)
             make.trailing.equalToSuperview()
-            make.bottom.equalTo(posterViewEpisode.snp.bottom)
+            make.bottom.equalTo(posterEpisode.snp.bottom)
         }
     }
 }
