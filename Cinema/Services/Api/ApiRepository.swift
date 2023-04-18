@@ -195,7 +195,7 @@ extension ApiRepository: IApiRepositoryCompilationScreen {
         )
         .validate()
         .responseDecodable(of: [Movie].self) { response in
-                
+            
             if let request = response.request {
                 print("Request: \(request)")
             }
@@ -215,6 +215,10 @@ extension ApiRepository: IApiRepositoryCompilationScreen {
             
             completion(.success(movies))
         }
+    }
+    
+    func setLikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
     }
     
 //    func setDislikeMovie(movieId: String, completion: @escaping (Result<Void, Error>) -> Void) {
