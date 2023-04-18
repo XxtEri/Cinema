@@ -550,6 +550,7 @@
 				FED61C6B9023AEFFFDCA304B /* Services */,
 				87207E40FA4AC9413D62DEFB /* ViewModels */,
 				8B47CF54B9F43D961B073846 /* Views */,
+				4CC4E819521FDB9A8BD2A9D5 /* Resources */,
 			);
 			path = Cinema;
 			sourceTree = "<group>";
@@ -614,7 +615,6 @@
 			isa = PBXGroup;
 			children = (
 				920232A2223141FF5BE81F94 /* Cinema */,
-				4CC4E819521FDB9A8BD2A9D5 /* Resources */,
 				4130B066D1F903B654A15128 /* Products */,
 			);
 			sourceTree = "<group>";
