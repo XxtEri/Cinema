@@ -42,7 +42,7 @@ class ContentMainScreenView: UIView {
         contentStack.addArrangedSubview(lastWatchBlock)
         contentStack.addArrangedSubview(newBlock)
         contentStack.addArrangedSubview(recomendationBlock)
-        contentStack.addArrangedSubview(specifyInterests)
+        self.addSubview(specifyInterests)
         
         setup()
     }
@@ -80,7 +80,7 @@ private extension ContentMainScreenView {
         
         specifyInterests.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.lessThanOrEqualTo(50)
+            make.top.equalTo(contentStack.snp.bottom).inset(-44)
         }
     }
 }
