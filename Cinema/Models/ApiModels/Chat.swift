@@ -8,4 +8,6 @@
 struct Chat: Decodable {
     let chatId: String
     let chatName: String
+    let lastMessage: MessageServer
 }
+
