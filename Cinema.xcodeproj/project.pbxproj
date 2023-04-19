@@ -534,12 +534,12 @@
 			isa = PBXGroup;
 			children = (
 				22F6CA83E2A264C3FFC152FC /* AuthScreens */,
+				9BFE5C7EAD88FDF04448ADCF /* MainScreens */,
 				B394F9127BF3D6862873270E /* Chat */,
 				6CB4A7F4FA7F4EDA0DE527A8 /* CollectionScreens */,
 				FCDA722022A1F87720FB13A3 /* CompilationScreen */,
 				3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */,
 				D7FE06B645EFFAB1751C3DFE /* Extension */,
-				9BFE5C7EAD88FDF04448ADCF /* MainScreens */,
 				124E602B31159B6DE8E114DF /* ProfileScreen */,
 				790574AA7A53CE473BECD376 /* Storyboards */,
 				6445C63166E6023C80D2C96D /* TabBar */,
@@ -607,8 +607,8 @@
 		9BFE5C7EAD88FDF04448ADCF /* MainScreens */ = {
 			isa = PBXGroup;
 			children = (
-				E5C301A379BC22632AA43FA2 /* EpisodeScreen */,
 				C992D486B503F7DA331DDE97 /* MainScreen */,
+				E5C301A379BC22632AA43FA2 /* EpisodeScreen */,
 				91492C6ED3895F800EEF2D04 /* MovieScreen */,
 			);
 			path = MainScreens;
@@ -617,8 +617,8 @@
 		A4E11CA5C08F08E1A4A638D6 /* TrendMoviesBlock */ = {
 			isa = PBXGroup;
 			children = (
-				2469887AA7C6B6D6A3E20DA5 /* TrendMovieCollectionViewCell.swift */,
 				145C1FE1EFDE3778328D7DD0 /* TrendMoviesBlockView.swift */,
+				2469887AA7C6B6D6A3E20DA5 /* TrendMovieCollectionViewCell.swift */,
 			);
 			path = TrendMoviesBlock;
 			sourceTree = "<group>";
@@ -670,9 +670,9 @@
 		C992D486B503F7DA331DDE97 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				C9DB2051EBB4EC0BDFB4733C /* ContentMainScreenView.swift */,
-				E1A3B17A2FA7A7AF0DF0E7B3 /* MainScreenView.swift */,
 				A3EBA159FD8DDA96C752ED49 /* MainScreenViewController.swift */,
+				E1A3B17A2FA7A7AF0DF0E7B3 /* MainScreenView.swift */,
+				C9DB2051EBB4EC0BDFB4733C /* ContentMainScreenView.swift */,
 				2A3281619ED9083D4E54D9C2 /* LastWatchMovieBlock */,
 				4594EB71D58DE099C0B11BD3 /* NewMoviesBlock */,
 				802342DD34CB5372D69F70DB /* RecomendationMoviesBlock */,

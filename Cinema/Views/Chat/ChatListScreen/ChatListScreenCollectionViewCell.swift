@@ -99,7 +99,7 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
     
     func configureCell(modelChat: Chat) {
         titleChat.text = modelChat.chatName
-        let authorName = modelChat.lastMessage?.authorName ?? "" + ":"
+        let authorName = (modelChat.lastMessage?.authorName ?? "") + ":"
         let message = modelChat.lastMessage?.text
         let authorAndMessage = authorName + " " + (message ?? "")
 

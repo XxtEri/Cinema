@@ -79,8 +79,8 @@ private extension ContentMainScreenView {
         }
         
         specifyInterests.snp.makeConstraints { make in
-            make.height.lessThanOrEqualTo(44)
             make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.lessThanOrEqualTo(50)
         }
     }
 }
