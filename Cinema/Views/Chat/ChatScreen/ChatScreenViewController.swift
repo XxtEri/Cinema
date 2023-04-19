@@ -48,6 +48,7 @@ class ChatScreenViewController: UIViewController {
         
         setupToHideKeyboardOnTapOnView()
         
+        bindListener()
         handler()
     }
 
@@ -117,6 +118,27 @@ class ChatScreenViewController: UIViewController {
 }
 
 private extension ChatScreenViewController {
+    func bindListener() {
+        self.viewModel?.newMessages.subscribe(with: { [ weak self ] message in
+            guard let self = self else { return }
+            
+            self.messagesFromServer.append(message)
+            self.reloadDataChat()
+        })
+        
+        self.viewModel?.userId.subscribe(with: { [ weak self ] userId in
+            guard let self = self else { return }
+            
+            self.currentUserId = userId
+        })
+        
+        self.viewModel?.isNotValidData = { [ weak self] error in
+            guard let self = self else { return }
+            
+            self.showError(error)
+        }
+    }
+    
     func handler() {
         self.ui.goBackButtonPressed = { [ weak self ] in
             guard let self = self else { return }
@@ -131,20 +153,19 @@ private extension ChatScreenViewController {
             self.viewModel?.sendMessage(chatId: self.chatModel.chatId, message: message)
             self.reloadDataChat()
         }
-        
-        self.viewModel?.newMessages.subscribe(with: { [ weak self ] message in
-            guard let self = self else { return }
-            
-            self.messagesFromServer.append(message)
-            self.reloadDataChat()
-        })
-        
-        self.viewModel?.userId.subscribe(with: { [ weak self ] userId in
-            guard let self = self else { return }
-            
-            self.currentUserId = userId
-        })
     }
+    
+    private func showError(_ error: String) {
+        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
+        
+        alertController.addAction(action)
+        
+        alertController.view.tintColor = .accentColorApplication
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+
 }
 
 extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {

@@ -7,6 +7,7 @@
 
 class ChatViewModel {
     private let api: IApiRepositoryChatScreen
+    private let validation: ValidationChatScreen
     weak var navigation: ChatNavigation?
     
     var userId = Observable<String>()
@@ -14,9 +15,12 @@ class ChatViewModel {
     var newMessages = Observable<MessageServer>()
     var errorOnLoading = Observable<Error>()
     
+    var isNotValidData: ((String) -> Void)?
+    
     init(navigation: ChatNavigation) {
         self.navigation = navigation
         self.api = ApiRepository()
+        self.validation = ValidationChatScreen()
     }
     
     func goToChatListScreen() {
@@ -74,6 +78,14 @@ extension ChatViewModel: IChatViewModel {
     }
     
     func sendMessage(chatId: String, message: String) {
+        validation.message = message
+        let result = validation.isValidateDataCollection()
+        
+        if result == .fieldsEmpty {
+            isNotValidData?(result.rawValue)
+            return
+        }
+        
         self.api.sendMessage(chatId: chatId, message: message) { result in
             switch result {
             case .success(_):
