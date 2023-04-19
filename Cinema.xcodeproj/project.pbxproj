@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00F47B140C943177915B9898 /* DisscusionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B33C9317024691102F9962 /* DisscusionScreenViewController.swift */; };
 		0134212A59C6A13E08C9073A /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EEBB2C0E996E598B82D5A5 /* Collection.swift */; };
 		02800FF704184F2DF7238E25 /* RecomendationMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B996E63D434352A842749402 /* RecomendationMovieCollectionViewCell.swift */; };
 		046F90D8CA32E92F62739B13 /* ISignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183517C3ED716C2669FF5AF /* ISignInViewModel.swift */; };
@@ -35,7 +34,6 @@
 		2B5CA7120E2C9120F5BDB523 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147C8E236F04FFE39F1915EA /* MainViewModel.swift */; };
 		2B8E773D57B8E50BFC15DE28 /* FootageMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B76B146C7D66003F275185 /* FootageMovieCollectionViewCell.swift */; };
 		2E10A688E68FCAF78195B3D2 /* TrendMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2469887AA7C6B6D6A3E20DA5 /* TrendMovieCollectionViewCell.swift */; };
-		338C7484430E24AAA21BD4AC /* DisscusionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFAFA25BBB11E9C0599B6D7 /* DisscusionScreenView.swift */; };
 		339D569084AEF44A6F172556 /* CollectionsScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8653F06CF5369DD9C9E92B66 /* CollectionsScreenCollectionViewCell.swift */; };
 		3AE6E398BD1A8122636D7EE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 767C5B897A8A2A6C41AF7B59 /* LaunchScreen.storyboard */; };
 		3B515F4B537ED891DFCB62F1 /* ApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F467DAABBD78703C4D40B1 /* ApiRepository.swift */; };
@@ -47,7 +45,6 @@
 		43E46CDA76243BA5337FA4F6 /* ISignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB5F23EE5A827D91FADFBA5 /* ISignUpViewModel.swift */; };
 		45B1F9F4044300F6E00D44AC /* CardCompilationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C770CB3979B11417F96AD4A /* CardCompilationView.swift */; };
 		4759D8DE91B5A7BFBC894C5E /* InformationMovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51D143BA310BFD6F24A7CB /* InformationMovieView.swift */; };
-		49695B54636BEA8CDBD6EB94 /* DisscusionScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50D9CBA03C3D98433CC7E7E /* DisscusionScreenCollectionViewCell.swift */; };
 		4A7D654244EFC3C27A0511B8 /* SFProText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 222A386987159657E348E8FF /* SFProText-Medium.ttf */; };
 		53EC33C1958C1C22C9E5D05D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FAFC509C755970DF63F90B /* Coordinator.swift */; };
 		582C26731ADE6522BF47E68B /* SingInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72DF3D36EB2CF3FEF4BFF9 /* SingInScreenView.swift */; };
@@ -156,7 +153,6 @@
 		48EAA45B52931A40E9BBEE7F /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		4BBF9D3D4D441A638ABBA526 /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
 		4CEB346FAFB6D69A25D288A4 /* CollectionsCoorditanor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCoorditanor.swift; sourceTree = "<group>"; };
-		4EFAFA25BBB11E9C0599B6D7 /* DisscusionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisscusionScreenView.swift; sourceTree = "<group>"; };
 		50A2ED50974834761F3F693F /* CollectionScreenDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionScreenDetailView.swift; sourceTree = "<group>"; };
 		5205325C13A157C1B4693CB7 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		55A6F12164CF674CBDD5515C /* CollectionScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionScreenViewModel.swift; sourceTree = "<group>"; };
@@ -171,7 +167,6 @@
 		6B5371F453E3EDEE5506C0DD /* CollectionsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsScreenViewController.swift; sourceTree = "<group>"; };
 		6B84C8B6EB4AEECEE9221D01 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		74E7548084743BA296603660 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
-		76B33C9317024691102F9962 /* DisscusionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisscusionScreenViewController.swift; sourceTree = "<group>"; };
 		7AAA748F8933F2383CE64FE8 /* EpisodeScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeScreenTableViewCell.swift; sourceTree = "<group>"; };
 		7C3706049E01CFF26C8F2244 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		805819B69FD1AE2C330DF443 /* NewMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMovieCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -208,7 +203,6 @@
 		C9DB2051EBB4EC0BDFB4733C /* ContentMainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMainScreenView.swift; sourceTree = "<group>"; };
 		CE058C815246EE017BE95F2D /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		D126F9D5B30261E579CD6259 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		D50D9CBA03C3D98433CC7E7E /* DisscusionScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisscusionScreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC3209AFFE7FD2529727FFE6 /* InformationMovieBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationMovieBlockView.swift; sourceTree = "<group>"; };
 		DF69DD97570782056EDE81B3 /* CoverMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverMovie.swift; sourceTree = "<group>"; };
 		E01EE642409AEB2A66A2DFBA /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -501,7 +495,6 @@
 				9BFE5C7EAD88FDF04448ADCF /* MainScreens */,
 				FCDA722022A1F87720FB13A3 /* CompilationScreen */,
 				6CB4A7F4FA7F4EDA0DE527A8 /* CollectionScreens */,
-				A55A395F9BC2FACDF317143C /* DisscusionScreen */,
 				124E602B31159B6DE8E114DF /* ProfileScreen */,
 				3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */,
 				D7FE06B645EFFAB1751C3DFE /* Extension */,
@@ -582,16 +575,6 @@
 				145C1FE1EFDE3778328D7DD0 /* TrendMoviesBlockView.swift */,
 			);
 			path = TrendMoviesBlock;
-			sourceTree = "<group>";
-		};
-		A55A395F9BC2FACDF317143C /* DisscusionScreen */ = {
-			isa = PBXGroup;
-			children = (
-				D50D9CBA03C3D98433CC7E7E /* DisscusionScreenCollectionViewCell.swift */,
-				4EFAFA25BBB11E9C0599B6D7 /* DisscusionScreenView.swift */,
-				76B33C9317024691102F9962 /* DisscusionScreenViewController.swift */,
-			);
-			path = DisscusionScreen;
 			sourceTree = "<group>";
 		};
 		AEAD7DD1A292176C2DE6C8ED /* EpisodesMovieBlock */ = {
@@ -825,9 +808,6 @@
 				78C67BE244B4EC89D95B0DA2 /* CreateEditingCollectionsScreenView.swift in Sources */,
 				E016D4E76B4A0494446588E8 /* CreateEditingCollectionsScreenViewController.swift in Sources */,
 				24EFA8CD3680A32FBD40B32D /* CustomButton.swift in Sources */,
-				49695B54636BEA8CDBD6EB94 /* DisscusionScreenCollectionViewCell.swift in Sources */,
-				338C7484430E24AAA21BD4AC /* DisscusionScreenView.swift in Sources */,
-				00F47B140C943177915B9898 /* DisscusionScreenViewController.swift in Sources */,
 				90787FDC303658D748BB02F5 /* Episode.swift in Sources */,
 				3CF3883D449412514E445D19 /* EpisodeScreenTableViewCell.swift in Sources */,
 				58F8F89C7FFB4E52E2F08495 /* EpisodeScreenView.swift in Sources */,
