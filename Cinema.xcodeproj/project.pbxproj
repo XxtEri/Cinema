@@ -202,9 +202,9 @@
 		F36EC54029CAACF5000523D3 /* Cinema */ = {
 			isa = PBXGroup;
 			children = (
-				F3E8AA9E29EA68130076B905 /* Managers */,
 				F36EC54129CAACF5000523D3 /* AppDelegate.swift */,
 				F3F3C3D729D31DF3002C9E45 /* Coordinators */,
+				F3C3A7E629EFA2D800D97554 /* Managers */,
 				F3F3C3FA29D3E4A5002C9E45 /* Services */,
 				F3F3C3D629D31DE8002C9E45 /* ViewModels */,
 				F3F3C3D529D31DE3002C9E45 /* Views */,
@@ -292,19 +292,12 @@
 			path = ChatListScreen;
 			sourceTree = "<group>";
 		};
-		F3E8AA9E29EA68130076B905 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		F3E8AAA229EABE780076B905 /* WebSocket */ = {
+		F3C3A7E629EFA2D800D97554 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				F3E8AAA329EABE870076B905 /* WebSocketManager.swift */,
 			);
-			path = WebSocket;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		F3E8AAAF29EAC57F0076B905 /* Cells */ = {
@@ -412,7 +405,6 @@
 		F3F3C3FA29D3E4A5002C9E45 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				F3E8AAA229EABE780076B905 /* WebSocket */,
 				F3F3C3FB29D3E4AE002C9E45 /* Api */,
 			);
 			path = Services;

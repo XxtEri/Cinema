@@ -78,6 +78,7 @@ class MyMessageTableViewCell: UITableViewCell {
         messageView.addSubview(avatar)
         messageView.addSubview(messageBackgroundView)
         
+        messageView.addSubview(emptyViewForIndent)
         messageBackgroundView.addSubview(textMessage)
         messageBackgroundView.addSubview(infoMessage)
         
@@ -104,25 +105,8 @@ class MyMessageTableViewCell: UITableViewCell {
     }
     
     func addEmptyViewForIndent(indent: CGFloat) {
-        messageView.addSubview(emptyViewForIndent)
-        
-        emptyViewForIndent.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+        emptyViewForIndent.snp.updateConstraints { make in
             make.height.equalTo(indent)
-        }
-        
-        avatar.snp.remakeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.height.width.equalTo(32)
-            make.bottom.equalTo(emptyViewForIndent.snp.top)
-        }
-
-        messageBackgroundView.snp.remakeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalTo(avatar.snp.leading).inset(-8)
-            make.bottom.equalTo(emptyViewForIndent.snp.top)
         }
     }
 }
@@ -144,16 +128,23 @@ private extension MyMessageTableViewCell {
             make.trailing.equalToSuperview().inset(16)
         }
         
+        emptyViewForIndent.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(0)
+        }
+        
         avatar.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.height.width.equalTo(32)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(emptyViewForIndent.snp.top)
         }
 
         messageBackgroundView.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
+            make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalTo(avatar.snp.leading).inset(-8)
+            make.bottom.equalTo(emptyViewForIndent.snp.top)
         }
 
         textMessage.snp.makeConstraints { make in

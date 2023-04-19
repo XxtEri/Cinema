@@ -50,7 +50,7 @@ class ChatScreenViewController: UIViewController {
         
         handler()
     }
-    
+
     private func initArrayMessage() {
         guard let newMessage = messagesFromServer.last else { return }
         
@@ -94,6 +94,8 @@ class ChatScreenViewController: UIViewController {
                 
             }
         }
+        
+        print(messagesTableView)
     }
     
     private func updateLayout() {
@@ -112,7 +114,7 @@ class ChatScreenViewController: UIViewController {
             self.ui.chat.reloadData()
         }
         
-        //updateLayout()
+//        updateLayout()
     }
 }
 
@@ -185,19 +187,19 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(message: message)
                 
                 if indexPath.row + 1 < messagesTableView.count {
-                    if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
+                    if messagesTableView[indexPath.row + 1] is String {
+                        print(messagesTableView[indexPath.row + 1])
+                        cell.avatar.isHidden = false
+                        cell.addEmptyViewForIndent(indent: 24)
+                        
+                    } else if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
                         if nextMessage.authorId == currentUserId {
                             cell.addEmptyViewForIndent(indent: 4)
-                            
                             cell.avatar.isHidden = true
                             
                         } else {
                             cell.addEmptyViewForIndent(indent: 16)
                         }
-                    }
-                    
-                    if let _ = messagesTableView[indexPath.row + 1] as? String {
-                        cell.addEmptyViewForIndent(indent: 24)
                     }
                 }
                 
@@ -210,7 +212,11 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
             cell.configureCell(message: message)
             
             if indexPath.row + 1 < messagesTableView.count {
-                if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
+                if let _ = messagesTableView[indexPath.row + 1] as? String {
+                    cell.avatar.isHidden = false
+                    cell.addEmptyViewForIndent(indent: 24)
+                    
+                } else if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
                     if nextMessage.authorId == message.authorId {
                         cell.addEmptyViewForIndent(indent: 4)
                         cell.avatar.isHidden = true
@@ -218,10 +224,6 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                     } else {
                         cell.addEmptyViewForIndent(indent: 16)
                     }
-                }
-                
-                if let _ = messagesTableView[indexPath.row + 1] as? String {
-                    cell.addEmptyViewForIndent(indent: 24)
                 }
             }
             
