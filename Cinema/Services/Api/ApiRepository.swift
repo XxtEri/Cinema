@@ -540,7 +540,7 @@ extension ApiRepository: IApiRepositoryCompilationScreen {
         
         self.session.request(
             "\(baseURL)/movies/\(movieId)/dislike",
-            method: .delete,
+            method: .post,
             headers: headers
         ).response { response in
                 

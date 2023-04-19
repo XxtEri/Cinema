@@ -101,6 +101,11 @@ class CompilationScreenView: UIView {
     func updateArrayCardsMovie(cards: [Movie]) {
         arrayCompilation = cards
         
+        if arrayCompilation.isEmpty {
+            showStub()
+            return
+        }
+        
         cardCompilation.setInfoCard(card: cards[cards.startIndex])
     }
     
@@ -113,7 +118,6 @@ class CompilationScreenView: UIView {
         }
         
         cardCompilation.setInfoCard(card: arrayCompilation[arrayCompilation.startIndex])
-//        cardCompilation.resetCard()
     }
 }
 

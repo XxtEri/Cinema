@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SheetViewControllerDelegate: class {
+protocol SheetViewControllerDelegate: AnyObject {
     func didDismissSheetViewController(withData data: String)
 }
 

@@ -22,7 +22,7 @@ struct Movie: Decodable {
         name = String()
         description = String()
         age = Age.zero
-        chatInfo = Chat(chatId: String(), chatName: String())
+        chatInfo = Chat(chatId: String(), chatName: String(), lastMessage: MessageServer(messageId: String(), creationDateTime: String(), authorId: nil, authorName: String(), authorAvatar: nil, text: String()))
         imageUrls = [String]()
         poster = String()
         tags = [Tag]()

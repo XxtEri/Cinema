@@ -38,10 +38,13 @@ extension ProfileCoordinator: ProfileNavigation {
         return vc
     }
     
-    func goToDisscusionScreen() {
-        let vc = DisscusionScreenViewController()
+    func goToChatListScreen() {
+        let chatCoordinator = ChatCoordinator(navigationController: navigationController)
         
-        navigationController.pushViewController(vc, animated: true)
+        chatCoordinator.parentCoordinator = self
+        children.append(chatCoordinator)
+        
+        chatCoordinator.start()
     }
     
     func goToHistoryScreen() {

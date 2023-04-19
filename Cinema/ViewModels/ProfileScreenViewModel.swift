@@ -23,7 +23,7 @@ class ProfileScreenViewModel {
     }
     
     func goToDisscusion() {
-        navigation?.goToDisscusionScreen()
+        navigation?.goToChatListScreen()
     }
     
     func goToHistory() {
