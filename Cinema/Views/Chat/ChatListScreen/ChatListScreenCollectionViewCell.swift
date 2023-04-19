@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class DisscusionScreenCollectionViewCell: UICollectionViewCell {
+class ChatListScreenCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "DisscusionScreenCollectionViewCell"
+    static let reuseIdentifier = "ChatListCollectionViewCell"
     
     private lazy var avatarChat: CircleImageView = {
         let view = CircleImageView()
@@ -33,7 +33,7 @@ class DisscusionScreenCollectionViewCell: UICollectionViewCell {
     
     private lazy var lastMessage: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
         view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
         view.textColor = .white
         view.numberOfLines = 2
@@ -57,17 +57,50 @@ class DisscusionScreenCollectionViewCell: UICollectionViewCell {
         self.addSubview(lastMessage)
         self.addSubview(line)
         
-        configureConstraints()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(modelChat: Chat, modelLastMessage: Message) {
+    private func getLabelTitleChatInList() -> UILabel {
+        let label = UILabel()
+        
+        label.text = getAbbrevationChat()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont(name: "SFProText-Bold", size: 24)
+        
+        return label
+    }
+    
+    private func getAbbrevationChat() -> String {
+        var abbrevationChat = String()
+        
+        guard let words = titleChat.text?.split(separator: " ") else { return "" }
+        
+        if words.count > 1 {
+            if let firstLetter = words[0].first {
+                if let secondLetter = words[1].first {
+                    abbrevationChat = "\(firstLetter)\(secondLetter)"
+                }
+            }
+        }
+        
+        if words.count == 1 {
+            if let letters = words.first?.prefix(2) {
+                abbrevationChat = "\(letters)"
+            }
+        }
+       
+        return abbrevationChat.uppercased()
+    }
+    
+    func configureCell(modelChat: Chat) {
         titleChat.text = modelChat.chatName
-        let authorName = modelLastMessage.authorName + ":"
-        let message = modelLastMessage.text
+        let authorName = modelChat.lastMessage.authorName + ":"
+        let message = modelChat.lastMessage.text
         let authorAndMessage = authorName + " " + message
 
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: authorAndMessage)
@@ -78,20 +111,21 @@ class DisscusionScreenCollectionViewCell: UICollectionViewCell {
         
         avatarChat.backgroundColor = .accentColorApplication
         
-        let label = UILabel()
-        label.text = "ИП"
-        label.textAlignment = .center
-        label.textColor = .white
-        label.font = UIFont(name: "SFProText-Bold", size: 24)
-        
+        let label = getLabelTitleChatInList()
         avatarChat.addSubview(label)
         
         label.snp.makeConstraints { make in
             make.centerY.centerX.equalToSuperview()
         }
     }
+}
+
+private extension ChatListScreenCollectionViewCell {
+    func setup() {
+        configureConstraints()
+    }
     
-    private func configureConstraints() {
+    func configureConstraints() {
         avatarChat.snp.makeConstraints { make in
             make.top.leading.equalToSuperview()
             make.height.width.equalTo(64)
@@ -100,6 +134,7 @@ class DisscusionScreenCollectionViewCell: UICollectionViewCell {
         titleChat.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview()
             make.leading.equalTo(avatarChat.snp.trailing).inset(-16)
+            make.trailing.equalToSuperview().inset(16)
         }
         
         lastMessage.snp.makeConstraints { make in
@@ -116,14 +151,4 @@ class DisscusionScreenCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(1)
         }
     }
-}
-
-extension NSMutableAttributedString {
-
-    func setColorForText(textForAttribute: String, withColor color: UIColor) {
-        let range: NSRange = self.mutableString.range(of: textForAttribute, options: .caseInsensitive)
-
-        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
-    }
-
 }

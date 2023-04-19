@@ -16,6 +16,30 @@ extension UIColor {
         #colorLiteral(red: 0.937254902, green: 0.2274509804, blue: 0.003921568627, alpha: 1)
     }
     
+    static var placeholderChatInputMessage: UIColor {
+        #colorLiteral(red: 0.7164882421, green: 0.7164882421, blue: 0.7164881825, alpha: 1)
+    }
+    
+    static var borderColorInputMessage: UIColor {
+        #colorLiteral(red: 0.3536455631, green: 0.3536455333, blue: 0.3536455333, alpha: 1)
+    }
+    
+    static var otherMessageInChat: UIColor {
+        #colorLiteral(red: 0.2373671234, green: 0.2227519751, blue: 0.2177195847, alpha: 1)
+    }
+    
+    static var dateInChat: UIColor {
+        #colorLiteral(red: 0.2373671234, green: 0.2227519751, blue: 0.2177195847, alpha: 1)
+    }
+    
+    static var informationAboutOtherMessage: UIColor {
+        #colorLiteral(red: 0.6537085176, green: 0.650031507, blue: 0.646508038, alpha: 1)
+    }
+    
+    static var informationAboutMyMessage: UIColor {
+        #colorLiteral(red: 1, green: 0.7490196078, blue: 0.6705882353, alpha: 1)
+	}
+
     static var iconSelectionScreenHeadBackground: UIColor {
         #colorLiteral(red: 0.2081992924, green: 0.1980744004, blue: 0.1929920912, alpha: 1)
     }

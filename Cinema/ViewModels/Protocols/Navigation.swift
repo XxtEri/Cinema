@@ -37,8 +37,14 @@ protocol CompilationNavigation: AnyObject {
 }
 
 protocol ProfileNavigation: AnyObject {
-    func goToDisscusionScreen()
+    func goToChatListScreen()
     func goToHistoryScreen()
     func goToSettingsScreen()
     func goToAuthorizationScreen()
+}
+
+protocol ChatNavigation: AnyObject {
+    func goToChat(chatModel: Chat)
+    func backGoToChatList()
+    func goToChatList()
 }
