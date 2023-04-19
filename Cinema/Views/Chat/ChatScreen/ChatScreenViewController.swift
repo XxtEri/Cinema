@@ -94,8 +94,6 @@ class ChatScreenViewController: UIViewController {
                 
             }
         }
-        
-        print(messagesTableView)
     }
     
     private func updateLayout() {
@@ -188,7 +186,6 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if indexPath.row + 1 < messagesTableView.count {
                     if messagesTableView[indexPath.row + 1] is String {
-                        print(messagesTableView[indexPath.row + 1])
                         cell.avatar.isHidden = false
                         cell.addEmptyViewForIndent(indent: 24)
                         

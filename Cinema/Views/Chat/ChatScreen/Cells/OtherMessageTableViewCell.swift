@@ -49,14 +49,34 @@ class OtherMessageTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var infoMessage: UILabel = {
+    private lazy var infoMessageStack: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 0
+        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        view.alignment = .leading
+        
+        return view
+    }()
+    
+    private lazy var nameAuthor: UILabel = {
         let view = UILabel()
         view.font = UIFont(name: "SFProText-Regular", size: 12)
         view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
         view.textColor = .informationAboutOtherMessage
-        view.numberOfLines = .max
+        view.numberOfLines = 1
         view.textAlignment = .left
-        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        return view
+    }()
+    
+    private lazy var timePublish: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Regular", size: 12)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.textColor = .informationAboutOtherMessage
+        view.numberOfLines = 0
+        view.textAlignment = .left
         
         return view
     }()
@@ -76,10 +96,13 @@ class OtherMessageTableViewCell: UITableViewCell {
         
         messageView.addSubview(avatar)
         messageView.addSubview(messageBackgroundView)
-        
         messageView.addSubview(emptyViewForIndent)
+        
         messageBackgroundView.addSubview(textMessage)
-        messageBackgroundView.addSubview(infoMessage)
+        messageBackgroundView.addSubview(infoMessageStack)
+        
+        infoMessageStack.addArrangedSubview(nameAuthor)
+        infoMessageStack.addArrangedSubview(timePublish)
         
         setup()
     }
@@ -95,12 +118,10 @@ class OtherMessageTableViewCell: UITableViewCell {
         
         textMessage.text = message.text
         if let date = getDateMessage(date: message.creationDateTime){
-            infoMessage.text = message.authorName + " • \(date.hour):\(date.minute)"
-            
-            return
+            timePublish.text = " • \(date.hour):\(date.minute)"
         }
         
-        infoMessage.text = message.authorName
+        nameAuthor.text = message.authorName
     }
     
     func addEmptyViewForIndent(indent: CGFloat) {
@@ -151,7 +172,7 @@ private extension OtherMessageTableViewCell {
             make.top.equalToSuperview().inset(12)
         }
         
-        infoMessage.snp.makeConstraints { make in
+        infoMessageStack.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(textMessage.snp.horizontalEdges)
             make.top.equalTo(textMessage.snp.bottom).inset(-4)
             make.bottom.equalToSuperview().inset(4)
