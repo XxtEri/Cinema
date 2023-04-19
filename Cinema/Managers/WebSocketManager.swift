@@ -17,7 +17,6 @@ class WebSocketManager {
     }
     
     func connect(chatId: String, completion: @escaping (Result<MessageServer, Error>) -> Void) {
-        print(chatId)
         let urlSession = URLSession(configuration: .default)
         var request = URLRequest(url: URL(string: "ws://107684.web.hosting-russia.ru:8000/api/chats/\(chatId)/messages")!)
         
@@ -50,7 +49,7 @@ class WebSocketManager {
                         do {
                             let decoder = JSONDecoder()
                             let message = try decoder.decode(MessageServer.self, from: data)
-                            print("Декодированный объект: \(message)")
+                            //print("Декодированный объект: \(message)")
                             completion(.success(message))
                             
                         } catch {
@@ -74,10 +73,6 @@ class WebSocketManager {
     
     func sendMessage(text: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let message = URLSessionWebSocketTask.Message.string(text)
-        
-//        webSocket?.send(message, completionHandler: { error in
-//            print("WebSocket send failed: \(String(describing: error?.localizedDescription))")
-//        })
         
         webSocket?.send(message) { error in
             if let error = error {

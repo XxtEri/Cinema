@@ -132,7 +132,7 @@ private extension ChatListScreenCollectionViewCell {
         }
         
         titleChat.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview()
+            make.top.equalToSuperview()
             make.leading.equalTo(avatarChat.snp.trailing).inset(-16)
             make.trailing.equalToSuperview().inset(16)
         }
