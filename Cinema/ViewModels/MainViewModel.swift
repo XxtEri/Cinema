@@ -76,6 +76,10 @@ class MainViewModel {
         }
     }
     
+    func goToChatMovie(chatModel: Chat) {
+        navigation?.goToChatMovie(chatModel: chatModel)
+    }
+    
     func backToGoLastScreen() {
         navigation?.backToGoLastScreen()
     }

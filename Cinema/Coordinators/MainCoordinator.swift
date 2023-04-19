@@ -56,14 +56,26 @@ extension MainCoordinator: MainScreenNavigation {
         navigationController.popViewController(animated: true)
     }
     
+    func goToChatMovie(chatModel: Chat) {
+        let homeCoordinator = parentCoordinator as? HomeCoordinator
+        
+        homeCoordinator?.children.forEach { coordinator in
+            if let profileCoordinator = coordinator as? ProfileCoordinator {
+                profileCoordinator.goToChatScreen(chatModel: chatModel)
+                
+                homeCoordinator?.childDidFinish(self)
+            }
+        }
+    }
+    
     func goToAuthorizationScreen() {
-        let appc = parentCoordinator as? HomeCoordinator
+        let homeCoordinator = parentCoordinator as? HomeCoordinator
         
         keychain.synchronizable = true
         keychain.clear()
         
-        appc?.goToAuthScreen()
-        appc?.childDidFinish(self)
+        homeCoordinator?.goToAuthScreen()
+        homeCoordinator?.childDidFinish(self)
     }
     
 }

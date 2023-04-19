@@ -153,9 +153,9 @@ private extension ChatScreenView {
     
     func configureConstraints() {
         titleScreen.snp.makeConstraints { make in
-            make.trailing.greaterThanOrEqualToSuperview().inset(35)
+            make.trailing.equalToSuperview().inset(25)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(23)
-            make.leading.greaterThanOrEqualTo(imageGoBackScreen.snp.trailing).inset(-35)
+            make.leading.equalTo(imageGoBackScreen.snp.trailing).inset(-25 + imageGoBackScreen.frame.size.width)
         }
         
         imageGoBackScreen.snp.makeConstraints { make in

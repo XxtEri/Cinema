@@ -32,7 +32,7 @@ class ChatViewModel {
     }
     
     func backGoToChatList() {
-        navigation?.backGoToChatList()
+        navigation?.backGoToLastScreen()
     }
 }
 

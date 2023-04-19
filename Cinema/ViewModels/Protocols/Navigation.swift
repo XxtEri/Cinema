@@ -17,6 +17,7 @@ protocol MainScreenNavigation: AnyObject {
     func goToMovieScreen(movie: Movie)
     func goToEpisodeScreen(movie: Movie, currentEpisode: Episode, episodes: [Episode])
     func backToGoLastScreen()
+    func goToChatMovie(chatModel: Chat)
     func goToAuthorizationScreen()
 }
 
@@ -38,13 +39,14 @@ protocol CompilationNavigation: AnyObject {
 
 protocol ProfileNavigation: AnyObject {
     func goToChatListScreen()
+    func goToChatScreen(chatModel: Chat)
     func goToHistoryScreen()
     func goToSettingsScreen()
     func goToAuthorizationScreen()
 }
 
 protocol ChatNavigation: AnyObject {
-    func goToChat(chatModel: Chat)
-    func backGoToChatList()
     func goToChatList()
+    func goToChat(chatModel: Chat)
+    func backGoToLastScreen()
 }

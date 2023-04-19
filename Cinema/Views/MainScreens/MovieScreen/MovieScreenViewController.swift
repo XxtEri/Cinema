@@ -58,10 +58,16 @@ extension MovieScreenViewController {
             self.viewModel?.goToEpisodeScreen(movie: self.movie, episode: currentEpisode, episodes: episodes)
         }
         
-        self.ui.backToGoMainScreen = { [ weak self ] in
+        self.ui.barBackButtonPressed = { [ weak self ] in
             guard let self = self else { return }
             
             self.viewModel?.backToGoLastScreen()
+        }
+        
+        self.ui.discussionsImagePressed = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.viewModel?.goToChatMovie(chatModel: self.movie.chatInfo)
         }
     }
 }

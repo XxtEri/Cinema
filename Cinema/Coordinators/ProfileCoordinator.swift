@@ -47,6 +47,15 @@ extension ProfileCoordinator: ProfileNavigation {
         chatCoordinator.start()
     }
     
+    func goToChatScreen(chatModel: Chat) {
+        let chatCoordinator = ChatCoordinator(navigationController: navigationController)
+        
+        chatCoordinator.parentCoordinator = self
+        children.append(chatCoordinator)
+        
+        chatCoordinator.goToChat(chatModel: chatModel)
+    }
+    
     func goToHistoryScreen() {
         
     }

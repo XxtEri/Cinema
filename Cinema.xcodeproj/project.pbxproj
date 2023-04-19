@@ -519,13 +519,13 @@
 		87207E40FA4AC9413D62DEFB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				69F0860B23CACC74441A1C13 /* Protocols */,
 				E01EE642409AEB2A66A2DFBA /* AuthViewModel.swift */,
 				67D12A46743BB3F4D3B0DD3B /* ChatViewModel.swift */,
 				55A6F12164CF674CBDD5515C /* CollectionScreenViewModel.swift */,
 				BA86E4EEFD7A4FE63F2A2310 /* CompilationScreenViewModel.swift */,
 				147C8E236F04FFE39F1915EA /* MainViewModel.swift */,
 				AC43617BDD1868171CEB4681 /* ProfileScreenViewModel.swift */,
-				69F0860B23CACC74441A1C13 /* Protocols */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -533,16 +533,16 @@
 		8B47CF54B9F43D961B073846 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				790574AA7A53CE473BECD376 /* Storyboards */,
 				22F6CA83E2A264C3FFC152FC /* AuthScreens */,
-				B394F9127BF3D6862873270E /* Chat */,
+				6445C63166E6023C80D2C96D /* TabBar */,
+				9BFE5C7EAD88FDF04448ADCF /* MainScreens */,
 				6CB4A7F4FA7F4EDA0DE527A8 /* CollectionScreens */,
 				FCDA722022A1F87720FB13A3 /* CompilationScreen */,
+				124E602B31159B6DE8E114DF /* ProfileScreen */,
+				B394F9127BF3D6862873270E /* Chat */,
 				3AD6FDCDBEE3D62CEB3D81D7 /* CustomViews */,
 				D7FE06B645EFFAB1751C3DFE /* Extension */,
-				9BFE5C7EAD88FDF04448ADCF /* MainScreens */,
-				124E602B31159B6DE8E114DF /* ProfileScreen */,
-				790574AA7A53CE473BECD376 /* Storyboards */,
-				6445C63166E6023C80D2C96D /* TabBar */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -569,9 +569,9 @@
 		91492C6ED3895F800EEF2D04 /* MovieScreen */ = {
 			isa = PBXGroup;
 			children = (
-				FA24ED78D3289A21538C4444 /* ContentMovieScreenView.swift */,
-				89A642B2913BCA80BBC47A2B /* MovieScreenView.swift */,
 				C415C8183F27329C76AB2972 /* MovieScreenViewController.swift */,
+				89A642B2913BCA80BBC47A2B /* MovieScreenView.swift */,
+				FA24ED78D3289A21538C4444 /* ContentMovieScreenView.swift */,
 				AEAD7DD1A292176C2DE6C8ED /* EpisodesMovieBlock */,
 				8D8D95B697FAA3E3373A6795 /* FootageMovieBlock */,
 				5DDAB5F79AA03E16BC7C8222 /* InformationMovieBlock */,
@@ -607,9 +607,9 @@
 		9BFE5C7EAD88FDF04448ADCF /* MainScreens */ = {
 			isa = PBXGroup;
 			children = (
-				E5C301A379BC22632AA43FA2 /* EpisodeScreen */,
 				C992D486B503F7DA331DDE97 /* MainScreen */,
 				91492C6ED3895F800EEF2D04 /* MovieScreen */,
+				E5C301A379BC22632AA43FA2 /* EpisodeScreen */,
 			);
 			path = MainScreens;
 			sourceTree = "<group>";
@@ -692,8 +692,8 @@
 		D0FF547D0888266312751EEA /* ChatScreen */ = {
 			isa = PBXGroup;
 			children = (
-				32DCDC312E3457B1A975B64A /* ChatScreenView.swift */,
 				80BC3EB2D3C52CBCF61831CA /* ChatScreenViewController.swift */,
+				32DCDC312E3457B1A975B64A /* ChatScreenView.swift */,
 				FA12C3B01077E3EA61C8135C /* Cells */,
 			);
 			path = ChatScreen;

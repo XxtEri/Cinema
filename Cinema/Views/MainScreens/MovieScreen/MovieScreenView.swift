@@ -65,10 +65,11 @@ class MovieScreenView: UIView {
         return view
     }()
     
-    private lazy var discussions: UIImageView = {
+    private lazy var discussionsImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Discussions")
         view.contentMode = .scaleAspectFit
+        view.isUserInteractionEnabled = true
         
         return view
     }()
@@ -112,7 +113,8 @@ class MovieScreenView: UIView {
         return view
     }()
     
-    var backToGoMainScreen: (() -> Void)?
+    var barBackButtonPressed: (() -> Void)?
+    var discussionsImagePressed: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -125,7 +127,7 @@ class MovieScreenView: UIView {
         scrollView.addSubview(content)
         
         content.addSubview(ageRestriction)
-        content.addSubview(discussions)
+        content.addSubview(discussionsImage)
         content.addSubview(informationMovie)
         content.addSubview(descriptionTitle)
         content.addSubview(descriptionText)
@@ -193,11 +195,11 @@ private extension MovieScreenView {
         
         ageRestriction.snp.makeConstraints { make in
             make.top.equalTo(coverMovieImage.snp.bottom).inset(-20)
-            make.trailing.equalTo(discussions.snp.leading).inset(-17.99)
-            make.centerY.equalTo(discussions.snp.centerY)
+            make.trailing.equalTo(discussionsImage.snp.leading).inset(-17.99)
+            make.centerY.equalTo(discussionsImage.snp.centerY)
         }
         
-        discussions.snp.makeConstraints { make in
+        discussionsImage.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(19)
             make.top.equalTo(ageRestriction.snp.top)
         }
@@ -233,6 +235,7 @@ private extension MovieScreenView {
     
     func configureActions() {
         barBackButton.addTarget(self, action: #selector(backGoToMainScreen), for: .touchUpInside)
+        discussionsImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToChatCurrentMovie)))
     }
     
     func setLabelAgeMovie(age: Age) {
@@ -254,6 +257,11 @@ private extension MovieScreenView {
     
     @objc
     func backGoToMainScreen() {
-        backToGoMainScreen?()
+        barBackButtonPressed?()
+    }
+    
+    @objc
+    func goToChatCurrentMovie() {
+        discussionsImagePressed?()
     }
 }

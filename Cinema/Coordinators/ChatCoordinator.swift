@@ -28,6 +28,13 @@ final class ChatCoordinator: Coordinator {
 }
 
 extension ChatCoordinator: ChatNavigation {
+    func goToChatList() {
+        let vc = ChatListScreenViewController()
+        vc.viewModel = ChatViewModel(navigation: self)
+        
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
     func goToChat(chatModel: Chat) {
         let vc = ChatScreenViewController(chatModel: chatModel)
         vc.viewModel = ChatViewModel(navigation: self)
@@ -35,15 +42,8 @@ extension ChatCoordinator: ChatNavigation {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func backGoToChatList() {
+    func backGoToLastScreen() {
         self.navigationController.popViewController(animated: true)
-    }
-    
-    func goToChatList() {
-        let vc = ChatListScreenViewController()
-        vc.viewModel = ChatViewModel(navigation: self)
-        
-        navigationController.pushViewController(vc, animated: true)
     }
 }
 
