@@ -1,14 +1,14 @@
 //
-//  ContentMainScreenView.swift
+//  ContentMovieScreenView.swift
 //  Cinema
 //
-//  Created by Елена on 03.04.2023.
+//  Created by Елена on 18.04.2023.
 //
 
 import UIKit
 import SnapKit
 
-class ContentMainScreenView: UIView {
+class ContentMovieScreenView: UIView {
     private var contentStack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -42,7 +42,7 @@ class ContentMainScreenView: UIView {
         contentStack.addArrangedSubview(lastWatchBlock)
         contentStack.addArrangedSubview(newBlock)
         contentStack.addArrangedSubview(recomendationBlock)
-        self.addSubview(specifyInterests)
+        contentStack.addArrangedSubview(specifyInterests)
         
         setup()
     }
@@ -52,7 +52,7 @@ class ContentMainScreenView: UIView {
     }
 }
 
-private extension ContentMainScreenView {
+private extension ContentMovieScreenView {
     func setup() {
         configureConstraints()
     }
@@ -79,13 +79,13 @@ private extension ContentMainScreenView {
         }
         
         specifyInterests.snp.makeConstraints { make in
+            make.height.lessThanOrEqualTo(44)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(contentStack.snp.bottom).inset(-44)
         }
     }
 }
 
-extension ContentMainScreenView {
+extension ContentMovieScreenView {
     func setMovieImageInTrendBlock(with model: [Movie]) {
         if model.isEmpty {
             contentStack.removeArrangedSubview(trendBlock)

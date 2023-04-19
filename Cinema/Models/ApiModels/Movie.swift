@@ -30,6 +30,7 @@ enum TypeListMovieMainScreen: String, Decodable {
     case trend = "inTrend"
     case new = "new"
     case recomendation = "forMe"
+    case lastView = "lastView"
 }
 
 enum TypeListMovie: String, Decodable {

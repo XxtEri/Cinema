@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CreateEditingCollectionsScreenView: UIView {
     
@@ -143,7 +144,6 @@ extension CreateEditingCollectionsScreenView {
     
     func configureConstraints() {
         backArrow.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).inset(23.5)
             make.leading.equalToSuperview().inset(8.5)
             make.centerY.equalTo(titleScreen.snp.centerY)
             make.width.equalTo(12)

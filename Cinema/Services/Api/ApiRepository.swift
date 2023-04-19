@@ -345,6 +345,56 @@ extension ApiRepository: IApiRepositoryMain {
         }
     }
     
+    func getLastWatchMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
+        var headers: HTTPHeaders = [:]
+        let parameters: Parameters = [
+            "filter" : TypeListMovieMainScreen.lastView
+        ]
+        
+        keychain.synchronizable = true
+        if let token = self.keychain.get("accessToken") {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        self.session.request(
+            "\(baseURL)/movies",
+            method: .get,
+            parameters: parameters,
+            headers: headers
+        ).responseDecodable(of: [Movie].self) { response in
+            if let request = response.request {
+                print("Request: \(request)")
+            }
+            
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+                if statusCode == 401 {
+                    self.refreshToken { result in
+                        switch result {
+                        case .success(_):
+                            self.getLastWatchMovies(completion: completion)
+                        case .failure(_):
+                            self.requestStatus = .notAuthorized
+                            
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                        }
+                    }
+                    
+                    return
+                }
+                
+            }
+            
+            
+            guard let movies = response.value else {
+                completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                return
+            }
+            
+            completion(.success(movies))
+        }
+    }
+    
     func getCurrentEpisodeTime(episodeId: String, completion: @escaping (Result<EpisodeTime, Error>) -> Void) {
         var headers: HTTPHeaders = [:]
         

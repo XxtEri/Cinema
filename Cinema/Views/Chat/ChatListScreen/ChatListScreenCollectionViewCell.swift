@@ -99,13 +99,13 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
     
     func configureCell(modelChat: Chat) {
         titleChat.text = modelChat.chatName
-        let authorName = modelChat.lastMessage.authorName + ":"
-        let message = modelChat.lastMessage.text
-        let authorAndMessage = authorName + " " + message
+        let authorName = (modelChat.lastMessage?.authorName ?? "") + ":"
+        let message = modelChat.lastMessage?.text
+        let authorAndMessage = authorName + " " + (message ?? "")
 
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: authorAndMessage)
         attributedString.setColorForText(textForAttribute: authorName, withColor: UIColor.authorNameDisscusionScreen)
-        attributedString.setColorForText(textForAttribute: message, withColor: UIColor.white)
+        attributedString.setColorForText(textForAttribute: message ?? "", withColor: UIColor.white)
 
         lastMessage.attributedText = attributedString
         
@@ -132,7 +132,7 @@ private extension ChatListScreenCollectionViewCell {
         }
         
         titleChat.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview()
+            make.top.equalToSuperview()
             make.leading.equalTo(avatarChat.snp.trailing).inset(-16)
             make.trailing.equalToSuperview().inset(16)
         }
