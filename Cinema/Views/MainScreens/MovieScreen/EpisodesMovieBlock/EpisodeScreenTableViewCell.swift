@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class EpisodeScreenTableViewCell: UITableViewCell {
     
@@ -80,8 +81,9 @@ private extension EpisodeScreenTableViewCell {
     
     func configureConstraints() {
         posterEpisode.snp.makeConstraints { make in
-            make.leading.verticalEdges.equalToSuperview()
-            make.verticalEdges.equalToSuperview().inset(16)
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().inset(16)
             make.width.equalTo(128)
         }
         
