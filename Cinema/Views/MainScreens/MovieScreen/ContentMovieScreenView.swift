@@ -94,10 +94,6 @@ class ContentMovieScreenView: UIView {
     func setEpisodesMovie(episodes: [Episode]) {
         self.setEpisodeMovieBlock(with: episodes)
         
-        if episodes.count == 1 {
-            
-        }
-        
         episodesMovie.snp.updateConstraints { make in
             make.height.equalTo((episodes.count + 1) * 72 + episodes.count * 16)
         }
