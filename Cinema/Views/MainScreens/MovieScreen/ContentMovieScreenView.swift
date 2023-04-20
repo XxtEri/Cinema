@@ -97,7 +97,7 @@ class ContentMovieScreenView: UIView {
         self.setEpisodeMovieBlock(with: episodes)
         
         episodesMovie.snp.updateConstraints { make in
-            make.height.equalTo(episodes.count * 80 + episodes.count * 16 + 29 + 37)
+            make.height.equalTo(episodes.count * 80 + episodes.count * 16 + 29)
         }
     }
 }
@@ -138,7 +138,7 @@ private extension ContentMovieScreenView {
         
         contentStack.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(37)
         }
         
         footagesMovie.snp.makeConstraints { make in
@@ -179,12 +179,12 @@ private extension ContentMovieScreenView {
 
 extension ContentMovieScreenView {
     func setEpisodeMovieBlock(with model: [Episode]) {
-//        if model.isEmpty {
-//            contentStack.removeArrangedSubview(episodesMovie)
-//            episodesMovie.removeFromSuperview()
-//
-//            return
-//        }
+        if model.isEmpty {
+            contentStack.removeArrangedSubview(episodesMovie)
+            episodesMovie.removeFromSuperview()
+            
+            return
+        }
 
         episodesMovie.setArrayEpisodes(model)
     }

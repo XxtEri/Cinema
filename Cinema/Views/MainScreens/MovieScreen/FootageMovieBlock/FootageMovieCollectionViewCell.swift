@@ -13,7 +13,7 @@ class FootageMovieCollectionViewCell: UICollectionViewCell {
     
     private lazy var posterFootage: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleToFill
         
         return view
     }()
