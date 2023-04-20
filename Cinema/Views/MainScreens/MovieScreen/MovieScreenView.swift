@@ -119,7 +119,6 @@ class MovieScreenView: UIView {
 //    }()
     
     var barBackButtonPressed: (() -> Void)?
-//    var discussionsImagePressed: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -133,12 +132,6 @@ class MovieScreenView: UIView {
         contentView.addSubview(content)
         
         coverMovieImage.addSubview(watchButton)
-        
-//        contentView.addSubview(ageRestriction)
-//        contentView.addSubview(discussionsImage)
-//        contentView.addSubview(informationMovie)
-//        contentView.addSubview(descriptionTitle)
-//        contentView.addSubview(descriptionText)
         
         self.setup()
     }

@@ -26,11 +26,9 @@ class ContentMovieScreenView: UIView {
         return view
     }()
     
-    private lazy var discussionsImage: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "Discussions")
-        view.contentMode = .scaleAspectFit
-        view.isUserInteractionEnabled = true
+    private lazy var discussionsButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(named: "Discussions"), for: .normal)
         
         return view
     }()
@@ -71,7 +69,7 @@ class ContentMovieScreenView: UIView {
         super.init(frame: frame)
         
         self.addSubview(ageRestriction)
-        self.addSubview(discussionsImage)
+        self.addSubview(discussionsButton)
         self.addSubview(informationMovie)
         self.addSubview(descriptionTitle)
         self.addSubview(descriptionText)
@@ -111,11 +109,11 @@ private extension ContentMovieScreenView {
     func configureConstraints() {
         ageRestriction.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(-20)
-            make.trailing.equalTo(discussionsImage.snp.leading).inset(-17.99)
-            make.centerY.equalTo(discussionsImage.snp.centerY)
+            make.trailing.equalTo(discussionsButton.snp.leading).inset(-17.99)
+            make.centerY.equalTo(discussionsButton.snp.centerY)
         }
         
-        discussionsImage.snp.makeConstraints { make in
+        discussionsButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(19)
             make.top.equalTo(ageRestriction.snp.top)
         }
@@ -151,7 +149,7 @@ private extension ContentMovieScreenView {
     }
     
     func configureActions() {
-        discussionsImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToChatCurrentMovie)))
+        discussionsButton.addTarget(self, action: #selector(goToChatCurrentMovie), for: .touchUpInside)
     }
     
     @objc
