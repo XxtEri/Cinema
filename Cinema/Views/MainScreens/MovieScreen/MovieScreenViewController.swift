@@ -52,7 +52,7 @@ extension MovieScreenViewController {
     }
     
     func handler() {
-        self.ui.episodesMovie.episodePressed = { [ weak self ] (currentEpisode, episodes) in
+        self.ui.content.episodesMovie.episodePressed = { [ weak self ] (currentEpisode, episodes) in
             guard let self = self else { return }
             
             self.viewModel?.goToEpisodeScreen(movie: self.movie, episode: currentEpisode, episodes: episodes)
@@ -64,7 +64,7 @@ extension MovieScreenViewController {
             self.viewModel?.backToGoLastScreen()
         }
         
-        self.ui.discussionsImagePressed = { [ weak self ] in
+        self.ui.content.discussionsImagePressed = { [ weak self ] in
             guard let self = self else { return }
             
             self.viewModel?.goToChatMovie(chatModel: self.movie.chatInfo)

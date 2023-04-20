@@ -40,8 +40,6 @@ class EpisodeScreenView: UIView {
         return view
     }()
     
-    private lazy var informationMovie = InformationMovieView()
-    
     private lazy var descriptionTitle: UILabel = {
         let view = UILabel()
         view.font = UIFont(name: "SFProText-Bold", size: 24)
@@ -62,6 +60,8 @@ class EpisodeScreenView: UIView {
         
         return view
     }()
+    
+    lazy var informationMovie = InformationMovieView()
     
     lazy var videoPlayerView = VideoPlayerView()
     

@@ -13,7 +13,7 @@ class EpisodeScreenTableViewCell: UITableViewCell {
     
     private lazy var posterEpisode: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleToFill
         
         return view
     }()

@@ -65,10 +65,11 @@ class InformationMovieView: UIView {
         return view
     }()
     
-    private lazy var chatListIcon: UIImageView = {
+    private lazy var chatIcon: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "ChatListIcon")
+        view.image = UIImage(named: "Discussions")
         view.contentMode = .scaleAspectFit
+        view.isUserInteractionEnabled = true
         
         return view
     }()
@@ -77,17 +78,22 @@ class InformationMovieView: UIView {
         let view = UIImageView()
         view.image = UIImage(named: "PlusIcon")
         view.contentMode = .scaleAspectFit
+        view.isUserInteractionEnabled = true
         
         return view
     }()
     
     private lazy var likeIcon: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Like")
         view.contentMode = .scaleAspectFit
+        view.isUserInteractionEnabled = true
         
         return view
     }()
+    
+    var chatIconPressed: (() -> Void)?
+    var plusIconPressed: (() -> Void)?
+    var likeIconPressed: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,7 +107,7 @@ class InformationMovieView: UIView {
         
         self.addSubview(stackButtons)
         
-        stackButtons.addArrangedSubview(chatListIcon)
+        stackButtons.addArrangedSubview(chatIcon)
         stackButtons.addArrangedSubview(plusIcon)
         stackButtons.addArrangedSubview(likeIcon)
         
@@ -119,6 +125,15 @@ class InformationMovieView: UIView {
     
     func setYearsMovie(years: String) {
         releaseYears.text = years
+    }
+    
+    func updateLikeIcon(isFavoriteMovie: Bool) {
+        if isFavoriteMovie {
+            likeIcon.image = UIImage(named: "LikeFilledIcon")
+            
+        } else {
+            likeIcon.image = UIImage(named: "Like")
+        }
     }
 }
 
@@ -143,7 +158,7 @@ private extension InformationMovieView {
         }
         
         stackButtons.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
+            make.verticalEdges.equalTo(poster.snp.verticalEdges)
             make.trailing.equalToSuperview()
             make.leading.greaterThanOrEqualTo(stackInformation.snp.trailing).inset(-20)
             make.centerY.equalTo(stackInformation.snp.centerY)
@@ -151,6 +166,23 @@ private extension InformationMovieView {
     }
     
     func configureActions() {
-        
+        chatIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToChatMovieScreen)))
+        plusIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addToCollection)))
+        likeIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addOrDeleteInFavoriteCollection)))
+    }
+    
+    @objc
+    func goToChatMovieScreen() {
+        chatIconPressed?()
+    }
+    
+    @objc
+    func addToCollection() {
+        plusIconPressed?()
+    }
+    
+    @objc
+    func addOrDeleteInFavoriteCollection() {
+        likeIconPressed?()
     }
 }

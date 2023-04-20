@@ -50,89 +50,95 @@ class MovieScreenView: UIView {
         return view
     }()
     
-    private lazy var content: UIView = {
+//    private lazy var ageRestriction: UILabel = {
+//        let view = UILabel()
+//        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+//        view.font = UIFont(name: "SFProText-Bold", size: 14)
+//        view.textColor = .accentColorApplication
+//        
+//        return view
+//    }()
+//    
+//    private lazy var discussionsImage: UIImageView = {
+//        let view = UIImageView()
+//        view.image = UIImage(named: "Discussions")
+//        view.contentMode = .scaleAspectFit
+//        view.isUserInteractionEnabled = true
+//        
+//        return view
+//    }()
+
+//    private lazy var informationMovie: TagLabelsView = {
+//        let view = TagLabelsView()
+//        
+//        return view
+//    }()
+    
+//    private lazy var descriptionTitle: UILabel = {
+//        let view = UILabel()
+//        view.font = UIFont(name: "SFProText-Bold", size: 24)
+//        view.textColor = .white
+//        view.text = "Описание"
+//        view.textAlignment = .left
+//        view.bounds.size.height = 29
+//        
+//        return view
+//    }()
+//    
+//    private lazy var descriptionText: UILabel = {
+//        let view = UILabel()
+//        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+//        view.font = UIFont(name: "SFProText-Regular", size: 14)
+//        view.textColor = .white
+//        view.numberOfLines = .max
+//        
+//        return view
+//    }()
+    lazy var contentView: UIView = {
         let view = UIView()
-        
-        return view
-    }()
-    
-    private lazy var ageRestriction: UILabel = {
-        let view = UILabel()
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
-        view.textColor = .accentColorApplication
-        
-        return view
-    }()
-    
-    private lazy var discussionsImage: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "Discussions")
-        view.contentMode = .scaleAspectFit
-        view.isUserInteractionEnabled = true
-        
+
         return view
     }()
 
-    private lazy var informationMovie: TagLabelsView = {
-        let view = TagLabelsView()
-        
+    lazy var content: ContentMovieScreenView = {
+        let view = ContentMovieScreenView()
+
         return view
     }()
-    
-    private lazy var descriptionTitle: UILabel = {
-        let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
-        view.textColor = .white
-        view.text = "Описание"
-        view.textAlignment = .left
-        view.bounds.size.height = 29
-        
-        return view
-    }()
-    
-    private lazy var descriptionText: UILabel = {
-        let view = UILabel()
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
-        view.font = UIFont(name: "SFProText-Regular", size: 14)
-        view.textColor = .white
-        view.numberOfLines = .max
-        
-        return view
-    }()
-    
-    private lazy var footagesMovie: FootageMovieView = {
-        let view = FootageMovieView()
-        
-        return view
-    }()
-    
-    lazy var episodesMovie: EpisodesMovieView = {
-        let view = EpisodesMovieView()
-        
-        return view
-    }()
+
+//    private lazy var footagesMovie: FootageMovieView = {
+//        let view = FootageMovieView()
+//
+//        return view
+//    }()
+//
+//    lazy var episodesMovie: EpisodesMovieView = {
+//        let view = EpisodesMovieView()
+//
+//        return view
+//    }()
     
     var barBackButtonPressed: (() -> Void)?
-    var discussionsImagePressed: (() -> Void)?
+//    var discussionsImagePressed: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         self.addSubview(scrollView)
-
-        scrollView.addSubview(coverMovieImage)
-        coverMovieImage.addSubview(watchButton)
         self.addSubview(barBackButton)
-        scrollView.addSubview(content)
+
+        scrollView.addSubview(contentView)
         
-        content.addSubview(ageRestriction)
-        content.addSubview(discussionsImage)
-        content.addSubview(informationMovie)
-        content.addSubview(descriptionTitle)
-        content.addSubview(descriptionText)
-        content.addSubview(footagesMovie)
-        content.addSubview(episodesMovie)
+        contentView.addSubview(coverMovieImage)
+        contentView.addSubview(content)
+        
+        coverMovieImage.addSubview(watchButton)
+        
+//        contentView.addSubview(ageRestriction)
+//        contentView.addSubview(discussionsImage)
+//        contentView.addSubview(informationMovie)
+//        contentView.addSubview(descriptionTitle)
+//        contentView.addSubview(descriptionText)
         
         self.setup()
     }
@@ -143,14 +149,13 @@ class MovieScreenView: UIView {
     
     func setMovie(movie: Movie) {
         coverMovieImage.downloaded(from: movie.poster, contentMode: coverMovieImage.contentMode)
-        self.setLabelAgeMovie(age: movie.age)
-        informationMovie.tagNames = movie.tags
-        descriptionText.text = movie.description
-        footagesMovie.setFootagesMovie(footages: movie.imageUrls)
+        
+        self.content.setMovie(movie: movie)
+        self.content.setFootageMovieBlock(with: movie.imageUrls)
     }
     
     func setEpisodes(episodes: [Episode]) {
-        self.episodesMovie.setArrayEpisodes(episodes)
+        self.content.setEpisodesMovie(episodes: episodes)
     }
 }
 
@@ -166,7 +171,6 @@ private extension MovieScreenView {
     }
     
     func configureConstraints() {
-        
         barBackButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(8.5)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(18.5)
@@ -174,6 +178,12 @@ private extension MovieScreenView {
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
         }
 
         coverMovieImage.snp.makeConstraints { make in
@@ -188,80 +198,18 @@ private extension MovieScreenView {
         }
         
         content.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
-            make.top.equalTo(coverMovieImage.snp.bottom)
-            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
-        }
-        
-        ageRestriction.snp.makeConstraints { make in
-            make.top.equalTo(coverMovieImage.snp.bottom).inset(-20)
-            make.trailing.equalTo(discussionsImage.snp.leading).inset(-17.99)
-            make.centerY.equalTo(discussionsImage.snp.centerY)
-        }
-        
-        discussionsImage.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(19)
-            make.top.equalTo(ageRestriction.snp.top)
-        }
-        
-        informationMovie.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(ageRestriction.snp.bottom).inset(-25)
-        }
-        
-        descriptionTitle.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(informationMovie.snp.bottom).inset(-32)
-        }
-        
-        descriptionText.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(descriptionTitle.snp.bottom).inset(-8)
-            make.bottom.equalTo(footagesMovie.snp.top).inset(-32)
-        }
-        
-        footagesMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(117)
-        }
-        
-        episodesMovie.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(footagesMovie.snp.bottom).inset(-32)
+            make.top.equalTo(coverMovieImage.snp.bottom).inset(-32)
             make.bottom.equalToSuperview()
-            make.height.equalTo(250)
         }
     }
     
     func configureActions() {
         barBackButton.addTarget(self, action: #selector(backGoToMainScreen), for: .touchUpInside)
-        discussionsImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToChatCurrentMovie)))
-    }
-    
-    func setLabelAgeMovie(age: Age) {
-        switch age {
-        case .zero:
-            ageRestriction.textColor = .white
-        case .six:
-            ageRestriction.textColor = .sixPlus
-        case .twelve:
-            ageRestriction.textColor = .twelvePlus
-        case .sixteen:
-            ageRestriction.textColor = .sixteenPlus
-        case .eighteen:
-            ageRestriction.textColor = .accentColorApplication
-        }
-        
-        ageRestriction.text = age.rawValue
     }
     
     @objc
     func backGoToMainScreen() {
         barBackButtonPressed?()
-    }
-    
-    @objc
-    func goToChatCurrentMovie() {
-        discussionsImagePressed?()
     }
 }

@@ -62,8 +62,6 @@ extension MainCoordinator: MainScreenNavigation {
         homeCoordinator?.children.forEach { coordinator in
             if let profileCoordinator = coordinator as? ProfileCoordinator {
                 profileCoordinator.goToChatScreen(chatModel: chatModel)
-                
-                homeCoordinator?.childDidFinish(self)
             }
         }
     }

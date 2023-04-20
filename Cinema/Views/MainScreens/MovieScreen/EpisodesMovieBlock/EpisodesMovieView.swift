@@ -68,7 +68,7 @@ private extension EpisodesMovieView {
     
     func configureConstraints() {
         titleFootageBlock.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalToSuperview()
         }
         
@@ -108,21 +108,3 @@ extension EpisodesMovieView: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-
-//class MyCustomUITableView: UITableView {
-//    override var intrinsicContentSize: CGSize {
-//        self.layoutIfNeeded()
-//        return self.contentSize
-//    }
-//    
-//    override var contentSize: CGSize {
-//        didSet{
-//            self.invalidateIntrinsicContentSize()
-//        }
-//    }
-//    
-//    override func reloadData() {
-//        super.reloadData()
-//        self.invalidateIntrinsicContentSize()
-//    }
-//}

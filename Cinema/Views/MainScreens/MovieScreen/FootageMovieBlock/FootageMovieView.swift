@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SnapKit
 
-class FootageMovieView: UIView {
+class FootageMovieView: UIStackView {
 
     private lazy var titleFootageBlock: UILabel = {
         let view = UILabel()
@@ -35,6 +36,8 @@ class FootageMovieView: UIView {
         view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.bounds.size.height = 117
+        
         return view
     }()
     
@@ -43,13 +46,13 @@ class FootageMovieView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(titleFootageBlock)
-        self.addSubview(footagesMovieCollection)
+        self.addArrangedSubview(titleFootageBlock)
+        self.addArrangedSubview(footagesMovieCollection)
         
         self.setup()
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -58,24 +61,36 @@ class FootageMovieView: UIView {
         
         footagesMovieCollection.reloadData()
     }
+    
+    func getHeightView() -> CGFloat {
+        let titleHeight = titleFootageBlock.bounds.size.height
+        let collectionHeight = footagesMovieCollection.bounds.size.height
+        let spacing = self.spacing
+        
+        return titleHeight + collectionHeight + spacing
+    }
 }
 
 private extension FootageMovieView {
     func setup() {
         configureConstraints()
+        configureStack()
+    }
+    
+    func configureStack() {
+        self.axis = .vertical
+        self.alignment = .leading
+        self.spacing = 16
     }
     
     func configureConstraints() {
         titleFootageBlock.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
         }
         
         footagesMovieCollection.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(titleFootageBlock.snp.horizontalEdges)
-            make.top.equalTo(titleFootageBlock.snp.bottom).inset(-16)
-            make.bottom.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
         }
     }
 }

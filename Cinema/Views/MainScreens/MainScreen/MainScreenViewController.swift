@@ -69,7 +69,7 @@ extension MainScreenViewController {
                 self.ui.content.setLastWatchMovie(with: nil)
                 
             } else {
-                self.ui.content.setLastWatchMovie(with: movies[movies.endIndex - 1])
+                self.ui.content.setLastWatchMovie(with: movies[movies.startIndex])
             }
         })
         

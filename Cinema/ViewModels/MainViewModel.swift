@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 class MainViewModel {
     private let api: ApiRepository
-    private let service: CollectionService
+    private let collectionService: CollectionService
     weak var navigation: MainScreenNavigation?
     
     var coverMovie = Observable<CoverMovie>()
@@ -19,16 +20,21 @@ class MainViewModel {
     var recomendationMovie = Observable<[Movie]>()
     var episodesMovie = Observable<[Episode]>()
     var currentEpisodeTime = Observable<EpisodeTime>()
+    var moviesInFavoriteCollection = Observable<[Movie]>()
+    var collectionsUser = Observable<Results<CollectionList>>()
     var errorOnLoading = Observable<Error>()
 
     var lastWatchMovies = [Movie]()
     var episodeLastWatchMovie = [Episode]()
     
+    var addToFavoriteMovieSuccess: (() -> Void)?
+    var deleteMovieInFavoriteMovieSuccess: (() -> Void)?
+    
     var goToAuthScreen = false
     
     init(navigation: MainScreenNavigation) {
         self.navigation = navigation
-        self.service = CollectionService()
+        self.collectionService = CollectionService()
         self.api = ApiRepository()
     }
     
@@ -56,7 +62,7 @@ class MainViewModel {
                                 }
                             case .failure(let error):
                                 if self.api.requestStatus == .notAuthorized {
-                                    self.service.clearDatabase()
+                                    self.collectionService.clearDatabase()
                                     self.navigation?.goToAuthorizationScreen()
                                 } else {
                                     self.failureLoadingHandle(with: error)
@@ -67,7 +73,7 @@ class MainViewModel {
                 }
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -115,6 +121,14 @@ private extension MainViewModel {
         self.currentEpisodeTime.updateModel(with: time)
     }
     
+    func successLoadingHandle(with movies: [Movie]) {
+        self.moviesInFavoriteCollection.updateModel(with: movies)
+    }
+    
+    func successLoadingHandle(with collections: Results<CollectionList>) {
+        self.collectionsUser.updateModel(with: collections)
+    }
+    
     func failureLoadingHandle(with error: Error) {
         self.errorOnLoading.updateModel(with: error)
     }
@@ -129,7 +143,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -146,7 +160,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -161,7 +175,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -176,7 +190,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -191,7 +205,7 @@ extension MainViewModel: IMainViewModel {
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
                     self.goToAuthScreen = true
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -207,7 +221,7 @@ extension MainViewModel: IMainViewModel {
                 self.successLoadingHandle(with: movies, typeListMovie: .lastView)
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized && !self.goToAuthScreen {
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -223,7 +237,7 @@ extension MainViewModel: IMainViewModel {
                 self.successLoadingHandle(with: episodes)
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized {
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -239,7 +253,7 @@ extension MainViewModel: IMainViewModel {
                 self.episodeLastWatchMovie = episodes
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized {
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -255,7 +269,7 @@ extension MainViewModel: IMainViewModel {
                 successLoadingHandle(with: time)
             case .failure(let error):
                 if self.api.requestStatus == .notAuthorized {
-                    self.service.clearDatabase()
+                    self.collectionService.clearDatabase()
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     self.failureLoadingHandle(with: error)
@@ -274,12 +288,88 @@ extension MainViewModel: IMainViewModel {
                     self.navigation?.goToAuthorizationScreen()
                 } else {
                     if self.api.requestStatus == .notAuthorized {
-                        self.service.clearDatabase()
+                        self.collectionService.clearDatabase()
                         self.navigation?.goToAuthorizationScreen()
                     } else {
                         self.failureLoadingHandle(with: error)
                     }
                 }
+            }
+        }
+    }
+    
+    func getFavoriteCollectionId() -> String{
+        var favoriteCollectionId = String()
+        self.collectionService.getFavoriteCollectionId { result in
+            switch result {
+            case .success(let id):
+                if let collecitonId = id {
+                    favoriteCollectionId = collecitonId
+                }
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+        
+        return favoriteCollectionId
+    }
+    
+    func setLikeToMove(movieId: String) {
+        let favoriteCollectionId = self.getFavoriteCollectionId()
+
+        self.api.addMovieToColletion(collectionId: favoriteCollectionId, movieValue: MovieValue(movieId: movieId)) { result in
+            switch result {
+            case .success(_):
+                self.addToFavoriteMovieSuccess?()
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
+    func deleteLikeToMovie(movieId: String) {
+        let favoriteCollectionId = getFavoriteCollectionId()
+
+        self.api.deleteMovieInCollection(collectionId: favoriteCollectionId, movieId: movieId) { result in
+            switch result {
+            case .success(_):
+                self.deleteMovieInFavoriteMovieSuccess?()
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
+    func getMoviesIFavoriteCollection(currentMovieId: String) {
+        let favoriteCollectionId = self.getFavoriteCollectionId()
+        self.api.getMovieInCollection(collectionId: favoriteCollectionId) { result in
+            switch result {
+            case .success(let movies):
+                self.successLoadingHandle(with: movies)
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
+    func getCollectionsUser() {
+        self.collectionService.getCollections { result in
+            switch result {
+            case .success(let collections):
+                self.successLoadingHandle(with: collections)
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
+            }
+        }
+    }
+    
+    func addToCollection(collectionId: String, movieId: String) {
+        self.api.addMovieToColletion(collectionId: collectionId, movieValue: MovieValue(movieId: movieId)) { result in
+            switch result {
+            case .success(_):
+                return
+            case .failure(let error):
+                self.failureLoadingHandle(with: error)
             }
         }
     }
