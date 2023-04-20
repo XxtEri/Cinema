@@ -17,32 +17,68 @@ class ContentMovieScreenView: UIView {
         return view
     }()
     
-    private lazy var specifyInterests: UIButton = {
-        let view = UIButton()
-        view.layer.cornerRadius = 4
-        view.backgroundColor = .accentColorApplication
-        view.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 14)
-        view.setAttributedTitle(NSAttributedString(string: "Указать интересы", attributes: [.kern: -0.17]), for: .normal)
-        view.setTitleColor(.white, for: .normal)
-        view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 32, bottom: 13, right: 32)
+    private lazy var ageRestriction: UILabel = {
+        let view = UILabel()
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.textColor = .accentColorApplication
         
         return view
     }()
     
-    let trendBlock = TrendMoviesBlockView()
-    let lastWatchBlock = LastWatchMovieBlockView()
-    let newBlock = NewMoviesBlockView()
-    let recomendationBlock = RecomendationMoviesBlockView()
-
+    private lazy var discussionsImage: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "Discussions")
+        view.contentMode = .scaleAspectFit
+        view.isUserInteractionEnabled = true
+        
+        return view
+    }()
+    
+    private lazy var informationMovie: TagLabelsView = {
+        let view = TagLabelsView()
+        
+        return view
+    }()
+    
+    private lazy var descriptionTitle: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.textColor = .white
+        view.text = "Описание"
+        view.textAlignment = .left
+        view.bounds.size.height = 29
+        
+        return view
+    }()
+    
+    private lazy var descriptionText: UILabel = {
+        let view = UILabel()
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
+        view.textColor = .white
+        view.numberOfLines = .max
+        
+        return view
+    }()
+    
+    let footagesMovie = FootageMovieView()
+    let episodesMovie = EpisodesMovieView()
+    
+    var discussionsImagePressed: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.addSubview(ageRestriction)
+        self.addSubview(discussionsImage)
+        self.addSubview(informationMovie)
+        self.addSubview(descriptionTitle)
+        self.addSubview(descriptionText)
         self.addSubview(contentStack)
-        contentStack.addArrangedSubview(trendBlock)
-        contentStack.addArrangedSubview(lastWatchBlock)
-        contentStack.addArrangedSubview(newBlock)
-        contentStack.addArrangedSubview(recomendationBlock)
-        contentStack.addArrangedSubview(specifyInterests)
+        
+        contentStack.addArrangedSubview(footagesMovie)
+        contentStack.addArrangedSubview(episodesMovie)
         
         setup()
     }
@@ -50,90 +86,117 @@ class ContentMovieScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setMovie(movie: Movie) {
+        self.setLabelAgeMovie(age: movie.age)
+        informationMovie.tagNames = movie.tags
+        descriptionText.text = movie.description
+    }
+    
+    func setEpisodesMovie(episodes: [Episode]) {
+        self.setEpisodeMovieBlock(with: episodes)
+        
+        episodesMovie.snp.updateConstraints { make in
+            make.height.equalTo(episodes.count * 80 + episodes.count * 16 + 29 + 37)
+        }
+    }
 }
 
 private extension ContentMovieScreenView {
     func setup() {
         configureConstraints()
+        configureActions()
     }
     
     func configureConstraints() {
-        contentStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        ageRestriction.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(-20)
+            make.trailing.equalTo(discussionsImage.snp.leading).inset(-17.99)
+            make.centerY.equalTo(discussionsImage.snp.centerY)
         }
         
-        trendBlock.snp.makeConstraints { make in
-            make.height.equalTo(trendBlock.getHeightView())
+        discussionsImage.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(19)
+            make.top.equalTo(ageRestriction.snp.top)
         }
         
-        lastWatchBlock.snp.makeConstraints { make in
-            make.height.equalTo(lastWatchBlock.getHeightView())
-        }
-        
-        newBlock.snp.makeConstraints { make in
-            make.height.equalTo(newBlock.getHeightView())
-        }
-        
-        recomendationBlock.snp.makeConstraints { make in
-            make.height.equalTo(recomendationBlock.getHeightView())
-        }
-        
-        specifyInterests.snp.makeConstraints { make in
-            make.height.lessThanOrEqualTo(44)
+        informationMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(ageRestriction.snp.bottom).inset(-25)
         }
+        
+        descriptionTitle.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(informationMovie.snp.bottom).inset(-32)
+        }
+        
+        descriptionText.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(descriptionTitle.snp.bottom).inset(-8)
+            make.bottom.equalTo(contentStack.snp.top).inset(-32)
+        }
+        
+        contentStack.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        footagesMovie.snp.makeConstraints { make in
+            make.height.equalTo(footagesMovie.getHeightView())
+        }
+        
+        episodesMovie.snp.makeConstraints { make in
+            make.height.equalTo(0)
+        }
+    }
+    
+    func configureActions() {
+        discussionsImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToChatCurrentMovie)))
+    }
+    
+    @objc
+    func goToChatCurrentMovie() {
+        discussionsImagePressed?()
+    }
+    
+    func setLabelAgeMovie(age: Age) {
+        switch age {
+        case .zero:
+            ageRestriction.textColor = .white
+        case .six:
+            ageRestriction.textColor = .sixPlus
+        case .twelve:
+            ageRestriction.textColor = .twelvePlus
+        case .sixteen:
+            ageRestriction.textColor = .sixteenPlus
+        case .eighteen:
+            ageRestriction.textColor = .accentColorApplication
+        }
+        
+        ageRestriction.text = age.rawValue
     }
 }
 
 extension ContentMovieScreenView {
-    func setMovieImageInTrendBlock(with model: [Movie]) {
-        if model.isEmpty {
-            contentStack.removeArrangedSubview(trendBlock)
-            trendBlock.removeFromSuperview()
-            
-            return
-        }
-        
-        model.forEach { movie in
-            trendBlock.addNewMovie(movie: movie)
-        }
+    func setEpisodeMovieBlock(with model: [Episode]) {
+//        if model.isEmpty {
+//            contentStack.removeArrangedSubview(episodesMovie)
+//            episodesMovie.removeFromSuperview()
+//
+//            return
+//        }
+
+        episodesMovie.setArrayEpisodes(model)
     }
     
-    func setLastWatchMovie(with model: EpisodeView?) {
-        guard let movie = model else {
-            contentStack.removeArrangedSubview(lastWatchBlock)
-            lastWatchBlock.removeFromSuperview()
-            
-            return
-        }
-        
-        self.lastWatchBlock.setLastWatchMovie(with: movie)
-        self.lastWatchBlock.setTitleMovie(title: movie.episodeName)
-    }
-    
-    func setMovieImageInNewBlock(with model: [Movie]) {
+    func setFootageMovieBlock(with model: [String]) {
         if model.isEmpty {
-            contentStack.removeArrangedSubview(newBlock)
-            newBlock.removeFromSuperview()
-            
+            contentStack.removeArrangedSubview(footagesMovie)
+            footagesMovie.removeFromSuperview()
+
             return
         }
-        
-        model.forEach { movie in
-            newBlock.addNewMovie(movie: movie)
-        }
-    }
-    
-    func setMovieImageRecomendationBlock(with model: [Movie]) {
-        if model.isEmpty {
-            contentStack.removeArrangedSubview(recomendationBlock)
-            recomendationBlock.removeFromSuperview()
-            
-            return
-        }
-        
-        model.forEach { movie in
-            recomendationBlock.addNewMovie(movie: movie)
-        }
+
+        footagesMovie.setFootagesMovie(footages: model)
     }
 }
