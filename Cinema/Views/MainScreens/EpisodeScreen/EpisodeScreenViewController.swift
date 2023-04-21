@@ -122,6 +122,7 @@ private extension EpisodeScreenViewController {
         self.ui.informationMovie.chatIconPressed = { [ weak self ] in
             guard let self = self else { return }
             
+            self.ui.stopVideo()
             self.viewModel?.goToChatMovie(chatModel: self.movie.chatInfo)
         }
         

@@ -15,7 +15,6 @@ class MyMessageTableViewCell: UITableViewCell {
     private lazy var messageView: UIView = {
         let view = UIView()
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        view.layer.cornerRadius = 4
         
         return view
     }()
@@ -149,12 +148,6 @@ private extension MyMessageTableViewCell {
             make.trailing.equalToSuperview().inset(16)
         }
         
-        emptyViewForIndent.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(0)
-        }
-        
         avatar.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.height.width.equalTo(32)
@@ -167,7 +160,13 @@ private extension MyMessageTableViewCell {
             make.trailing.equalTo(avatar.snp.leading).inset(-8)
             make.bottom.equalTo(emptyViewForIndent.snp.top)
         }
-
+        
+        emptyViewForIndent.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(0)
+        }
+        
         textMessage.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalToSuperview().inset(12)

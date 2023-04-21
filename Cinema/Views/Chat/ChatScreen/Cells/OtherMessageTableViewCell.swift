@@ -92,7 +92,7 @@ class OtherMessageTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         self.backgroundColor = .clear
         
-        self.addSubview(messageView)
+        contentView.addSubview(messageView)
         
         messageView.addSubview(avatar)
         messageView.addSubview(messageBackgroundView)
@@ -144,14 +144,8 @@ private extension OtherMessageTableViewCell {
     func configureConstraints() {
         messageView.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.trailing.greaterThanOrEqualToSuperview().inset(56)
+            make.trailing.equalToSuperview().inset(56)
             make.leading.equalToSuperview().inset(16)
-        }
-        
-        emptyViewForIndent.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(0)
         }
         
         avatar.snp.makeConstraints { make in
@@ -165,6 +159,12 @@ private extension OtherMessageTableViewCell {
             make.trailing.equalToSuperview()
             make.leading.equalTo(avatar.snp.trailing).inset(-8)
             make.bottom.equalTo(emptyViewForIndent.snp.top)
+        }
+        
+        emptyViewForIndent.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(0)
         }
 
         textMessage.snp.makeConstraints { make in

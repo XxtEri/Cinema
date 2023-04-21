@@ -124,6 +124,7 @@
 		ED910D567A1546CF12676719 /* EpisodeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED71FCE95B73754D65F4786E /* EpisodeScreenViewController.swift */; };
 		EDD4EE620B8DF2462832E840 /* RecomendationMoviesBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4EE79895593ED504FCF0F /* RecomendationMoviesBlockView.swift */; };
 		EFE1FE4795066ACF5C87F241 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E92831647BC2B3389F6B67A /* TabBarViewController.swift */; };
+		F32E534B29F2F30B000FE14A /* CustomRequestIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E534A29F2F30B000FE14A /* CustomRequestIntercepter.swift */; };
 		F370D31F29F028E50094CD81 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F370D31E29F028E50094CD81 /* RealmSwift */; };
 		F3B7CEFAB5E43CE89B2C8777 /* OtherMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710A029824F5A5A25A59BCD /* OtherMessageTableViewCell.swift */; };
 		F82722C4310FDA1D0C8885FD /* IconSelectionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBD30D5B366CA89CC9A0463 /* IconSelectionScreenView.swift */; };
@@ -247,6 +248,7 @@
 		EE8596B1D273BC4737851DA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1170D3A546DF3240D0FD5A6 /* AuthUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserDTO.swift; sourceTree = "<group>"; };
 		F2F29B8773DD64E13E49D9EF /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
+		F32E534A29F2F30B000FE14A /* CustomRequestIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRequestIntercepter.swift; sourceTree = "<group>"; };
 		F51D67BAC8FE3CB43C88CA25 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F60EF0F360543A1783B40796 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 		FA24ED78D3289A21538C4444 /* ContentMovieScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMovieScreenView.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			children = (
 				82F467DAABBD78703C4D40B1 /* ApiRepository.swift */,
 				5CBDAB137B328B69FBB7C59E /* Protocols.swift */,
+				F32E534A29F2F30B000FE14A /* CustomRequestIntercepter.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				253765CCBFA24C8090E72711 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				F38B1C18722EFC9997F2D426 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F370D31D29F028E50094CD81 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				F32E534C29F2F634000FE14A /* XCRemoteSwiftPackageReference "R.swift" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -864,6 +868,7 @@
 				80F038F7E871F4E8CCCDD56C /* AuthUser.swift in Sources */,
 				0F611A743E8A351FC985E7DF /* AuthUserDTO.swift in Sources */,
 				FD6126891ECF01C1BD54CF7B /* AuthViewModel.swift in Sources */,
+				F32E534B29F2F30B000FE14A /* CustomRequestIntercepter.swift in Sources */,
 				45B1F9F4044300F6E00D44AC /* CardCompilationView.swift in Sources */,
 				63BBE2FE902DE3FA6EFD5FEC /* Chat.swift in Sources */,
 				46971590FD935E6D69C18FE7 /* ChatCoordinator.swift in Sources */,
@@ -1264,6 +1269,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.5.0;
+			};
+		};
+		F32E534C29F2F634000FE14A /* XCRemoteSwiftPackageReference "R.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
 			};
 		};
 		F370D31D29F028E50094CD81 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
