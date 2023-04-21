@@ -87,6 +87,7 @@ class InformationMovieView: UIView {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         view.isUserInteractionEnabled = true
+        view.image = UIImage(named: "Like")
         
         return view
     }()

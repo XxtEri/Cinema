@@ -71,6 +71,7 @@ class ChatScreenView: UIView {
     
     var goBackButtonPressed: (() -> Void)?
     var addNewMessagePressed: ((String) -> Void)?
+    var needUpdateLayout: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -246,12 +247,14 @@ extension ChatScreenView: UITextViewDelegate {
                 
                 if estimatedSize.height < textViewMinHeight {
                     constraint.constant = textViewMinHeight
+                    needUpdateLayout?()
                     
                 } else {
                     maxHeightMessageInput = estimatedSize.height
                     constraint.constant = estimatedSize.height
                     
                     messageInput.setNeedsUpdateConstraints()
+                    needUpdateLayout?()
                 }
             }
         }

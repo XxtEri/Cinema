@@ -25,7 +25,14 @@ class MovieScreenView: UIView {
         static let watchButtonHorizontalInset: CGFloat = 120
         static let watchButtonBottomInset: CGFloat = 32
         
-        static let contentTopInset: CGFloat = -32
+        static let contentTopInset: CGFloat = -24
+        
+        static let ageRestrictionKern: CGFloat = -0.17
+        static let ageRestrictionTextsize: CGFloat = 14
+        static let ageRestrictionTopInset: CGFloat = -20
+        static let ageRestrictionTrailingInset: CGFloat = -17.99
+        
+        static let discussionsButtonTrailingInset: CGFloat = 19
     }
     
     private lazy var scrollView: UIScrollView = {
@@ -66,6 +73,22 @@ class MovieScreenView: UIView {
         return view
     }()
     
+    private lazy var ageRestriction: UILabel = {
+        let view = UILabel()
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.ageRestrictionKern])
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.ageRestrictionTextsize)
+        view.textColor = .accentColorApplication
+        
+        return view
+    }()
+    
+    private lazy var discussionsButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(named: "Discussions"), for: .normal)
+        
+        return view
+    }()
+    
     
     //- MARK: Public properties
     
@@ -82,6 +105,7 @@ class MovieScreenView: UIView {
     }()
     
     var barBackButtonPressed: (() -> Void)?
+    var discussionsImagePressed: (() -> Void)?
     
     
     //- MARK: Inits
@@ -95,6 +119,8 @@ class MovieScreenView: UIView {
         scrollView.addSubview(contentView)
         
         contentView.addSubview(coverMovieImage)
+        contentView.addSubview(ageRestriction)
+        contentView.addSubview(discussionsButton)
         contentView.addSubview(content)
         
         coverMovieImage.addSubview(watchButton)
@@ -111,6 +137,7 @@ class MovieScreenView: UIView {
     
     func setMovie(movie: Movie) {
         coverMovieImage.downloaded(from: movie.poster, contentMode: coverMovieImage.contentMode)
+        self.setLabelAgeMovie(age: movie.age)
         
         self.content.setMovie(movie: movie)
         self.content.setFootageMovieBlock(with: movie.imageUrls)
@@ -165,15 +192,27 @@ private extension MovieScreenView {
             make.bottom.equalToSuperview().inset(Metrics.watchButtonBottomInset)
         }
         
+        ageRestriction.snp.makeConstraints { make in
+            make.top.equalTo(coverMovieImage.snp.bottom).inset(Metrics.ageRestrictionTopInset)
+            make.trailing.equalTo(discussionsButton.snp.leading).inset(Metrics.ageRestrictionTrailingInset)
+            make.centerY.equalTo(discussionsButton.snp.centerY)
+        }
+        
+        discussionsButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(Metrics.discussionsButtonTrailingInset)
+            make.top.equalTo(ageRestriction.snp.top)
+        }
+        
         content.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(coverMovieImage.snp.bottom).inset(Metrics.contentTopInset)
+            make.top.equalTo(ageRestriction.snp.bottom)
             make.bottom.equalToSuperview()
         }
     }
     
     func configureActions() {
         barBackButton.addTarget(self, action: #selector(backGoToMainScreen), for: .touchUpInside)
+        discussionsButton.addTarget(self, action: #selector(goToChatCurrentMovie), for: .touchUpInside)
     }
     
     
@@ -182,5 +221,29 @@ private extension MovieScreenView {
     @objc
     func backGoToMainScreen() {
         barBackButtonPressed?()
+    }
+    
+    @objc
+    func goToChatCurrentMovie() {
+        discussionsImagePressed?()
+    }
+}
+
+private extension MovieScreenView {
+    func setLabelAgeMovie(age: Age) {
+        switch age {
+        case .zero:
+            ageRestriction.textColor = .white
+        case .six:
+            ageRestriction.textColor = .sixPlus
+        case .twelve:
+            ageRestriction.textColor = .twelvePlus
+        case .sixteen:
+            ageRestriction.textColor = .sixteenPlus
+        case .eighteen:
+            ageRestriction.textColor = .accentColorApplication
+        }
+        
+        ageRestriction.text = age.rawValue
     }
 }

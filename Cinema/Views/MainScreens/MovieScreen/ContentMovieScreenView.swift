@@ -14,8 +14,6 @@ class ContentMovieScreenView: UIView {
     
     private enum Metrics {
         static let contentStackSpacing: CGFloat = 32
-        static let ageRestrictionKern: CGFloat = -0.17
-        static let ageRestrictionTextsize: CGFloat = 14
         
         static let descriptionTitleTextSize: CGFloat = 24
         static let descriptionTitleSizeHeight: CGFloat = 29
@@ -26,13 +24,8 @@ class ContentMovieScreenView: UIView {
         static let cellHeight = 72
         static let cellSpacing = 16
         
-        static let ageRestrictionTopInset: CGFloat = -20
-        static let ageRestrictionTrailingInset: CGFloat = -17.99
-        
-        static let discussionsButtonTrailingInset: CGFloat = 19
-        
         static let informationMovieHorizontalInset: CGFloat = 16
-        static let informationMovieTopInset: CGFloat = -25
+        static let informationMovieTopInset: CGFloat = 25
         
         static let descriptionTitleHorizontalInset: CGFloat = 16
         static let descriptionTitleTopInset: CGFloat = -32
@@ -50,22 +43,6 @@ class ContentMovieScreenView: UIView {
         let view = UIStackView()
         view.axis = .vertical
         view.spacing = Metrics.contentStackSpacing
-        
-        return view
-    }()
-    
-    private lazy var ageRestriction: UILabel = {
-        let view = UILabel()
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.ageRestrictionKern])
-        view.font = UIFont(name: "SFProText-Bold", size: Metrics.ageRestrictionTextsize)
-        view.textColor = .accentColorApplication
-        
-        return view
-    }()
-    
-    private lazy var discussionsButton: UIButton = {
-        let view = UIButton()
-        view.setImage(UIImage(named: "Discussions"), for: .normal)
         
         return view
     }()
@@ -103,16 +80,12 @@ class ContentMovieScreenView: UIView {
     let footagesMovie = FootageMovieView()
     let episodesMovie = EpisodesMovieView()
     
-    var discussionsImagePressed: (() -> Void)?
-    
     
     //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(ageRestriction)
-        self.addSubview(discussionsButton)
         self.addSubview(informationMovie)
         self.addSubview(descriptionTitle)
         self.addSubview(descriptionText)
@@ -132,7 +105,6 @@ class ContentMovieScreenView: UIView {
     //- MARK: Public methods
     
     func setMovie(movie: Movie) {
-        self.setLabelAgeMovie(age: movie.age)
         informationMovie.tagNames = movie.tags
         descriptionText.text = movie.description
     }
@@ -155,24 +127,12 @@ private extension ContentMovieScreenView {
     
     func setup() {
         configureConstraints()
-        configureActions()
     }
     
     func configureConstraints() {
-        ageRestriction.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Metrics.ageRestrictionTopInset)
-            make.trailing.equalTo(discussionsButton.snp.leading).inset(Metrics.ageRestrictionTrailingInset)
-            make.centerY.equalTo(discussionsButton.snp.centerY)
-        }
-        
-        discussionsButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(Metrics.discussionsButtonTrailingInset)
-            make.top.equalTo(ageRestriction.snp.top)
-        }
-        
         informationMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(Metrics.informationMovieHorizontalInset)
-            make.top.equalTo(ageRestriction.snp.bottom).inset(Metrics.informationMovieTopInset)
+            make.top.equalToSuperview().inset(Metrics.informationMovieTopInset)
         }
         
         descriptionTitle.snp.makeConstraints { make in
@@ -198,17 +158,6 @@ private extension ContentMovieScreenView {
         episodesMovie.snp.makeConstraints { make in
             make.height.equalTo(Metrics.episodeMovieDefaultHeight)
         }
-    }
-    
-    func configureActions() {
-        discussionsButton.addTarget(self, action: #selector(goToChatCurrentMovie), for: .touchUpInside)
-    }
-    
-    //- MARK: Actions
-    
-    @objc
-    func goToChatCurrentMovie() {
-        discussionsImagePressed?()
     }
 }
 
@@ -236,22 +185,5 @@ extension ContentMovieScreenView {
         }
 
         footagesMovie.setFootagesMovie(footages: model)
-    }
-    
-    func setLabelAgeMovie(age: Age) {
-        switch age {
-        case .zero:
-            ageRestriction.textColor = .white
-        case .six:
-            ageRestriction.textColor = .sixPlus
-        case .twelve:
-            ageRestriction.textColor = .twelvePlus
-        case .sixteen:
-            ageRestriction.textColor = .sixteenPlus
-        case .eighteen:
-            ageRestriction.textColor = .accentColorApplication
-        }
-        
-        ageRestriction.text = age.rawValue
     }
 }

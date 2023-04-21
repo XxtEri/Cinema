@@ -131,12 +131,6 @@ private extension ChatScreenViewController {
             
             self.currentUserId = userId
         })
-        
-        self.viewModel?.isNotValidData = { [ weak self] error in
-            guard let self = self else { return }
-            
-            self.showError(error)
-        }
     }
     
     func handler() {
@@ -151,6 +145,18 @@ private extension ChatScreenViewController {
             guard let self = self else { return }
             
             self.viewModel?.sendMessage(chatId: self.chatModel.chatId, message: message)
+        }
+        
+        self.ui.needUpdateLayout = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.updateLayout()
+        }
+        
+        self.viewModel?.isNotValidData = { [ weak self] error in
+            guard let self = self else { return }
+            
+            self.showError(error)
         }
     }
     

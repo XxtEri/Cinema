@@ -77,7 +77,7 @@ private extension MovieScreenViewController {
             self.viewModel?.backToGoLastScreen()
         }
         
-        self.ui.content.discussionsImagePressed = { [ weak self ] in
+        self.ui.discussionsImagePressed = { [ weak self ] in
             guard let self = self else { return }
             
             self.viewModel?.goToChatMovie(chatModel: self.movie.chatInfo)

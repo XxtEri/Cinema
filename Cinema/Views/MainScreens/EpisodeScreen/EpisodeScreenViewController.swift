@@ -57,10 +57,6 @@ class EpisodeScreenViewController: UIViewController {
         self.viewModel?.getCollectionsUser()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
     override func viewDidLayoutSubviews() {
         self.ui.videoPlayerView.playerLayer?.frame = self.ui.videoPlayerView.videoView.bounds
     }
