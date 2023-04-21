@@ -17,6 +17,10 @@ class RecomendationMoviesBlockView: UIStackView {
         static let titleNewFilmBlockSizeHeight: CGFloat = 29
         
         static let collectionRecomenrationFilmsSizeHeight: CGFloat = 144
+        
+        static let stackSpacing: CGFloat = 16
+        
+        static let spacingSection: CGFloat = 16
     }
     
     private lazy var titleNewFilmBlock: UILabel = {
@@ -111,17 +115,16 @@ private extension RecomendationMoviesBlockView {
     
     func configureStack() {
         self.axis = .vertical
-        self.spacing = 16
+        self.spacing = Metrics.stackSpacing
     }
 
     func configureConstraints() {
         titleNewFilmBlock.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
         }
         
         collectionRecomenrationFilms.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalToSuperview()
-            make.top.equalTo(titleNewFilmBlock.snp.bottom).inset(-16)
+            make.horizontalEdges.equalToSuperview().inset(16)
         }
     }
 }
@@ -163,6 +166,10 @@ extension RecomendationMoviesBlockView: UICollectionViewDelegateFlowLayout {
         let width = 26.6 * UIScreen.main.bounds.width / 100
 
         return CGSize(width: width, height: 144)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        Metrics.spacingSection
     }
 }
 

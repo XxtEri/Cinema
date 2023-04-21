@@ -50,6 +50,7 @@ final class SingInScreenView: UIView {
     private lazy var emailInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "E-mail", isSecured: false)
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
         return view
     }()
@@ -186,4 +187,10 @@ private extension SingInScreenView {
     func signIn(_ selector: AnyObject) {
         self.authButtonTapHadler?()
     }
+    
+    @objc
+        func textFieldDidChange(sender: UITextField) {
+            sender.text = sender.text?.lowercased()
+        }
+
 }

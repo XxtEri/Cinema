@@ -22,6 +22,8 @@ class NewMoviesBlockView: UIStackView {
         
         static let cellWidth: CGFloat = 60 * UIScreen.main.bounds.width / 100
         static let cellHeight: CGFloat = 144
+        
+        static let spacingSection: CGFloat = 16
     }
     
     private lazy var titleNewFilmBlock: UILabel = {
@@ -121,8 +123,12 @@ private extension NewMoviesBlockView {
     }
 
     func configureConstraints() {
+        titleNewFilmBlock.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+        }
+        
         collectionNewFilms.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
         }
     }
 }
@@ -164,6 +170,10 @@ extension NewMoviesBlockView: UICollectionViewDelegateFlowLayout {
         let width = Metrics.cellWidth
 
         return CGSize(width: width, height: Metrics.cellWidth)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        Metrics.spacingSection
     }
 }
 

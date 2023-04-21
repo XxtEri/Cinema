@@ -70,6 +70,7 @@ final class SignUpScreenView: UIView {
     private lazy var emailInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "E-mail", isSecured: false)
+        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         return view
     }()
@@ -211,4 +212,10 @@ private extension SignUpScreenView {
         
         self.signUpHandler?(user)
     }
+    
+    @objc
+        func textFieldDidChange(sender: UITextField) {
+            sender.text = sender.text?.lowercased()
+        }
+
 }

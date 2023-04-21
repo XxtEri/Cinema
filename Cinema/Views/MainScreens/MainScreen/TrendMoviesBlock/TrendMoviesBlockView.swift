@@ -123,8 +123,12 @@ private extension TrendMoviesBlockView {
     }
 
     func configureConstraints() {
+        titleTrendsBlock.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+        }
+        
         collectionTrendFilms.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
         }
     }
 }

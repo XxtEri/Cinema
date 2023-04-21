@@ -87,6 +87,7 @@ class MainScreenView: UIView {
         scrollView.addSubview(contentView)
         
         contentView.addSubview(imageFilmCover)
+     
         imageFilmCover.addSubview(watchButton)
         contentView.addSubview(content)
         
