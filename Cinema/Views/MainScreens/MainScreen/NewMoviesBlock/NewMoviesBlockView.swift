@@ -10,13 +10,27 @@ import SnapKit
 
 class NewMoviesBlockView: UIStackView {
     
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let titleNewFilmBlockTextSize: CGFloat = 24
+        static let titleNewFilmBlockSizeHeight: CGFloat = 29
+        
+        static let collectionNewFilmsSizeHeight: CGFloat = 144
+        
+        static let stackSpacing: CGFloat = 16
+        
+        static let cellWidth: CGFloat = 60 * UIScreen.main.bounds.width / 100
+        static let cellHeight: CGFloat = 144
+    }
+    
     private lazy var titleNewFilmBlock: UILabel = {
         let view = UILabel()
         view.text = "Новое"
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.titleNewFilmBlockTextSize)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
-        view.bounds.size.height = 29
+        view.bounds.size.height = Metrics.titleNewFilmBlockSizeHeight
         
         return view
     }()
@@ -36,14 +50,20 @@ class NewMoviesBlockView: UIStackView {
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
 
-        view.bounds.size.height = 144
+        view.bounds.size.height = Metrics.collectionNewFilmsSizeHeight
         
         return view
     }()
     
     private var arrayNewMovies = [Movie]()
     
+    
+    //- MARK: Public properties
+    
     var newMoviePressed: ((Movie) -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +77,9 @@ class NewMoviesBlockView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func getHeightView() -> CGFloat {
         let titleHeight = titleNewFilmBlock.bounds.size.height
@@ -80,7 +103,13 @@ class NewMoviesBlockView: UIStackView {
     
 }
 
+
+//- MARK: Private extensions
+
 private extension NewMoviesBlockView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureStack()
@@ -88,7 +117,7 @@ private extension NewMoviesBlockView {
     
     func configureStack() {
         self.axis = .vertical
-        self.spacing = 16
+        self.spacing = Metrics.stackSpacing
     }
 
     func configureConstraints() {
@@ -98,7 +127,8 @@ private extension NewMoviesBlockView {
     }
 }
 
-//- MARK: UICollectionViewDataSource
+
+//- MARK: - UICollectionViewDataSource
 
 extension NewMoviesBlockView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -117,6 +147,7 @@ extension NewMoviesBlockView: UICollectionViewDataSource {
     
 }
 
+
 //- MARK: UICollectionViewDelegate
 
 extension NewMoviesBlockView: UICollectionViewDelegate {
@@ -130,9 +161,9 @@ extension NewMoviesBlockView: UICollectionViewDelegate {
 
 extension NewMoviesBlockView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = 60 * UIScreen.main.bounds.width / 100
+        let width = Metrics.cellWidth
 
-        return CGSize(width: width, height: 144)
+        return CGSize(width: width, height: Metrics.cellWidth)
     }
 }
 

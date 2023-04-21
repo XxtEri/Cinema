@@ -10,13 +10,22 @@ import SnapKit
 
 class RecomendationMoviesBlockView: UIStackView {
     
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let titleNewFilmBlockTextSize: CGFloat = 24
+        static let titleNewFilmBlockSizeHeight: CGFloat = 29
+        
+        static let collectionRecomenrationFilmsSizeHeight: CGFloat = 144
+    }
+    
     private lazy var titleNewFilmBlock: UILabel = {
         let view = UILabel()
         view.text = "Для вас"
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.titleNewFilmBlockTextSize)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
-        view.bounds.size.height = 29
+        view.bounds.size.height = Metrics.titleNewFilmBlockSizeHeight
         
         return view
     }()
@@ -36,7 +45,7 @@ class RecomendationMoviesBlockView: UIStackView {
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
 
-        view.bounds.size.height = 144
+        view.bounds.size.height = Metrics.collectionRecomenrationFilmsSizeHeight
         
         return view
     }()

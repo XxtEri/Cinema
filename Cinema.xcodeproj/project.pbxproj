@@ -369,8 +369,8 @@
 		4594EB71D58DE099C0B11BD3 /* NewMoviesBlock */ = {
 			isa = PBXGroup;
 			children = (
-				805819B69FD1AE2C330DF443 /* NewMovieCollectionViewCell.swift */,
 				346C484F9D45A1D1927441DD /* NewMoviesBlockView.swift */,
+				805819B69FD1AE2C330DF443 /* NewMovieCollectionViewCell.swift */,
 			);
 			path = NewMoviesBlock;
 			sourceTree = "<group>";
@@ -504,8 +504,8 @@
 		802342DD34CB5372D69F70DB /* RecomendationMoviesBlock */ = {
 			isa = PBXGroup;
 			children = (
-				B996E63D434352A842749402 /* RecomendationMovieCollectionViewCell.swift */,
 				C9A4EE79895593ED504FCF0F /* RecomendationMoviesBlockView.swift */,
+				B996E63D434352A842749402 /* RecomendationMovieCollectionViewCell.swift */,
 			);
 			path = RecomendationMoviesBlock;
 			sourceTree = "<group>";

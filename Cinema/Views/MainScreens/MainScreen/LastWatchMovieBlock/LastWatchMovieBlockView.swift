@@ -10,13 +10,28 @@ import SnapKit
 
 class LastWatchMovieBlockView: UIStackView {
     
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let titleBlockTextSize: CGFloat = 24
+        static let titleBlockSizeHeight: CGFloat = 29
+        
+        static let movieImageSizeHeight: CGFloat = 230
+        
+        static let titleMovieTextSize: CGFloat = 14
+        
+        static let stackSpacing: CGFloat = 16
+        
+        static let titleMovieLeadingBottomInset: CGFloat = 16
+    }
+    
     private lazy var titleBlock: UILabel = {
         let view = UILabel()
         view.text = "Вы смотрели"
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.titleBlockTextSize)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
-        view.frame.size.height = 29
+        view.frame.size.height = Metrics.titleBlockSizeHeight
         
         return view
     }()
@@ -25,7 +40,7 @@ class LastWatchMovieBlockView: UIStackView {
         let view = UIImageView()
         view.image = UIImage(named: "WatchFilm")
         view.contentMode = .scaleAspectFill
-        view.frame.size.height = 230
+        view.frame.size.height = Metrics.movieImageSizeHeight
         view.isUserInteractionEnabled = true
         
         return view
@@ -34,7 +49,7 @@ class LastWatchMovieBlockView: UIStackView {
     private lazy var titleMovie: UILabel = {
         let view = UILabel()
         view.text = "Altered Carbon"
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.titleMovieTextSize)
         view.textColor = .white
         view.textAlignment = .left
         
@@ -51,7 +66,13 @@ class LastWatchMovieBlockView: UIStackView {
     
     private var lastWatchEpisode: EpisodeView?
     
+    
+    //- MARK: Public properties
+    
     var lastWatchMovieEpisodePressed: ((EpisodeView) -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,6 +89,9 @@ class LastWatchMovieBlockView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func getHeightView() -> CGFloat {
         let titleHeight = titleBlock.frame.size.height
@@ -88,7 +112,13 @@ class LastWatchMovieBlockView: UIStackView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension LastWatchMovieBlockView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureStack()
@@ -97,7 +127,7 @@ private extension LastWatchMovieBlockView {
     
     func configureStack() {
         self.axis = .vertical
-        self.spacing = 16
+        self.spacing = Metrics.stackSpacing
     }
     
     func configureConstraints() {
@@ -108,17 +138,20 @@ private extension LastWatchMovieBlockView {
         }
         
         titleMovie.snp.makeConstraints { make in
-            make.leading.bottom.equalToSuperview().inset(16)
+            make.leading.bottom.equalToSuperview().inset(Metrics.titleMovieLeadingBottomInset)
         }
         
         movieImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(0)
+            make.leading.equalToSuperview()
         }
     }
     
     func configureAction() {
         movieImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showLastWatchMovieScreen)))
     }
+    
+    
+    //- MARK: Actions
     
     @objc
     func showLastWatchMovieScreen() {

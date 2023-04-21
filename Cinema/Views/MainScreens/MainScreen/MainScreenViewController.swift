@@ -14,9 +14,13 @@ class MainScreenViewController: UIViewController {
     
     private var ui: MainScreenView
     
+    
+    //- MARK: Public properties
+    
     var viewModel: MainViewModel?
     
-    //- MARK: Initial
+    
+    //- MARK: Inits
     
     init() {
         self.ui = MainScreenView()
@@ -37,16 +41,22 @@ class MainScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         
         bindListener()
-        handler()
+        setHandler()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         viewModel?.getCoverImage()
         viewModel?.getMoviesForMainScreen()
-        
-        self.navigationController?.isNavigationBarHidden = true
     }
 }
+
+
+//- MARK: Public extensions
 
 extension MainScreenViewController {
     func bindListener() {
@@ -96,7 +106,7 @@ extension MainScreenViewController {
         print(error.localizedDescription)
     }
     
-    func handler() {
+    func setHandler() {
         self.ui.content.lastWatchBlock.lastWatchMovieEpisodePressed = { [ weak self ] episode in
             guard let self = self else { return }
             
