@@ -15,7 +15,6 @@ final class TabBarViewController: UITabBarController {
         setTabBarAppearance()
     }
     
-    
     func generateTabBar(viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
     }

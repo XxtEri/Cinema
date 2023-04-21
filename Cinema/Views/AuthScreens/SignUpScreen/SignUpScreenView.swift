@@ -9,6 +9,8 @@ import UIKit
 
 final class SignUpScreenView: UIView {
     
+    //- MARK: Private properties
+    
     private enum Metrics {
         static let spacingStack: CGFloat = 16
         
@@ -110,10 +112,16 @@ final class SignUpScreenView: UIView {
         return view
     }()
     
+    
+    //- MARK: Public properties
+    
     var changeScreenHandler: (() -> Void)?
     
     var signUpHandler: ((RegisterCredentialDTO) -> Void)?
 
+    
+    //- MARK: Inits
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -136,7 +144,13 @@ final class SignUpScreenView: UIView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension SignUpScreenView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureUIView()
         configureConstraints()
@@ -178,6 +192,9 @@ private extension SignUpScreenView {
         
         authButton.addTarget(self, action: #selector(signUp(_:)), for: .touchDown)
     }
+    
+    
+    //- MARK: Actions
     
     @objc
     func changeScreen(_ selector: AnyObject) {

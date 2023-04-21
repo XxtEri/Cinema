@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 final class SingInScreenView: UIView {
+    
+    //- MARK: Private properties
+    
     private enum Metrics {
         static let buttonCornerRadius: CGFloat = 4
         static let buttonsBorderWidth: CGFloat = 1
@@ -82,8 +85,14 @@ final class SingInScreenView: UIView {
         return view
     }()
     
+    
+    //- MARK: Public properties
+    
     var changeScreenButtonTapHadler: (() -> Void)?
     var authButtonTapHadler: (() -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,6 +110,9 @@ final class SingInScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func getInforamtionInput() -> LoginCredentialDTO {
         let user = LoginCredentialDTO(email: emailInputField.text ?? String(), password: passwordInputField.text ?? String())
         
@@ -108,7 +120,13 @@ final class SingInScreenView: UIView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension SingInScreenView {
+    
+    //  MARK: - Setup
+    
     func setup() {
         configureUIView()
         configureConstraints()
@@ -155,6 +173,9 @@ private extension SingInScreenView {
         
         authButton.addTarget(self, action: #selector(signIn(_:)), for: .touchDown)
     }
+    
+    
+    // MARK: - Actions
     
     @objc
     func changeScreen(_ selector: AnyObject) {

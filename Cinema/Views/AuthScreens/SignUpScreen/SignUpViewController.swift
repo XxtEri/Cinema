@@ -10,9 +10,15 @@ import SnapKit
 
 final class SingUpViewController: UIViewController {
     
+    //- MARK: Private properties
+    
     private var ui: SignUpScreenView
     
+    //- MARK: Public properties
+    
     var viewModel: AuthViewModel?
+    
+    //- MARK: Inits
     
     init() {
         self.ui = SignUpScreenView()
@@ -24,6 +30,8 @@ final class SingUpViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //- MARK: Lifecycle
+    
     override func loadView() {
         self.view = ui
     }
@@ -34,7 +42,12 @@ final class SingUpViewController: UIViewController {
         self.setHandlers()
         self.setupToHideKeyboardOnTapOnView()
     }
-    
+}
+
+
+//- MARK: Private extenstions
+
+private extension SingUpViewController {
     private func setHandlers() {
         self.ui.changeScreenHandler = { [ weak self ] in
             guard let self = self else { return }

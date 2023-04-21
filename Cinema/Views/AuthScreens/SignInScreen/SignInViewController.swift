@@ -9,9 +9,17 @@ import UIKit
 
 final class SignInViewController: UIViewController {
     
-    var viewModel: AuthViewModel?
+    //- MARK: Private properties
     
     private let ui: SingInScreenView
+    
+    
+    //- MARK: Public properties
+    
+    var viewModel: AuthViewModel?
+    
+    
+    //- MARK: Inits
     
     init() {
         self.ui = SingInScreenView(frame: .zero)
@@ -22,6 +30,9 @@ final class SignInViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Lifecycle
     
     override func loadView() {
         self.view = ui
@@ -35,6 +46,9 @@ final class SignInViewController: UIViewController {
     }
 
 }
+
+
+//- MARK: Private extensions
 
 private extension SignInViewController {
     func setHandlers() {
