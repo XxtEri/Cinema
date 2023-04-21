@@ -6,19 +6,35 @@
 //
 
 import UIKit
+import SnapKit
 
 class EpisodesMovieView: UIView {
+    
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let titleFootageBlockKern: CGFloat = -0.17
+        static let titleFootageBlockTextSize: CGFloat = 24
+        static let titleFootageBlockSizeHeight: CGFloat = 29
+        static let titleFootageBlockHorizontalInset: CGFloat = 16
+        
+        static let episodesMovieTopInset: CGFloat = -16
+        
+        static let cellEstimatedHeight: CGFloat = 72
+    }
     
     private lazy var titleFootageBlock: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.attributedText = NSAttributedString(string: "Эпизоды", attributes: [.kern: -0.17])
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
-        view.frame.size.height = 29
+        view.attributedText = NSAttributedString(string: "Эпизоды", attributes: [.kern: Metrics.titleFootageBlockKern])
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.titleFootageBlockTextSize)
+        view.frame.size.height = Metrics.titleFootageBlockSizeHeight
         
         return view
     }()
     
+    
+    //- MARK: Public properties
     
     lazy var episodesMovie: UITableView = {
         var view = UITableView(frame: .zero)
@@ -41,6 +57,9 @@ class EpisodesMovieView: UIView {
     
     var tableViewHeight: CGFloat = 0
     
+    
+    //- MARK: Inits
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -54,12 +73,18 @@ class EpisodesMovieView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func setArrayEpisodes(_ episodes: [Episode]) {
         self.episodes = episodes
         
         episodesMovie.reloadData()
     }
 }
+
+
+//- MARK: Private extensions
 
 private extension EpisodesMovieView {
     func setup() {
@@ -68,25 +93,28 @@ private extension EpisodesMovieView {
     
     func configureConstraints() {
         titleFootageBlock.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.titleFootageBlockHorizontalInset)
             make.top.equalToSuperview()
         }
         
         episodesMovie.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(titleFootageBlock.snp.horizontalEdges)
-            make.top.equalTo(titleFootageBlock.snp.bottom).inset(-16)
+            make.top.equalTo(titleFootageBlock.snp.bottom).inset(Metrics.episodesMovieTopInset)
             make.bottom.equalToSuperview()
         }
     }
 }
 
-extension EpisodesMovieView: UITableViewDelegate, UITableViewDataSource {
+
+//- MARK: UITableViewDataSource
+
+extension EpisodesMovieView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         episodes.count
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        72
+        Metrics.cellEstimatedHeight
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -103,8 +131,13 @@ extension EpisodesMovieView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+}
+
+
+//- MARK: UITableViewDelegate
+
+extension EpisodesMovieView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         episodePressed?(episodes[indexPath.row], episodes)
     }
-    
 }

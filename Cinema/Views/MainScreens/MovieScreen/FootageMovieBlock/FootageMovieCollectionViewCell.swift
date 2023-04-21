@@ -6,17 +6,26 @@
 //
 
 import UIKit
+import SnapKit
 
 class FootageMovieCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "FootageMovieCollectionViewCell"
-    
+    //- MARK: Private properties
+
     private lazy var posterFootage: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
         
         return view
     }()
+    
+    
+    //- MARK: Public state properties
+    
+    static let reuseIdentifier = "FootageMovieCollectionViewCell"
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,12 +39,21 @@ class FootageMovieCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func congifure(imageUrl: String) {
         posterFootage.downloaded(from: imageUrl, contentMode: posterFootage.contentMode)
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension FootageMovieCollectionViewCell {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
     }

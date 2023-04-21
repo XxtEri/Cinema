@@ -12,6 +12,22 @@ class MovieScreenView: UIView {
     
     //- MARK: Private properties
     
+    private enum Metrics {
+        static let buttonCornerRadius: CGFloat = 4
+        static let buttonTextSize: CGFloat = 14
+        static let buttonEdgeInsets = UIEdgeInsets(top: 13, left: 32, bottom: 13, right: 32)
+        
+        static let barBackButtonLeading: CGFloat = 8.5
+        static let barBackButtonTop: CGFloat = 18.5
+        
+        static let coverMovieImageHeight: CGFloat = UIScreen.main.bounds.height * 58 / 100
+        
+        static let watchButtonHorizontalInset: CGFloat = 120
+        static let watchButtonBottomInset: CGFloat = 32
+        
+        static let contentTopInset: CGFloat = -32
+    }
+    
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.alwaysBounceVertical = true
@@ -40,60 +56,19 @@ class MovieScreenView: UIView {
 
     private lazy var watchButton: UIButton = {
         let view = UIButton()
-        view.layer.cornerRadius = 4
+        view.layer.cornerRadius = Metrics.buttonCornerRadius
         view.backgroundColor = UIColor(named: "AccentColor")
         view.setTitle("Смотреть", for: .normal)
-        view.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 14)
+        view.titleLabel?.font = UIFont(name: "SFProText-Bold", size: Metrics.buttonTextSize)
         view.setTitleColor(.white, for: .normal)
-        view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 32, bottom: 13, right: 32)
+        view.contentEdgeInsets = Metrics.buttonEdgeInsets
 
         return view
     }()
     
-//    private lazy var ageRestriction: UILabel = {
-//        let view = UILabel()
-//        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
-//        view.font = UIFont(name: "SFProText-Bold", size: 14)
-//        view.textColor = .accentColorApplication
-//        
-//        return view
-//    }()
-//    
-//    private lazy var discussionsImage: UIImageView = {
-//        let view = UIImageView()
-//        view.image = UIImage(named: "Discussions")
-//        view.contentMode = .scaleAspectFit
-//        view.isUserInteractionEnabled = true
-//        
-//        return view
-//    }()
-
-//    private lazy var informationMovie: TagLabelsView = {
-//        let view = TagLabelsView()
-//        
-//        return view
-//    }()
     
-//    private lazy var descriptionTitle: UILabel = {
-//        let view = UILabel()
-//        view.font = UIFont(name: "SFProText-Bold", size: 24)
-//        view.textColor = .white
-//        view.text = "Описание"
-//        view.textAlignment = .left
-//        view.bounds.size.height = 29
-//        
-//        return view
-//    }()
-//    
-//    private lazy var descriptionText: UILabel = {
-//        let view = UILabel()
-//        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
-//        view.font = UIFont(name: "SFProText-Regular", size: 14)
-//        view.textColor = .white
-//        view.numberOfLines = .max
-//        
-//        return view
-//    }()
+    //- MARK: Public properties
+    
     lazy var contentView: UIView = {
         let view = UIView()
 
@@ -105,20 +80,11 @@ class MovieScreenView: UIView {
 
         return view
     }()
-
-//    private lazy var footagesMovie: FootageMovieView = {
-//        let view = FootageMovieView()
-//
-//        return view
-//    }()
-//
-//    lazy var episodesMovie: EpisodesMovieView = {
-//        let view = EpisodesMovieView()
-//
-//        return view
-//    }()
     
     var barBackButtonPressed: (() -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -140,6 +106,9 @@ class MovieScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func setMovie(movie: Movie) {
         coverMovieImage.downloaded(from: movie.poster, contentMode: coverMovieImage.contentMode)
         
@@ -152,7 +121,13 @@ class MovieScreenView: UIView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension MovieScreenView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureUI()
         configureConstraints()
@@ -165,8 +140,8 @@ private extension MovieScreenView {
     
     func configureConstraints() {
         barBackButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(8.5)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(18.5)
+            make.leading.equalToSuperview().inset(Metrics.barBackButtonLeading)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.barBackButtonTop)
         }
         
         scrollView.snp.makeConstraints { make in
@@ -182,17 +157,17 @@ private extension MovieScreenView {
         coverMovieImage.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(scrollView.frameLayoutGuide)
             make.top.equalToSuperview()
-            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height * 58 / 100)
+            make.height.lessThanOrEqualTo(Metrics.coverMovieImageHeight)
         }
         
         watchButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(120)
-            make.bottom.equalToSuperview().inset(32)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.watchButtonHorizontalInset)
+            make.bottom.equalToSuperview().inset(Metrics.watchButtonBottomInset)
         }
         
         content.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(coverMovieImage.snp.bottom).inset(-32)
+            make.top.equalTo(coverMovieImage.snp.bottom).inset(Metrics.contentTopInset)
             make.bottom.equalToSuperview()
         }
     }
@@ -200,6 +175,9 @@ private extension MovieScreenView {
     func configureActions() {
         barBackButton.addTarget(self, action: #selector(backGoToMainScreen), for: .touchUpInside)
     }
+    
+    
+    //- MARK: Actions
     
     @objc
     func backGoToMainScreen() {

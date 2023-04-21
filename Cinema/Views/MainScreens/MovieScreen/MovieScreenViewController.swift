@@ -9,11 +9,18 @@ import UIKit
 
 class MovieScreenViewController: UIViewController {
     
+    //- MARK: Private properties
+    
     private var ui: MovieScreenView
     
-    var viewModel: MainViewModel?
     
+    //- MARK: Public properties
+    
+    var viewModel: MainViewModel?
     var movie: Movie
+    
+    
+    //- MARK: Inits
     
     init(movie: Movie) {
         self.ui = MovieScreenView()
@@ -25,6 +32,9 @@ class MovieScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Lifecycle
     
     override func loadView() {
         self.view = ui
@@ -42,7 +52,10 @@ class MovieScreenViewController: UIViewController {
     }
 }
 
-extension MovieScreenViewController {
+
+//- MARK: Private extensions
+
+private extension MovieScreenViewController {
     func bindListener() {
         self.viewModel?.episodesMovie.subscribe(with: { [ weak self ] episodes in
             guard let self = self else { return }
