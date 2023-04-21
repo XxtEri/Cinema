@@ -86,6 +86,15 @@ final class SingInScreenView: UIView {
         return view
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        
+        indicator.color = .accentColorApplication
+        indicator.hidesWhenStopped = true
+        
+        return indicator
+    }()
+    
     
     //- MARK: Public properties
     
@@ -103,6 +112,7 @@ final class SingInScreenView: UIView {
         self.addSubview(passwordInputField)
         self.addSubview(authButton)
         self.addSubview(changeAuthScreenButton)
+        self.addSubview(activityIndicator)
         
         self.setup()
     }
@@ -118,6 +128,16 @@ final class SingInScreenView: UIView {
         let user = LoginCredentialDTO(email: emailInputField.text ?? String(), password: passwordInputField.text ?? String())
         
         return user
+    }
+    
+    func startAnumateIndicator() {
+        activityIndicator.startAnimating()
+        activityIndicator.alpha = 1
+    }
+    
+    func stopAnimateIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.alpha = 0
     }
 }
 
@@ -139,6 +159,10 @@ private extension SingInScreenView {
     }
     
     func configureConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         imageLogo.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.imageLogoTopInset)
             make.leading.equalToSuperview().inset(Metrics.imageLogoLeadingInset)

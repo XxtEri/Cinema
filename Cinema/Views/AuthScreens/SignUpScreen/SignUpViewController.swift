@@ -42,32 +42,16 @@ final class SingUpViewController: UIViewController {
         self.setHandlers()
         self.setupToHideKeyboardOnTapOnView()
     }
-}
-
-
-//- MARK: Private extenstions
-
-private extension SingUpViewController {
-    private func setHandlers() {
-        self.ui.changeScreenHandler = { [ weak self ] in
-            guard let self = self else { return }
-            
-            self.viewModel?.goToSingIn()
-        }
-        
-        self.ui.signUpHandler = { [ weak self ] user in
-            guard let self = self else { return }
-            
-            self.viewModel?.signUp(userDTO: user)
-        }
-        
-        self.viewModel?.isNotValidData = { [ weak self ] result, nameScreen in
-            guard let self = self else { return }
-            
-            if nameScreen == "signUp"{
-                self.showError(result.rawValue)
-            }
-        }
+    
+    
+    //- MARK: Private methods
+    
+    private func showActivityIndicator() {
+        self.ui.startAnumateIndicator()
+    }
+    
+    private func hideActivityIndicator() {
+        self.ui.stopAnimateIndicator()
     }
     
     private func showError(_ error: String) {
@@ -78,6 +62,51 @@ private extension SingUpViewController {
         alertController.view.tintColor = .accentColorApplication
         
         self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+
+//- MARK: Private extenstions
+
+private extension SingUpViewController {
+    private func setHandlers() {
+        self.ui.changeScreenHandler = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.showActivityIndicator()
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.viewModel?.goToSingIn()
+            }
+        }
+        
+        self.ui.signUpHandler = { [ weak self ] user in
+            guard let self = self else { return }
+            
+            self.showActivityIndicator()
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.viewModel?.signUp(userDTO: user)
+            }
+        }
+        
+        self.viewModel?.isNotValidData = { [ weak self ] result, nameScreen in
+            guard let self = self else { return }
+            
+            self.hideActivityIndicator()
+            
+            if nameScreen == "signUp"{
+                self.showError(result.rawValue)
+            }
+        }
+        
+        self.viewModel?.errorServer.subscribe(with: { [weak self] error in
+            guard let self = self else { return }
+            
+            self.hideActivityIndicator()
+            
+            self.showError("Что-то пошло не так. Вероятно произошла ошибка на внутреннем сервере. Повторите попытку")
+        })
     }
 }
 

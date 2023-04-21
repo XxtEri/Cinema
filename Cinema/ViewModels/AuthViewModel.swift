@@ -14,6 +14,8 @@ class AuthViewModel {
     private var service: CollectionService
     
     weak var navigation: AuthNavigation?
+    
+    var errorServer = Observable<Error>()
 
     var isNotValidData: ((ResultValidationAuthScreen, String) -> Void)?
     var errorReceivedFromServer: ((RequestStatus) -> Void)?

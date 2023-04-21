@@ -140,6 +140,7 @@ final class SignUpScreenView: UIView {
         self.addSubview(infoStack)
         self.addSubview(authButton)
         self.addSubview(changeAuthScreenButton)
+        self.addSubview(activityIndicator)
         
         infoStack.addArrangedSubview(firstNameInputField)
         infoStack.addArrangedSubview(lastNameInputField)
@@ -152,6 +153,19 @@ final class SignUpScreenView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    //- MARK: Public methods
+    
+    func startAnumateIndicator() {
+        activityIndicator.startAnimating()
+        activityIndicator.alpha = 1
+    }
+    
+    func stopAnimateIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.alpha = 0
     }
 }
 
@@ -173,6 +187,10 @@ private extension SignUpScreenView {
     }
     
     func configureConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         imageLogo.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.imageLogoTopInset)
             make.leading.equalToSuperview().inset(Metrics.imageLogoLeadingInset)

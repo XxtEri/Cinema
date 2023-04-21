@@ -5,6 +5,7 @@
 //  Created by Елена on 22.03.2023.
 //
 
+import Foundation
 import UIKit
 
 final class SignInViewController: UIViewController {
@@ -45,40 +46,12 @@ final class SignInViewController: UIViewController {
         setupToHideKeyboardOnTapOnView()
     }
 
-}
-
-
-//- MARK: Private extensions
-
-private extension SignInViewController {
-    func setHandlers() {
-        self.ui.changeScreenButtonTapHadler = { [weak self] in
-            guard let self = self else { return }
-            
-            self.viewModel?.goToSignUp()
-        }
-        
-        self.ui.authButtonTapHadler = { [ weak self ] in
-            guard let self = self else { return }
-            
-            self.viewModel?.signIn(userDTO: self.ui.getInforamtionInput())
-        }
-        
-        self.viewModel?.isNotValidData = { [ weak self ] result, nameScreen in
-            guard let self = self else { return }
-            
-            if nameScreen == "signIn"{
-                self.showError(result.rawValue)
-            }
-        }
-        
-        self.viewModel?.errorReceivedFromServer = { [ weak self ] requestStatus in
-            guard let self = self else { return }
-            
-            if requestStatus == RequestStatus.notAuthorized {
-                self.showError("Неверный логин или пароль")
-            }
-        }
+    private func showActivityIndicator() {
+        self.ui.startAnumateIndicator()
+    }
+    
+    private func hideActivityIndicator() {
+        self.ui.stopAnimateIndicator()
     }
     
     private func showError(_ error: String) {
@@ -90,6 +63,54 @@ private extension SignInViewController {
         alertController.view.tintColor = .accentColorApplication
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+}
+
+
+//- MARK: Private extensions
+
+private extension SignInViewController {
+    func setHandlers() {
+        self.ui.changeScreenButtonTapHadler = { [weak self] in
+            guard let self = self else { return }
+
+            self.showActivityIndicator()
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.viewModel?.goToSignUp()
+            }
+        }
+        
+        self.ui.authButtonTapHadler = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.showActivityIndicator()
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.viewModel?.signIn(userDTO: self.ui.getInforamtionInput())
+            }
+        }
+        
+        self.viewModel?.isNotValidData = { [ weak self ] result, nameScreen in
+            guard let self = self else { return }
+            
+            self.hideActivityIndicator()
+            
+            if nameScreen == "signIn"{
+                self.showError(result.rawValue)
+            }
+        }
+        
+        self.viewModel?.errorReceivedFromServer = { [ weak self ] requestStatus in
+            guard let self = self else { return }
+            
+            self.hideActivityIndicator()
+            
+            if requestStatus == RequestStatus.notAuthorized {
+                self.showError("Неверный логин или пароль")
+            }
+        }
     }
 }
 
