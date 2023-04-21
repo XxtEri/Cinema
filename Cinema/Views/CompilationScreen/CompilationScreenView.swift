@@ -172,13 +172,14 @@ private extension CompilationScreenView {
         }
         
         imageStub.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalTo(textStub.snp.horizontalEdges).inset(37)
+            make.center.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(81)
         }
         
         textStub.snp.makeConstraints { make in
-            make.top.lessThanOrEqualTo(imageStub.snp.bottom).inset(-32)
-            make.horizontalEdges.bottom.equalToSuperview().inset(44)
+            make.top.greaterThanOrEqualTo(imageStub.snp.bottom).inset(-32)
+            make.horizontalEdges.equalToSuperview().inset(44)
+            make.bottom.greaterThanOrEqualToSuperview().inset(20)
         }
     }
     

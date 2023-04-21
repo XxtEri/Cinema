@@ -763,9 +763,9 @@
 		FCDA722022A1F87720FB13A3 /* CompilationScreen */ = {
 			isa = PBXGroup;
 			children = (
-				2C770CB3979B11417F96AD4A /* CardCompilationView.swift */,
-				8B668AEA3E5C25203A9C6616 /* CompilationScreenView.swift */,
 				13D5D378788BE8AAE7F4BA90 /* CompilationScreenViewController.swift */,
+				8B668AEA3E5C25203A9C6616 /* CompilationScreenView.swift */,
+				2C770CB3979B11417F96AD4A /* CardCompilationView.swift */,
 			);
 			path = CompilationScreen;
 			sourceTree = "<group>";
