@@ -17,6 +17,13 @@ final class TabBarViewController: UITabBarController {
         setTabBarAppearance()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBar.insetsLayoutMarginsFromSafeArea = true
+        self.tabBar.layoutMargins = UIEdgeInsets(top: 11.33, left: 0, bottom: 4.8, right: 0)
+    }
+    
     
     //- MARK: Private methods
     
