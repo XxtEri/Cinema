@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class SignUpScreenView: UIView {
     
@@ -113,6 +114,15 @@ final class SignUpScreenView: UIView {
         return view
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        
+        indicator.color = .accentColorApplication
+        indicator.hidesWhenStopped = true
+        
+        return indicator
+    }()
+    
     
     //- MARK: Public properties
     
@@ -167,17 +177,19 @@ private extension SignUpScreenView {
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.imageLogoTopInset)
             make.leading.equalToSuperview().inset(Metrics.imageLogoLeadingInset)
             make.trailing.equalToSuperview().inset(Metrics.imageLogoTrailingInset)
+            make.bottom.equalTo(infoStack.snp.top).inset(-5)
         }
         
         infoStack.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(Metrics.infoStackHorizontalInset)
-            make.top.equalTo(imageLogo.snp.bottom).inset(Metrics.infoStackTopInset)
+            make.top.lessThanOrEqualTo(imageLogo.snp.bottom).inset(-44)
+            make.bottom.equalTo(authButton.snp.top).inset(-23)
         }
         
         authButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(Metrics.authButtonLeadingInset)
             make.trailing.equalToSuperview().inset(Metrics.authButtonTrailingInset)
-            make.top.lessThanOrEqualTo(infoStack.snp.bottom).inset(Metrics.authButtonTopInset)
+            make.top.greaterThanOrEqualTo(infoStack.snp.bottom).inset(-20)
         }
         
         changeAuthScreenButton.snp.makeConstraints { make in
