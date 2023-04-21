@@ -196,7 +196,7 @@ private extension ChatScreenView {
     
     @objc func sendButtonTapped() {
         if let message = messageInput.text, !message.isEmpty {
-            addNewMessagePressed?(message == "Напишите сообщение..." ? String() : message)
+            addNewMessagePressed?((message == "Напишите сообщение...") ? String() : message)
             messageInput.text = "Напишите сообщение..."
             messageInput.textColor = .placeholderChatInputMessage
             

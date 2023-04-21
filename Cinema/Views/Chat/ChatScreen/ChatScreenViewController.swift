@@ -113,7 +113,7 @@ class ChatScreenViewController: UIViewController {
             self.ui.chat.reloadData()
         }
         
-//        updateLayout()
+        updateLayout()
     }
 }
 
@@ -151,7 +151,6 @@ private extension ChatScreenViewController {
             guard let self = self else { return }
             
             self.viewModel?.sendMessage(chatId: self.chatModel.chatId, message: message)
-            self.reloadDataChat()
         }
     }
     
@@ -204,10 +203,10 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MyMessageTableViewCell.reuseIdentifier, for: indexPath) as? MyMessageTableViewCell else { return UITableViewCell() }
                 
                 cell.configureCell(message: message)
+                cell.avatar.isHidden = false
                 
                 if indexPath.row + 1 < messagesTableView.count {
                     if messagesTableView[indexPath.row + 1] is String {
-                        cell.avatar.isHidden = false
                         cell.addEmptyViewForIndent(indent: 24)
                         
                     } else if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
@@ -222,16 +221,15 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 return cell
-                
             }
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherMessageTableViewCell.reuseIdentifier, for: indexPath) as? OtherMessageTableViewCell else { return UITableViewCell() }
             
             cell.configureCell(message: message)
+            cell.avatar.isHidden = false
             
             if indexPath.row + 1 < messagesTableView.count {
-                if let _ = messagesTableView[indexPath.row + 1] as? String {
-                    cell.avatar.isHidden = false
+                if messagesTableView[indexPath.row + 1] is String {
                     cell.addEmptyViewForIndent(indent: 24)
                     
                 } else if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
@@ -305,15 +303,16 @@ extension ChatScreenViewController {
     }
     
     func isDateToday(date: DateMessage, dateNow: String) -> Bool {
-        var matchedDay = matches(for: "\\d{2}.", in: dateNow)
-        matchedDay = matches(for: "\\d{2}", in: matchedDay[0])
+        var matchedDay = matches(for: "/\\d{1,2}/", in: dateNow)
+        matchedDay = matches(for: "\\d{1,2}", in: matchedDay[0])
         let day = matchedDay[0]
         
-        var matchedMonth = matches(for: ".\\d{2}.", in: dateNow)
-        matchedMonth = matches(for: "\\d{2}", in: matchedMonth[0])
-        let month = matchedMonth[0]
+        var matchedMonth = matches(for: "\\d{1,2}/", in: dateNow)
+        matchedMonth = matches(for: "\\d{1,2}", in: matchedMonth[0])
+        let month = getNameMonth(numberMonth: matchedMonth[0])
         
-        let matchedYear = matches(for: ".\\d{2}$", in: dateNow)
+        let matchedYear = matches(for: "/\\d{1,2}$", in: dateNow)
+        matchedDay = matches(for: "\\d{1,2}", in: matchedDay[0])
         let year = "20" + matchedYear[0]
         
         if String(date.day) != day ||
