@@ -9,6 +9,32 @@ import UIKit
 
 final class SignUpScreenView: UIView {
     
+    private enum Metrics {
+        static let spacingStack: CGFloat = 16
+        
+        static let buttonCornerRadius: CGFloat = 4
+        static let buttonsBorderWidth: CGFloat = 1
+        
+        static let authButtonEdgeInsets = UIEdgeInsets(top: 13, left: 10, bottom: 13, right: 10)
+        static let changeAuthScreenButtonEdgeInsets = UIEdgeInsets(top: 13, left: 10, bottom: 13, right: 10)
+        
+        static let imageLogoTopInset: CGFloat = UIScreen.main.bounds.height * 3 / 100
+        static let imageLogoLeadingInset: CGFloat = 86
+        static let imageLogoTrailingInset: CGFloat = 82
+        
+        static let infoStackHorizontalInset: CGFloat = 16
+        static let infoStackTopInset: CGFloat = -64
+        
+        static let authButtonLeadingInset: CGFloat = 17
+        static let authButtonTrailingInset: CGFloat = 16
+        static let authButtonTopInset: CGFloat = -156
+        
+        static let changeAuthScreenButtonLeadingInset: CGFloat = 17
+        static let changeAuthScreenButtonTrailingInset: CGFloat = 16
+        static let changeAuthScreenButtonTopInset: CGFloat = -16
+        static let changeAuthScreenButtonBottomInset = 44
+    }
+    
     private lazy var imageLogo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "LogoApplication")
@@ -20,7 +46,7 @@ final class SignUpScreenView: UIView {
     private lazy var infoStack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 16
+        view.spacing = Metrics.spacingStack
         
         return view
     }()
@@ -28,7 +54,6 @@ final class SignUpScreenView: UIView {
     private lazy var firstNameInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Имя", isSecured: false)
-        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         return view
     }()
@@ -36,7 +61,6 @@ final class SignUpScreenView: UIView {
     private lazy var lastNameInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Фамилия", isSecured: false)
-        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         return view
     }()
@@ -44,7 +68,6 @@ final class SignUpScreenView: UIView {
     private lazy var emailInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "E-mail", isSecured: false)
-        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         return view
     }()
@@ -52,7 +75,6 @@ final class SignUpScreenView: UIView {
     private lazy var passwordInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Пароль", isSecured: false)
-        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 
         return view
     }()
@@ -60,7 +82,6 @@ final class SignUpScreenView: UIView {
     private lazy var confirmPasswordInputField: UICustomTextField = {
         var view = UICustomTextField()
         view = view.getCustomTextField(placeholder: "Повторите пароль", isSecured: false)
-        view.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 
         return view
     }()
@@ -68,20 +89,20 @@ final class SignUpScreenView: UIView {
     private lazy var authButton: UIButton = {
         let view = UIButton()
         view.backgroundColor = .accentColorApplication
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
+        view.layer.cornerRadius = Metrics.buttonCornerRadius
+        view.layer.borderWidth = Metrics.buttonsBorderWidth
         view.setTitle("Зарегистрироваться", for: .normal)
         view.setTitleColor(.white, for: .normal)
-        view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 10, bottom: 13, right: 10)
+        view.contentEdgeInsets = Metrics.authButtonEdgeInsets
             
         return view
     }()
         
     private lazy var changeAuthScreenButton: UIButton = {
         let view = UIButton()
-        view.contentEdgeInsets = UIEdgeInsets(top: 13, left: 10, bottom: 13, right: 10)
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
+        view.contentEdgeInsets = Metrics.changeAuthScreenButtonEdgeInsets
+        view.layer.cornerRadius = Metrics.buttonCornerRadius
+        view.layer.borderWidth = Metrics.buttonsBorderWidth
         view.layer.borderColor = UIColor.borderButton.cgColor
         view.setTitle("У меня уже есть аккаунт", for: .normal)
         view.setTitleColor(.accentColorApplication, for: .normal)
@@ -113,11 +134,6 @@ final class SignUpScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc
-    func textFieldDidChange(sender: UITextField) {
-        sender.text = sender.text?.lowercased()
-    }
 }
 
 private extension SignUpScreenView {
@@ -133,27 +149,27 @@ private extension SignUpScreenView {
     
     func configureConstraints() {
         imageLogo.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(UIScreen.main.bounds.height * 3 / 100)
-            make.leading.equalToSuperview().inset(86)
-            make.trailing.equalToSuperview().inset(82)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.imageLogoTopInset)
+            make.leading.equalToSuperview().inset(Metrics.imageLogoLeadingInset)
+            make.trailing.equalToSuperview().inset(Metrics.imageLogoTrailingInset)
         }
         
         infoStack.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(imageLogo.snp.bottom).inset(-64)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.infoStackHorizontalInset)
+            make.top.equalTo(imageLogo.snp.bottom).inset(Metrics.infoStackTopInset)
         }
         
         authButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(17)
-            make.trailing.equalToSuperview().inset(16)
-            make.top.lessThanOrEqualTo(infoStack.snp.bottom).inset(-156)
+            make.leading.equalToSuperview().inset(Metrics.authButtonLeadingInset)
+            make.trailing.equalToSuperview().inset(Metrics.authButtonTrailingInset)
+            make.top.lessThanOrEqualTo(infoStack.snp.bottom).inset(Metrics.authButtonTopInset)
         }
         
         changeAuthScreenButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(17)
-            make.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(authButton.snp.bottom).inset(-16)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(44)
+            make.leading.equalToSuperview().inset(Metrics.changeAuthScreenButtonLeadingInset)
+            make.trailing.equalToSuperview().inset(Metrics.changeAuthScreenButtonTrailingInset)
+            make.top.equalTo(authButton.snp.bottom).inset(Metrics.changeAuthScreenButtonTopInset)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(Metrics.changeAuthScreenButtonBottomInset)
         }
     }
     
@@ -170,7 +186,11 @@ private extension SignUpScreenView {
                              
     @objc
     func signUp(_ selector: AnyObject) {
-        let user = RegisterCredentialDTO(firstName: firstNameInputField.text ?? "", lastName: lastNameInputField.text ?? "", email: emailInputField.text ?? "", password: passwordInputField.text ?? "", confirmPassword: confirmPasswordInputField.text ?? "")
+        let user = RegisterCredentialDTO(firstName: firstNameInputField.text ?? String(),
+                                         lastName: lastNameInputField.text ?? String(),
+                                         email: emailInputField.text ?? String(),
+                                         password: passwordInputField.text ?? String(),
+                                         confirmPassword: confirmPasswordInputField.text ?? String())
         
         self.signUpHandler?(user)
     }

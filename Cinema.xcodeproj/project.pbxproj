@@ -332,8 +332,8 @@
 		2FF0C51A74E48CD0D068962A /* SignUpScreen */ = {
 			isa = PBXGroup;
 			children = (
-				9AED34B305382379EF24B17D /* SignUpScreenView.swift */,
 				7C3706049E01CFF26C8F2244 /* SignUpViewController.swift */,
+				9AED34B305382379EF24B17D /* SignUpScreenView.swift */,
 			);
 			path = SignUpScreen;
 			sourceTree = "<group>";
