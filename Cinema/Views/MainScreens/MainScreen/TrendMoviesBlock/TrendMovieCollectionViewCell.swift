@@ -10,7 +10,7 @@ import SnapKit
 
 class TrendMovieCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "TrendMovieCollectionViewCell"
+    //- MARK: Private properties
     
     private lazy var imageMovie: UIImageView = {
         let view = UIImageView()
@@ -19,6 +19,14 @@ class TrendMovieCollectionViewCell: UICollectionViewCell {
         
         return view
     }()
+    
+    
+    //- MARK: Public static properties
+    
+    static let reuseIdentifier = "TrendMovieCollectionViewCell"
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,13 +40,22 @@ class TrendMovieCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func configure(with model: Movie) {
         imageMovie.downloaded(from: model.poster, contentMode: imageMovie.contentMode)
     }
     
 }
 
+
+//- MARK: Private extensions
+
 private extension TrendMovieCollectionViewCell {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
     }

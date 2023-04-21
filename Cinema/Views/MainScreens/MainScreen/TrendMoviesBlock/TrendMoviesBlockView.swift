@@ -9,13 +9,30 @@ import UIKit
 import SnapKit
 
 class TrendMoviesBlockView: UIStackView {
+    
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let titleTrendsBlockTextSize: CGFloat = 24
+        static let titleTrendsBlockSizeHeight: CGFloat = 29
+
+        static let collectionTrendFilmsSizeHeight: CGFloat = 144
+        
+        static let stackSpacing: CGFloat = 16
+        
+        static let collectionViewWidth: CGFloat = 100
+        static let collectionViewHeight: CGFloat = 144
+        
+        static let collectionViewSpacinSection: CGFloat = 16
+    }
+    
     private lazy var titleTrendsBlock: UILabel = {
         let view = UILabel()
         view.text = "В тренде"
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.titleTrendsBlockTextSize)
         view.textColor = .accentColorApplication
         view.textAlignment = .left
-        view.bounds.size.height = 29
+        view.bounds.size.height = Metrics.titleTrendsBlockSizeHeight
         
         return view
     }()
@@ -35,14 +52,20 @@ class TrendMoviesBlockView: UIStackView {
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
         
-        view.bounds.size.height = 144
+        view.bounds.size.height = Metrics.collectionTrendFilmsSizeHeight
         
         return view
     }()
     
     private var arrayTrendMovies = [Movie]()
     
+    
+    //- MARK: Public properties
+    
     var trendMoviePressed: ((Movie) -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,6 +79,9 @@ class TrendMoviesBlockView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func getHeightView() -> CGFloat {
         let titleHeight = titleTrendsBlock.bounds.size.height
@@ -78,7 +104,13 @@ class TrendMoviesBlockView: UIStackView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension TrendMoviesBlockView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureStack()
@@ -87,7 +119,7 @@ private extension TrendMoviesBlockView {
     func configureStack() {
         self.axis = .vertical
         self.alignment = .leading
-        self.spacing = 16
+        self.spacing = Metrics.stackSpacing
     }
 
     func configureConstraints() {
@@ -96,6 +128,7 @@ private extension TrendMoviesBlockView {
         }
     }
 }
+
 
 //- MARK: UICollectionViewDataSource
 
@@ -124,15 +157,16 @@ extension TrendMoviesBlockView: UICollectionViewDelegate {
     }
 }
 
+
 //- MARK: UICollectionViewFlowLayout
 
 extension TrendMoviesBlockView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 100, height: 144)
+        return CGSize(width: Metrics.collectionViewWidth, height: Metrics.collectionViewHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        16
+        Metrics.collectionViewSpacinSection
     }
 }

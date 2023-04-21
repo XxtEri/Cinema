@@ -611,8 +611,8 @@
 		A4E11CA5C08F08E1A4A638D6 /* TrendMoviesBlock */ = {
 			isa = PBXGroup;
 			children = (
-				2469887AA7C6B6D6A3E20DA5 /* TrendMovieCollectionViewCell.swift */,
 				145C1FE1EFDE3778328D7DD0 /* TrendMoviesBlockView.swift */,
+				2469887AA7C6B6D6A3E20DA5 /* TrendMovieCollectionViewCell.swift */,
 			);
 			path = TrendMoviesBlock;
 			sourceTree = "<group>";

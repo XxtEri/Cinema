@@ -52,7 +52,13 @@ class RecomendationMoviesBlockView: UIStackView {
     
     private var arrayRecomendationMovies = [Movie]()
     
+    
+    //- MARK: Public properties
+    
     var recomendationMoviePressed: ((Movie) -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,6 +72,9 @@ class RecomendationMoviesBlockView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func getHeightView() -> CGFloat {
         let titleHeight = titleNewFilmBlock.bounds.size.height
@@ -88,7 +97,13 @@ class RecomendationMoviesBlockView: UIStackView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension RecomendationMoviesBlockView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureStack()
@@ -110,6 +125,7 @@ private extension RecomendationMoviesBlockView {
         }
     }
 }
+
 
 //- MARK: UICollectionViewDataSource
 
