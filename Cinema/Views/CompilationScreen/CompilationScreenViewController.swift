@@ -36,7 +36,32 @@ class CompilationScreenViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel?.getCompilation()
+        self.showActivityIndicator()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.viewModel?.getCompilation()
+        }
+    }
+    
+    
+    //- MARK: Private methods
+    
+    private func showActivityIndicator() {
+        self.ui.startAnumateIndicator()
+    }
+    
+    private func hideActivityIndicator() {
+        self.ui.stopAnimateIndicator()
+    }
+    
+    private func showError(_ error: String) {
+        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
+        
+        alertController.addAction(action)
+        
+        alertController.view.tintColor = .accentColorApplication
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -46,18 +71,24 @@ extension CompilationScreenViewController {
             guard let self = self else { return }
             
             self.ui.updateArrayCardsMovie(cards: movies)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+                self.hideActivityIndicator()
+            }
         })
         
         self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
             guard let self = self else { return }
             
-            self.showError(error)
+            self.hideActivityIndicator()
+            self.showError("Неизвестная ошибка сервера. Попробуйте еще раз позже")
         })
         
         self.ui.cardCompilation.disappearedCard = { [ weak self ] in
             guard let self = self else { return }
             
             self.ui.updateCard()
+            
         }
     }
     
@@ -91,9 +122,5 @@ extension CompilationScreenViewController {
             
             self.viewModel?.deleteMovieInCollection(movieId: movie.movieId)
         }
-    }
-    
-    func showError(_ error: Error) {
-        print(error.localizedDescription)
     }
 }

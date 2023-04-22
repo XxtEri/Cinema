@@ -65,6 +65,15 @@ class CompilationScreenView: UIView {
         return view
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        
+        indicator.color = .accentColorApplication
+        indicator.hidesWhenStopped = true
+        
+        return indicator
+    }()
+    
     lazy var cardCompilation: CardCompilationView = {
         let view = CardCompilationView()
         
@@ -83,6 +92,7 @@ class CompilationScreenView: UIView {
         self.addSubview(cardCompilation)
         self.addSubview(buttons)
         self.addSubview(stub)
+        self.addSubview(activityIndicator)
         
         buttons.addSubview(dislikeButton)
         buttons.addSubview(playButton)
@@ -120,6 +130,16 @@ class CompilationScreenView: UIView {
         cardCompilation.setInfoCard(card: arrayCompilation[arrayCompilation.startIndex])
         cardCompilation.resetCard()
     }
+    
+    func startAnumateIndicator() {
+        activityIndicator.startAnimating()
+        activityIndicator.alpha = 1
+    }
+    
+    func stopAnimateIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.alpha = 0
+    }
 }
 
 private extension CompilationScreenView {
@@ -134,6 +154,10 @@ private extension CompilationScreenView {
     }
     
     func configureConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         cardCompilation.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.horizontalEdges.equalToSuperview().inset(24)

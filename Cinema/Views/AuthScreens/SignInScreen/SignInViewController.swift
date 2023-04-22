@@ -113,6 +113,10 @@ private extension SignInViewController {
                 self.showError("Неверный логин или пароль")
             }
         }
+        
+        self.viewModel?.errorServer.subscribe(with: { [ weak self ] error in
+            self?.showError("Неизвестная ошибка сервера. Попробуйте повторить попытку позже")
+        })
     }
 }
 
