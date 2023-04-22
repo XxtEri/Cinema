@@ -9,6 +9,8 @@ import UIKit
 
 class CollectionScreenDetailViewController: UIViewController {
     
+    //- MARK: Private properties
+    
     private enum Metrics {
         static let itemsInRow = 1
         static let cellHeight: CGFloat = 80
@@ -18,10 +20,17 @@ class CollectionScreenDetailViewController: UIViewController {
     }
     
     private let ui: CollectionScreenDetailView
+    
+    
+    //- MARK: Public properties
+    
     var viewModel: CollectionScreenViewModel?
     
     var collection: CollectionList
     var movies = [Movie]()
+    
+    
+    //- MARK: Inits
     
     init(collection: CollectionList) {
         self.ui = CollectionScreenDetailView()
@@ -37,6 +46,9 @@ class CollectionScreenDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Lifecycle
+    
     override func loadView() {
         self.view = ui
     }
@@ -50,6 +62,9 @@ class CollectionScreenDetailViewController: UIViewController {
         self.viewModel?.getMovieInCollection(collectionId: self.collection.collectionId)
     }
 }
+
+
+//- MARK: Private extensions
 
 private extension CollectionScreenDetailViewController {
     func handler() {
@@ -74,6 +89,11 @@ private extension CollectionScreenDetailViewController {
     }
 }
 
+
+//- MARK: Public extensions
+
+//- MARK: UICollectionViewDataSource
+
 extension CollectionScreenDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         movies.count
@@ -91,11 +111,17 @@ extension CollectionScreenDetailViewController: UICollectionViewDataSource {
     
 }
 
+
+//- MARK: UICollectionViewDelegate
+
 extension CollectionScreenDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel?.goToMovieScreen(movie: movies[indexPath.row])
     }
 }
+
+
+//- MARK: UICollectionViewDelegateFlowLayout
 
 extension CollectionScreenDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath ) -> CGSize {

@@ -746,9 +746,9 @@
 		EF9BC05123435CB9861FECFD /* CollectionScreenDetails */ = {
 			isa = PBXGroup;
 			children = (
-				29CC5372F454B74E69C6AEEA /* CollectionScreenDetailCollectionViewCell.swift */,
-				50A2ED50974834761F3F693F /* CollectionScreenDetailView.swift */,
 				0566488A67684080BD9C1C25 /* CollectionScreenDetailViewController.swift */,
+				50A2ED50974834761F3F693F /* CollectionScreenDetailView.swift */,
+				29CC5372F454B74E69C6AEEA /* CollectionScreenDetailCollectionViewCell.swift */,
 			);
 			path = CollectionScreenDetails;
 			sourceTree = "<group>";
