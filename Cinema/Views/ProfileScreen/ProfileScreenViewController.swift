@@ -50,31 +50,64 @@ final class ProfileScreenViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
-        bind()
-        
-        viewModel?.getInformationProfile()
+        bindListener()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        showActivityIndicator()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.viewModel?.getInformationProfile()
+        }
+    }
+    
+    
+    private func showActivityIndicator() {
+        ui.startAnumateIndicator()
+    }
+    
+    private func hideActivityIndicator() {
+        ui.stopAnimateIndicator()
+    }
+    
+    private func showError(_ error: String) {
+        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        
+        alertController.addAction(action)
+        
+        alertController.view.tintColor = .accentColorApplication
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension ProfileScreenViewController {
-    func bind() {
+    func bindListener() {
         self.viewModel?.informationProfile.subscribe(with: { [ weak self ] user in
             guard let self = self else { return }
             
             self.ui.set(with: user)
+            self.hideActivityIndicator()
         })
         
         self.viewModel?.errorOnLoading.subscribe(with: { [ weak self ] error in
             guard let self = self else { return }
             
-            self.showError(error)
+            self.hideActivityIndicator()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.showError(error)
+            }
         })
         
         self.ui.signOutButtonPressed = { [ weak self ] in
             guard let self = self else { return }
             
-            self.viewModel?.signOut()
+            self.showActivityIndicator()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.viewModel?.signOut()
+            }
         }
         
         self.ui.profileInformationBlock.avatarChangeButtonPressed = { [ weak self ] in

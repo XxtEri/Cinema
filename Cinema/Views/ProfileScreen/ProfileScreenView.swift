@@ -34,6 +34,15 @@ final class ProfileScreenView: UIView {
             return view
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        
+        indicator.color = .accentColorApplication
+        indicator.hidesWhenStopped = true
+        
+        return indicator
+    }()
+    
     let profileInformationBlock = ProfileInformationBlockView()
     
     var signOutButtonPressed: (() -> Void)?
@@ -44,6 +53,7 @@ final class ProfileScreenView: UIView {
         self.addSubview(profileInformationBlock)
         self.addSubview(buttons)
         self.addSubview(signOutButton)
+        self.addSubview(activityIndicator)
         
         setup()
     }
@@ -56,6 +66,16 @@ final class ProfileScreenView: UIView {
         
         buttons.delegate = delegate
         buttons.dataSource = dataSource
+    }
+    
+    func startAnumateIndicator() {
+        activityIndicator.startAnimating()
+        activityIndicator.alpha = 1
+    }
+    
+    func stopAnimateIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.alpha = 0
     }
 }
 
@@ -71,6 +91,10 @@ private extension ProfileScreenView {
     }
     
     func configureConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         profileInformationBlock.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(28)
