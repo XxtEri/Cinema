@@ -13,6 +13,8 @@ protocol SheetViewControllerDelegate: AnyObject {
 
 class IconSelectionScreenViewController: UIViewController {
     
+    //- MARK: Private properties
+    
     private enum Metrics {
         static let itemsInRow = 4
         static let cellHeight: CGFloat = 74
@@ -23,9 +25,13 @@ class IconSelectionScreenViewController: UIViewController {
     }
     
     private var ui: IconSelectionScreenView
-    var viewModel: CollectionScreenViewModel?
+    
+    
+    //- MARK: Public properties
     
     weak var delegate: SheetViewControllerDelegate?
+    
+    var viewModel: CollectionScreenViewModel?
     
     var selectedIconName: String?
     
@@ -39,6 +45,9 @@ class IconSelectionScreenViewController: UIViewController {
         return array
     }()
     
+    
+    //- MARK: Inits
+    
     init() {
         self.ui = IconSelectionScreenView()
         
@@ -51,6 +60,9 @@ class IconSelectionScreenViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Lifecycle
+    
     override func loadView() {
         self.view = ui
     }
@@ -60,6 +72,9 @@ class IconSelectionScreenViewController: UIViewController {
         
         handler()
     }
+    
+    
+    //- MARK: Private methods
     
     private func initArrayIcons() {
         for numberIcon in 1...36 {
@@ -76,7 +91,10 @@ class IconSelectionScreenViewController: UIViewController {
     }
 }
 
-extension IconSelectionScreenViewController {
+
+//- MARK: Private extensions
+
+private extension IconSelectionScreenViewController {
     func handler() {
         self.ui.closeSheetScreenButtonPressed = {
             if let imageName = self.selectedIconName{
@@ -88,6 +106,11 @@ extension IconSelectionScreenViewController {
         }
     }
 }
+
+
+//- MARK: Public extensions
+
+//- MARK: UICollectionViewDataSource
 
 extension IconSelectionScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -105,6 +128,9 @@ extension IconSelectionScreenViewController: UICollectionViewDataSource {
     }
 }
 
+
+//- MARK: UICollectionViewDelegate
+
 extension IconSelectionScreenViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIconName = iconsImageName[indexPath.row]
@@ -112,6 +138,9 @@ extension IconSelectionScreenViewController: UICollectionViewDelegate {
         self.ui.closeSheetScreenButtonPressed?()
     }
 }
+
+
+//- MARK: UICollectionViewDelegateFlowLayout
 
 extension IconSelectionScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath ) -> CGSize {

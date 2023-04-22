@@ -10,7 +10,27 @@ import SnapKit
 
 class ChatListScreenCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "ChatListCollectionViewCell"
+    //- MARK: Private properties
+    private enum Metrics {
+        static let textSize: CGFloat = 14
+        static let textKern: CGFloat = -0.17
+        
+        static let titleChatNumberLine = 1
+        static let titleChatTextSize: CGFloat = 24
+        
+        static let lastMessageNumberLine = 2
+    
+        static let avatarChatHeightWidth: CGFloat = 64
+        
+        static let titleChatLeadingInset: CGFloat = -16
+        static let titleChatTrailingInset: CGFloat = 16
+        
+        static let lastMessageTopInset: CGFloat = -4
+        
+        static let lineTopInsetToLastMessage: CGFloat = -11
+        static let lineTopInsetToAvatarChat: CGFloat = -8
+        static let lineHeight: CGFloat = 1
+    }
     
     private lazy var avatarChat: CircleImageView = {
         let view = CircleImageView()
@@ -21,22 +41,21 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
     
     private lazy var titleChat: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .white
-        view.numberOfLines = 1
+        view.numberOfLines = Metrics.titleChatNumberLine
         view.textAlignment = .left
         
         return view
     }()
     
-    
     private lazy var lastMessage: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 14)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .white
-        view.numberOfLines = 2
+        view.numberOfLines = Metrics.lastMessageNumberLine
         view.textAlignment = .left
         
         return view
@@ -48,6 +67,14 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
          
          return view
      }()
+    
+    
+    //- MARK: Public properties
+    
+    static let reuseIdentifier = "ChatListCollectionViewCell"
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,13 +91,16 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Private methods
+    
     private func getLabelTitleChatInList() -> UILabel {
         let label = UILabel()
         
         label.text = getAbbrevationChat()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = UIFont(name: "SFProText-Bold", size: 24)
+        label.font = UIFont(name: "SFProText-Bold", size: Metrics.titleChatTextSize)
         
         return label
     }
@@ -97,15 +127,18 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
         return abbrevationChat.uppercased()
     }
     
+    
+    //- MARK: Public methods
+    
     func configureCell(modelChat: Chat) {
         titleChat.text = modelChat.chatName
-        let authorName = (modelChat.lastMessage?.authorName ?? "") + ":"
+        let authorName = (modelChat.lastMessage?.authorName ?? String()) + ":"
         let message = modelChat.lastMessage?.text
-        let authorAndMessage = authorName + " " + (message ?? "")
+        let authorAndMessage = authorName + " " + (message ?? String())
 
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: authorAndMessage)
         attributedString.setColorForText(textForAttribute: authorName, withColor: UIColor.authorNameDisscusionScreen)
-        attributedString.setColorForText(textForAttribute: message ?? "", withColor: UIColor.white)
+        attributedString.setColorForText(textForAttribute: message ?? String(), withColor: UIColor.white)
 
         lastMessage.attributedText = attributedString
         
@@ -120,7 +153,13 @@ class ChatListScreenCollectionViewCell: UICollectionViewCell {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension ChatListScreenCollectionViewCell {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
     }
@@ -128,27 +167,27 @@ private extension ChatListScreenCollectionViewCell {
     func configureConstraints() {
         avatarChat.snp.makeConstraints { make in
             make.top.leading.equalToSuperview()
-            make.height.width.equalTo(64)
+            make.height.width.equalTo(Metrics.avatarChatHeightWidth)
         }
         
         titleChat.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(avatarChat.snp.trailing).inset(-16)
-            make.trailing.equalToSuperview().inset(16)
+            make.leading.equalTo(avatarChat.snp.trailing).inset(Metrics.titleChatLeadingInset)
+            make.trailing.equalToSuperview().inset(Metrics.titleChatTrailingInset)
         }
         
         lastMessage.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(titleChat.snp.horizontalEdges)
-            make.top.equalTo(titleChat.snp.bottom).inset(-4)
+            make.top.equalTo(titleChat.snp.bottom).inset(Metrics.lastMessageTopInset)
         }
         
         line.snp.makeConstraints { make in
             make.leading.equalTo(lastMessage.snp.leading)
             make.trailing.equalToSuperview()
-            make.top.equalTo(lastMessage.snp.bottom).inset(-11)
-            make.top.equalTo(avatarChat.snp.bottom).inset(-8)
+            make.top.equalTo(lastMessage.snp.bottom).inset(Metrics.lineTopInsetToLastMessage)
+            make.top.equalTo(avatarChat.snp.bottom).inset(Metrics.lineTopInsetToAvatarChat)
             make.bottom.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(Metrics.lineHeight)
         }
     }
 }

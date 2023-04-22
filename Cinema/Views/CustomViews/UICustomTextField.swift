@@ -9,7 +9,12 @@ import UIKit
 
 class UICustomTextField: UITextField {
     
+    //- MARK: Public properties
+    
     var padding = UIEdgeInsets(top: 13, left: 16, bottom: 13, right: 16)
+    
+    
+    //- MARK: Override methods
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         bounds.inset(by: padding)
@@ -22,6 +27,9 @@ class UICustomTextField: UITextField {
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         bounds.inset(by: padding)
     }
+    
+    
+    //- MARK: Public methods
     
     func getCustomTextField(placeholder: String, isSecured: Bool) -> UICustomTextField {
         

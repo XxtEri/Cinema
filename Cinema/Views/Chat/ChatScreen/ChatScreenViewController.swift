@@ -9,11 +9,22 @@ import UIKit
 
 class ChatScreenViewController: UIViewController {
     
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let spacingBetweenMessagesSameAuthor: CGFloat = 4
+        static let spacingBetweenMessageOtherAuthor: CGFloat = 16
+        static let spacingBetweenMessageAndDate: CGFloat = 24
+    }
+    
     private let ui: ChatScreenView
     
     private var currentDate: DateMessage?
     
     private var chatModel: Chat
+    
+    
+    //- MARK: Public properties
     
     var viewModel: ChatViewModel?
     
@@ -21,6 +32,9 @@ class ChatScreenViewController: UIViewController {
     
     var messagesFromServer = [MessageServer]()
     var messagesTableView = [Any]()
+    
+    
+    //- MARK: Inits
     
     init(chatModel: Chat) {
         self.ui = ChatScreenView()
@@ -35,6 +49,9 @@ class ChatScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Lifecycle
     
     override func loadView() {
         self.view = ui
@@ -51,6 +68,9 @@ class ChatScreenViewController: UIViewController {
         bindListener()
         handler()
     }
+    
+    
+    //- MARK: Private methods
 
     private func initArrayMessage() {
         guard let newMessage = messagesFromServer.last else { return }
@@ -106,6 +126,9 @@ class ChatScreenViewController: UIViewController {
         }
     }
     
+    
+    //- MARK: Public methods
+    
     func reloadDataChat() {
         self.initArrayMessage()
         
@@ -116,6 +139,9 @@ class ChatScreenViewController: UIViewController {
         updateLayout()
     }
 }
+
+
+//- MARK: Private extensions
 
 private extension ChatScreenViewController {
     func bindListener() {
@@ -160,7 +186,7 @@ private extension ChatScreenViewController {
         }
     }
     
-    private func showError(_ error: String) {
+    func showError(_ error: String) {
         let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
         
@@ -172,6 +198,11 @@ private extension ChatScreenViewController {
     }
 
 }
+
+
+//- MARK: Public extensions
+
+//- MARK: UITableViewDataSource, UITableViewDelegate
 
 extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -213,15 +244,15 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if indexPath.row + 1 < messagesTableView.count {
                     if messagesTableView[indexPath.row + 1] is String {
-                        cell.addEmptyViewForIndent(indent: 24)
+                        cell.addEmptyViewForIndent(indent: Metrics.spacingBetweenMessageAndDate)
                         
                     } else if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
                         if nextMessage.authorId == currentUserId {
-                            cell.addEmptyViewForIndent(indent: 4)
+                            cell.addEmptyViewForIndent(indent: Metrics.spacingBetweenMessagesSameAuthor)
                             cell.avatar.isHidden = true
                             
                         } else {
-                            cell.addEmptyViewForIndent(indent: 16)
+                            cell.addEmptyViewForIndent(indent: Metrics.spacingBetweenMessageOtherAuthor)
                         }
                     }
                 }
@@ -236,15 +267,15 @@ extension ChatScreenViewController: UITableViewDataSource, UITableViewDelegate {
             
             if indexPath.row + 1 < messagesTableView.count {
                 if messagesTableView[indexPath.row + 1] is String {
-                    cell.addEmptyViewForIndent(indent: 24)
+                    cell.addEmptyViewForIndent(indent: Metrics.spacingBetweenMessageAndDate)
                     
                 } else if let nextMessage = messagesTableView[indexPath.row + 1] as? MessageServer {
                     if nextMessage.authorId == message.authorId {
-                        cell.addEmptyViewForIndent(indent: 4)
+                        cell.addEmptyViewForIndent(indent: Metrics.spacingBetweenMessagesSameAuthor)
                         cell.avatar.isHidden = true
                         
                     } else {
-                        cell.addEmptyViewForIndent(indent: 16)
+                        cell.addEmptyViewForIndent(indent: Metrics.spacingBetweenMessageOtherAuthor)
                     }
                 }
             }

@@ -10,10 +10,27 @@ import SnapKit
 
 class CardCompilationView: UIView {
     
+    //- MARK: Prvate properties
+    
+    private enum Metrics {
+        static let textSize: CGFloat = 24
+        
+        static let cardCornerRadius: CGFloat = 16
+        
+        static let imageCardCornerRadius: CGFloat = 16
+        
+        static let titleCardTopInset: CGFloat = 36
+        static let titleCardHorizontalInset: CGFloat = 20
+        
+        static let cardTopInset: CGFloat = -24
+        
+        static let reactionImageHorizontalInset: CGFloat = 112
+    }
+    
     private lazy var titleCard: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
         view.text = "Name"
         view.numberOfLines = .max
         view.textAlignment = .center
@@ -24,16 +41,15 @@ class CardCompilationView: UIView {
     private lazy var card: UIView = {
         let view = UIView()
         view.backgroundColor = .gray
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = Metrics.cardCornerRadius
         
         return view
     }()
     
     private lazy var imageCard: UIImageView = {
         let view = UIImageView()
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = Metrics.imageCardCornerRadius
         view.contentMode = .scaleToFill
-        view.layer.cornerRadius = 16
         view.clipsToBounds = true
         
         return view
@@ -48,11 +64,17 @@ class CardCompilationView: UIView {
     
     private var initialCenter: CGPoint = .zero
     
+    
+    //- MARK: Public properties
+    
     var currentMovie: Movie?
     
     var disappearedCard: (() -> Void)?
     var likeToMovieButtonPressed: ((Movie) -> Void)?
     var dislikeToMovieButtonPressed: ((Movie) -> Void)?
+    
+    
+    //- MARK: Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,6 +93,9 @@ class CardCompilationView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func setInfoCard(card: Movie) {
         self.currentMovie = card
@@ -97,7 +122,41 @@ class CardCompilationView: UIView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension CardCompilationView {
+    
+    //- MARK: Setup
+    
+    func setup() {
+        configureConstraints()
+    }
+    
+    func configureConstraints() {
+        titleCard.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(Metrics.titleCardTopInset)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.titleCardHorizontalInset)
+        }
+        
+        card.snp.makeConstraints { make in
+            make.top.greaterThanOrEqualTo(titleCard.snp.bottom).inset(Metrics.cardTopInset)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        imageCard.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        reactionImage.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(Metrics.reactionImageHorizontalInset)
+        }
+    }
+    
+    
+    //- MARK: Actions
+    
     @objc
     func didPan(_ sender: UIPanGestureRecognizer) {
         let xFromCenter = card.center.x - self.center.x
@@ -159,33 +218,6 @@ private extension CardCompilationView {
             
         default:
             break
-        }
-    }
-}
-
-private extension CardCompilationView {
-    func setup() {
-        configureConstraints()
-    }
-    
-    func configureConstraints() {
-        titleCard.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(36)
-            make.horizontalEdges.equalToSuperview().inset(20)
-        }
-        
-        card.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(titleCard.snp.bottom).inset(-24)
-            make.horizontalEdges.bottom.equalToSuperview()
-        }
-        
-        imageCard.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        reactionImage.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(112)
         }
     }
 }

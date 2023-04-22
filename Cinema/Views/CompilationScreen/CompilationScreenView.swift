@@ -10,6 +10,39 @@ import SnapKit
 
 class CompilationScreenView: UIView {
     
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let stubAlpha: CGFloat = 0
+        
+        static let textSize: CGFloat = 24
+        static let textKern: CGFloat = -0.17
+        
+        static let cardCompilationHorizontalInset: CGFloat = 24
+        
+        static let buttonsTopInset: CGFloat = -32
+        static let buttonsHorizontalInset: CGFloat = 36
+        static let buttonsBottomInset: CGFloat = 32
+        static let buttonsHeight: CGFloat = 56
+        
+        static let dislikeButtonWidth: CGFloat = 56
+        
+        static let playButtonLeadingInset: CGFloat = -44
+        static let playButtonWidth: CGFloat = 56
+        
+        static let likeButtonLeadingInset: CGFloat = -44
+        static let likeButtonWidth: CGFloat = 56
+        
+        static let stubTopInset: CGFloat = 247
+        static let stubBottomInset: CGFloat = 177
+        
+        static let imageStubHorizontalInset: CGFloat = 81
+        
+        static let textStubTopInset: CGFloat = -32
+        static let textStubHorizontalInset: CGFloat = 44
+        static let textStubBottomInset: CGFloat = 20
+    }
+    
     private lazy var buttons: UIView = {
         let view = UIView()
         return view
@@ -41,7 +74,7 @@ class CompilationScreenView: UIView {
     
     private lazy var stub: UIView = {
         let view = UIView()
-        view.alpha = 0
+        view.alpha = Metrics.stubAlpha
         
         return view
     }()
@@ -56,11 +89,11 @@ class CompilationScreenView: UIView {
     
     private lazy var textStub: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 24)
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
         view.textAlignment = .center
         view.textColor = .textStub
         view.numberOfLines = .max
-        view.attributedText = NSAttributedString(string: "Новые фильмы в подборке закончились", attributes: [.kern: -0.17])
+        view.attributedText = NSAttributedString(string: "Новые фильмы в подборке закончились", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
@@ -74,6 +107,9 @@ class CompilationScreenView: UIView {
         return indicator
     }()
     
+    
+    //- MARK: Public properties
+    
     lazy var cardCompilation: CardCompilationView = {
         let view = CardCompilationView()
         
@@ -85,6 +121,9 @@ class CompilationScreenView: UIView {
     var likeToMovieButtonPressed: ((Movie) -> Void)?
     var dislikeToMovieButtonPressed: ((Movie) -> Void)?
     var playMovieButtonPressed: ((Movie) -> Void)?
+    
+    
+    //- MARK: Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,6 +146,9 @@ class CompilationScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func updateArrayCardsMovie(cards: [Movie]) {
         arrayCompilation = cards
@@ -142,7 +184,13 @@ class CompilationScreenView: UIView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension CompilationScreenView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureUI()
         configureConstraints()
@@ -160,50 +208,50 @@ private extension CompilationScreenView {
         
         cardCompilation.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.cardCompilationHorizontalInset)
         }
         
         buttons.snp.makeConstraints { make in
-            make.top.equalTo(cardCompilation.snp.bottom).inset(-32)
-            make.horizontalEdges.equalTo(cardCompilation.snp.horizontalEdges).inset(36)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(32)
-            make.height.equalTo(56)
+            make.top.equalTo(cardCompilation.snp.bottom).inset(Metrics.buttonsTopInset)
+            make.horizontalEdges.equalTo(cardCompilation.snp.horizontalEdges).inset(Metrics.buttonsHorizontalInset)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(Metrics.buttonsBottomInset)
+            make.height.equalTo(Metrics.buttonsHeight)
         }
         
         dislikeButton.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.verticalEdges.equalToSuperview()
-            make.width.equalTo(56)
+            make.width.equalTo(Metrics.dislikeButtonWidth)
         }
         
         playButton.snp.makeConstraints { make in
-            make.leading.equalTo(dislikeButton.snp.trailing).inset(-44)
+            make.leading.equalTo(dislikeButton.snp.trailing).inset(Metrics.playButtonLeadingInset)
             make.verticalEdges.equalToSuperview()
-            make.width.equalTo(56)
+            make.width.equalTo(Metrics.playButtonWidth)
         }
         
         likeButton.snp.makeConstraints { make in
-            make.leading.equalTo(playButton.snp.trailing).inset(-44)
+            make.leading.equalTo(playButton.snp.trailing).inset(Metrics.likeButtonLeadingInset)
             make.verticalEdges.equalToSuperview()
-            make.width.equalTo(56)
+            make.width.equalTo(Metrics.likeButtonWidth)
         }
         
         stub.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.lessThanOrEqualTo(247)
+            make.top.lessThanOrEqualTo(Metrics.stubTopInset)
             make.centerY.equalToSuperview()
-            make.bottom.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom).inset(177)
+            make.bottom.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom).inset(Metrics.stubBottomInset)
         }
         
         imageStub.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(81)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.imageStubHorizontalInset)
         }
         
         textStub.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(imageStub.snp.bottom).inset(-32)
-            make.horizontalEdges.equalToSuperview().inset(44)
-            make.bottom.greaterThanOrEqualToSuperview().inset(20)
+            make.top.greaterThanOrEqualTo(imageStub.snp.bottom).inset(Metrics.textStubTopInset)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.textStubHorizontalInset)
+            make.bottom.greaterThanOrEqualToSuperview().inset(Metrics.textStubBottomInset)
         }
     }
     
@@ -218,6 +266,9 @@ private extension CompilationScreenView {
         playButton.addTarget(self, action: #selector(playMovie), for: .touchUpInside)
         likeButton.addTarget(self, action: #selector(setLikeToMovie), for: .touchUpInside)
     }
+    
+    
+    //- MARK: Actions
     
     @objc
     func setDislikeToMovie() {

@@ -128,7 +128,6 @@
 		F370D31F29F028E50094CD81 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F370D31E29F028E50094CD81 /* RealmSwift */; };
 		F3B7CEFAB5E43CE89B2C8777 /* OtherMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710A029824F5A5A25A59BCD /* OtherMessageTableViewCell.swift */; };
 		F82722C4310FDA1D0C8885FD /* IconSelectionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBD30D5B366CA89CC9A0463 /* IconSelectionScreenView.swift */; };
-		FB3E10B71711F3BD9558CD56 /* TitleWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009C7283290BD855EE66A6D /* TitleWithTextView.swift */; };
 		FD6126891ECF01C1BD54CF7B /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01EE642409AEB2A66A2DFBA /* AuthViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -209,7 +208,6 @@
 		95690FA4173F319C5EC87647 /* IMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMainViewModel.swift; sourceTree = "<group>"; };
 		9AED34B305382379EF24B17D /* SignUpScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreenView.swift; sourceTree = "<group>"; };
 		9EE7937B3C8AE48DCC60A5AB /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		A009C7283290BD855EE66A6D /* TitleWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithTextView.swift; sourceTree = "<group>"; };
 		A2B76B146C7D66003F275185 /* FootageMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootageMovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		A3EBA159FD8DDA96C752ED49 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		A76BEA4692931521B1534E44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 				3B98E04F83C6C90C758B5127 /* CircleImageView.swift */,
 				889F95D4EE2D4881A786FB91 /* CustomButton.swift */,
 				8D6E221F04FF23F7BCA63A00 /* PaddingLabel.swift */,
-				A009C7283290BD855EE66A6D /* TitleWithTextView.swift */,
 				F2F29B8773DD64E13E49D9EF /* UICustomTextField.swift */,
 			);
 			path = CustomViews;
@@ -594,9 +591,9 @@
 		9B1797E3332FC8C0EE0B675E /* IconSelectionScreen */ = {
 			isa = PBXGroup;
 			children = (
-				5943625456B8B166F7CA1EF2 /* IconSelectionScreenCollectionViewCell.swift */,
-				8FBD30D5B366CA89CC9A0463 /* IconSelectionScreenView.swift */,
 				4276D1C2ACC7EB4712FCACEA /* IconSelectionScreenViewController.swift */,
+				8FBD30D5B366CA89CC9A0463 /* IconSelectionScreenView.swift */,
+				5943625456B8B166F7CA1EF2 /* IconSelectionScreenCollectionViewCell.swift */,
 			);
 			path = IconSelectionScreen;
 			sourceTree = "<group>";
@@ -649,9 +646,9 @@
 		C366B095F401F3F9E18BBF12 /* ChatListScreen */ = {
 			isa = PBXGroup;
 			children = (
-				396807873CAB83E49F896BF0 /* ChatListScreenCollectionViewCell.swift */,
-				25F3F8D7F32F950E3C4D1223 /* ChatListScreenView.swift */,
 				5E24BEDB17EA6147324A732D /* ChatListScreenViewController.swift */,
+				25F3F8D7F32F950E3C4D1223 /* ChatListScreenView.swift */,
+				396807873CAB83E49F896BF0 /* ChatListScreenCollectionViewCell.swift */,
 			);
 			path = ChatListScreen;
 			sourceTree = "<group>";
@@ -961,7 +958,6 @@
 				EFE1FE4795066ACF5C87F241 /* TabBarViewController.swift in Sources */,
 				0F8577A222B51526485470AE /* Tag.swift in Sources */,
 				86E0FE94ABA7506FA48E70FB /* TagLabelsView.swift in Sources */,
-				FB3E10B71711F3BD9558CD56 /* TitleWithTextView.swift in Sources */,
 				1F78F2CC5CA6DAF37AF30535 /* Token.swift in Sources */,
 				2E10A688E68FCAF78195B3D2 /* TrendMovieCollectionViewCell.swift in Sources */,
 				A178DAE3827B8C10BE8FC25D /* TrendMoviesBlockView.swift in Sources */,

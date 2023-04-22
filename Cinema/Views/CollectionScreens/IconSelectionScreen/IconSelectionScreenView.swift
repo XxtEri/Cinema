@@ -6,8 +6,30 @@
 //
 
 import UIKit
+import SnapKit
 
 class IconSelectionScreenView: UIView {
+    
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let textSize: CGFloat = 17
+        static let textKern: CGFloat = -0.41
+        
+        static let viewCornerRaduis: CGFloat = 10
+        
+        static let headViewHeight: CGFloat = 56
+        
+        static let titleScreenLeadingInset: CGFloat = 16
+        static let titleScreenVerticalInset: CGFloat = 17
+        
+        static let backToGoCreateCollectionVerticalInset: CGFloat = 16
+        static let backToGoCreateCollectionLeadingInset: CGFloat = 2
+        static let backToGoCreateCollectionTrailingInset: CGFloat = 16
+        
+        static let collectionIconHorizontalInset: CGFloat = 16
+        static let collectionIconTopInset: CGFloat = -16
+    }
     
     private let headView: UIView = {
         let view = UIView()
@@ -18,10 +40,10 @@ class IconSelectionScreenView: UIView {
     
     private let titleScreen: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Semibold", size: 17)
+        view.font = UIFont(name: "SFProText-Semibold", size: Metrics.textSize)
         view.textAlignment = .center
         view.textColor = .white
-        view.attributedText = NSAttributedString(string: "Выбрать иконку", attributes: [.kern: -0.41])
+        view.attributedText = NSAttributedString(string: "Выбрать иконку", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
@@ -30,9 +52,9 @@ class IconSelectionScreenView: UIView {
         let view = UIButton()
         view.setTitle("Отмена", for: .normal)
         view.setTitleColor(.accentColorApplication, for: .normal)
-        view.titleLabel?.font = UIFont(name: "SFProText-Regular", size: 17)
+        view.titleLabel?.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
         view.titleLabel?.textAlignment = .center
-        view.titleLabel?.attributedText = NSAttributedString(string: "Отмена", attributes: [.kern: -0.41])
+        view.titleLabel?.attributedText = NSAttributedString(string: "Отмена", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
@@ -48,7 +70,13 @@ class IconSelectionScreenView: UIView {
         return view
     }()
     
+    
+    //- MARK: Public properties
+    
     var closeSheetScreenButtonPressed: (() -> Void)?
+    
+    
+    //- MARK: Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,6 +95,9 @@ class IconSelectionScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func configureCollection(delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource) {
         collectionIcon.delegate = delegate
         collectionIcon.dataSource = dataSource
@@ -77,7 +108,13 @@ class IconSelectionScreenView: UIView {
     }
 }
 
-extension IconSelectionScreenView {
+
+//- MARK: Private extensions
+
+private extension IconSelectionScreenView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureUI()
         configureConstraints()
@@ -86,7 +123,7 @@ extension IconSelectionScreenView {
     
     func configureUI() {
         self.backgroundColor = .backgroundApplication
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = Metrics.viewCornerRaduis
         self.layer.masksToBounds = true
     }
     
@@ -94,25 +131,25 @@ extension IconSelectionScreenView {
         headView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalToSuperview()
-            make.height.equalTo(56)
+            make.height.equalTo(Metrics.headViewHeight)
         }
         
         titleScreen.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.leading.greaterThanOrEqualToSuperview().inset(16)
-            make.verticalEdges.equalToSuperview().inset(17)
+            make.leading.greaterThanOrEqualToSuperview().inset(Metrics.titleScreenLeadingInset)
+            make.verticalEdges.equalToSuperview().inset(Metrics.titleScreenVerticalInset)
         }
         
         backToGoCreateCollection.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(16)
-            make.leading.greaterThanOrEqualTo(titleScreen.snp.trailing).inset(2)
-            make.trailing.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview().inset(Metrics.backToGoCreateCollectionVerticalInset)
+            make.leading.greaterThanOrEqualTo(titleScreen.snp.trailing).inset(Metrics.backToGoCreateCollectionLeadingInset)
+            make.trailing.equalToSuperview().inset(Metrics.backToGoCreateCollectionTrailingInset)
             make.centerY.equalTo(titleScreen.snp.centerY)
         }
         
         collectionIcon.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(headView.snp.bottom).inset(-16)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.collectionIconHorizontalInset)
+            make.top.equalTo(headView.snp.bottom).inset(Metrics.collectionIconTopInset)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }
@@ -120,6 +157,9 @@ extension IconSelectionScreenView {
     func configureActions() {
         backToGoCreateCollection.addTarget(self, action: #selector(closeSheetScreen), for: .touchUpInside)
     }
+    
+    
+    //- MARK: Actions
     
     @objc
     func closeSheetScreen() {

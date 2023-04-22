@@ -10,11 +10,23 @@ import SnapKit
 
 class DateTableViewCell: UITableViewCell {
     
-    static let reuseIdentifier = "DateTableViewCell"
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let cornerRadius: CGFloat = 8
+        
+        static let textSize: CGFloat = 14
+        static let textKern: CGFloat = -0.17
+        
+        static let dateVerticalInset: CGFloat = 7
+        static let dateHorizontalInset: CGFloat = 16
+        
+        static let emptyViewForIndentHeight: CGFloat = 24
+    }
     
     private lazy var viewDate: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = Metrics.cornerRadius
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         return view
@@ -23,7 +35,7 @@ class DateTableViewCell: UITableViewCell {
     private lazy var viewDateBackground: UIView = {
         let view = UIView()
         view.backgroundColor = .dateInChat
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = Metrics.cornerRadius
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         return view
@@ -31,8 +43,8 @@ class DateTableViewCell: UITableViewCell {
     
     private lazy var date: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 14)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .white
         view.textAlignment = .center
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -45,6 +57,14 @@ class DateTableViewCell: UITableViewCell {
         
         return view
     }()
+    
+    
+    //- MARK: Public properties
+    
+    static let reuseIdentifier = "DateTableViewCell"
+    
+    
+    //- MARK: Inits
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,12 +86,21 @@ class DateTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func configureCell(date: String) {
         self.date.text = date
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension DateTableViewCell {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureUI()
@@ -94,15 +123,15 @@ private extension DateTableViewCell {
         }
         
         date.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(7)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview().inset(Metrics.dateVerticalInset)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.dateHorizontalInset)
         }
         
         emptyViewForIndent.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(viewDateBackground.snp.bottom)
             make.bottom.equalToSuperview()
-            make.height.equalTo(24)
+            make.height.equalTo(Metrics.emptyViewForIndentHeight)
         }
     }
 }

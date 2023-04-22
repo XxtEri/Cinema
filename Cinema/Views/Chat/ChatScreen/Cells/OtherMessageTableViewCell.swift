@@ -10,7 +10,36 @@ import SnapKit
 
 class OtherMessageTableViewCell: UITableViewCell {
     
-    static let reuseIdentifier = "OtherMessageTableViewCell"
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let cornerRadius: CGFloat = 4
+        
+        static let textMessageTextSize: CGFloat = 14
+        
+        static let nameAuthorTextsize: CGFloat = 12
+        
+        static let timePublishTextsize: CGFloat = 12
+        
+        static let textKern: CGFloat = -0.17
+        
+        static let infoMessageStackSpacing: CGFloat = 0
+        
+        static let messageViewLeadingInset: CGFloat = 16
+        static let messageViewTrailingInset: CGFloat = 56
+        
+        static let avatarHeightWidth: CGFloat = 32
+        
+        static let messageBackgroundViewLeadingInset: CGFloat = -8
+        
+        static let emptyViewForIndentDefaultHeight: CGFloat = 0
+        
+        static let textMessageHorizontalInset: CGFloat = 16
+        static let textMessageTopInset: CGFloat = 12
+        
+        static let infoMessageStackTopInset: CGFloat = -4
+        static let infoMessageStackBottomInset: CGFloat = 4
+    }
 
     private lazy var messageView: UIView = {
         let view = UIView()
@@ -22,28 +51,8 @@ class OtherMessageTableViewCell: UITableViewCell {
     private lazy var messageBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .otherMessageInChat
-        view.layer.cornerRadius = 4
+        view.layer.cornerRadius = Metrics.cornerRadius
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
-        return view
-    }()
-    
-    lazy var avatar: CircleImageView = {
-        let view = CircleImageView()
-        view.contentMode = .scaleAspectFill
-        view.image = UIImage(named: "ProfileAnonymous")
-        
-        return view
-    }()
-    
-    lazy var textMessage: UILabel = {
-        let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 14)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
-        view.textColor = .white
-        view.numberOfLines = 0
-        view.textAlignment = .left
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         return view
@@ -52,7 +61,7 @@ class OtherMessageTableViewCell: UITableViewCell {
     private lazy var infoMessageStack: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 0
+        view.spacing = Metrics.infoMessageStackSpacing
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         view.alignment = .leading
         
@@ -61,8 +70,8 @@ class OtherMessageTableViewCell: UITableViewCell {
     
     private lazy var nameAuthor: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 12)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.nameAuthorTextsize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .informationAboutOtherMessage
         view.numberOfLines = 1
         view.textAlignment = .left
@@ -72,8 +81,8 @@ class OtherMessageTableViewCell: UITableViewCell {
     
     private lazy var timePublish: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 12)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.timePublishTextsize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .informationAboutOtherMessage
         view.numberOfLines = 0
         view.textAlignment = .left
@@ -86,6 +95,34 @@ class OtherMessageTableViewCell: UITableViewCell {
         
         return view
     }()
+    
+    
+    //- MARK: Public properties
+    
+    lazy var avatar: CircleImageView = {
+        let view = CircleImageView()
+        view.contentMode = .scaleAspectFill
+        view.image = UIImage(named: "ProfileAnonymous")
+        
+        return view
+    }()
+    
+    lazy var textMessage: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textMessageTextSize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
+        view.textColor = .white
+        view.numberOfLines = 0
+        view.textAlignment = .left
+        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        return view
+    }()
+    
+    static let reuseIdentifier = "OtherMessageTableViewCell"
+    
+    
+    //- MARK: Inits
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -111,6 +148,9 @@ class OtherMessageTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public merhods
+    
     func configureCell(message: MessageServer) {
         if let authorAvatar = message.authorAvatar {
             avatar.downloaded(from: authorAvatar, contentMode: avatar.contentMode)
@@ -131,7 +171,13 @@ class OtherMessageTableViewCell: UITableViewCell {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension OtherMessageTableViewCell {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureUI()
@@ -144,41 +190,44 @@ private extension OtherMessageTableViewCell {
     func configureConstraints() {
         messageView.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.trailing.equalToSuperview().inset(56)
-            make.leading.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(Metrics.messageViewTrailingInset)
+            make.leading.equalToSuperview().inset(Metrics.messageViewLeadingInset)
         }
         
         avatar.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.height.width.equalTo(32)
+            make.height.width.equalTo(Metrics.avatarHeightWidth)
             make.bottom.equalTo(emptyViewForIndent.snp.top)
         }
 
         messageBackgroundView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.leading.equalTo(avatar.snp.trailing).inset(-8)
+            make.leading.equalTo(avatar.snp.trailing).inset(Metrics.messageBackgroundViewLeadingInset)
             make.bottom.equalTo(emptyViewForIndent.snp.top)
         }
         
         emptyViewForIndent.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.height.equalTo(0)
+            make.height.equalTo(Metrics.emptyViewForIndentDefaultHeight)
         }
 
         textMessage.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(12)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.textMessageHorizontalInset)
+            make.top.equalToSuperview().inset(Metrics.textMessageTopInset)
         }
         
         infoMessageStack.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(textMessage.snp.horizontalEdges)
-            make.top.equalTo(textMessage.snp.bottom).inset(-4)
-            make.bottom.equalToSuperview().inset(4)
+            make.top.equalTo(textMessage.snp.bottom).inset(Metrics.infoMessageStackTopInset)
+            make.bottom.equalToSuperview().inset(Metrics.infoMessageStackBottomInset)
         }
     }
 }
+
+
+//- MARK: Public extensions
 
 extension OtherMessageTableViewCell {
     func getDateMessage(date: String) -> DateMessage? {

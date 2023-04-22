@@ -10,10 +10,25 @@ import SnapKit
 
 class ChatListScreenViewController: UIViewController {
     
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let cellHeight: CGFloat = 73
+        
+        static let collectionLineSpacing: CGFloat = 8
+    }
+    
     private var ui: ChatListScreenView
+    
+    
+    //- MARK: Public properties
+    
     var viewModel: ChatViewModel?
     
     var chats = [Chat]()
+    
+    
+    //- MARK: Inits
     
     init() {
         self.ui = ChatListScreenView()
@@ -26,6 +41,9 @@ class ChatListScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Lifecycle
     
     override func loadView() {
         self.view = ui
@@ -44,6 +62,9 @@ class ChatListScreenViewController: UIViewController {
         self.viewModel?.getChatList()
     }
 }
+
+
+//- MARK: Private extensions
 
 private extension ChatListScreenViewController {
     func handler() {
@@ -64,6 +85,11 @@ private extension ChatListScreenViewController {
     }
 }
 
+
+//- MARK: Public extensions
+
+//- MARK: UICollectionViewDataSource
+
 extension ChatListScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         chats.count
@@ -80,19 +106,25 @@ extension ChatListScreenViewController: UICollectionViewDataSource {
     }
 }
 
+
+//- MARK: UICollectionViewDelegate
+
 extension ChatListScreenViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel?.goToChatScreen(chatModel: chats[indexPath.row])
     }
 }
 
+
+//- MARK: UICollectionViewDelegateFlowLayout
+
 extension ChatListScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath ) -> CGSize {
             
-        return CGSize(width: collectionView.frame.width, height: 73)
+        return CGSize(width: collectionView.frame.width, height: Metrics.cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        8
+        Metrics.collectionLineSpacing
     }
 }

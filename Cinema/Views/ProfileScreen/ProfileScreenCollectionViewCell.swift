@@ -6,10 +6,18 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ProfileScreenCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "TrendFilmCell"
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let textSize: CGFloat = 16
+        static let textKern: CGFloat = -0.17
+        
+        static let titleBlockLeadingInset: CGFloat = -18
+    }
     
     private lazy var imageIcon: UIImageView = {
         let view = UIImageView()
@@ -20,8 +28,8 @@ final class ProfileScreenCollectionViewCell: UICollectionViewCell {
     
     private lazy var titleBlock: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 16)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .white
         
         return view
@@ -35,6 +43,14 @@ final class ProfileScreenCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    
+    //- MARK: Public properties
+    
+    static let reuseIdentifier = "TrendFilmCell"
+    
+    
+    //- MARK: Inits
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -42,12 +58,15 @@ final class ProfileScreenCollectionViewCell: UICollectionViewCell {
         self.addSubview(titleBlock)
         self.addSubview(imageArrowNext)
         
-        configureConstraints()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func configure(title: String, imageName: String) {
         titleBlock.text = title
@@ -55,7 +74,14 @@ final class ProfileScreenCollectionViewCell: UICollectionViewCell {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension ProfileScreenCollectionViewCell {
+    func setup() {
+        configureConstraints()
+    }
+    
     func configureConstraints() {
         imageIcon.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
@@ -64,7 +90,7 @@ private extension ProfileScreenCollectionViewCell {
         
         titleBlock.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.leading.equalTo(imageIcon.snp.trailing).inset(-18)
+            make.leading.equalTo(imageIcon.snp.trailing).inset(Metrics.titleBlockLeadingInset)
             make.centerY.equalToSuperview()
         }
         

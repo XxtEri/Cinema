@@ -10,9 +10,17 @@ import SnapKit
 
 class CompilationScreenViewController: UIViewController {
     
+    //- MARK: Private properties
+    
     private let ui: CompilationScreenView
     
+    
+    //- MARK: Public properties
+    
     var viewModel: CompilationScreenViewModel?
+    
+    
+    //- MARK: Inits
     
     init() {
         self.ui = CompilationScreenView()
@@ -23,6 +31,9 @@ class CompilationScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Lifecycle
     
     override func loadView() {
         self.view = ui
@@ -65,7 +76,10 @@ class CompilationScreenViewController: UIViewController {
     }
 }
 
-extension CompilationScreenViewController {
+
+//- MARK: Private extensions
+
+private extension CompilationScreenViewController {
     func bindListener() {
         self.viewModel?.compilationMovie.subscribe(with: { [ weak self ] movies in
             guard let self = self else { return }
@@ -83,13 +97,6 @@ extension CompilationScreenViewController {
             self.hideActivityIndicator()
             self.showError("Неизвестная ошибка сервера. Попробуйте еще раз позже")
         })
-        
-        self.ui.cardCompilation.disappearedCard = { [ weak self ] in
-            guard let self = self else { return }
-            
-            self.ui.updateCard()
-            
-        }
     }
     
     func handler() {
@@ -121,6 +128,13 @@ extension CompilationScreenViewController {
             guard let self = self else { return }
             
             self.viewModel?.deleteMovieInCollection(movieId: movie.movieId)
+        }
+        
+        self.ui.cardCompilation.disappearedCard = { [ weak self ] in
+            guard let self = self else { return }
+            
+            self.ui.updateCard()
+            
         }
     }
 }

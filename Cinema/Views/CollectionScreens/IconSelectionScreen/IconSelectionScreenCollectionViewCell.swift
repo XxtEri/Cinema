@@ -6,8 +6,15 @@
 //
 
 import UIKit
+import SnapKit
 
 class IconSelectionScreenCollectionViewCell: UICollectionViewCell {
+    
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let imageIconHeightWidth: CGFloat = 74
+    }
     
     private var imageIcon: UIImageView = {
         let view = UIImageView()
@@ -16,7 +23,13 @@ class IconSelectionScreenCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    
+    //- MARK: Public static properties
+    
     static let reuseIdentifier = "IconSelectionScreenCollectionViewCell"
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,12 +43,21 @@ class IconSelectionScreenCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func configureCell(imageName: String) {
         imageIcon.image = UIImage(named: imageName)
     }
 }
 
+
+//- MARK: Public extensions
+
 private extension IconSelectionScreenCollectionViewCell {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
     }
@@ -43,7 +65,7 @@ private extension IconSelectionScreenCollectionViewCell {
     func configureConstraints() {
         imageIcon.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.width.equalTo(74)
+            make.height.width.equalTo(Metrics.imageIconHeightWidth)
         }
     }
 }

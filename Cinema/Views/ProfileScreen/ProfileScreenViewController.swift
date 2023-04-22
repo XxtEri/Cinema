@@ -10,12 +10,16 @@ import SnapKit
 
 final class ProfileScreenViewController: UIViewController {
     
+    //- MARK: Private properties
+    
     private enum Metrics {
         static let itemsInRow = 1
         static let cellHeight: CGFloat = 44
         static let viewInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         static let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         static let lineSpace: CGFloat = 23.5
+        
+        static let countCollectionCell = 3
     }
     
     private var titleCell: [String]
@@ -24,7 +28,13 @@ final class ProfileScreenViewController: UIViewController {
     
     private var ui: ProfileScreenView
     
+    
+    //- MARK: Public properties
+    
     var viewModel: ProfileScreenViewModel?
+    
+    
+    //- MARK: Inits
     
     init() {
         ui = ProfileScreenView()
@@ -41,6 +51,9 @@ final class ProfileScreenViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Lifecycle
+    
     override func loadView() {
         self.view = ui
     }
@@ -51,6 +64,7 @@ final class ProfileScreenViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         bindListener()
+        handler()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +76,8 @@ final class ProfileScreenViewController: UIViewController {
         }
     }
     
+    
+    //- MARK: Private methods
     
     private func showActivityIndicator() {
         ui.startAnumateIndicator()
@@ -83,7 +99,10 @@ final class ProfileScreenViewController: UIViewController {
     }
 }
 
-extension ProfileScreenViewController {
+
+//- MARK: Private extensions
+
+private extension ProfileScreenViewController {
     func bindListener() {
         self.viewModel?.informationProfile.subscribe(with: { [ weak self ] user in
             guard let self = self else { return }
@@ -97,10 +116,12 @@ extension ProfileScreenViewController {
             
             self.hideActivityIndicator()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                self.showError(error)
+                self.showError("Что-то пошло не так. Попробуйте повторить запрос")
             }
         })
-        
+    }
+    
+    func handler() {
         self.ui.signOutButtonPressed = { [ weak self ] in
             guard let self = self else { return }
             
@@ -117,9 +138,6 @@ extension ProfileScreenViewController {
         }
     }
     
-    func showError(_ error: Error) {
-        print("error")
-    }
     
     func showAlertChoosePhoto() {
         let alertController = UIAlertController(title: "Выберите источник фотографии", message: nil, preferredStyle: .alert)
@@ -150,7 +168,7 @@ extension ProfileScreenViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func chooseImage(source: UIImagePickerController.SourceType) {
+    func chooseImage(source: UIImagePickerController.SourceType) {
         if UIImagePickerController.isSourceTypeAvailable(source) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
@@ -160,12 +178,16 @@ extension ProfileScreenViewController {
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
-    
 }
+
+
+//- MARK: Public extensions
+
+//- MARK: UICollectionViewDataSource
 
 extension ProfileScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        Metrics.countCollectionCell
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -179,6 +201,9 @@ extension ProfileScreenViewController: UICollectionViewDataSource {
     }
 }
 
+
+//- MARK: UICollectionViewDelegate
+
 extension ProfileScreenViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -190,10 +215,13 @@ extension ProfileScreenViewController: UICollectionViewDelegate {
         case "Настройки":
             viewModel?.goToSettings()
         default:
-            print("")
+            print("error")
         }
     }
 }
+
+
+//- MARK: UICollectionViewDelegateFlowLayout
 
 extension ProfileScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath ) -> CGSize {
@@ -216,6 +244,9 @@ extension ProfileScreenViewController: UICollectionViewDelegateFlowLayout {
         Metrics.lineSpace
     }
 }
+
+
+//- MARK: UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
 extension ProfileScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

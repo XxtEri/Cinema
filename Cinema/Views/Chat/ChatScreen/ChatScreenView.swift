@@ -10,10 +10,38 @@ import SnapKit
 
 class ChatScreenView: UIView {
     
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let textKern: CGFloat = -0.41
+        static let textSize: CGFloat = 17
+        
+        static let messageInputTextSize: CGFloat = 14
+        static let messageInputCornerRadius: CGFloat = 4
+        static let messageInputBorderWidth: CGFloat = 1
+        static let messageInputEdgeInset = UIEdgeInsets(top: 7, left: 16, bottom: 7, right: 16)
+        
+        static let titleScreenTrailingInset: CGFloat = 35
+        static let titleScreenTopInset: CGFloat = 23
+        static let titleScreenLeadingInset: CGFloat = -35
+        
+        static let imageGoBackScreenTopInset: CGFloat = 23
+        static let imageGoBackScreenLeadingInset: CGFloat = 8.5
+        
+        static let chatTopInset: CGFloat = -41
+        
+        static let messageInputLeadingInset: CGFloat = 16
+        static let messageInputTopInset: CGFloat = -24
+        static let messageInputBottomInset: CGFloat = 42
+        
+        static let sendButtonLeadingInset: CGFloat = -16
+        static let sendButtonTrailingInset: CGFloat = 16
+    }
+    
     private let titleScreen: UILabel = {
         let view = UILabel()
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.41])
-        view.font = UIFont(name: "SFProText-Semibold", size: 17)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
+        view.font = UIFont(name: "SFProText-Semibold", size: Metrics.textSize)
         view.textColor = .white
         view.textAlignment = .center
         view.numberOfLines = .max
@@ -28,6 +56,11 @@ class ChatScreenView: UIView {
         return view
     }()
     
+    private var maxHeightMessageInput: CGFloat = 32
+    
+    
+    //- MARK: Public properties
+    
     let chat: UITableView = {
         let view = UITableView()
         view.separatorStyle = .none
@@ -40,17 +73,17 @@ class ChatScreenView: UIView {
     
     let messageInput: UITextView = {
         var view = UITextView()
-        view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        view.font = UIFont.systemFont(ofSize: Metrics.messageInputTextSize, weight: .regular)
         
         view.text = "Напишите сообщение..."
         view.textColor = .placeholderChatInputMessage
         
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
+        view.layer.cornerRadius = Metrics.messageInputCornerRadius
+        view.layer.borderWidth = Metrics.messageInputBorderWidth
         view.layer.borderColor = UIColor.borderColorInputMessage.cgColor
         
         
-        view.textContainerInset = UIEdgeInsets(top: 7, left: 16, bottom: 7, right: 16)
+        view.textContainerInset = Metrics.messageInputEdgeInset
         view.textAlignment = .left
         
         view.backgroundColor = .clear
@@ -66,12 +99,13 @@ class ChatScreenView: UIView {
         
         return button
     }()
-
-    private var maxHeightMessageInput: CGFloat = 32
     
     var goBackButtonPressed: (() -> Void)?
     var addNewMessagePressed: ((String) -> Void)?
     var needUpdateLayout: (() -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,6 +126,9 @@ class ChatScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Private methods
+    
     private func getWidthUITextView() -> CGFloat {
         let screenWidth = UIScreen.main.bounds.size.width
         let sendButtonWidth: CGFloat = 32
@@ -99,20 +136,8 @@ class ChatScreenView: UIView {
         return screenWidth - sendButtonWidth - 16 * 3
     }
     
-    @objc
-    private func keyboardWillShow(notification: Notification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            return
-        }
-        
-        let keyboardHeight = keyboardFrame.cgRectValue.height
-        self.frame.origin.y -= keyboardHeight + 10
-    }
     
-    @objc
-    private func keyboardWillHide() {
-        self.frame.origin.y = 0
-    }
+    //- MARK: Public methods
     
     func configureCollection(delegate: UITableViewDelegate, dataSource: UITableViewDataSource) {
         chat.delegate = delegate
@@ -130,13 +155,22 @@ class ChatScreenView: UIView {
         chat.reloadData()
     }
     
+    
+    //- MARK: Deinit
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension ChatScreenView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureTextView()
@@ -154,34 +188,34 @@ private extension ChatScreenView {
     
     func configureConstraints() {
         titleScreen.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(35)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(23)
-            make.leading.equalTo(imageGoBackScreen.snp.trailing).inset(-35)
+            make.trailing.equalToSuperview().inset(Metrics.titleScreenTrailingInset)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.titleScreenTopInset)
+            make.leading.equalTo(imageGoBackScreen.snp.trailing).inset(Metrics.titleScreenLeadingInset)
         }
         
         imageGoBackScreen.snp.makeConstraints { make in
             make.centerY.equalTo(titleScreen.snp.centerY)
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(23)
-            make.leading.equalToSuperview().inset(8.5)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.imageGoBackScreenTopInset)
+            make.leading.equalToSuperview().inset(Metrics.imageGoBackScreenLeadingInset)
         }
         
         chat.snp.makeConstraints { make in
-            make.top.equalTo(titleScreen.snp.bottom).inset(-41)
+            make.top.equalTo(titleScreen.snp.bottom).inset(Metrics.chatTopInset)
             make.horizontalEdges.equalToSuperview()
         }
         
         messageInput.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.top.equalTo(chat.snp.bottom).inset(-24)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(42)
+            make.leading.equalToSuperview().inset(Metrics.messageInputLeadingInset)
+            make.top.equalTo(chat.snp.bottom).inset(Metrics.messageInputTopInset)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(Metrics.messageInputBottomInset)
             make.width.equalTo(getWidthUITextView())
             make.height.equalTo(maxHeightMessageInput)
         }
         
         sendButton.snp.makeConstraints { make in
-            make.leading.equalTo(messageInput.snp.trailing).inset(-16)
+            make.leading.equalTo(messageInput.snp.trailing).inset(Metrics.sendButtonLeadingInset)
             make.bottom.equalTo(messageInput.snp.bottom)
-            make.trailing.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(Metrics.sendButtonTrailingInset)
         }
     }
     
@@ -189,6 +223,9 @@ private extension ChatScreenView {
         imageGoBackScreen.addTarget(self, action: #selector(goBack(sender:)), for: .touchDown)
         sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
     }
+    
+    
+    //- MARK: Actions
     
     @objc
     func goBack(sender: AnyObject) {
@@ -212,7 +249,27 @@ private extension ChatScreenView {
             }
         }
     }
+    
+    @objc
+    func keyboardWillShow(notification: Notification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        self.frame.origin.y -= keyboardHeight + 10
+    }
+    
+    @objc
+    func keyboardWillHide() {
+        self.frame.origin.y = 0
+    }
 }
+
+
+//- MARK: Public extensions
+
+//- MARK: UITextViewDelegate
 
 extension ChatScreenView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {

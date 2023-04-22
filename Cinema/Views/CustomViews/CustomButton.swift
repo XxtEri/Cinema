@@ -8,6 +8,9 @@
 import UIKit
 
 class CustomButton: UIButton {
+    
+    //- MARK: Inits
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
 
