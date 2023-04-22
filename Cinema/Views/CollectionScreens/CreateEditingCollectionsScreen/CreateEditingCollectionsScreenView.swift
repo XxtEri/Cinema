@@ -44,7 +44,7 @@ class CreateEditingCollectionsScreenView: UIView {
         static let iconCollectionTopInset: CGFloat = -32
         static let iconCollectionHeightWidth: CGFloat = 72
         
-        static let buttonChooseIconCollectionLeadingInset: CGFloat = 24
+        static let buttonChooseIconCollectionLeadingInset: CGFloat = -24
         static let buttonChooseIconCollectionTrailingInset: CGFloat = 22
         
         static let buttonSaveCollectionTopInset: CGFloat = -44
