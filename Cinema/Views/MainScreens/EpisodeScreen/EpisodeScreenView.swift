@@ -12,6 +12,28 @@ class EpisodeScreenView: UIView {
     
     //- MARK: Private properties
     
+    private enum Metrics {
+        static let textSize: CGFloat = 24
+        static let textKern: CGFloat = -0.17
+        
+        static let descriptionTextTextSize: CGFloat = 14
+        
+        static let descriptionTitleSizeHeight: CGFloat = 29
+        
+        static let titleEpisodeHorizontalInset: CGFloat = 16
+        static let titleEpisodeTopInset: CGFloat = 16
+        
+        static let informationMovieTrailingInset: CGFloat = 18.02
+        static let informationMovieTopInset: CGFloat = -16
+        
+        static let descriptionTitleHorizontalInset: CGFloat = 16
+        static let descriptionTitleTopInset: CGFloat = -32
+        
+        static let descriptionTextHorizontalInset: CGFloat = 16
+        static let descriptionTextTopInset: CGFloat = -8
+        static let descriptionTextBottomInset: CGFloat = 10
+    }
+    
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.alwaysBounceVertical = true
@@ -31,35 +53,38 @@ class EpisodeScreenView: UIView {
     
     private lazy var titleEpisode: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
         view.textAlignment = .left
         view.textColor = .white
         view.numberOfLines = .max
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
     
     private lazy var descriptionTitle: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 24)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
         view.textColor = .white
         view.text = "Описание"
         view.textAlignment = .left
-        view.bounds.size.height = 29
+        view.bounds.size.height = Metrics.descriptionTitleSizeHeight
         
         return view
     }()
     
     private lazy var descriptionText: UILabel = {
         let view = UILabel()
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
-        view.font = UIFont(name: "SFProText-Regular", size: 14)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.descriptionTextTextSize)
         view.textColor = .white
         view.numberOfLines = .max
         
         return view
     }()
+    
+    
+    //- MARK: Public properties
     
     lazy var informationMovie = InformationMovieView()
     
@@ -67,6 +92,9 @@ class EpisodeScreenView: UIView {
     
     var buttonBackGoToLastScreenPressed: ((EpisodeTime) -> Void)?
 
+    
+    //- MARK: Inits
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -86,6 +114,9 @@ class EpisodeScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Public methods
     
     func configureUIData(movie: Movie, episode: Episode) {
         self.videoPlayerView.configureURLVideo(urlEpisode: episode.filePath)
@@ -125,11 +156,16 @@ class EpisodeScreenView: UIView {
     }
 }
 
-extension EpisodeScreenView {
+
+//- MARK: Private extensions
+
+private extension EpisodeScreenView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureUI()
         configureConstraints()
-        configureActions()
         handler()
     }
     
@@ -154,30 +190,26 @@ extension EpisodeScreenView {
         }
         
         titleEpisode.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.titleEpisodeHorizontalInset)
+            make.top.equalToSuperview().inset(Metrics.titleEpisodeTopInset)
         }
         
         informationMovie.snp.makeConstraints { make in
             make.leading.equalTo(titleEpisode.snp.leading)
-            make.trailing.equalToSuperview().inset(18.02)
-            make.top.equalTo(titleEpisode.snp.bottom).inset(-16)
+            make.trailing.equalToSuperview().inset(Metrics.informationMovieTrailingInset)
+            make.top.equalTo(titleEpisode.snp.bottom).inset(Metrics.informationMovieTopInset)
         }
 
         descriptionTitle.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(informationMovie.snp.bottom).inset(-32)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.descriptionTitleHorizontalInset)
+            make.top.equalTo(informationMovie.snp.bottom).inset(Metrics.descriptionTitleTopInset)
         }
         
         descriptionText.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalTo(descriptionTitle.snp.bottom).inset(-8)
-            make.bottom.equalToSuperview().inset(10)
+            make.horizontalEdges.equalToSuperview().inset(Metrics.descriptionTextHorizontalInset)
+            make.top.equalTo(descriptionTitle.snp.bottom).inset(Metrics.descriptionTextTopInset)
+            make.bottom.equalToSuperview().inset(Metrics.descriptionTextBottomInset)
         }
-    }
-    
-    func configureActions() {
-
     }
     
     func handler() {

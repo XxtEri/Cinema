@@ -9,8 +9,13 @@ import UIKit
 import RealmSwift
 
 class EpisodeScreenViewController: UIViewController {
+    
+    //- MARK: Private properties
 
     private let ui: EpisodeScreenView
+    
+    
+    //- MARK: Public properties
     
     var viewModel: MainViewModel?
     
@@ -23,6 +28,9 @@ class EpisodeScreenViewController: UIViewController {
     var episodes: [Episode]
     
     var collections: Results<CollectionList>?
+    
+    
+    //- MARK: Inits
 
     init(movie: Movie, currentEpisode: Episode, episodes: [Episode]) {
         self.ui = EpisodeScreenView()
@@ -36,6 +44,9 @@ class EpisodeScreenViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Lifecycle
 
     override func loadView() {
         self.view = ui
@@ -60,6 +71,10 @@ class EpisodeScreenViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         self.ui.videoPlayerView.playerLayer?.frame = self.ui.videoPlayerView.videoView.bounds
     }
+    
+    
+    
+    //- MARK: Private methods
     
     private func showActionSheet() {
         if collections == nil || collections?.count == 1 {
@@ -91,6 +106,9 @@ class EpisodeScreenViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 }
+
+
+//- MARK: Private extensions
 
 private extension EpisodeScreenViewController {
     func handler() {

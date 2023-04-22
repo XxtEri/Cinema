@@ -6,8 +6,27 @@
 //
 
 import UIKit
+import SnapKit
 
 class InformationMovieView: UIView {
+    
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let stackInformationSpacing: CGFloat = 2
+        
+        static let textSize: CGFloat = 12
+        static let textKern: CGFloat = -0.17
+        
+        static let stackButtonsSpacing: CGFloat = 22
+        
+        static let posterHeight: CGFloat = 64
+        static let posterWidth: CGFloat = 44
+        
+        static let stackInformationLeadingInset: CGFloat = -16
+        
+        static let stackButtonsLeadingInset: CGFloat = -20
+    }
     
     private lazy var poster: UIImageView = {
         let view = UIImageView()
@@ -19,40 +38,40 @@ class InformationMovieView: UIView {
     private lazy var stackInformation: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 4
+        view.spacing = Metrics.stackInformationSpacing
         
         return view
     }()
     
     private lazy var titleMovie: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 12)
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
         view.textAlignment = .left
         view.textColor = .white
         view.numberOfLines = .max
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
     
     private lazy var numberSeason: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 12)
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
         view.textAlignment = .left
         view.textColor = .textEpisodeScreen
         view.numberOfLines = .max
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
     
     private lazy var releaseYears: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 12)
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
         view.textAlignment = .left
         view.textColor = .textEpisodeScreen
         view.numberOfLines = .max
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
@@ -60,7 +79,7 @@ class InformationMovieView: UIView {
     private lazy var stackButtons: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 22
+        view.spacing = Metrics.stackButtonsSpacing
         
         return view
     }()
@@ -92,9 +111,15 @@ class InformationMovieView: UIView {
         return view
     }()
     
+    
+    //- MARK: Public properties
+    
     var chatIconPressed: (() -> Void)?
     var plusIconPressed: (() -> Void)?
     var likeIconPressed: (() -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -119,6 +144,9 @@ class InformationMovieView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Public methods
+    
     func configureUIData(movie: Movie, episode: Episode) {
         titleMovie.text = movie.name
         poster.downloaded(from: movie.poster, contentMode: poster.contentMode)
@@ -138,7 +166,13 @@ class InformationMovieView: UIView {
     }
 }
 
+
+//- MARK: Private extensions
+
 private extension InformationMovieView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureActions()
@@ -149,28 +183,33 @@ private extension InformationMovieView {
             make.leading.equalToSuperview()
             make.verticalEdges.equalToSuperview()
             make.centerY.equalTo(stackInformation.snp.centerY)
-            make.height.lessThanOrEqualTo(64)
-            make.width.lessThanOrEqualTo(44)
+            make.height.lessThanOrEqualTo(Metrics.posterHeight)
+            make.width.lessThanOrEqualTo(Metrics.posterWidth)
         }
         
         stackInformation.snp.makeConstraints { make in
-            make.leading.equalTo(poster.snp.trailing).inset(-16)
+            make.leading.equalTo(poster.snp.trailing).inset(Metrics.stackInformationLeadingInset)
             make.verticalEdges.equalToSuperview()
         }
         
         stackButtons.snp.makeConstraints { make in
             make.verticalEdges.equalTo(poster.snp.verticalEdges)
             make.trailing.equalToSuperview()
-            make.leading.greaterThanOrEqualTo(stackInformation.snp.trailing).inset(-20)
+            make.leading.greaterThanOrEqualTo(stackInformation.snp.trailing).inset(Metrics.stackButtonsLeadingInset)
             make.centerY.equalTo(stackInformation.snp.centerY)
         }
     }
     
     func configureActions() {
         chatIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToChatMovieScreen)))
+        
         plusIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addToCollection)))
+        
         likeIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addOrDeleteInFavoriteCollection)))
     }
+    
+    
+    //- MARK: Actions
     
     @objc
     func goToChatMovieScreen() {

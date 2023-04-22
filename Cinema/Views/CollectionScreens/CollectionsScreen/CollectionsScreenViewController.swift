@@ -8,7 +8,9 @@
 import UIKit
 import RealmSwift
 
-class CollectionsScreenViewController: UIViewController {
+final class CollectionsScreenViewController: UIViewController {
+    
+    //- MARK: Private properties
     
     private enum Metrics {
         static let itemsInRow = 1
@@ -19,9 +21,16 @@ class CollectionsScreenViewController: UIViewController {
     }
     
     private let ui: CollectionsScreenView
+    
+    
+    //- MARK: Public properties
+    
     var viewModel: CollectionScreenViewModel?
     
     var collectionList: Results<CollectionList>?
+    
+    
+    //- MARK: Inits
     
     init() {
         self.ui = CollectionsScreenView()
@@ -35,6 +44,9 @@ class CollectionsScreenViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Lifecycle
+    
     override func loadView() {
         self.view = ui
     }
@@ -43,6 +55,7 @@ class CollectionsScreenViewController: UIViewController {
         super.viewDidLoad()
 
         handler()
+        bindListener()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,14 +63,19 @@ class CollectionsScreenViewController: UIViewController {
     }
 }
 
-extension CollectionsScreenViewController {
+
+//- MARK: Private extensions
+
+private extension CollectionsScreenViewController {
     func handler() {
         self.ui.buttonAddingNewCollectionPressed = { [ weak self ] in
             guard let self = self else { return }
             
             self.viewModel?.goToCreateEditingCollectionScreen(isCreatingCollection: true, collection: nil)
         }
-        
+    }
+    
+    func bindListener() {
         self.viewModel?.collectionsDatabase.subscribe(with: { [ weak self ] collections in
             guard let self = self else { return }
             
@@ -66,6 +84,11 @@ extension CollectionsScreenViewController {
         })
     }
 }
+
+
+//- MARK: Public extensions
+
+//- MARK: UICollectionViewDataSource
 
 extension CollectionsScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -94,6 +117,9 @@ extension CollectionsScreenViewController: UICollectionViewDataSource {
     }
 }
 
+
+//- MARK: UICollectionViewDelegate
+
 extension CollectionsScreenViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let collections = collectionList else { return }
@@ -101,6 +127,9 @@ extension CollectionsScreenViewController: UICollectionViewDelegate {
         self.viewModel?.goToCollectionScreenDetail(collection: collections[indexPath.row])
     }
 }
+
+
+//- MARK: UICollectionViewDelegateFlowLayout
 
 extension CollectionsScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath ) -> CGSize {

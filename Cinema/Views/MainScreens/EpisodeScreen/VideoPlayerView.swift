@@ -11,12 +11,33 @@ import AVFoundation
 import AVKit
 
 class VideoPlayerView: UIView {
-
-    lazy var videoView: UIView = {
-        let view = UIView()
+    
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let textSize: CGFloat = 10
+        static let textKern: CGFloat = -0.17
+        static let labelNumberLines = 1
         
-        return view
-    }()
+        static let sliderMinimumValue: Float = 0
+        
+        static let videoViewHeight: CGFloat = 210
+        
+        static let barBackButtonLeadingInset: CGFloat = 8.5
+        static let barBackButtonTopInset: CGFloat = 11.5
+        
+        static let currentDurationBottomInset: CGFloat = 8
+        static let currentDurationLeadingInset: CGFloat = 8
+        
+        static let endDurationBottomInset: CGFloat = 8
+        
+        static let playbackSliderLeadingInset: CGFloat = -8
+        static let playbackSliderTrailingInset: CGFloat = -8
+        static let playbackSliderHeight: CGFloat = 20
+        
+        static let soundVideoImageLeadingInset: CGFloat = -10.67
+        static let soundVideoImageTrailingInset: CGFloat = 8
+    }
     
     private lazy var pauseVideoImage: UIImageView = {
         let view = UIImageView()
@@ -35,29 +56,29 @@ class VideoPlayerView: UIView {
     
     private lazy var currentDuration: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 10)
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
         view.textAlignment = .center
         view.textColor = .white
-        view.numberOfLines = 1
-        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: -0.17])
+        view.numberOfLines = Metrics.labelNumberLines
+        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
     
     private lazy var endDuration: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Regular", size: 10)
+        view.font = UIFont(name: "SFProText-Regular", size: Metrics.textSize)
         view.textAlignment = .center
         view.textColor = .white
-        view.numberOfLines = 1
-        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: -0.17])
+        view.numberOfLines = Metrics.labelNumberLines
+        view.attributedText = NSAttributedString(string: "00:00", attributes: [.kern: Metrics.textKern])
         
         return view
     }()
     
     private lazy var playbackSlider: UISlider = {
         let slider = UISlider()
-        slider.minimumValue = 0
+        slider.minimumValue = Metrics.sliderMinimumValue
         slider.isContinuous = false
         slider.minimumTrackTintColor = .accentColorApplication
         slider.maximumTrackTintColor = .inactiveSlider
@@ -84,12 +105,24 @@ class VideoPlayerView: UIView {
     
     private var url: URL?
     
+    
+    //- MARK: Public properties
+
+    lazy var videoView: UIView = {
+        let view = UIView()
+        
+        return view
+    }()
+    
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
     
     var isVideoPlaying = true
     
     var buttonBackGoToLastScreenPressed: ((EpisodeTime) -> Void)?
+    
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -110,6 +143,9 @@ class VideoPlayerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //- MARK: Private methods
     
     private func setCurrentDuration(allSecondsVideo: Int) {
         currentDuration.text = "\(getMinutesVideo(allSecondsVideo: allSecondsVideo)):\(getSecondsVideo(allSecondsVideo: allSecondsVideo))"
@@ -134,6 +170,9 @@ class VideoPlayerView: UIView {
             }
         }
     }
+    
+    
+    //- MARK: Public methods
     
     func configurePlayer() {
         guard let urlEpisode = url else { return }
@@ -204,7 +243,13 @@ class VideoPlayerView: UIView {
     }
 }
 
+
+//- MARK: Private extnsions
+
 private extension VideoPlayerView {
+    
+    //- MARK: Setup
+    
     func setup() {
         configureConstraints()
         configureActions()
@@ -214,12 +259,12 @@ private extension VideoPlayerView {
         videoView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.verticalEdges.equalToSuperview()
-            make.height.greaterThanOrEqualTo(210)
+            make.height.greaterThanOrEqualTo(Metrics.videoViewHeight)
         }
         
         barBackButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(8.5)
-            make.top.equalToSuperview().inset(11.5)
+            make.leading.equalToSuperview().inset(Metrics.barBackButtonLeadingInset)
+            make.top.equalToSuperview().inset(Metrics.barBackButtonTopInset)
             
         }
         
@@ -234,38 +279,44 @@ private extension VideoPlayerView {
         }
         
         currentDuration.snp.makeConstraints { make in
-            make.bottom.equalTo(videoView.snp.bottom).inset(8)
-            make.leading.equalTo(videoView.snp.leading).inset(8)
+            make.bottom.equalTo(videoView.snp.bottom).inset(Metrics.currentDurationBottomInset)
+            make.leading.equalTo(videoView.snp.leading).inset(Metrics.currentDurationLeadingInset)
         }
         
         endDuration.snp.makeConstraints { make in
             make.centerY.equalTo(currentDuration.snp.centerY)
-            make.bottom.equalTo(videoView.snp.bottom).inset(8)
+            make.bottom.equalTo(videoView.snp.bottom).inset(Metrics.endDurationBottomInset)
         }
         
         playbackSlider.snp.makeConstraints { make in
             make.centerY.equalTo(currentDuration.snp.centerY)
-            make.leading.equalTo(currentDuration.snp.trailing).inset(-8)
-            make.trailing.equalTo(endDuration.snp.leading).inset(-8)
-            make.height.equalTo(20)
+            make.leading.equalTo(currentDuration.snp.trailing).inset(Metrics.playbackSliderLeadingInset)
+            make.trailing.equalTo(endDuration.snp.leading).inset(Metrics.playbackSliderTrailingInset)
+            make.height.equalTo(Metrics.playbackSliderHeight)
         }
         
         soundVideoImage.snp.makeConstraints { make in
             make.centerY.equalTo(endDuration.snp.centerY)
-            make.leading.equalTo(endDuration.snp.trailing).inset(-10.67)
-            make.trailing.equalTo(videoView.snp.trailing).inset(8)
+            make.leading.equalTo(endDuration.snp.trailing).inset(Metrics.soundVideoImageLeadingInset)
+            make.trailing.equalTo(videoView.snp.trailing).inset(Metrics.soundVideoImageTrailingInset)
         }
     }
     
     func configureActions() {
-        videoManagement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo(_:))))
+        videoManagement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onPauseVideo)))
+        
         playbackSlider.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
-        soundVideoImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(configureSound(sender:))))
+        
+        soundVideoImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(configureSound)))
+        
         barBackButton.addTarget(self, action: #selector(backGoToLastScreen), for: .touchUpInside)
     }
     
+    
+    //- MARK: Actions
+    
     @objc
-    func onPauseVideo(_ sender: AnyObject) {
+    func onPauseVideo() {
         if isVideoPlaying {
             player?.pause()
             self.pauseVideoImage.layer.opacity = 1
@@ -287,7 +338,7 @@ private extension VideoPlayerView {
     }
     
     @objc
-    func configureSound(sender: AnyObject) {
+    func configureSound() {
         if let turnOnSound = player?.isMuted {
             player?.isMuted = turnOnSound ? false : true
             
