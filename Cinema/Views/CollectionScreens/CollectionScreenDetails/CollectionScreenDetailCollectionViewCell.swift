@@ -6,9 +6,31 @@
 //
 
 import UIKit
+import SnapKit
 
 class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "CollectionScreenDetailCollectionViewCell"
+    
+    //- MARK: Private properties
+    
+    private enum Metrics {
+        static let infoMovieSpacing: CGFloat = 8
+        
+        static let textSize: CGFloat = 14
+        static let textKern: CGFloat = -0.17
+        
+        static let titleMovieNumberLine = 0
+        
+        static let descriptionMovieNumberLine = 3
+        
+        static let posterImageHeight: CGFloat = 80
+        static let posterImageWidth: CGFloat = 56
+        
+        static let infoMovieLeadingInset: CGFloat = -18
+        
+        static let imageArrowNextLeadingInset: CGFloat = -16
+        static let imageArrowNextWidth: CGFloat = 12
+        static let imageArrowNextHeight: CGFloat = 20.5
+    }
     
     private lazy var posterImage: UIImageView = {
         let view = UIImageView()
@@ -20,7 +42,7 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
     private lazy var infoMovie: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 8
+        view.spacing = Metrics.infoMovieSpacing
         
         view.backgroundColor = .clear
         
@@ -29,20 +51,20 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
     
     private lazy var titleMovie: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .white
-        view.numberOfLines = 0
+        view.numberOfLines = Metrics.titleMovieNumberLine
         
         return view
     }()
     
     private lazy var descriptionMovie: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: "SFProText-Bold", size: 14)
-        view.attributedText = NSAttributedString(string: "", attributes: [.kern: -0.17])
+        view.font = UIFont(name: "SFProText-Bold", size: Metrics.textSize)
+        view.attributedText = NSAttributedString(string: "", attributes: [.kern: Metrics.textKern])
         view.textColor = .white
-        view.numberOfLines = 3
+        view.numberOfLines = Metrics.descriptionMovieNumberLine
         
         return view
     }()
@@ -54,6 +76,15 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
         
         return view
     }()
+    
+    
+    
+    //- MARK: Public static properties
+    
+    static let reuseIdentifier = "CollectionScreenDetailCollectionViewCell"
+
+    
+    //- MARK: Inits
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,31 +102,46 @@ class CollectionScreenDetailCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureConstraints() {
-        posterImage.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.height.equalTo(80)
-            make.width.equalTo(56)
-        }
-        
-        infoMovie.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(posterImage.snp.verticalEdges)
-            make.leading.equalTo(posterImage.snp.trailing).inset(-18)
-        }
-        
-        imageArrowNext.snp.makeConstraints { make in
-            make.leading.equalTo(infoMovie.snp.trailing).inset(-16)
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.equalTo(12)
-            make.height.equalTo(20.5)
-        }
-    }
+    
+    //- MARK: Public methods
     
     func configure(movie: Movie) {
         posterImage.downloaded(from: movie.poster, contentMode: posterImage.contentMode)
         titleMovie.text = movie.name
         descriptionMovie.text = movie.description
+    }
+}
+
+
+//- MARK: Private extensions
+
+private extension CollectionScreenDetailCollectionViewCell {
+    
+    //- MARK: Setup
+    
+    func setup() {
+        configureConstraints()
+    }
+    
+    func configureConstraints() {
+        posterImage.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.height.equalTo(Metrics.posterImageHeight)
+            make.width.equalTo(Metrics.posterImageWidth)
+        }
+        
+        infoMovie.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(posterImage.snp.verticalEdges)
+            make.leading.equalTo(posterImage.snp.trailing).inset(Metrics.infoMovieLeadingInset)
+        }
+        
+        imageArrowNext.snp.makeConstraints { make in
+            make.leading.equalTo(infoMovie.snp.trailing).inset(Metrics.imageArrowNextLeadingInset)
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(Metrics.imageArrowNextWidth)
+            make.height.equalTo(Metrics.imageArrowNextHeight)
+        }
     }
 }
