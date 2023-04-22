@@ -45,6 +45,9 @@ final class SignInViewController: UIViewController {
         setHandlers()
         setupToHideKeyboardOnTapOnView()
     }
+    
+    
+    //- MARK: Private methods
 
     private func showActivityIndicator() {
         self.ui.startAnumateIndicator()
@@ -64,7 +67,6 @@ final class SignInViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
 }
 
 
