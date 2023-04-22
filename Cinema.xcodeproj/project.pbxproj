@@ -453,8 +453,8 @@
 		652575E9E4A6FBDDABB7F43B /* CreateEditingCollectionsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				FF4F1DFFD486E936369BA7DD /* CreateEditingCollectionsScreenView.swift */,
 				E6DC799702C9347088184854 /* CreateEditingCollectionsScreenViewController.swift */,
+				FF4F1DFFD486E936369BA7DD /* CreateEditingCollectionsScreenView.swift */,
 			);
 			path = CreateEditingCollectionsScreen;
 			sourceTree = "<group>";

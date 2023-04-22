@@ -9,7 +9,13 @@ import UIKit
 
 class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewControllerDelegate {
     
+    //- MARK: Private properties
+    
     private var ui: CreateEditingCollectionsScreenView
+    
+    
+    //- MARK: Public properties
+    
     var viewModel: CollectionScreenViewModel?
     
     var isCreatinCollection: Bool
@@ -23,6 +29,9 @@ class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewC
         
         return array
     }()
+    
+    
+    //- MARK: Inits
 
     init(isCreatingCollection: Bool, currentCollection: CollectionList?) {
         self.ui = CreateEditingCollectionsScreenView()
@@ -55,6 +64,9 @@ class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewC
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //- MARK: Lifecycle
+    
     override func loadView() {
         self.view = ui
     }
@@ -65,13 +77,32 @@ class CreateEditingCollectionsScreenViewController: UIViewController, SheetViewC
         handler()
         setupToHideKeyboardOnTapOnView()
     }
+    
+    
+    //- MARK: Private methods
+    
+    private func showError(_ error: String) {
+        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
+        
+        alertController.addAction(action)
+        
+        alertController.view.tintColor = .accentColorApplication
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    //- MARK: Public methods
 
     func didDismissSheetViewController(withData data: String) {
         self.ui.updateIconImage(imageName: data)
     }
 }
 
-extension CreateEditingCollectionsScreenViewController {
+
+//- MARK: Private extensions
+
+private extension CreateEditingCollectionsScreenViewController {
     func handler() {
         self.ui.chooseIconCollectionButtonPressed = { [ weak self ] in
             guard let self = self else { return }
@@ -131,19 +162,10 @@ private extension CreateEditingCollectionsScreenViewController {
         view.addGestureRecognizer(tap)
     }
     
+    //- MARK: Actions
+    
     @objc
     func dismissKeyboard(sender: AnyObject) {
         view.endEditing(true)
-    }
-    
-    private func showError(_ error: String) {
-        let alertController = UIAlertController(title: "Внимание!", message: error, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Закрыть", style: .cancel) { action in }
-        
-        alertController.addAction(action)
-        
-        alertController.view.tintColor = .accentColorApplication
-        
-        self.present(alertController, animated: true, completion: nil)
     }
 }

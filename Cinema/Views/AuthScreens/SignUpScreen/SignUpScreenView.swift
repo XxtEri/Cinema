@@ -24,13 +24,15 @@ final class SignUpScreenView: UIView {
         static let imageLogoTopInset: CGFloat = UIScreen.main.bounds.height * 3 / 100
         static let imageLogoLeadingInset: CGFloat = 86
         static let imageLogoTrailingInset: CGFloat = 82
+        static let imageLogoBottomInset: CGFloat = -5
         
         static let infoStackHorizontalInset: CGFloat = 16
-        static let infoStackTopInset: CGFloat = -64
+        static let infoStackTopInset: CGFloat = -44
+        static let infoStackBottomInset: CGFloat = -23
         
         static let authButtonLeadingInset: CGFloat = 17
         static let authButtonTrailingInset: CGFloat = 16
-        static let authButtonTopInset: CGFloat = -156
+        static let authButtonTopInset: CGFloat = -20
         
         static let changeAuthScreenButtonLeadingInset: CGFloat = 17
         static let changeAuthScreenButtonTrailingInset: CGFloat = 16
@@ -195,19 +197,19 @@ private extension SignUpScreenView {
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).inset(Metrics.imageLogoTopInset)
             make.leading.equalToSuperview().inset(Metrics.imageLogoLeadingInset)
             make.trailing.equalToSuperview().inset(Metrics.imageLogoTrailingInset)
-            make.bottom.equalTo(infoStack.snp.top).inset(-5)
+            make.bottom.equalTo(infoStack.snp.top).inset(Metrics.imageLogoBottomInset)
         }
         
         infoStack.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(Metrics.infoStackHorizontalInset)
-            make.top.lessThanOrEqualTo(imageLogo.snp.bottom).inset(-44)
-            make.bottom.equalTo(authButton.snp.top).inset(-23)
+            make.top.lessThanOrEqualTo(imageLogo.snp.bottom).inset(Metrics.infoStackTopInset)
+            make.bottom.equalTo(authButton.snp.top).inset(Metrics.infoStackBottomInset)
         }
         
         authButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(Metrics.authButtonLeadingInset)
             make.trailing.equalToSuperview().inset(Metrics.authButtonTrailingInset)
-            make.top.greaterThanOrEqualTo(infoStack.snp.bottom).inset(-20)
+            make.top.greaterThanOrEqualTo(infoStack.snp.bottom).inset(Metrics.authButtonTopInset)
         }
         
         changeAuthScreenButton.snp.makeConstraints { make in
